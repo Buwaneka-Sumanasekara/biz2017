@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TRpt_Default_SubPay" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="94956486-2601-4d65-a57c-826c9e91e4f7">
+	<property name="ireport.zoom" value="3.1384283767210035"/>
+	<property name="ireport.x" value="494"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_TRNNO" class="java.lang.String"/>
+	<parameter name="PARA_TRNTYP" class="java.lang.String"/>
+	<parameter name="PARA_CHANGE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM VIEW_TRNPAY WHERE T_STOCKMST_ID=$P{PARA_TRNNO} AND TRNTYP=$P{PARA_TRNTYP}]]>
+	</queryString>
+	<field name="PAYHED" class="java.lang.String"/>
+	<field name="PAYDET" class="java.lang.String"/>
+	<field name="FRMAMOUNT" class="java.lang.Double"/>
+	<field name="REFNO" class="java.lang.String"/>
+	<field name="EFT_DATE" class="java.sql.Timestamp"/>
+	<field name="T_STOCKMST_ID" class="java.lang.String"/>
+	<field name="TRNTYP" class="java.lang.String"/>
+	<field name="DATE_F" class="java.lang.Integer"/>
+	<field name="DATEF_DET" class="java.lang.Integer"/>
+	<field name="AMOUNT" class="java.lang.Double"/>
+	<variable name="Total_Frm" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{FRMAMOUNT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="Total_Paid" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMOUNT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="11" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="352" height="11" uuid="91b33b1d-138e-4004-acfb-e20513f89b42"/>
+			</rectangle>
+			<textField>
+				<reportElement x="3" y="0" width="140" height="11" uuid="afe19bdc-7dd4-468b-bb8b-3f31376ce75f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{PAYDET}==null||$F{PAYDET}.equals(""))? $F{PAYHED}:$F{PAYHED}+" ["+$F{PAYDET}+"]")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="0" width="100" height="11" uuid="65e273f6-5e9b-4e55-a92f-6fec1e46211b"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FRMAMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="0" width="100" height="11" isRemoveLineWhenBlank="true" uuid="d06d8c99-f8bc-4b21-a433-68bcc1a4b142"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{REFNO}==null||$F{REFNO}.equals(""))?"":$F{REFNO})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="61">
+			<rectangle>
+				<reportElement x="0" y="-1" width="352" height="62" uuid="962aa50c-bab6-46c3-b271-05f60983dbcf"/>
+			</rectangle>
+			<line>
+				<reportElement x="240" y="49" width="100" height="1" uuid="54fe8f0d-07ad-4bfd-a47a-952d65c7bcae"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="240" y="29" width="101" height="19" uuid="7059e178-59a9-4146-b473-d89c88315bab"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_CHANGE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="240" y="27" width="100" height="1" uuid="a45cdfd6-7821-446e-8e19-9e4d649e8522"/>
+			</line>
+			<textField>
+				<reportElement x="240" y="1" width="100" height="12" uuid="14867126-dceb-454f-8160-2ac367da7f63"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Total_Frm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="14" width="100" height="12" uuid="782fb306-83a8-4af9-b9c4-389b7b4e93d1"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Total_Paid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="140" y="29" width="100" height="20" uuid="90b9f5ec-8660-49b3-bfbc-7282832ae43b"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Change]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="1" width="100" height="13" uuid="99aecee6-d036-4b28-8590-4f416703f142"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Paid]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="14" width="100" height="14" uuid="9dde68de-5da5-4956-ac3e-7f8eb6b6b1a2"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bill Amount]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
