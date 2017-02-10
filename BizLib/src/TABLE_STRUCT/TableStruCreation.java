@@ -20,7 +20,7 @@ public class TableStruCreation {
         try {
             String q = "SELECT TABLE_CATALOG,TABLE_NAME FROM INFORMATION_SCHEMA.TABLES ";
             q += " WHERE TABLE_CATALOG='BIZDB' AND TABLE_NAME='" + TableName + "' ";
-           // System.out.println(q);
+            // System.out.println(q);
             ResultSet rs = DB.Search(q);
             if (rs.next()) {
                 state = true;
@@ -48,60 +48,79 @@ public class TableStruCreation {
         return state;
     }
 
-   public void executeSql(String sql){
-       if(!sql.equals("")){
-           try {
-               DB.Save(sql);
-           } catch (Exception ex) {
-               System.err.println("TABLE STRUCTURE CREATTION ERROR:"+ex.getMessage());
-           }
-       }
-   } 
-    
-   public void createTable(String TableName, ArrayList<TblColumn> Columns) throws Exception{
-       
-       
+    public void executeSql(String sql) {
+        if (!sql.equals("")) {
+            try {
+                DB.Save(sql);
+            } catch (Exception ex) {
+                System.err.println("TABLE STRUCTURE CREATTION ERROR:" + ex.getMessage());
+            }
+        }
+    }
+
+    public void createTable(String TableName, ArrayList<TblColumn> Columns) throws Exception {
+        createTable(TableName, Columns, null);
+    }
+
+    public void createTable(String TableName, ArrayList<TblColumn> Columns, ArrayList<String> PrimaryKeys) throws Exception {
+
         if (IsTableExists(TableName)) {
             for (TblColumn tableColumn : Columns) {
-                if (IsColumnExists(TableName, tableColumn.getColumnName())==false) {
+                if (IsColumnExists(TableName, tableColumn.getColumnName()) == false) {
                     try {
                         String q = "ALTER TABLE " + TableName + " ";
                         q += " ADD " + tableColumn.getColumnName() + " " + tableColumn.getDataType() + " " + tableColumn.getDefaultValue() + " ";
-                        
+
                         DB.Save(q);
                     } catch (Exception e) {
                         throw new Exception("ADD COLUMN " + TableName + " [" + tableColumn.getColumnName() + "] :" + e.getMessage());
-                         
+
                     }
 
                 }
             }
 
         } else {
-            if (Columns.size() > 0 ) {
+            if (Columns.size() > 0) {
                 try {
                     String q = "CREATE TABLE " + TableName + "(";
                     int i = 0;
                     for (TblColumn tableColumn : Columns) {
-                        
+
                         if (i > 0) {
                             q += ",";
                         }
-                        q += " " + tableColumn.getColumnName() + " " + tableColumn.getDataType() + " " + tableColumn.getDefaultValue() + " ";
+                        q += " " + tableColumn.getColumnName() + " " + tableColumn.getDataType() + " " + tableColumn.getDefaultValue() + " " + ((tableColumn.getPrimaryKey() != null && tableColumn.getPrimaryKey().equals("") == false) ? tableColumn.getPrimaryKey() : "") + " ";
+                        i++;
+                    }
 
+                    if (PrimaryKeys != null) {
+                        if (PrimaryKeys.size() > 0) {
+                            q += " ,CONSTRAINT pk_" + TableName + " PRIMARY KEY (";
+                            int j = 0;
+                            for (String col : PrimaryKeys) {
+
+                                if (j > 0) {
+                                    q += ",";
+                                }
+
+                                q+=col;
+                                
+                                j++;
+                            }
+                            q += ")";
+                        }
                     }
 
                     q += " )";
                     System.out.println(q);
                     DB.Save(q);
                 } catch (Exception e) {
-                     throw new Exception("NEW TABLE CREATION " + TableName + " :" + e.getMessage());
-                       
-                   
+                    throw new Exception("NEW TABLE CREATION " + TableName + " :" + e.getMessage());
+
                 }
 
             }
         }
     }
 }
-

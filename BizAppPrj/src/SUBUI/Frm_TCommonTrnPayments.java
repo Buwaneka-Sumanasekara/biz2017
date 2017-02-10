@@ -42,6 +42,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
+    private static String TrnNo="";
     Frm_Main MainFrm = null;
     Frm_TCommonTrn Parent_Trn = null;
     C_Payments C_Payment = null;
@@ -57,7 +58,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         C_Payment = new C_Payments();
     }
 
-    public Frm_TCommonTrnPayments(Frm_Main parent, Frm_TCommonTrn parent_trn, boolean modal, UTransactions TrnSetup, TStockmst Hed, ArrayList<TStockline> Det) {
+    private Frm_TCommonTrnPayments(Frm_Main parent, Frm_TCommonTrn parent_trn, boolean modal, UTransactions TrnSetup, TStockmst Hed, ArrayList<TStockline> Det) {
         super(parent, modal);
         initComponents();
         C_Payment = new C_Payments();
@@ -75,6 +76,19 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         setShortCutKeys(this);
     }
 
+    @Override
+    public void dispose() {
+        super.dispose(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    public static String getPaymentScreen(Frm_Main parent, Frm_TCommonTrn parent_trn, boolean modal, UTransactions TrnSetup, TStockmst Hed, ArrayList<TStockline> Det){
+        Frm_TCommonTrnPayments frm = new Frm_TCommonTrnPayments(parent, parent_trn, modal, TrnSetup, Hed, Det);
+        frm.setVisible(true);
+        return TrnNo;
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,7 +114,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         but_0 = new javax.swing.JButton();
         but_add = new javax.swing.JButton();
         but_7 = new javax.swing.JButton();
-        but_BillClose1 = new javax.swing.JButton();
+        but_ClearAmont = new javax.swing.JButton();
+        but_ClearPayments = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lbl_Payment = new javax.swing.JLabel();
@@ -156,6 +171,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         but_8.setText("8");
         but_8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         but_8.setContentAreaFilled(false);
+        but_8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_8ActionPerformed(evt);
+            }
+        });
         layout_ButPanel.add(but_8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 60, 60));
 
         but_9.setBackground(new java.awt.Color(0, 102, 102));
@@ -164,6 +184,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         but_9.setText("9");
         but_9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         but_9.setContentAreaFilled(false);
+        but_9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_9ActionPerformed(evt);
+            }
+        });
         layout_ButPanel.add(but_9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 60, 60));
 
         but_4.setBackground(new java.awt.Color(0, 102, 102));
@@ -185,6 +210,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         but_5.setText("5");
         but_5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         but_5.setContentAreaFilled(false);
+        but_5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_5ActionPerformed(evt);
+            }
+        });
         layout_ButPanel.add(but_5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 60, 60));
 
         but_6.setBackground(new java.awt.Color(0, 102, 102));
@@ -206,6 +236,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         but_2.setText("2");
         but_2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         but_2.setContentAreaFilled(false);
+        but_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_2ActionPerformed(evt);
+            }
+        });
         layout_ButPanel.add(but_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 60, 60));
 
         but_3.setBackground(new java.awt.Color(0, 102, 102));
@@ -214,6 +249,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         but_3.setText("3");
         but_3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         but_3.setContentAreaFilled(false);
+        but_3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_3ActionPerformed(evt);
+            }
+        });
         layout_ButPanel.add(but_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 60, 60));
 
         but_1.setBackground(new java.awt.Color(0, 102, 102));
@@ -222,6 +262,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         but_1.setText("1");
         but_1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         but_1.setContentAreaFilled(false);
+        but_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_1ActionPerformed(evt);
+            }
+        });
         layout_ButPanel.add(but_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 60, 60));
 
         but_0.setBackground(new java.awt.Color(0, 102, 102));
@@ -230,6 +275,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         but_0.setText("0");
         but_0.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         but_0.setContentAreaFilled(false);
+        but_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_0ActionPerformed(evt);
+            }
+        });
         layout_ButPanel.add(but_0, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 60, 60));
 
         but_add.setBackground(new java.awt.Color(0, 102, 102));
@@ -251,20 +301,38 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         but_7.setText("7");
         but_7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         but_7.setContentAreaFilled(false);
-        layout_ButPanel.add(but_7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 60, 60));
-
-        but_BillClose1.setBackground(new java.awt.Color(0, 102, 102));
-        but_BillClose1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        but_BillClose1.setForeground(new java.awt.Color(255, 255, 255));
-        but_BillClose1.setText("<html><center><p>Clear Payments</p></center></html>");
-        but_BillClose1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        but_BillClose1.setContentAreaFilled(false);
-        but_BillClose1.addActionListener(new java.awt.event.ActionListener() {
+        but_7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_BillClose1ActionPerformed(evt);
+                but_7ActionPerformed(evt);
             }
         });
-        layout_ButPanel.add(but_BillClose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 80, 80));
+        layout_ButPanel.add(but_7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 60, 60));
+
+        but_ClearAmont.setBackground(new java.awt.Color(0, 102, 102));
+        but_ClearAmont.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        but_ClearAmont.setForeground(new java.awt.Color(255, 255, 255));
+        but_ClearAmont.setText("<html><center><p>Clear Amount</p></center></html>");
+        but_ClearAmont.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_ClearAmont.setContentAreaFilled(false);
+        but_ClearAmont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_ClearAmontActionPerformed(evt);
+            }
+        });
+        layout_ButPanel.add(but_ClearAmont, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, 80));
+
+        but_ClearPayments.setBackground(new java.awt.Color(0, 102, 102));
+        but_ClearPayments.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        but_ClearPayments.setForeground(new java.awt.Color(255, 255, 255));
+        but_ClearPayments.setText("<html><center><p>Clear Payments</p></center></html>");
+        but_ClearPayments.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_ClearPayments.setContentAreaFilled(false);
+        but_ClearPayments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_ClearPaymentsActionPerformed(evt);
+            }
+        });
+        layout_ButPanel.add(but_ClearPayments, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 80, 80));
 
         jPanel2.add(layout_ButPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 210, 290, 270));
 
@@ -389,11 +457,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_4ActionPerformed
-        // TODO add your handling code here:
+       setAmount("4");
     }//GEN-LAST:event_but_4ActionPerformed
 
     private void but_6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_6ActionPerformed
-        // TODO add your handling code here:
+setAmount("6");        // TODO add your handling code here:
     }//GEN-LAST:event_but_6ActionPerformed
 
     private void but_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_addActionPerformed
@@ -445,9 +513,46 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         txt_Amount.grabFocus();        // TODO add your handling code here:
     }//GEN-LAST:event_txt_RefNoActionPerformed
 
-    private void but_BillClose1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_BillClose1ActionPerformed
-        RefreshScreen();        // TODO add your handling code here:
-    }//GEN-LAST:event_but_BillClose1ActionPerformed
+    private void but_ClearAmontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ClearAmontActionPerformed
+        txt_Amount.setText("");
+        txt_Amount.grabFocus();
+    }//GEN-LAST:event_but_ClearAmontActionPerformed
+
+    private void but_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_0ActionPerformed
+        setAmount("0");
+    }//GEN-LAST:event_but_0ActionPerformed
+
+    private void but_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_1ActionPerformed
+      setAmount("1");
+    }//GEN-LAST:event_but_1ActionPerformed
+
+    private void but_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_2ActionPerformed
+setAmount("2");
+    }//GEN-LAST:event_but_2ActionPerformed
+
+    private void but_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_3ActionPerformed
+       setAmount("3");
+    }//GEN-LAST:event_but_3ActionPerformed
+
+    private void but_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_5ActionPerformed
+setAmount("5");        // TODO add your handling code here:
+    }//GEN-LAST:event_but_5ActionPerformed
+
+    private void but_7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_7ActionPerformed
+setAmount("7");        // TODO add your handling code here:
+    }//GEN-LAST:event_but_7ActionPerformed
+
+    private void but_8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_8ActionPerformed
+setAmount("8");        // TODO add your handling code here:
+    }//GEN-LAST:event_but_8ActionPerformed
+
+    private void but_9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_9ActionPerformed
+setAmount("9");        // TODO add your handling code here:
+    }//GEN-LAST:event_but_9ActionPerformed
+
+    private void but_ClearPaymentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ClearPaymentsActionPerformed
+RefreshScreen();        // TODO add your handling code here:
+    }//GEN-LAST:event_but_ClearPaymentsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -503,7 +608,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     private javax.swing.JButton but_8;
     private javax.swing.JButton but_9;
     private javax.swing.JButton but_BillClose;
-    private javax.swing.JButton but_BillClose1;
+    private javax.swing.JButton but_ClearAmont;
+    private javax.swing.JButton but_ClearPayments;
     private javax.swing.JButton but_add;
     private javax.swing.JComboBox cmb_PayDet;
     private javax.swing.JComboBox cmb_PayHed;
@@ -730,6 +836,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         if (balance >= 0) {
             lbl_due.setText("" + balance);
             lbl_Balance.setText("0.0");
+            billClose(false);
         } else {
             lbl_due.setText("0.0");
             lbl_Balance.setText("" + (balance * -1));
@@ -766,7 +873,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             int state = JOptionPane.showConfirmDialog(this, pretxt, GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.YES_NO_OPTION);
             if (state == JOptionPane.YES_OPTION) {
                 try {
-                    saveData();
+                    TrnNo = saveData();
                     Parent_Trn.Refresh();
                     JOptionPane.showMessageDialog(rootPane, "Save " + TrnSetup.getTrndesc() + " Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
 
@@ -822,7 +929,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         }
     }
 
-    private void saveData() throws Exception {
+    private String saveData() throws Exception {
 
         //DefaultTableModel dtm=(DefaultTableModel) tblPayment.getModel();
         ArrayList<TStockpayments> arp = new ArrayList<>();
@@ -849,7 +956,12 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             arp.add(m);
         }
         hed.setChange(Double.parseDouble(lbl_Balance.getText()));
-        c_trn.saveTransaction(hed, det, arp);
+      return  c_trn.saveTransaction(hed, det, arp);
 
+    }
+
+    private void setAmount(String val) {
+       txt_Amount.setText(txt_Amount.getText()+val);
+    
     }
 }

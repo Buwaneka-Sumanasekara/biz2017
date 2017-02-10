@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TRpt_Default_SubPay" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="94956486-2601-4d65-a57c-826c9e91e4f7">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TRpt_Default_SubPay" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="94956486-2601-4d65-a57c-826c9e91e4f7">
 	<property name="ireport.zoom" value="3.1384283767210035"/>
-	<property name="ireport.x" value="494"/>
+	<property name="ireport.x" value="551"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="PARA_TRNNO" class="java.lang.String"/>
 	<parameter name="PARA_TRNTYP" class="java.lang.String"/>
-	<parameter name="PARA_CHANGE" class="java.lang.String"/>
+	<parameter name="PARA_CHANGE" class="java.lang.Double"/>
 	<queryString>
 		<![CDATA[SELECT * FROM VIEW_TRNPAY WHERE T_STOCKMST_ID=$P{PARA_TRNNO} AND TRNTYP=$P{PARA_TRNTYP}]]>
 	</queryString>
@@ -31,7 +31,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="11" splitType="Stretch">
+		<band height="12" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="0" width="352" height="11" uuid="91b33b1d-138e-4004-acfb-e20513f89b42"/>
 			</rectangle>
@@ -59,7 +59,7 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="61">
+		<band height="63">
 			<rectangle>
 				<reportElement x="0" y="-1" width="352" height="62" uuid="962aa50c-bab6-46c3-b271-05f60983dbcf"/>
 			</rectangle>
@@ -69,7 +69,7 @@
 					<pen lineStyle="Double"/>
 				</graphicElement>
 			</line>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="240" y="29" width="101" height="19" uuid="7059e178-59a9-4146-b473-d89c88315bab"/>
 				<textElement textAlignment="Right">
 					<font size="10" isBold="true"/>

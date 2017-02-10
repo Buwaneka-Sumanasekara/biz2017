@@ -15,6 +15,7 @@ public class TblColumn {
     private String ColumnName;
     private String DataType;
     private String DefaultValue;
+    private String PrimaryKey;
 
     public TblColumn( String ColumnName, String DataType, String DefaultValue) {
      
@@ -22,7 +23,13 @@ public class TblColumn {
         this.DataType = DataType;
         this.DefaultValue = DefaultValue;
     }
-
+ public TblColumn( String ColumnName, String DataType, String DefaultValue,String primaryKey) {
+     
+        this.ColumnName = ColumnName;
+        this.DataType = DataType;
+        this.DefaultValue = DefaultValue;
+        this.PrimaryKey=primaryKey;
+    }
     
     
 
@@ -66,6 +73,14 @@ public class TblColumn {
      */
     public void setDefaultValue(String DefaultValue) {
         this.DefaultValue = DefaultValue;
+    }
+
+    public String getPrimaryKey() {
+        return PrimaryKey;
+    }
+
+    public void setPrimaryKey(String PrimaryKey) {
+        this.PrimaryKey = PrimaryKey;
     }
 
    

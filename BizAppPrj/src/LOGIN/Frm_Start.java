@@ -120,6 +120,21 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20161211_t1 = new Structure(20161211, "U_TRANSACTIONS", ar_20161211_t1);
         arStructures.add(str_20161211_t1);
         
+     
+           /*Version 20170204*/
+        ArrayList<TblColumn> ar_20170204_t1 = new ArrayList<>();
+        ar_20170204_t1.add(new TblColumn("LOC_ID", "INT", "NOT NULL"));
+        ar_20170204_t1.add(new TblColumn("TERMINAL_ID", "VARCHAR(10)", "NOT NULL"));
+        ar_20170204_t1.add(new TblColumn("PRODUCTKEY", "VARCHAR(100)", "NULL"));
+        ar_20170204_t1.add(new TblColumn("SERIALKEY", "VARCHAR(100)", "NULL"));
+        
+        ArrayList<String> ar_20170204_t1PK = new ArrayList<>();
+        ar_20170204_t1PK.add("LOC_ID");
+        ar_20170204_t1PK.add("TERMINAL_ID");
+         
+        
+        Structure str_20170204_t1 = new Structure(20170204, "U_TERMINALS", ar_20170204_t1,ar_20170204_t1PK);
+        arStructures.add(str_20170204_t1);
         
         
         int TotalResults = arStructures.size() + 1;
@@ -133,7 +148,7 @@ public final class Frm_Start extends javax.swing.JDialog {
                 try {
                
                     if (structure.getSQL() == null || structure.getSQL().equals("")) {
-                        TblStru.createTable(structure.getTableName(), structure.getColumns());
+                        TblStru.createTable(structure.getTableName(), structure.getColumns(),structure.getPrimaryKeys());
                     } else {
                         TblStru.executeSql(structure.getSQL());
                     }
@@ -230,7 +245,15 @@ public final class Frm_Start extends javax.swing.JDialog {
         private String TableName;
         private ArrayList<TblColumn> Columns;
         private String SQL;
+        private ArrayList<String>PrimaryKeys;
 
+        public Structure(int version, String TableName, ArrayList<TblColumn> Columns,ArrayList<String>PrimaryKeys) {
+            this.version = version;
+            this.TableName = TableName;
+            this.Columns = Columns;
+            this.PrimaryKeys=PrimaryKeys;
+        }
+        
         public Structure(int version, String TableName, ArrayList<TblColumn> Columns) {
             this.version = version;
             this.TableName = TableName;
@@ -273,6 +296,14 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         public void setSQL(String SQL) {
             this.SQL = SQL;
+        }
+
+        public ArrayList<String> getPrimaryKeys() {
+            return PrimaryKeys;
+        }
+
+        public void setPrimaryKeys(ArrayList<String> PrimaryKeys) {
+            this.PrimaryKeys = PrimaryKeys;
         }
 
     }

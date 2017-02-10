@@ -52,7 +52,6 @@ public class C_TransactionSetup {
             m.setPayments(rs.getByte("PAYMENTS"));
             m.setReportpath(rs.getString("REPORT_PATH"));
             
-            
         }else{
             throw new Exception("Can`t Find Specific Trnasaction on setup table");
         }

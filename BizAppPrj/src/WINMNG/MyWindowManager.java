@@ -17,6 +17,9 @@ import SUBUI.Frm_MLocation;
 import SUBUI.Frm_MSupplier;
 import SUBUI.Frm_MUnitGroup;
 import SUBUI.Frm_MUnits;
+import SUBUI.Frm_SUserCreation;
+import SUBUI.Frm_SUserGroupPer;
+import SUBUI.Frm_SUserSecurity;
 import SUBUI.Frm_TCommonTrn;
 import javax.swing.JInternalFrame;
 
@@ -71,6 +74,15 @@ public class MyWindowManager {
                     break;
                 case "M00012":
                     jf = new Frm_MUnitGroup(fm, p.getDescription());
+                    break;
+                case "S00001":
+                    jf = new Frm_SUserCreation(fm, p.getDescription());
+                    break;
+                case "S00002":
+                    jf = new Frm_SUserGroupPer(fm, p.getDescription());
+                    break;
+                case "S00003":
+                    jf = new Frm_SUserSecurity(fm, p.getDescription());
                     break;
             }
         } else if (p.getType().equals("TRN")) {

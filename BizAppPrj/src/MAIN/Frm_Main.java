@@ -74,6 +74,8 @@ public class Frm_Main extends javax.swing.JFrame {
         lblUsername = new javax.swing.JLabel();
         lblCompanyName = new javax.swing.JLabel();
         JDesktopF = new javax.swing.JDesktopPane();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -107,6 +109,17 @@ public class Frm_Main extends javax.swing.JFrame {
         lblCompanyName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCompanyName.setText("COMPANY NAME");
         getContentPane().add(lblCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 770, 30));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"))); // NOI18N
+        JDesktopF.add(jLabel3);
+        jLabel3.setBounds(380, 190, 150, 110);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(110, 147, 169));
+        jLabel5.setText("Biz");
+        JDesktopF.add(jLabel5);
+        jLabel5.setBounds(410, 280, 90, 58);
+
         getContentPane().add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 860, 640));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
@@ -158,6 +171,8 @@ public class Frm_Main extends javax.swing.JFrame {
     private javax.swing.JTree TUserMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCompanyName;
     private javax.swing.JLabel lblUsername;
