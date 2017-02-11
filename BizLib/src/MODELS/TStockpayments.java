@@ -22,6 +22,7 @@ public class TStockpayments  implements java.io.Serializable {
      private Double amount;
      private Double change;
      private String EfectiveDate;
+     private int utilized;
      
     public TStockpayments() {
     }
@@ -105,6 +106,14 @@ public class TStockpayments  implements java.io.Serializable {
 
     public void setUTransactions(UTransactions UTransactions) {
         this.UTransactions = UTransactions;
+    }
+
+    public int getUtilized() {
+        return utilized;
+    }
+
+    public void setUtilized(int utilized) {
+        this.utilized = utilized;
     }
 
 

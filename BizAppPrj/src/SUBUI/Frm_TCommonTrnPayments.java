@@ -41,23 +41,23 @@ import javax.swing.table.DefaultTableModel;
  * @author Buwanaka
  */
 public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
-
-    private static String TrnNo="";
+    
+    private static String TrnNo = "";
     Frm_Main MainFrm = null;
     Frm_TCommonTrn Parent_Trn = null;
     C_Payments C_Payment = null;
     UTransactions TrnSetup = null;
     TStockmst hed = null;
     ArrayList<TStockline> det = null;
-
+    
     C_TransactionCom c_trn = null;
-
+    
     private Frm_TCommonTrnPayments(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         C_Payment = new C_Payments();
     }
-
+    
     private Frm_TCommonTrnPayments(Frm_Main parent, Frm_TCommonTrn parent_trn, boolean modal, UTransactions TrnSetup, TStockmst Hed, ArrayList<TStockline> Det) {
         super(parent, modal);
         initComponents();
@@ -69,26 +69,24 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         this.TrnSetup = TrnSetup;
         this.hed = Hed;
         this.det = Det;
-
+        
         createLayout();
         RefreshScreen();
         txt_Amount.grabFocus();
         setShortCutKeys(this);
     }
-
+    
     @Override
     public void dispose() {
         super.dispose(); //To change body of generated methods, choose Tools | Templates.
     }
-
     
-    public static String getPaymentScreen(Frm_Main parent, Frm_TCommonTrn parent_trn, boolean modal, UTransactions TrnSetup, TStockmst Hed, ArrayList<TStockline> Det){
+    public static String getPaymentScreen(Frm_Main parent, Frm_TCommonTrn parent_trn, boolean modal, UTransactions TrnSetup, TStockmst Hed, ArrayList<TStockline> Det) {
         Frm_TCommonTrnPayments frm = new Frm_TCommonTrnPayments(parent, parent_trn, modal, TrnSetup, Hed, Det);
         frm.setVisible(true);
         return TrnNo;
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -367,6 +365,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         jScrollPane1.setBackground(new java.awt.Color(153, 153, 153));
 
+        tblPayment.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tblPayment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -457,11 +456,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_4ActionPerformed
-       setAmount("4");
+        setAmount("4");
     }//GEN-LAST:event_but_4ActionPerformed
 
     private void but_6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_6ActionPerformed
-setAmount("6");        // TODO add your handling code here:
+        setAmount("6");        // TODO add your handling code here:
     }//GEN-LAST:event_but_6ActionPerformed
 
     private void but_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_addActionPerformed
@@ -477,28 +476,28 @@ setAmount("6");        // TODO add your handling code here:
     }//GEN-LAST:event_cmb_PayDetActionPerformed
 
     private void cmb_PayHedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_PayHedActionPerformed
-
+        
         if (cmb_PayHed.getSelectedIndex() > -1) {
             try {
                 MPaymst mst = (MPaymst) cmb_PayHed.getSelectedItem();
-
+                
                 if (mst.getRefreq() == 1) {
                     txt_RefNo.setVisible(true);
                     txt_RefNo.grabFocus();
                 } else {
                     txt_RefNo.setVisible(false);
-
+                    
                 }
-
+                
                 if (mst.getDatef() == 1) {
                     txt_DateF.setVisible(true);
                     // txt_DateF.grabFocus();
                 } else {
                     txt_DateF.setVisible(false);
-
+                    
                 }
                 loadSubPayModes();
-
+                
             } catch (Exception ex) {
                 //Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -523,35 +522,35 @@ setAmount("6");        // TODO add your handling code here:
     }//GEN-LAST:event_but_0ActionPerformed
 
     private void but_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_1ActionPerformed
-      setAmount("1");
+        setAmount("1");
     }//GEN-LAST:event_but_1ActionPerformed
 
     private void but_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_2ActionPerformed
-setAmount("2");
+        setAmount("2");
     }//GEN-LAST:event_but_2ActionPerformed
 
     private void but_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_3ActionPerformed
-       setAmount("3");
+        setAmount("3");
     }//GEN-LAST:event_but_3ActionPerformed
 
     private void but_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_5ActionPerformed
-setAmount("5");        // TODO add your handling code here:
+        setAmount("5");        // TODO add your handling code here:
     }//GEN-LAST:event_but_5ActionPerformed
 
     private void but_7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_7ActionPerformed
-setAmount("7");        // TODO add your handling code here:
+        setAmount("7");        // TODO add your handling code here:
     }//GEN-LAST:event_but_7ActionPerformed
 
     private void but_8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_8ActionPerformed
-setAmount("8");        // TODO add your handling code here:
+        setAmount("8");        // TODO add your handling code here:
     }//GEN-LAST:event_but_8ActionPerformed
 
     private void but_9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_9ActionPerformed
-setAmount("9");        // TODO add your handling code here:
+        setAmount("9");        // TODO add your handling code here:
     }//GEN-LAST:event_but_9ActionPerformed
 
     private void but_ClearPaymentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ClearPaymentsActionPerformed
-RefreshScreen();        // TODO add your handling code here:
+        RefreshScreen();        // TODO add your handling code here:
     }//GEN-LAST:event_but_ClearPaymentsActionPerformed
 
     /**
@@ -635,9 +634,9 @@ RefreshScreen();        // TODO add your handling code here:
     public void exit() {
         this.dispose();
     }
-
+    
     public void setShortCutKeys(JDialog f) {
-
+        
         String exit = "exit";
         InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap0.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), exit);
@@ -646,7 +645,7 @@ RefreshScreen();        // TODO add your handling code here:
             public void actionPerformed(ActionEvent e) {
                 exit();
             }
-
+            
         }
         );
         String refresh = "Refresh";
@@ -657,11 +656,11 @@ RefreshScreen();        // TODO add your handling code here:
             public void actionPerformed(ActionEvent e) {
                 RefreshScreen();
             }
-
+            
         }
         );
     }
-
+    
     private void createLayout() {
         try {
             layout_ButPanel.setOpaque(true);
@@ -670,13 +669,13 @@ RefreshScreen();        // TODO add your handling code here:
             tblPayment.setTableHeader(null);
             tblPayment.setBackground(new Color(153, 153, 153));
             jScrollPane1.getViewport().setBackground(new Color(153, 153, 153));
-
+            
         } catch (Exception ex) {
             Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     private void RefreshScreen() {
         try {
             lbl_ToPay.setText("" + hed.getNetamount());
@@ -684,7 +683,7 @@ RefreshScreen();        // TODO add your handling code here:
             lbl_Balance.setText("0.0");
             lbl_due.setText("" + hed.getNetamount());
             txt_DateF.setVisible(false);
-
+            
             int eftAmtindex = 4;
             //tblPayment.getColumnModel().getColumn(eftAmtindex).setMinWidth(0);
             // tblPayment.getColumnModel().getColumn(eftAmtindex).setMaxWidth(0);
@@ -700,25 +699,25 @@ RefreshScreen();        // TODO add your handling code here:
             //  Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void addPayment() {
         if (doValidations()) {
             MPaymst mst = (MPaymst) cmb_PayHed.getSelectedItem();
             MPaydet det = cmb_PayDet.getSelectedIndex() > -1 ? (MPaydet) cmb_PayDet.getSelectedItem() : new MPaydet();
             String RefNo = txt_RefNo.isVisible() ? txt_RefNo.getText() : "";
             double Amount = Double.parseDouble(txt_Amount.getText());
-
+            
             try {
                 double CheckExists = CheckExists(mst, det);
                 Amount = CheckExists + Amount;
             } catch (Exception e) {
-
+                
             }
-
+            
             double calBalance = getcalculateBalance();
-
+            
             double eftamt = Amount;
-
+            
             if (mst.getOverpay() == 1) {
                 if (calBalance < Amount) {
                     eftamt = calBalance;
@@ -726,11 +725,11 @@ RefreshScreen();        // TODO add your handling code here:
                     eftamt = Amount;
                 }
             }
-
+            
             Date eftDatee = (txt_DateF.isVisible() ? txt_DateF.getDate() : new Date());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String eftdate = sdf.format(eftDatee);
-
+            
             DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
             Vector v = new Vector();
             v.add(mst);
@@ -744,37 +743,37 @@ RefreshScreen();        // TODO add your handling code here:
             calculateTotal();
         }
     }
-
+    
     private boolean doValidations() {
         boolean state = true;
         MPaymst mst = (MPaymst) cmb_PayHed.getSelectedItem();
         MPaydet det = cmb_PayDet.getSelectedIndex() > -1 ? (MPaydet) cmb_PayDet.getSelectedItem() : new MPaydet();
         if (cmb_PayHed.getSelectedIndex() == (-1)) {
-
+            
             state = false;
             JOptionPane.showMessageDialog(this, "Please select Pay mode", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-
+            
         } else if (txt_Amount.getText().equals("")) {
             state = false;
             JOptionPane.showMessageDialog(this, "Amount can`t be blank", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-
+            
         } else if (txt_RefNo.isVisible() && txt_RefNo.getText().equals("")) {
             state = false;
             JOptionPane.showMessageDialog(this, "Need reference number", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-
+            
         } else if (mst.getId() != null && mst.getOverpay() == 0 && Double.parseDouble(txt_Amount.getText()) > Double.parseDouble(lbl_due.getText())) {
             state = false;
             JOptionPane.showMessageDialog(this, "You can`t over pay when using this paymode", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-
+            
         } else if (txt_DateF.isVisible() && txt_DateF.getDate() == null) {
             state = false;
             JOptionPane.showMessageDialog(this, "Please select Date", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-
+            
         }
-
+        
         return state;
     }
-
+    
     private double CheckExists(MPaymst mst, MPaydet det) throws Exception {
         DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
         double amount = 0;
@@ -782,7 +781,7 @@ RefreshScreen();        // TODO add your handling code here:
         for (int i = 0; i < dtm.getRowCount(); i++) {
             MPaymst mstP = (MPaymst) dtm.getValueAt(i, 0);
             MPaydet detP = (MPaydet) dtm.getValueAt(i, 1);
-
+            
             if (detP.getId() == null || detP.getId().equals("")) {
                 if (mstP.equals(mst)) {
                     amount = Double.parseDouble(dtm.getValueAt(i, 3).toString());
@@ -803,14 +802,15 @@ RefreshScreen();        // TODO add your handling code here:
             throw new Exception("Avaialble");
         }
         return amount;
-
+        
     }
-
+    
     private void clearPaymentBox() {
         try {
             cmb_PayDet.setVisible(false);
             txt_RefNo.setVisible(false);
-
+            txt_DateF.setVisible(false);
+            txt_DateF.setDate(new Date());
             cmb_PayHed.setModel(new DefaultComboBoxModel(C_Payment.getPayMst()));
             loadSubPayModes();
             txt_RefNo.setText("");
@@ -820,19 +820,19 @@ RefreshScreen();        // TODO add your handling code here:
             // Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void calculateTotal() {
         DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
         double amount = 0;
         for (int i = 0; i < dtm.getRowCount(); i++) {
-
+            
             amount += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
-
+        
         double ToPay = Double.parseDouble(lbl_ToPay.getText());
         double Paid = amount;
         double balance = ToPay - Paid;
-
+        
         if (balance >= 0) {
             lbl_due.setText("" + balance);
             lbl_Balance.setText("0.0");
@@ -842,29 +842,29 @@ RefreshScreen();        // TODO add your handling code here:
             lbl_Balance.setText("" + (balance * -1));
             billClose(false);
         }
-
+        
     }
-
+    
     private double getcalculateBalance() {
         DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
         double amount = 0;
         for (int i = 0; i < dtm.getRowCount(); i++) {
-
+            
             amount += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
-
+        
         double ToPay = Double.parseDouble(lbl_ToPay.getText());
         double Paid = amount;
         double balance = ToPay - Paid;
-
+        
         if (balance > 0) {
             return balance;
         } else {
             return 0;
         }
-
+        
     }
-
+    
     private void billClose(boolean b) {
         double due = Double.parseDouble(lbl_due.getText());
         if (due == 0) {
@@ -876,33 +876,33 @@ RefreshScreen();        // TODO add your handling code here:
                     TrnNo = saveData();
                     Parent_Trn.Refresh();
                     JOptionPane.showMessageDialog(rootPane, "Save " + TrnSetup.getTrndesc() + " Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
-
+                    
                     this.dispose();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-
+                    
                 }
-
+                
             }
         } else {
             if (b) {
                 JOptionPane.showMessageDialog(this, "Please complete due amount :" + due, GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
             }
         }
-
+        
     }
-
+    
     private void loadSubPayModes() {
         if (cmb_PayHed.getSelectedIndex() > -1) {
             try {
                 MPaymst mst = (MPaymst) cmb_PayHed.getSelectedItem();
                 Vector<MPaydet> v = C_Payment.getPayDet(mst.getId());
                 cmb_PayDet.setModel(new DefaultComboBoxModel(v));
-
+                
                 if (v.size() > 0) {
                     cmb_PayDet.setVisible(true);
                     MPaydet det = (MPaydet) cmb_PayDet.getSelectedItem();
-
+                    
                     if (det.getRefreq() == 1) {
                         txt_RefNo.setVisible(true);
                         txt_RefNo.grabFocus();
@@ -910,25 +910,25 @@ RefreshScreen();        // TODO add your handling code here:
                         txt_RefNo.setVisible(false);
                         txt_Amount.grabFocus();
                     }
-
+                    
                     if (det.getDatef() == 1) {
                         txt_DateF.setVisible(true);
                         // txt_DateF.grabFocus();
                     } else {
                         txt_DateF.setVisible(false);
-
+                        
                     }
                 } else {
                     cmb_PayDet.setVisible(false);
                     txt_Amount.grabFocus();
                 }
-
+                
             } catch (Exception ex) {
                 //Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-
+    
     private String saveData() throws Exception {
 
         //DefaultTableModel dtm=(DefaultTableModel) tblPayment.getModel();
@@ -940,8 +940,9 @@ RefreshScreen();        // TODO add your handling code here:
             String paydetId = (d == null || d.getId() == null || d.getId().equals("")) ? "" : d.getId();
             double FAmount = Double.parseDouble(tblPayment.getValueAt(i, 3).toString());
             double EftAmount = Double.parseDouble(tblPayment.getValueAt(i, 4).toString());
-            String date = tblPayment.getValueAt(i, 5).toString();
-
+            String date = tblPayment.getValueAt(i, 5).toString();            
+            int utilized = payh.getId().equals("CHQ") ? 0 : 1;
+            
             TStockpayments m = new TStockpayments();
             m.setId(i);
             m.setTStockmst(hed);
@@ -953,15 +954,16 @@ RefreshScreen();        // TODO add your handling code here:
             m.setMPayHedId(payh.getId());
             m.setEfectiveDate(date);
             m.setUTransactions(TrnSetup);
+            m.setUtilized(utilized);
             arp.add(m);
         }
         hed.setChange(Double.parseDouble(lbl_Balance.getText()));
-      return  c_trn.saveTransaction(hed, det, arp);
-
+        return c_trn.saveTransaction(hed, det, arp);
+        
     }
-
-    private void setAmount(String val) {
-       txt_Amount.setText(txt_Amount.getText()+val);
     
+    private void setAmount(String val) {
+        txt_Amount.setText(txt_Amount.getText() + val);
+        
     }
 }

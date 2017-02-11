@@ -20,6 +20,7 @@ import SUBUI.Frm_MUnits;
 import SUBUI.Frm_SUserCreation;
 import SUBUI.Frm_SUserGroupPer;
 import SUBUI.Frm_SUserSecurity;
+import SUBUI.Frm_TChequePayments;
 import SUBUI.Frm_TCommonTrn;
 import javax.swing.JInternalFrame;
 
@@ -83,6 +84,9 @@ public class MyWindowManager {
                     break;
                 case "S00003":
                     jf = new Frm_SUserSecurity(fm, p.getDescription());
+                    break;
+                     case "A00001":
+                    jf = new Frm_TChequePayments(fm, p.getDescription());
                     break;
             }
         } else if (p.getType().equals("TRN")) {

@@ -157,7 +157,7 @@ public class C_TransactionCom {
     }
 
     public String saveTransaction(TStockmst hedc, ArrayList<TStockline> det, ArrayList<TStockpayments> paydet) throws Exception {
-        String TrnNo="";
+        String TrnNo = "";
         Connection c = null;
         try {
 
@@ -263,7 +263,7 @@ public class C_TransactionCom {
                     if (hed.getUTransactions().getBatchcreate() == 0) {
 
                         String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
-                        C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId( d.getUnitGroupId() ), ConvertedQty);
+                        C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(d.getUnitGroupId()), ConvertedQty);
                         UpdateTransactionBatch(hed.getId(), d.getProId(), LastBatch);
                     }
                 }
@@ -280,18 +280,41 @@ public class C_TransactionCom {
                     payMap.put("CHANGE", "'" + pay.getChange() + "'");
                     payMap.put("PAYDETID", "'" + pay.getMPaydetId() + "'");
                     payMap.put("PAYHEDID", "'" + pay.getMPayHedId() + "'");
-                    payMap.put("EFT_DATE", "'" + pay.getEfectiveDate() + "'");
+                    payMap.put("EFT_DATE", "'" + (pay.getMPayHedId().equals("CHQ") ? "1900-01-01" : pay.getEfectiveDate()) + "'");
                     payMap.put("TRNTYP", "'" + pay.getUTransactions().getTrntype() + "'");
+                    payMap.put("UTILIZED", "'" + pay.getUtilized() + "'");
+                    
                     String q = qg.SaveRecord("T_STOCKPAYMENTS", payMap);
                     DB.Save(q);
+
+                    if (pay.getMPayHedId().equals("CHQ")) {
+                        Map<String, String> payChq = new TreeMap<>();
+                        payChq.put("CHQ_NO", "'" + pay.getRefno() + "'");
+                        payChq.put("CHQ_DATE", "'" + pay.getEfectiveDate() + "'");
+                        payChq.put("STATE", "'P'");//P-Pending , U-Utilized,Returned-Returned
+                        payChq.put("REFNO", "'" + pay.getTStockmst().getId() + "'");
+                        payChq.put("REFTRNTYP", "'" + pay.getTStockmst().getUTransactions().getTrntype() + "'");
+                        if (pay.getTStockmst().getMCustomer() != null) {
+                            payChq.put("CUS_ID", "'" + pay.getTStockmst().getMCustomer().getId() + "'");
+                        }
+                        if (pay.getTStockmst().getMSupplier() != null) {
+                            payChq.put("SUP_ID", "'" + pay.getTStockmst().getMSupplier().getId() + "'");
+                        }
+                        payChq.put("AMOUNT", "'" + pay.getAmount() + "'");
+                        payChq.put("M_USER_CR", "'" + pay.getTStockmst().getMUserByMUserCr().getId() + "'");
+                        payChq.put("CRDATE", "'" + sdf.format(pay.getTStockmst().getCrdate()) + "'");
+
+                        String qq = qg.SaveRecord("T_CHQPAYMENTS", payChq);
+                        DB.Save(qq);
+                    }
                 }
             }
-            
-            TrnNo=hed.getId();
+
+            TrnNo = hed.getId();
             c.commit();
 
         } catch (Exception e) {
-            TrnNo="";
+            TrnNo = "";
             if (c != null) {
                 c.rollback();
             }

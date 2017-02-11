@@ -137,6 +137,36 @@ public final class Frm_Start extends javax.swing.JDialog {
         arStructures.add(str_20170204_t1);
         
         
+        /*Version 201702210*/
+        ArrayList<TblColumn> ar_20170210_t1 = new ArrayList<>();
+        ar_20170210_t1.add(new TblColumn("UTILIZED", "INT", "DEFAULT (1)"));
+        Structure str_20170210_t1 = new Structure(20170210, "T_STOCKPAYMENTS", ar_20170210_t1);
+        arStructures.add(str_20170210_t1);
+        
+        ArrayList<TblColumn> ar_20170210_t2 = new ArrayList<>();
+        ar_20170210_t2.add(new TblColumn("CHQ_NO", "VARCHAR(50)", "NOT NULL"));
+        ar_20170210_t2.add(new TblColumn("CHQ_DATE", "DATETIME", "NOT NULL"));
+        ar_20170210_t2.add(new TblColumn("STATE", "VARCHAR(5)", "NOT NULL"));//P,U,R
+        ar_20170210_t2.add(new TblColumn("REFNO", "VARCHAR(50)", "NOT NULL"));
+        ar_20170210_t2.add(new TblColumn("REFTRNTYP", "VARCHAR(5)", "NOT NULL"));
+        ar_20170210_t2.add(new TblColumn("CUS_ID", "VARCHAR(50)", ""));
+        ar_20170210_t2.add(new TblColumn("SUP_ID", "VARCHAR(50)", ""));
+        ar_20170210_t2.add(new TblColumn("AMOUNT", "float", "DEFAULT (0)"));
+        ar_20170210_t2.add(new TblColumn("M_USER_CR", "VARCHAR(50)", ""));
+        ar_20170210_t2.add(new TblColumn("CRDATE", "DATETIME", ""));
+        ar_20170210_t2.add(new TblColumn("M_USER_MD", "VARCHAR(50)", ""));
+        ar_20170210_t2.add(new TblColumn("MDDATE", "DATETIME", ""));
+        
+        ArrayList<String> ar_20170210_t2PK = new ArrayList<>();
+        ar_20170210_t2PK.add("CHQ_NO");
+        Structure str_20170210_t2 = new Structure(20170210, "T_CHQPAYMENTS", ar_20170210_t2,ar_20170210_t2PK);
+        arStructures.add(str_20170210_t2);
+        
+        
+        Structure str_20170210_sql1 = new Structure(20170210, "ALTER TABLE M_PERMISSIONS ALTER COLUMN TYPE VARCHAR(10) ");
+        arStructures.add(str_20170210_sql1);
+
+        
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults);
 

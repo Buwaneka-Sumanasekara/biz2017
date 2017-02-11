@@ -27,6 +27,18 @@ public class MPermissions  implements java.io.Serializable {
         this.isuimenu = isuimenu;
     }
 
+    public MPermissions(String id, String parentid, String name, String description, String type, Byte hassub, Byte isuimenu, String acesst) {
+        this.id = id;
+        this.parentid = parentid;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.hassub = hassub;
+        this.isuimenu = isuimenu;
+        this.acesst = acesst;
+    }
+    
+
     public MPermissions() {
     
     }
