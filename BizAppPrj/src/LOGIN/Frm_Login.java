@@ -5,7 +5,6 @@
  */
 package LOGIN;
 
-import COMMONFUN.CommonFun;
 import COMMONFUN.DefaultData;
 import CONTROLLERS.C_UserGroup;
 import CONTROLLERS.C_Users;
@@ -14,7 +13,7 @@ import MAIN.Frm_Main;
 import MODELS.MPermissions;
 import MODELS.MUser;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -141,8 +140,9 @@ public class Frm_Login extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         try {
+UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-            UIManager.setLookAndFeel("com.jtattoo.plaf." + CommonFun.getSystemTheme());
+           // UIManager.setLookAndFeel("com.jtattoo.plaf." + CommonFun.getSystemTheme());
         } catch (Exception ex) {
             Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -179,7 +179,7 @@ public class Frm_Login extends javax.swing.JFrame {
                     this.dispose();
 
                     ArrayList<MPermissions> Menus = ug.getUserGroupPermitions(user.getMUsergroup().getId(), 1);
-                    ArrayList<MPermissions> SpecialPer = ug.getUserGroupPermitions(user.getMUsergroup().getId(), 2);
+                    Map<String,String> SpecialPer = ug.getUserGroupPermitions_Map(user.getMUsergroup().getId(), 2,"");
                     GlobalData.SpecialPer = SpecialPer;
                     GlobalData.CurUser=user;
                     final Frm_Main frm = new Frm_Main(this, Menus);

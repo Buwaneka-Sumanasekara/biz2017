@@ -36,14 +36,14 @@ import javax.swing.table.DefaultTableModel;
  * @author HOME
  */
 public class Frm_TChequePayments extends javax.swing.JInternalFrame implements MyWindowBasicControllers {
-
+    
     Frm_Table ft = null;
-
+    
     Frm_Main mainW = null;
     MyValidator fv = null;
-
+    
     C_ChequePayments CChq = null;
-
+    
     public Frm_TChequePayments(Frm_Main mainw, String ScreenName) {
         initComponents();
         this.setTitle(ScreenName);
@@ -209,11 +209,11 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
 
             },
             new String [] {
-                "CHQ No", "CHQ Date", "CR Date", "Amount", "State", "RefNo", "RefTyp"
+                "CHQ No", "CHQ Date", "CR Date", "Amount", "State", "RefNo", "RefTyp", "ChqState"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -234,6 +234,7 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
             tblChqStatus.getColumnModel().getColumn(4).setResizable(false);
             tblChqStatus.getColumnModel().getColumn(5).setResizable(false);
             tblChqStatus.getColumnModel().getColumn(6).setResizable(false);
+            tblChqStatus.getColumnModel().getColumn(7).setResizable(false);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 830, 390));
@@ -291,14 +292,14 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
 
     @Override
     public void SaveProcess() {
-
+        
     }
-
+    
     @Override
     public void EditMode() {
-
+        
     }
-
+    
     @Override
     public void Refresh() {
         txtChqNo.setText("");
@@ -306,11 +307,15 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
         txtDateT.setDate(new Date());
         Rad_Unrealized.setSelected(true);
         txtChqNo.grabFocus();
+
+        //7
+        tblChqStatus.getColumnModel().getColumn(7).setWidth(0);
+        
         SearchMode();
     }
-
+    
     public void setShortCutKeys(JInternalFrame f) {
-
+        
         String exit = "exit";
         InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap0.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), exit);
@@ -319,10 +324,10 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
             public void actionPerformed(ActionEvent e) {
                 exit();
             }
-
+            
         }
         );
-
+        
         String Search = "Search";
         InputMap inputMap1 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap1.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), Search);
@@ -331,10 +336,10 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
             public void actionPerformed(ActionEvent e) {
                 SearchMode();
             }
-
+            
         }
         );
-
+        
         String Save = "Save";
         InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), Save);
@@ -343,10 +348,10 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
             public void actionPerformed(ActionEvent e) {
                 SaveProcess();
             }
-
+            
         }
         );
-
+        
         String Edit = "Edit";
         InputMap inputMap3 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap3.put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), Edit);
@@ -355,10 +360,10 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
             public void actionPerformed(ActionEvent e) {
                 EditMode();
             }
-
+            
         }
         );
-
+        
         String Refresh = "Refresh";
         InputMap inputMap4 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap4.put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), Refresh);
@@ -367,24 +372,24 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
             public void actionPerformed(ActionEvent e) {
                 Refresh();
             }
-
+            
         }
         );
-
+        
     }
-
+    
     private void exit() {
-
+        
         try {
             this.setClosed(true);
             mainW.CurrentFrame = "";
-
+            
         } catch (PropertyVetoException ex) {
             Logger.getLogger(Frm_TChequePayments.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     @Override
     public void setDisableEnableComponents(JComponent[] EnComlist, JComponent[] DisComlist) {
         for (JComponent c : DisComlist) {
@@ -393,12 +398,12 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
         for (JComponent c : EnComlist) {
             c.setEnabled(true);
         }
-
+        
     }
-
+    
     @Override
     public void SearchMode() {
-
+        
         try {
             String State = "";
             if (Rad_Realized.isSelected()) {
@@ -406,38 +411,54 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
             }
             if (Rad_Unrealized.isSelected()) {
                 State = "P";
-
+                
             }
             if (Rad_Returned.isSelected()) {
                 State = "R";
             }
             ArrayList<Vector> ar = CChq.getAllPayments(txtChqNo.getText(), State, txtDateF.getDate(), txtDateT.getDate());
-
+            
             DefaultTableModel dtm = (DefaultTableModel) tblChqStatus.getModel();
             dtm.setRowCount(0);
             for (Vector v : ar) {
                 dtm.addRow(v);
             }
-
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), GLOBALDATA.GlobalData.APPNAME, JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     private void getChequeState() {
         if (tblChqStatus.getSelectedRow() > -1) {
             try {
-                String ChqNo = tblChqStatus.getValueAt(tblChqStatus.getSelectedRow(), 0).toString();
-                TChqPayments specificPayment = CChq.getSpecificPayment(ChqNo);
-                if (specificPayment != null) {
-                    Frm_MChqState.createMChqStatePopUp(mainW, true, specificPayment);
-                    Refresh();
+                String state = tblChqStatus.getValueAt(tblChqStatus.getSelectedRow(), 7).toString();
+                
+                String Per = GLOBALDATA.GlobalData.SpecialPer.get("P00019");
+                if (Per != null) {
+                    String PerSp = GLOBALDATA.GlobalData.SpecialPer.get("P00020");
+                    if (PerSp != null) {
+                        String ChqNo = tblChqStatus.getValueAt(tblChqStatus.getSelectedRow(), 0).toString();
+                        TChqPayments specificPayment = CChq.getSpecificPayment(ChqNo);
+                        if (specificPayment != null) {
+                            Frm_MChqState.createMChqStatePopUp(mainW, true, specificPayment);
+                            Refresh();
+                        }
+                    }else{
+                        String ChqNo = tblChqStatus.getValueAt(tblChqStatus.getSelectedRow(), 0).toString();
+                        TChqPayments specificPayment = CChq.getSpecificPayment(ChqNo);
+                        if (specificPayment != null && specificPayment.getChqState().equals("P")) {
+                            Frm_MChqState.createMChqStatePopUp(mainW, true, specificPayment);
+                            Refresh();
+                        }
+                    }
                 }
+               
             } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), GLOBALDATA.GlobalData.APPNAME, JOptionPane.ERROR_MESSAGE);
-            
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage(), GLOBALDATA.GlobalData.APPNAME, JOptionPane.ERROR_MESSAGE);
+                
             }
         }
     }
-
+    
 }

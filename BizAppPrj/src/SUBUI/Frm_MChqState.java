@@ -96,7 +96,7 @@ public class Frm_MChqState extends javax.swing.JDialog {
         txtChqCustomer = new javax.swing.JLabel();
         txtChqTrnTyp = new javax.swing.JLabel();
         txtChqTrnNo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        butUnrealized = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -124,7 +124,7 @@ public class Frm_MChqState extends javax.swing.JDialog {
                 butReturnedActionPerformed(evt);
             }
         });
-        getContentPane().add(butReturned, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 130, 50));
+        getContentPane().add(butReturned, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 130, 50));
 
         lblChequeSup.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblChequeSup.setText("Supplier");
@@ -162,7 +162,7 @@ public class Frm_MChqState extends javax.swing.JDialog {
         txtChqPaidDate.setText("jLabel2");
         getContentPane().add(txtChqPaidDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 190, 20));
 
-        txtChqCustomer.setText("jLabel2");
+        txtChqCustomer.setText("cus");
         getContentPane().add(txtChqCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 190, 20));
 
         txtChqTrnTyp.setText("jLabel2");
@@ -171,17 +171,23 @@ public class Frm_MChqState extends javax.swing.JDialog {
         txtChqTrnNo.setText("jLabel2");
         getContentPane().add(txtChqTrnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 190, 20));
 
-        jButton1.setBackground(new java.awt.Color(255, 102, 102));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/close.png"))); // NOI18N
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(583, 0, 40, 40));
+        butUnrealized.setBackground(new java.awt.Color(255, 204, 102));
+        butUnrealized.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        butUnrealized.setText("Unrealized");
+        butUnrealized.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butUnrealizedActionPerformed(evt);
+            }
+        });
+        getContentPane().add(butUnrealized, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 130, 50));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void butReturnedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butReturnedActionPerformed
-try {
-            CChq.UpdateState(txtChqNo.getText(), "R", txtDepositdate.getDate());
+        try {
+            CChq.UpdateState(m, "R", txtDepositdate.getDate());
             this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.APPNAME, JOptionPane.ERROR_MESSAGE);
@@ -190,12 +196,21 @@ try {
 
     private void butRealizedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRealizedActionPerformed
         try {
-            CChq.UpdateState(txtChqNo.getText(), "U", txtDepositdate.getDate());
+            CChq.UpdateState(m, "U", txtDepositdate.getDate());
             this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.APPNAME, JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_butRealizedActionPerformed
+
+    private void butUnrealizedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butUnrealizedActionPerformed
+        try {
+            CChq.UpdateState(m, "P", txtDepositdate.getDate());
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.APPNAME, JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_butUnrealizedActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,7 +257,7 @@ try {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butRealized;
     private javax.swing.JButton butReturned;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton butUnrealized;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblChequeSup;
     private javax.swing.JLabel lblChqCustomer;
@@ -268,6 +283,30 @@ try {
             txtChqTrnNo.setText(m.getRefNo());
             txtChqTrnTyp.setText(m.getRefTrnTyp());
             txtDepositdate.setDate(new Date());
+
+            txtChqSup.setVisible(false);
+            lblChequeSup.setVisible(false);
+            txtChqCustomer.setVisible(false);
+            lblChqCustomer.setVisible(false);
+            
+            butRealized.setVisible((m.getChqState().equals("P")||m.getChqState().equals("R"))?true:false);
+            butReturned.setVisible((m.getChqState().equals("P")||m.getChqState().equals("U"))?true:false);
+           // butUnrealized.setVisible((m.getChqState().equals("U")||m.getChqState().equals("R"))?true:false);
+            
+            
+
+            if (m.getSupId() != null && m.getSupId().equals("") == false) {
+                txtChqSup.setVisible(true);
+                lblChequeSup.setVisible(true);
+                txtChqSup.setText(m.getSupName());
+            } else {
+                txtChqCustomer.setVisible(true);
+                lblChqCustomer.setVisible(true);
+
+                txtChqCustomer.setText(m.getCusName());
+
+            }
+
         }
 
     }

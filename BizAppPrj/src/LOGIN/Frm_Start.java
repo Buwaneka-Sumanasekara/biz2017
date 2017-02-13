@@ -1,4 +1,3 @@
-
 package LOGIN;
 
 import COMMONFUN.CommonFun;
@@ -119,30 +118,27 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20161211_t1.add(new TblColumn("REPORT_PATH", "VARCHAR(100)", "NULL"));
         Structure str_20161211_t1 = new Structure(20161211, "U_TRANSACTIONS", ar_20161211_t1);
         arStructures.add(str_20161211_t1);
-        
-     
-           /*Version 20170204*/
+
+        /*Version 20170204*/
         ArrayList<TblColumn> ar_20170204_t1 = new ArrayList<>();
         ar_20170204_t1.add(new TblColumn("LOC_ID", "INT", "NOT NULL"));
         ar_20170204_t1.add(new TblColumn("TERMINAL_ID", "VARCHAR(10)", "NOT NULL"));
         ar_20170204_t1.add(new TblColumn("PRODUCTKEY", "VARCHAR(100)", "NULL"));
         ar_20170204_t1.add(new TblColumn("SERIALKEY", "VARCHAR(100)", "NULL"));
-        
+
         ArrayList<String> ar_20170204_t1PK = new ArrayList<>();
         ar_20170204_t1PK.add("LOC_ID");
         ar_20170204_t1PK.add("TERMINAL_ID");
-         
-        
-        Structure str_20170204_t1 = new Structure(20170204, "U_TERMINALS", ar_20170204_t1,ar_20170204_t1PK);
+
+        Structure str_20170204_t1 = new Structure(20170204, "U_TERMINALS", ar_20170204_t1, ar_20170204_t1PK);
         arStructures.add(str_20170204_t1);
-        
-        
+
         /*Version 201702210*/
         ArrayList<TblColumn> ar_20170210_t1 = new ArrayList<>();
         ar_20170210_t1.add(new TblColumn("UTILIZED", "INT", "DEFAULT (1)"));
         Structure str_20170210_t1 = new Structure(20170210, "T_STOCKPAYMENTS", ar_20170210_t1);
         arStructures.add(str_20170210_t1);
-        
+
         ArrayList<TblColumn> ar_20170210_t2 = new ArrayList<>();
         ar_20170210_t2.add(new TblColumn("CHQ_NO", "VARCHAR(50)", "NOT NULL"));
         ar_20170210_t2.add(new TblColumn("CHQ_DATE", "DATETIME", "NOT NULL"));
@@ -156,17 +152,15 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20170210_t2.add(new TblColumn("CRDATE", "DATETIME", ""));
         ar_20170210_t2.add(new TblColumn("M_USER_MD", "VARCHAR(50)", ""));
         ar_20170210_t2.add(new TblColumn("MDDATE", "DATETIME", ""));
-        
+
         ArrayList<String> ar_20170210_t2PK = new ArrayList<>();
         ar_20170210_t2PK.add("CHQ_NO");
-        Structure str_20170210_t2 = new Structure(20170210, "T_CHQPAYMENTS", ar_20170210_t2,ar_20170210_t2PK);
+        Structure str_20170210_t2 = new Structure(20170210, "T_CHQPAYMENTS", ar_20170210_t2, ar_20170210_t2PK);
         arStructures.add(str_20170210_t2);
-        
-        
+
         Structure str_20170210_sql1 = new Structure(20170210, "ALTER TABLE M_PERMISSIONS ALTER COLUMN TYPE VARCHAR(10) ");
         arStructures.add(str_20170210_sql1);
 
-        
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults);
 
@@ -176,9 +170,9 @@ public final class Frm_Start extends javax.swing.JDialog {
             if (structure.version > settings.getVersion()) {
 
                 try {
-               
+
                     if (structure.getSQL() == null || structure.getSQL().equals("")) {
-                        TblStru.createTable(structure.getTableName(), structure.getColumns(),structure.getPrimaryKeys());
+                        TblStru.createTable(structure.getTableName(), structure.getColumns(), structure.getPrimaryKeys());
                     } else {
                         TblStru.executeSql(structure.getSQL());
                     }
@@ -188,8 +182,8 @@ public final class Frm_Start extends javax.swing.JDialog {
 
             }
 
-               latestVersion = structure.getVersion();
-               
+            latestVersion = structure.getVersion();
+
             setProgressBarVal();
         }
 
@@ -247,8 +241,9 @@ public final class Frm_Start extends javax.swing.JDialog {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
+            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-            UIManager.setLookAndFeel("com.jtattoo.plaf." + CommonFun.getSystemTheme());
+           UIManager.setLookAndFeel("com.jtattoo.plaf." + CommonFun.getSystemTheme());
         } catch (Exception ex) {
             Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -275,15 +270,15 @@ public final class Frm_Start extends javax.swing.JDialog {
         private String TableName;
         private ArrayList<TblColumn> Columns;
         private String SQL;
-        private ArrayList<String>PrimaryKeys;
+        private ArrayList<String> PrimaryKeys;
 
-        public Structure(int version, String TableName, ArrayList<TblColumn> Columns,ArrayList<String>PrimaryKeys) {
+        public Structure(int version, String TableName, ArrayList<TblColumn> Columns, ArrayList<String> PrimaryKeys) {
             this.version = version;
             this.TableName = TableName;
             this.Columns = Columns;
-            this.PrimaryKeys=PrimaryKeys;
+            this.PrimaryKeys = PrimaryKeys;
         }
-        
+
         public Structure(int version, String TableName, ArrayList<TblColumn> Columns) {
             this.version = version;
             this.TableName = TableName;
