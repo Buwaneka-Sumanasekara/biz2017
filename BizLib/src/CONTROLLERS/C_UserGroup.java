@@ -5,7 +5,7 @@
  */
 package CONTROLLERS;
 
-import DB_Access.DB;
+import DB_ACCESS.DB;
 import MODELS.MPermissions;
 import MODELS.MUsergroup;
 import java.sql.ResultSet;

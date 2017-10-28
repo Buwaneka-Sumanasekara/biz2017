@@ -8,6 +8,7 @@ package SUBUI;
 import COMMONFUN.CommonFun;
 import COMMONFUN.UperCaseFilter;
 import CONTROLLERS.C_GroupCommon;
+import DB_ACCESS.DB;
 import MAIN.Frm_Main;
 import MODELS.MGroupCommon;
 import Test.Frm_Test;
@@ -433,7 +434,7 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
 
         Connection currentCon = null;
         try {
-            currentCon = DB_Access.DB.getCurrentCon();
+            currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_Test.class.getName()).log(Level.SEVERE, null, ex);
         }

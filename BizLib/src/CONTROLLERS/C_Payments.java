@@ -6,7 +6,7 @@
 
 package CONTROLLERS;
 
-import DB_Access.DB;
+import DB_ACCESS.DB;
 import MODELS.MPaydet;
 import MODELS.MPaymst;
 import java.sql.ResultSet;

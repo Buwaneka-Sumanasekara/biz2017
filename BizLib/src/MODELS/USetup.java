@@ -10,6 +10,7 @@ public class USetup  implements java.io.Serializable {
 
 
      private int id;
+     private int curLoc;
      private String comserial;
      private String comname;
      private String addno;
@@ -102,6 +103,14 @@ public class USetup  implements java.io.Serializable {
 
     public void setBatchenable(int batchenable) {
         this.batchenable = batchenable;
+    }
+
+    public int getCurLoc() {
+        return curLoc;
+    }
+
+    public void setCurLoc(int curLoc) {
+        this.curLoc = curLoc;
     }
 
 

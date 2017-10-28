@@ -6,7 +6,7 @@
 
 package CONTROLLERS;
 
-import DB_Access.DB;
+import DB_ACCESS.DB;
 import MODELS.UTransactions;
 import QUERYBUILDER.QueryGen;
 import java.sql.ResultSet;
@@ -22,8 +22,10 @@ public class C_TransactionSetup {
         qg=new QueryGen();
     }
     
+   
     public UTransactions getTransactionConfig(String TrnSetupNo) throws Exception{
-        String q="SELECT * FROM U_TRANSACTIONS WHERE TRNNO='"+TrnSetupNo+"' AND ACTIVE=1";
+        String q="SELECT * FROM U_TRANSACTIONS WHERE TRNNO='"+TrnSetupNo+"' AND ACTIVE=1  ";
+        System.out.println(q);
         UTransactions m=null;
         ResultSet rs = DB.Search(q);
         if (rs.next()) {            
@@ -51,6 +53,8 @@ public class C_TransactionSetup {
             m.setDestloc(rs.getByte("DESTLOC"));
             m.setPayments(rs.getByte("PAYMENTS"));
             m.setReportpath(rs.getString("REPORT_PATH"));
+             m.setIsPosTran(rs.getByte("IS_POSTRN"));
+            m.setDisplayunit(rs.getByte("DISPLAY_UNIT"));
             
         }else{
             throw new Exception("Can`t Find Specific Trnasaction on setup table");

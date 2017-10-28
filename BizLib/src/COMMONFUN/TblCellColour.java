@@ -32,6 +32,21 @@ int ColourRow=-1;
         }else{
             c.setBackground(Color.WHITE);
         }
+          int gv = (int)table.getModel().getValueAt(row, 12);
+        if(gv==1){
+            c.setBackground(Color.GREEN);
+              c.setForeground(Color.BLACK); 
+        }else{
+            if(isSelected){
+              c.setBackground(Color.LIGHT_GRAY);
+              c.setForeground(Color.BLACK);
+            }else{
+              c.setBackground(Color.WHITE);
+              c.setForeground(Color.BLACK);
+                
+            }
+        }
+        
         return c;
 
     }

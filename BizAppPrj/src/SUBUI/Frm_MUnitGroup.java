@@ -6,7 +6,7 @@
 package SUBUI;
 
 import CONTROLLERS.C_Units;
-
+import DB_ACCESS.DB;
 import MAIN.Frm_Main;
 import MODELS.MUnitGroup;
 import MODELS.MUnitGroupAssign;
@@ -530,7 +530,7 @@ EditMode();
         
         Connection currentCon = null;
         try {
-            currentCon = DB_Access.DB.getCurrentCon();
+            currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_Test.class.getName()).log(Level.SEVERE, null, ex);
         }        

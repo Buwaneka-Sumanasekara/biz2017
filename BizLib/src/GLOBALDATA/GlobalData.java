@@ -17,6 +17,8 @@ import java.util.Map;
 public class GlobalData {
 
     public static final String APPNAME = "Biz";
+ 
+    
     public static Map<String, Object> Settings = SETTINGS.Settings.readFile();
     public static Map<String,String> SpecialPer = null;
     public static USetup Setup = C_Setup.getSetupRec();

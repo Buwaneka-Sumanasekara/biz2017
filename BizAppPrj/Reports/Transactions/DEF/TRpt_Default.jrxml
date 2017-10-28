@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TRpt_Invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="229b3f73-f52d-4084-bbef-b137b9918283">
 	<property name="ireport.zoom" value="1.9487171000000019"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="5"/>
+	<property name="ireport.y" value="423"/>
 	<parameter name="PARA_TITLE" class="java.lang.String"/>
 	<parameter name="PARA_COMNAME" class="java.lang.String"/>
 	<parameter name="PARA_ADD1" class="java.lang.String"/>
@@ -15,48 +15,104 @@
 	</parameter>
 	<parameter name="PARA_TRNTYP" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Buwanaka\\Documents\\biz2017\\BizAppPrj\\Reports\\Transactions\\DEF\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT     VIEW_TRNFULL.ID, VIEW_TRNFULL.TRNTYPE, VIEW_TRNFULL.CRDATE, VIEW_TRNFULL.REFNO, VIEW_TRNFULL.REFNO2, VIEW_TRNFULL.GRAMOUNT,
                       VIEW_TRNFULL.NETDIS, VIEW_TRNFULL.NETAMOUNT, VIEW_TRNFULL.CUSNAME, VIEW_TRNFULL.LOCNAME_DES, VIEW_TRNFULL.SYMBLE,
                       VIEW_TRNFULL.LINEID, VIEW_TRNFULL.SPRICE, VIEW_TRNFULL.CPRICE, VIEW_TRNFULL.QTY, VIEW_TRNFULL.LDIS, VIEW_TRNFULL.LDISPER,
                       VIEW_TRNFULL.AMOUNT, VIEW_TRNFULL.PRONAME, VIEW_TRNFULL.BATCH_NO, VIEW_TRNFULL.SUP_NAME, VIEW_TRNFULL.CR_USER,
-                      VIEW_TRNFULL.EFT_DATE, VIEW_TRNFULL.REF_TRNNO, VIEW_TRNFULL.CHANGE, VIEW_TRNFULL.TRNSTATE, VIEW_TRNFULL.LOCNAME_SOURCE,
+                      VIEW_TRNFULL.EFT_DATE, VIEW_TRNFULL.REF_TRNNO, VIEW_TRNFULL.CHANGE_VAL, VIEW_TRNFULL.TRNSTATE, VIEW_TRNFULL.LOCNAME_SOURCE,
                       VIEW_TRNFULL.PROID
 FROM
                       VIEW_TRNFULL
 
 WHERE VIEW_TRNFULL.ID=$P{PARA_TRNNO} AND VIEW_TRNFULL.TRNTYPE=$P{PARA_TRNTYP}]]>
 	</queryString>
-	<field name="ID" class="java.lang.String"/>
-	<field name="TRNTYPE" class="java.lang.String"/>
-	<field name="CRDATE" class="java.sql.Timestamp"/>
-	<field name="REFNO" class="java.lang.String"/>
-	<field name="REFNO2" class="java.lang.String"/>
-	<field name="GRAMOUNT" class="java.lang.Double"/>
-	<field name="NETDIS" class="java.lang.Double"/>
-	<field name="NETAMOUNT" class="java.lang.Double"/>
-	<field name="CUSNAME" class="java.lang.String"/>
-	<field name="LOCNAME_DES" class="java.lang.String"/>
-	<field name="SYMBLE" class="java.lang.String"/>
-	<field name="LINEID" class="java.lang.Integer"/>
-	<field name="SPRICE" class="java.lang.Double"/>
-	<field name="CPRICE" class="java.lang.Double"/>
-	<field name="QTY" class="java.lang.Double"/>
-	<field name="LDIS" class="java.lang.Double"/>
-	<field name="LDISPER" class="java.lang.Double"/>
-	<field name="AMOUNT" class="java.lang.Double"/>
-	<field name="PRONAME" class="java.lang.String"/>
-	<field name="BATCH_NO" class="java.lang.String"/>
-	<field name="SUP_NAME" class="java.lang.String"/>
-	<field name="CR_USER" class="java.lang.String"/>
-	<field name="EFT_DATE" class="java.sql.Timestamp"/>
-	<field name="REF_TRNNO" class="java.lang.String"/>
-	<field name="CHANGE" class="java.lang.Double"/>
-	<field name="TRNSTATE" class="java.lang.String"/>
-	<field name="LOCNAME_SOURCE" class="java.lang.String"/>
-	<field name="PROID" class="java.lang.String"/>
+	<field name="ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TRNTYPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CRDATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REFNO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REFNO2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GRAMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NETDIS" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NETAMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CUSNAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOCNAME_DES" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SYMBLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LINEID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SPRICE" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CPRICE" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="QTY" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LDIS" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LDISPER" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRONAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BATCH_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SUP_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CR_USER" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EFT_DATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REF_TRNNO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CHANGE_VAL" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TRNSTATE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOCNAME_SOURCE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PROID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -395,7 +451,7 @@ WHERE VIEW_TRNFULL.ID=$P{PARA_TRNNO} AND VIEW_TRNFULL.TRNTYPE=$P{PARA_TRNTYP}]]>
 					<subreportParameterExpression><![CDATA[$F{TRNTYPE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="PARA_CHANGE">
-					<subreportParameterExpression><![CDATA[$F{CHANGE}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$F{CHANGE_VAL}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="PARA_TRNNO">
 					<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>

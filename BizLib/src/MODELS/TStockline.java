@@ -21,7 +21,7 @@ public class TStockline implements java.io.Serializable {
     private String UnitGroupId;
     private String ProId;
     private String Batch;
-    
+    private int IsGV;
     
     
     
@@ -135,6 +135,14 @@ public class TStockline implements java.io.Serializable {
 
     public void setUTransactions(UTransactions UTransactions) {
         this.UTransactions = UTransactions;
+    }
+
+    public int getIsGV() {
+        return IsGV;
+    }
+
+    public void setIsGV(int IsGV) {
+        this.IsGV = IsGV;
     }
 
 }

@@ -6,11 +6,11 @@
 package SUBUI;
 
 import CONTROLLERS.C_Units;
-import VALIDATIONS.MyValidator;
+import DB_ACCESS.DB;
 import MAIN.Frm_Main;
 import MODELS.MUnits;
-
 import UI.Frm_Table;
+import VALIDATIONS.MyValidator;
 import WINMNG.MyWindowBasicControllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -489,7 +489,7 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
 
         Connection currentCon = null;
         try {
-            currentCon = DB_Access.DB.getCurrentCon();
+            currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_MUnits.class.getName()).log(Level.SEVERE, null, ex);
         }

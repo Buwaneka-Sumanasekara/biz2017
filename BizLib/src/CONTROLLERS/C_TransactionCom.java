@@ -6,8 +6,9 @@
 package CONTROLLERS;
 
 import COMMONFUN.CommonFun;
-import DB_Access.DB;
+import DB_ACCESS.DB;
 import MODELS.MCustomer;
+import MODELS.MGiftVoucher;
 import MODELS.MLocation;
 import MODELS.MProducts;
 import MODELS.MSupplier;
@@ -41,6 +42,7 @@ public class C_TransactionCom {
     C_Suppliers CSupplier = null;
     C_Customers CCustomer = null;
     C_Locations CLoc = null;
+    C_Voucher CVou = null;
 
     public C_TransactionCom() {
         qg = new QueryGen();
@@ -51,6 +53,7 @@ public class C_TransactionCom {
         CSupplier = new C_Suppliers();
         CCustomer = new C_Customers();
         CLoc = new C_Locations();
+        CVou = new C_Voucher();
     }
 
     public String getNxtTrnNo(String TrnTyp) throws Exception {
@@ -71,9 +74,9 @@ public class C_TransactionCom {
             c.setAutoCommit(false);
             String Qhed = "DELETE FROM T_STOCKMST WHERE ID='" + TrnNo + "' AND TRNTYPE='" + TrnTyp + "'  ";
             // System.out.println();
-            DB.Delete(Qhed, c);
+            DB.Delete(Qhed);
             String Qdet = "DELETE FROM T_STOCKLINE WHERE T_STOCKMST_ID='" + TrnNo + "' AND TRNTYP='" + TrnTyp + "' ";
-            DB.Delete(Qdet, c);
+            DB.Delete(Qdet);
             c.commit();
 
         } catch (Exception e) {
@@ -122,7 +125,7 @@ public class C_TransactionCom {
 
             sthed.setEftDate(rs.getDate("EFT_DATE"));
             sthed.setRefTrnNo(rs.getString("REF_TRNNO"));
-            sthed.setChange(rs.getDouble("CHANGE"));
+            sthed.setChange(rs.getDouble("CHANGE_AMT"));
 
         }
         return sthed;
@@ -149,6 +152,7 @@ public class C_TransactionCom {
             st.setUnitGroupId(rs.getString("M_UNITGROUPS_ID"));
             st.setProname(rs.getString("PRONAME"));
             st.setBatch((rs.getString("BATCH_NO") == null ? "" : rs.getString("BATCH_NO")));
+            st.setIsGV(rs.getByte("ISGV"));
             st.setUTransactions(TrnTyp);
             ar.add(st);
         }
@@ -182,7 +186,7 @@ public class C_TransactionCom {
                 hed.setId(getNxtTrnNo(hed.getUTransactions().getTrntype()));
             }
 
-            c = DB_Access.DB.getCurrentCon();
+            c = DB.getCurrentCon();
             c.setAutoCommit(false);
 
             Map<String, String> hedMap = new TreeMap<>();
@@ -208,9 +212,9 @@ public class C_TransactionCom {
             hedMap.put("M_LOCATION_DEST", "'" + (hed.getMLocationByMLocationDest() != null ? hed.getMLocationByMLocationDest().getId() : 0) + "'");
             hedMap.put("EFT_DATE", "'" + sdf.format(hed.getEftDate() != null ? hed.getEftDate() : new Date()) + "'");
             hedMap.put("REF_TRNNO", "'" + hed.getRefTrnNo() + "'");
-            hedMap.put("CHANGE", "" + hed.getChange());
+            hedMap.put("CHANGE_AMT", "" + hed.getChange() + "");
             String qHed = qg.SaveRecord("T_STOCKMST", hedMap);
-            DB.Save(qHed, c);
+            DB.Save(qHed);
 
             for (TStockline d : det) {
                 Map<String, String> detMap = new TreeMap<>();
@@ -224,47 +228,66 @@ public class C_TransactionCom {
                 detMap.put("LDIS", "'" + d.getLdis() + "'");
                 detMap.put("LDISPER", "'" + d.getLdisper() + "'");
                 detMap.put("AMOUNT", "'" + d.getAmount() + "'");
-                detMap.put("M_UNITS_ID", "'" + d.getUnitId() + "'");
-                detMap.put("M_UNITGROUPS_ID", "'" + d.getUnitGroupId() + "'");
+                if (d.getIsGV() == 0) {
+                    detMap.put("M_UNITS_ID", "'" + d.getUnitId() + "'");
+                    detMap.put("M_UNITGROUPS_ID", "'" + d.getUnitGroupId() + "'");
+                } else {
+                    detMap.put("M_UNITS_ID", "'U0001'");
+                    detMap.put("M_UNITGROUPS_ID", "'UG001'");
+
+                    if (hedc.getTrnstate().equals("P")) {
+                        MGiftVoucher mGV = new MGiftVoucher();
+                        mGV.setGVNo(d.getProId());
+                        mGV.setIsPurchased((byte) 1);
+                        mGV.setPurCrBy(hed.getMUserByMUserMd().getId());
+                        mGV.setPurDate(hed.getMddate());
+                        mGV.setPurRefNo(hed.getId());
+                        mGV.setPurLoc(hed.getMLocationByMLocationSource().getId());
+                        String UpdateVoucherStateQuery = CVou.UpdateVoucherStateQuery(mGV);
+                        DB.Update(UpdateVoucherStateQuery);
+                    }
+                }
                 detMap.put("PRONAME", "'" + d.getProname() + "'");
                 detMap.put("BATCH_NO", "'" + d.getBatch() + "'");
+                detMap.put("ISGV", "'" + d.getIsGV() + "'");
 
                 String qDet = qg.SaveRecord("T_STOCKLINE", detMap);
-                DB.Save(qDet, c);
+                DB.Save(qDet);
+                if (d.getIsGV() == 0) {
+                    double unitConversion = C_Pro.getUnitConversion(d.getProId(), d.getUnitId());
 
-                double unitConversion = C_Pro.getUnitConversion(d.getProId(), d.getUnitId());
+                    int StockEntryTyp = hed.getUTransactions().getStockentyp();
+                    if (hedc.getTrnstate().equals("C")) {
+                        StockEntryTyp = hed.getUTransactions().getStockentyp() * (-1);
+                    }
 
-                int StockEntryTyp = hed.getUTransactions().getStockentyp();
-                if (hedc.getTrnstate().equals("C")) {
-                    StockEntryTyp = hed.getUTransactions().getStockentyp() * (-1);
-                }
+                    double ConvertedQty = (d.getQty() / unitConversion) * StockEntryTyp;
+                    if (!hedc.getTrnstate().equals("H")) {
+                        if (hed.getUTransactions().getBatchcreate() == 1) {
+                            MProducts product = C_Pro.getProduct(d.getProId());
 
-                double ConvertedQty = (d.getQty() / unitConversion) * StockEntryTyp;
-                if (!hedc.getTrnstate().equals("H")) {
-                    if (hed.getUTransactions().getBatchcreate() == 1) {
-                        MProducts product = C_Pro.getProduct(d.getProId());
-
-                        boolean CanBatchCreate = ((product.getCprice().equals(d.getCprice()) == false) || (product.getSprice().equals(d.getSprice()) == false)) ? true : false;
-                        if (CanBatchCreate) {
-                            String CreateBatch = C_Pro.CreateBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), Boolean.TRUE, C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
-                            UpdateTransactionBatch(hed.getId(), d.getProId(), CreateBatch);
+                            boolean CanBatchCreate = ((product.getCprice().equals(d.getCprice()) == false) || (product.getSprice().equals(d.getSprice()) == false)) ? true : false;
+                            if (CanBatchCreate) {
+                                String CreateBatch = C_Pro.CreateBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), Boolean.TRUE, C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
+                                UpdateTransactionBatch(hed.getId(), d.getProId(), CreateBatch);
+                            } else {
+                                String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
+                                C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
+                                UpdateTransactionBatch(hed.getId(), product.getId(), LastBatch);
+                            }
                         } else {
-                            String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
-                            C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
-                            UpdateTransactionBatch(hed.getId(), product.getId(), LastBatch);
+                            MProducts product = C_Pro.getProduct(d.getProId());
+                            C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), d.getBatch(), C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
+                            UpdateTransactionBatch(hed.getId(), product.getId(), d.getBatch());
+
                         }
                     } else {
-                        MProducts product = C_Pro.getProduct(d.getProId());
-                        C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), d.getBatch(), C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
-                        UpdateTransactionBatch(hed.getId(), product.getId(), d.getBatch());
+                        if (hed.getUTransactions().getBatchcreate() == 0) {
 
-                    }
-                } else {
-                    if (hed.getUTransactions().getBatchcreate() == 0) {
-
-                        String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
-                        C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(d.getUnitGroupId()), ConvertedQty);
-                        UpdateTransactionBatch(hed.getId(), d.getProId(), LastBatch);
+                            String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
+                            C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(d.getUnitGroupId()), ConvertedQty);
+                            UpdateTransactionBatch(hed.getId(), d.getProId(), LastBatch);
+                        }
                     }
                 }
             }
@@ -277,13 +300,13 @@ public class C_TransactionCom {
                     payMap.put("REFNO", "'" + pay.getRefno() + "'");
                     payMap.put("FRMAMOUNT", "'" + pay.getFrmamount() + "'");
                     payMap.put("AMOUNT", "'" + pay.getAmount() + "'");
-                    payMap.put("CHANGE", "'" + pay.getChange() + "'");
+                    payMap.put("CHANGE_AMT", "'" + pay.getChange() + "'");
                     payMap.put("PAYDETID", "'" + pay.getMPaydetId() + "'");
                     payMap.put("PAYHEDID", "'" + pay.getMPayHedId() + "'");
                     payMap.put("EFT_DATE", "'" + (pay.getMPayHedId().equals("CHQ") ? "1900-01-01" : pay.getEfectiveDate()) + "'");
                     payMap.put("TRNTYP", "'" + pay.getUTransactions().getTrntype() + "'");
                     payMap.put("UTILIZED", "'" + pay.getUtilized() + "'");
-                    
+
                     String q = qg.SaveRecord("T_STOCKPAYMENTS", payMap);
                     DB.Save(q);
 
@@ -306,6 +329,13 @@ public class C_TransactionCom {
 
                         String qq = qg.SaveRecord("T_CHQPAYMENTS", payChq);
                         DB.Save(qq);
+                    } else if (pay.getMPayHedId().equals("VOU")) {
+                        double voucherRemainAmt = CVou.getVoucherRemainAmt(pay.getRefno());
+                        if (voucherRemainAmt < pay.getAmount()) {
+                            throw new Exception("Exceed voucher remian amount");
+                        }else{
+                            DB.Save(CVou.saveRedeemRecord(pay.getRefno(),hed.getMLocationByMLocationSource().getId(),pay.getAmount(), hed.getMUserByMUserMd().getId(), hed.getId()));
+                        }
                     }
                 }
             }

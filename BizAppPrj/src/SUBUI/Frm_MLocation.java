@@ -6,6 +6,7 @@
 package SUBUI;
 
 import CONTROLLERS.C_Locations;
+import DB_ACCESS.DB;
 import MAIN.Frm_Main;
 import MODELS.MLocation;
 import Test.Frm_Test;
@@ -16,7 +17,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
-
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -469,7 +469,7 @@ public class Frm_MLocation extends javax.swing.JInternalFrame implements MyWindo
         String SQLWhere = " VISIBLE=1 AND ";
         Connection currentCon = null;
         try {
-            currentCon = DB_Access.DB.getCurrentCon();
+            currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_Test.class.getName()).log(Level.SEVERE, null, ex);
         }

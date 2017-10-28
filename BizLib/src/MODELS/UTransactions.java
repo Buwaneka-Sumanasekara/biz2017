@@ -34,6 +34,8 @@ public class UTransactions  implements java.io.Serializable {
      private Byte destloc;
      private Byte payments;
      private String Reportpath;
+     private Byte isPosTran;
+     private Byte displayunit;
      private Set TStockmsts = new HashSet(0);
 
     public UTransactions() {
@@ -43,31 +45,7 @@ public class UTransactions  implements java.io.Serializable {
     public UTransactions(String trnno) {
         this.trnno = trnno;
     }
-    public UTransactions(String trnno, String trntype, String reftrntype, String refno, String refno2, String trndesc, Byte active, Integer stockentyp, String defprice, Byte linedis, Byte linedisper, Byte customer, Byte supplier, Byte cprice, Byte sprice, Byte batchcreate, Byte datechooser, Byte futuredate, Byte chgdefprice, Byte sourceloc, Byte destloc, Byte payments, Set TStockmsts) {
-       this.trnno = trnno;
-       this.trntype = trntype;
-       this.reftrntype = reftrntype;
-       this.refno = refno;
-       this.refno2 = refno2;
-       this.trndesc = trndesc;
-       this.active = active;
-       this.stockentyp = stockentyp;
-       this.defprice = defprice;
-       this.linedis = linedis;
-       this.linedisper = linedisper;
-       this.customer = customer;
-       this.supplier = supplier;
-       this.cprice = cprice;
-       this.sprice = sprice;
-       this.batchcreate = batchcreate;
-       this.datechooser = datechooser;
-       this.futuredate = futuredate;
-       this.chgdefprice = chgdefprice;
-       this.sourceloc = sourceloc;
-       this.destloc = destloc;
-       this.payments = payments;
-       this.TStockmsts = TStockmsts;
-    }
+  
    
     public String getTrnno() {
         return this.trnno;
@@ -237,6 +215,22 @@ public class UTransactions  implements java.io.Serializable {
 
     public void setReportpath(String Reportpath) {
         this.Reportpath = Reportpath;
+    }
+
+    public Byte getDisplayunit() {
+        return displayunit;
+    }
+
+    public void setDisplayunit(Byte displayunit) {
+        this.displayunit = displayunit;
+    }
+
+    public Byte getIsPosTran() {
+        return isPosTran;
+    }
+
+    public void setIsPosTran(Byte isPosTran) {
+        this.isPosTran = isPosTran;
     }
 
 

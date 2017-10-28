@@ -5,7 +5,7 @@
  */
 package CONTROLLERS;
 
-import DB_Access.DB;
+import DB_ACCESS.DB;
 import MODELS.MGroupCommon;
 import QUERYBUILDER.QueryGen;
 import java.sql.ResultSet;
@@ -64,22 +64,22 @@ public class C_GroupCommon {
     }
 
     public int saveGroup(String tbl, MGroupCommon g) throws Exception {
-        String q = "INSERT INTO " + tbl + "(ID,NAME,ACTIVE) VALUES('" + g.getId() + "','" + g.getName() + "'," + g.getActive() + ") ";
+        String q = "INSERT INTO " + tbl + "(ID,NAME,ACTIVE,ISHIDDEN) VALUES('" + g.getId() + "','" + g.getName() + "'," + g.getActive() + ",0) ";
 
-        return DB_Access.DB.Save(q);
+        return DB.Save(q);
     }
 
     public int updateGroup(String tbl, MGroupCommon g) throws Exception {
         String q = "UPDATE " + tbl + " SET NAME='" + g.getName() + "',ACTIVE=" + g.getActive() + " WHERE ID='" + g.getId() + "' ";
 
-        return DB_Access.DB.Update(q);
+        return DB.Update(q);
     }
 
     public Map<Integer, String> getGroupDisplayNames() {
         Map<Integer, String> m = new TreeMap<>();
         try {
             String q = "SELECT * from m_permissions WHERE TYPE='GROUP'";
-            ResultSet rs = DB_Access.DB.Search(q);
+            ResultSet rs = DB.Search(q);
 
             int i = 1;
             while (rs.next()) {
@@ -96,7 +96,7 @@ public class C_GroupCommon {
 
     public MGroupCommon IsExists(String tbl, String ID) throws Exception {
         String q = "SELECT * FROM " + tbl + " WHERE ID='" + ID + "'";
-        ResultSet rs = DB_Access.DB.Search(q);
+        ResultSet rs = DB.Search(q);
         MGroupCommon g = null;
         if (rs.next()) {
             g = new MGroupCommon();
@@ -115,7 +115,7 @@ public class C_GroupCommon {
         Vector<MGroupCommon> v = new Vector<>();
         try {
             String q = "SELECT * FROM m_group" + Group + " WHERE ACTIVE=1 AND ISHIDDEN=0 ORDER BY NAME ";
-            ResultSet rs = DB_Access.DB.Search(q);
+            ResultSet rs =DB.Search(q);
             if (skipDefault == false) {
                 v.add(new MGroupCommon(getDefaultGroup(Group), "NOT APPLICABLE", (byte) 1));
             }

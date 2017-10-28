@@ -5,7 +5,7 @@
  */
 package COMMONFUN;
 
-import DB_Access.DB;
+import DB_ACCESS.DB;
 import GLOBALDATA.GlobalData;
 import MODELS.USetup;
 import MODELS.UTransactions;

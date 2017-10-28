@@ -6,7 +6,7 @@
 package COMMONFUN;
 
 import CONTROLLERS.C_GroupCommon;
-import DB_Access.DB;
+import DB_ACCESS.DB;
 import GLOBALDATA.GlobalData;
 import MODELS.MGroupCommon;
 import java.sql.ResultSet;
@@ -31,7 +31,7 @@ public class CommonFun {
     
     public String generateNextNo(int length, String Prefix, String tbl, String tblIDCol,String WhereClause) throws Exception {
         String q = "SELECT Max(" + tblIDCol + ") as ID FROM " + tbl+" "+WhereClause;
-        ResultSet rs = DB_Access.DB.Search(q);
+        ResultSet rs = DB.Search(q);
         String ID = "";
         if (rs.next()) {
             String id = rs.getString("ID");
@@ -47,7 +47,7 @@ public class CommonFun {
 
      public String generateLastNo(int length, String Prefix, String tbl, String tblIDCol,String WhereClause) throws Exception {
         String q = "SELECT Max(" + tblIDCol + ") as ID FROM " + tbl+" "+WhereClause;
-        ResultSet rs = DB_Access.DB.Search(q);
+        ResultSet rs = DB.Search(q);
         String ID = "";
         if (rs.next()) {
             String id = rs.getString("ID");

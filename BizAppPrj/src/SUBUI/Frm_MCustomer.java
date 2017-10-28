@@ -6,7 +6,9 @@
 package SUBUI;
 
 
+import COMMONFUN.CommonFun;
 import CONTROLLERS.C_Customers;
+import DB_ACCESS.DB;
 import MAIN.Frm_Main;
 import MODELS.MCustomer;
 import UI.Frm_Table;
@@ -24,9 +26,8 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
-import javax.swing.KeyStroke;
 import javax.swing.JOptionPane;
-import COMMONFUN.CommonFun;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -284,7 +285,7 @@ public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindo
         String SQLWhere = " ACTIVE=1 AND ";
         Connection currentCon = null;
         try {
-            currentCon = DB_Access.DB.getCurrentCon();
+            currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_MCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -593,7 +594,7 @@ fv.NumbersOnly(txt_CusCode, evt);
         String SQLWhere = "";
         Connection currentCon = null;
         try {
-            currentCon = DB_Access.DB.getCurrentCon();
+            currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_MSupplier.class.getName()).log(Level.SEVERE, null, ex);
         }

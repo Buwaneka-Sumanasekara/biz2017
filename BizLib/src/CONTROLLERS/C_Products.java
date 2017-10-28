@@ -6,7 +6,7 @@
 package CONTROLLERS;
 
 import COMMONFUN.CommonFun;
-import DB_Access.DB;
+import DB_ACCESS.DB;
 import MODELS.MLocation;
 import MODELS.MProductPropertise;
 import MODELS.MProducts;
@@ -63,7 +63,7 @@ public class C_Products {
             Mstk.put("BATCHNO", "'" + Batch + "'");
             Mstk.put("COSTP", "" + p.getCprice());
             Mstk.put("SELLP", "" + p.getSprice());
-            Mstk.put("CRDATE", "GETDATE()");
+            Mstk.put("CRDATE", "NOW()");
             Mstk.put("M_UNITS_ID", "'" + BaseUnitId + "'");
             Mstk.put("SIH", "" + Qty + "");
             Mstk.put("MARKUP", "" + p.getMarkup());
@@ -95,7 +95,7 @@ public class C_Products {
         Mstk.put("BATCHNO", "'" + Batch + "'");
         Mstk.put("COSTP", "" + Cost);
         Mstk.put("SELLP", "" + Sell);
-        Mstk.put("CRDATE", "GETDATE()");
+        Mstk.put("CRDATE", "NOW()");
         Mstk.put("M_UNITS_ID", "'" + BaseUnitId + "'");
         Mstk.put("SIH", "" + Qty + "");
         Mstk.put("ACTIVE", "" + 1 + "");
@@ -121,7 +121,7 @@ public class C_Products {
         Mstk.put("BATCHNO", "'" + Batch + "'");
         Mstk.put("COSTP", "" + Cost);
         Mstk.put("SELLP", "" + Sell);
-        Mstk.put("CRDATE", "GETDATE()");
+        Mstk.put("CRDATE", "NOW()");
         Mstk.put("M_UNITS_ID", "'" + BaseUnitId + "'");
         Mstk.put("SIH", "" + Qty + "");
         
@@ -331,7 +331,7 @@ public class C_Products {
         mpro.put("BATCH", p.getBatch().toString());
         mpro.put("ACTIVE", p.getActive().toString());
         mpro.put("M_UNITGROUPS_ID", "'" + p.getUnitGroupId() + "'");
-        mpro.put("MDDATE", "GETDATE()");
+        mpro.put("MDDATE", "NOW()");
         mpro.put("MDUSER", "'" + p.getMUserByMduser() + "'");
         mpro.put("M_GROUP1_ID", "'" + p.getMGroup1() + "'");
         mpro.put("M_GROUP2_ID", "'" + p.getMGroup2() + "'");
@@ -341,7 +341,7 @@ public class C_Products {
         mpro.put("REF1", "'" + fv.replacer(p.getRef1()) + "'");
         mpro.put("REF2", "'" + fv.replacer(p.getRef2()) + "'");
 
-        String GenIdProId = CommFun.generateNextNo(6, "P", "m_products", "ID");
+        String GenIdProId = CommFun.generateNextNo(6, "", "m_products", "ID");
         String ProId = GenIdProId;
 
         if (!p.getId().equals("")) {
@@ -357,7 +357,7 @@ public class C_Products {
         try {
             DB.getCurrentCon().setAutoCommit(false);
             if (GenIdProId.equals(ProId)) {
-                mpro.put("CRDATE", "GETDATE()");
+                mpro.put("CRDATE", "NOW()");
                 mpro.put("CRUSER", "'" + p.getMUserByMduser() + "'");
                 String Q_ProSave = qg.SaveRecord("m_products", mpro);
                 DB.Save(Q_ProSave);

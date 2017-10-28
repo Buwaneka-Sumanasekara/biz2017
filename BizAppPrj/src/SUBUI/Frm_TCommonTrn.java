@@ -15,6 +15,7 @@ import CONTROLLERS.C_Suppliers;
 import CONTROLLERS.C_TransactionCom;
 import CONTROLLERS.C_TransactionSetup;
 import CONTROLLERS.C_Units;
+import DB_ACCESS.DB;
 import FOCUS_TRAVERSAL.MyFocusTraversalPolicy;
 import MAIN.Frm_Main;
 import MODELS.MCustomer;
@@ -595,11 +596,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
             },
             new String [] {
-                "Code", "Description", "Cost", "Sell Price", "Qty", "UnitSym", "Unit", "Dis%", "Dis Amt", "Amount", "Batch", "ColorId"
+                "Code", "Description", "Cost", "Sell Price", "Qty", "UnitSym", "Unit", "Dis%", "Dis Amt", "Amount", "Batch", "ColorId", "IsGV"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -639,6 +640,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(10).setPreferredWidth(0);
             tblTrn.getColumnModel().getColumn(11).setResizable(false);
             tblTrn.getColumnModel().getColumn(11).setPreferredWidth(0);
+            tblTrn.getColumnModel().getColumn(12).setResizable(false);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 840, 280));
@@ -1297,7 +1299,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             String SQLWhere = " TRNSTATE='H' AND TRNTYPE='" + TrnSetup.getTrntype() + "' AND ";
             Connection currentCon = null;
             try {
-                currentCon = DB_Access.DB.getCurrentCon();
+                currentCon = DB.getCurrentCon();
             } catch (Exception ex) {
                 Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1325,7 +1327,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         String SQLWhere = "";
         Connection currentCon = null;
         try {
-            currentCon = DB_Access.DB.getCurrentCon();
+            currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1450,6 +1452,13 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         tblTrn.getColumnModel().getColumn(ColourColindex).setMaxWidth(0);
         tblTrn.getColumnModel().getColumn(ColourColindex).setWidth(0);
         
+        
+         int GVColindex = 12;
+        tblTrn.getColumnModel().getColumn(GVColindex).setMinWidth(0);
+        tblTrn.getColumnModel().getColumn(GVColindex).setMaxWidth(0);
+        tblTrn.getColumnModel().getColumn(GVColindex).setWidth(0);
+        
+        
         if (TrnSetup.getCprice() == 0) {
             //tblTrn.removeColumn(tblTrn.getColumnModel().getColumn(2)); 
             int colindex = 2;
@@ -1474,6 +1483,14 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         if (TrnSetup.getLinedis() == 0) {
             // tblTrn.removeColumn(tblTrn.getColumnModel().getColumn(6)); 
             int colindex = 8;
+            tblTrn.getColumnModel().getColumn(colindex).setMinWidth(0);
+            tblTrn.getColumnModel().getColumn(colindex).setMaxWidth(0);
+            tblTrn.getColumnModel().getColumn(colindex).setWidth(0);
+        }
+        
+         if (TrnSetup.getDisplayunit() == 0) {
+            // tblTrn.removeColumn(tblTrn.getColumnModel().getColumn(6)); 
+            int colindex = 5;
             tblTrn.getColumnModel().getColumn(colindex).setMinWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setMaxWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setWidth(0);
@@ -1569,7 +1586,6 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 v.add(LDisAmt);//8
                 v.add(FinalLineAmount);//9
                 v.add(Batch);//10
-
                 int Colour = 0;
                 if (TrnSetup.getBatchcreate() == 1) {
                     boolean CanBatchCreate = ((product.getCprice().equals(CPrice) == false) || (product.getSprice().equals(SPrice) == false)) ? true : false;
@@ -1580,6 +1596,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 }
                 
                 v.add(Colour);//11
+                v.add(0);//12
+                
                 dtm.addRow(v);
                 
                 clearLine();

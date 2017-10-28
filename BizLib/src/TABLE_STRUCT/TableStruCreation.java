@@ -5,7 +5,7 @@
  */
 package TABLE_STRUCT;
 
-import DB_Access.DB;
+import DB_ACCESS.DB;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -18,9 +18,9 @@ public class TableStruCreation {
     private boolean IsTableExists(String TableName) {
         boolean state = false;
         try {
-            String q = "SELECT TABLE_CATALOG,TABLE_NAME FROM INFORMATION_SCHEMA.TABLES ";
-            q += " WHERE TABLE_CATALOG='BIZDB' AND TABLE_NAME='" + TableName + "' ";
-            // System.out.println(q);
+            String q = "SELECT * FROM INFORMATION_SCHEMA.TABLES ";
+            q += " WHERE table_schema='BIZDB' AND TABLE_NAME='" + TableName + "' ";
+            System.out.println(q);
             ResultSet rs = DB.Search(q);
             if (rs.next()) {
                 state = true;
@@ -36,7 +36,8 @@ public class TableStruCreation {
         boolean state = false;
         try {
             String q = "SELECT TABLE_CATALOG,TABLE_NAME,COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS ";
-            q += " WHERE TABLE_CATALOG='BIZDB' AND TABLE_NAME='" + TableName + "' AND COLUMN_NAME='" + ColumnName + "' ";
+            q += " WHERE table_schema='BIZDB' AND TABLE_NAME='" + TableName + "' AND COLUMN_NAME='" + ColumnName + "' ";
+            System.out.println(q);
             ResultSet rs = DB.Search(q);
             if (rs.next()) {
                 state = true;
@@ -96,7 +97,8 @@ public class TableStruCreation {
 
                     if (PrimaryKeys != null) {
                         if (PrimaryKeys.size() > 0) {
-                            q += " ,CONSTRAINT pk_" + TableName + " PRIMARY KEY (";
+                           // q += " ,CONSTRAINT pk_" + TableName + " PRIMARY KEY (";
+                            q+=" ,PRIMARY KEY (";
                             int j = 0;
                             for (String col : PrimaryKeys) {
 

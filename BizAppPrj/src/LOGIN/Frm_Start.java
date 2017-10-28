@@ -44,123 +44,75 @@ public final class Frm_Start extends javax.swing.JDialog {
         ArrayList<Structure> arStructures = new ArrayList<>();
 
         ArrayList<TblColumn> ar_20161002_t1 = new ArrayList<>();
-        ar_20161002_t1.add(new TblColumn("MARKUP", "float", "NOT NULL DEFAULT(0)"));
+        ar_20161002_t1.add(new TblColumn("MARKUP", "DOUBLE", "NOT NULL DEFAULT 0"));
         Structure str_20161002_t1 = new Structure(20161002, "M_STOCKS", ar_20161002_t1);
         arStructures.add(str_20161002_t1);
 
-        ArrayList<TblColumn> ar_20161002_t2 = new ArrayList<>();
-        ar_20161002_t2.add(new TblColumn("BATCH_ENABLE", "int", "NOT NULL DEFAULT(0)"));
-        Structure str_20161002_t2 = new Structure(20161002, "U_SETUP", ar_20161002_t2);
-        arStructures.add(str_20161002_t2);
+        /*20170226*/
+        ArrayList<TblColumn> ar_20170226_t1 = new ArrayList<>();
+        ar_20170226_t1.add(new TblColumn("IS_POSTRN", "INT", "NOT NULL DEFAULT 0"));
+        ar_20170226_t1.add(new TblColumn("DISPLAY_UNIT", "INT", "NOT NULL DEFAULT 1"));
+        Structure str_20170226_t1 = new Structure(20170226, "u_transactions", ar_20170226_t1);
+        arStructures.add(str_20170226_t1);
 
-        ArrayList<TblColumn> ar_20161127_t3 = new ArrayList<>();
-        ar_20161127_t3.add(new TblColumn("EFT_DATE", "DATETIME", ""));
-        ar_20161127_t3.add(new TblColumn("REF_TRNNO", "VARCHAR(100)", ""));
-        ar_20161127_t3.add(new TblColumn("CHANGE", "float", "DEFAULT (0)"));
-        Structure str_20161127_t3 = new Structure(20161127, "T_STOCKMST", ar_20161127_t3);
-        arStructures.add(str_20161127_t3);
+        
+         /*20170305*/
+         ArrayList<TblColumn> ar_20170305_t0 = new ArrayList<>();
+        ar_20170305_t0.add(new TblColumn("GRP_ID", "VARCHAR(50)", "NOT NULL"));
+        ar_20170305_t0.add(new TblColumn("GRP_NAME", "VARCHAR(100)", "NOT NULL"));
+        ar_20170305_t0.add(new TblColumn("GRP_STARTNO", "VARCHAR(100)", "NOT NULL"));
+        ar_20170305_t0.add(new TblColumn("GRP_ENDNO", "VARCHAR(100)", "NOT NULL"));
+        ar_20170305_t0.add(new TblColumn("GRP_QTY", "INT", "NOT NULL DEFAULT 0"));
+        ar_20170305_t0.add(new TblColumn("GRP_ACTIVE", "INT", "NOT NULL DEFAULT 0"));
+        
+        ArrayList<String> ar_20170305_t0PK = new ArrayList<>();
+        ar_20170305_t0PK.add("GRP_ID");
+        
+        Structure str_20170305_t0 = new Structure(20170305, "M_GIFTVOUCHER_GROUP", ar_20170305_t0, ar_20170305_t0PK);
+        arStructures.add(str_20170305_t0);
+        
+        
+        ArrayList<TblColumn> ar_20170305_t1 = new ArrayList<>();
+        ar_20170305_t1.add(new TblColumn("GRP_ID", "VARCHAR(50)", "NOT NULL"));
+        ar_20170305_t1.add(new TblColumn("GV_NO", "VARCHAR(100)", "NOT NULL"));
+        ar_20170305_t1.add(new TblColumn("VALUE", "DOUBLE", "NOT NULL DEFAULT 0"));
+        ar_20170305_t1.add(new TblColumn("CR_LOC", "INT", "NOT NULL"));
+        ar_20170305_t1.add(new TblColumn("CR_BY", "VARCHAR(50)", "NOT NULL"));
+        ar_20170305_t1.add(new TblColumn("CR_DATE", "DATETIME", ""));
+        ar_20170305_t1.add(new TblColumn("PUR_LOC", "INT", ""));
+        ar_20170305_t1.add(new TblColumn("PUR_DATE", "DATETIME", ""));
+        ar_20170305_t1.add(new TblColumn("PUR_CRBY", "VARCHAR(50)", ""));
+        ar_20170305_t1.add(new TblColumn("PUR_REFNO", "VARCHAR(100)", ""));
+        ar_20170305_t1.add(new TblColumn("ACTIVE", "INT", "NOT NULL DEFAULT 0"));
+        ar_20170305_t1.add(new TblColumn("ISPUR", "INT", "NOT NULL DEFAULT 0"));
+        ar_20170305_t1.add(new TblColumn("GV_DES", "VARCHAR(100)", ""));
+        
+        ArrayList<String> ar_20170305_t1PK = new ArrayList<>();
+       // ar_20170305_t1PK.add("GRP_ID");
+        ar_20170305_t1PK.add("GV_NO");
+        
+        Structure str_20170305_t1 = new Structure(20170305, "M_GIFTVOUCHER", ar_20170305_t1, ar_20170305_t1PK);
+        arStructures.add(str_20170305_t1);
 
-        ArrayList<TblColumn> ar_20161127_t4 = new ArrayList<>();
-        ar_20161127_t4.add(new TblColumn("PRONAME", "TEXT", "NOT NULL"));
-        Structure str_20161127_t4 = new Structure(20161127, "T_STOCKLINE", ar_20161127_t4);
-        arStructures.add(str_20161127_t4);
+        ArrayList<TblColumn> ar_20170305_t2 = new ArrayList<>();
+        ar_20170305_t2.add(new TblColumn("NO", "INT", "NOT NULL"));
+        ar_20170305_t2.add(new TblColumn("GV_NO", "VARCHAR(100)", "NOT NULL"));
+        ar_20170305_t2.add(new TblColumn("RED_VAL", "DOUBLE", "NOT NULL DEFAULT 0"));
+        ar_20170305_t2.add(new TblColumn("RED_LOC", "INT", "NOT NULL"));
+        ar_20170305_t2.add(new TblColumn("RED_CRBY", "VARCHAR(50)", "NOT NULL"));
+        ar_20170305_t2.add(new TblColumn("RED_REFNO", "VARCHAR(100)", "NOT NULL"));
+        
+        ArrayList<String> ar_20170305_t2PK = new ArrayList<>();
+        ar_20170305_t2PK.add("NO");
+        ar_20170305_t2PK.add("GV_NO");
+        
+        Structure str_20170305_t2 = new Structure(20170305, "T_GVREDEEM", ar_20170305_t2, ar_20170305_t2PK);
+        arStructures.add(str_20170305_t2);
 
-        ArrayList<TblColumn> ar_20161203_t1 = new ArrayList<>();
-        ar_20161203_t1.add(new TblColumn("BATCH_NO", "VARCHAR(50)", "NULL"));
-        Structure str_20161203_t1 = new Structure(20161203, "T_STOCKLINE", ar_20161203_t1);
-        arStructures.add(str_20161203_t1);
-
-        ArrayList<TblColumn> ar_20161203_t2 = new ArrayList<>();
-        ar_20161203_t2.add(new TblColumn("SEQ_ORDER", "INT", "DEFAULT (0)"));
-        ar_20161203_t2.add(new TblColumn("SHORT_NAME", "VARCHAR(50)", "NULL"));
-        ar_20161203_t2.add(new TblColumn("ACTIVE", "INT", "DEFAULT (1)"));
-        ar_20161203_t2.add(new TblColumn("OVER_PAY", "INT", "DEFAULT (0)"));
-        ar_20161203_t2.add(new TblColumn("DATE_F", "INT", "DEFAULT (0)"));
-
-        Structure str_20161203_t2 = new Structure(20161203, "M_PAYMST", ar_20161203_t2);
-        arStructures.add(str_20161203_t2);
-
-        ArrayList<TblColumn> ar_20161203_t3 = new ArrayList<>();
-        ar_20161203_t3.add(new TblColumn("SHORT_NAME", "VARCHAR(50)", "NULL"));
-        ar_20161203_t3.add(new TblColumn("SEQ_ORDER", "INT", "DEFAULT (0)"));
-        ar_20161203_t3.add(new TblColumn("ACTIVE", "INT", "DEFAULT (1)"));
-        ar_20161203_t3.add(new TblColumn("REF_REQ", "INT", "DEFAULT (0)"));
-        ar_20161203_t3.add(new TblColumn("DATE_F", "INT", "DEFAULT (0)"));
-        Structure str_20161203_t3 = new Structure(20161203, "M_PAYDET", ar_20161203_t3);
-        arStructures.add(str_20161203_t3);
-
-        ArrayList<TblColumn> ar_20161203_t4 = new ArrayList<>();
-        ar_20161203_t4.add(new TblColumn("EFT_DATE", "DATETIME", "NULL"));
-        Structure str_20161203_t4 = new Structure(20161203, "T_STOCKPAYMENTS", ar_20161203_t4);
-        arStructures.add(str_20161203_t4);
-
-        Structure str_20161203_sql1 = new Structure(20161203, "ALTER TABLE T_STOCKMST ADD CONSTRAINT pk_TRNNO PRIMARY KEY (ID,TRNTYPE)");
-        arStructures.add(str_20161203_sql1);
-
-        /*Version 20161210*/
-        ArrayList<TblColumn> ar_20161210_t1 = new ArrayList<>();
-        ar_20161210_t1.add(new TblColumn("TRNTYP", "VARCHAR(5)", "NULL"));
-        Structure str_20161210_t1 = new Structure(20161210, "T_STOCKLINE", ar_20161210_t1);
-        arStructures.add(str_20161210_t1);
-
-        ArrayList<TblColumn> ar_20161210_t2 = new ArrayList<>();
-        ar_20161210_t2.add(new TblColumn("TRNTYP", "VARCHAR(5)", "NULL"));
-        Structure str_20161210_t2 = new Structure(20161210, "T_STOCKPAYMENTS", ar_20161210_t2);
-        arStructures.add(str_20161210_t2);
-
-        ArrayList<TblColumn> ar_20161210_t3 = new ArrayList<>();
-        ar_20161210_t3.add(new TblColumn("ACTIVE", "smallint", "DEFAULT (1)"));
-        Structure str_20161210_t3 = new Structure(20161210, "M_STOCKS", ar_20161210_t3);
-        arStructures.add(str_20161210_t3);
-
-        /*Version 20161211*/
-        ArrayList<TblColumn> ar_20161211_t1 = new ArrayList<>();
-        ar_20161211_t1.add(new TblColumn("REPORT_PATH", "VARCHAR(100)", "NULL"));
-        Structure str_20161211_t1 = new Structure(20161211, "U_TRANSACTIONS", ar_20161211_t1);
-        arStructures.add(str_20161211_t1);
-
-        /*Version 20170204*/
-        ArrayList<TblColumn> ar_20170204_t1 = new ArrayList<>();
-        ar_20170204_t1.add(new TblColumn("LOC_ID", "INT", "NOT NULL"));
-        ar_20170204_t1.add(new TblColumn("TERMINAL_ID", "VARCHAR(10)", "NOT NULL"));
-        ar_20170204_t1.add(new TblColumn("PRODUCTKEY", "VARCHAR(100)", "NULL"));
-        ar_20170204_t1.add(new TblColumn("SERIALKEY", "VARCHAR(100)", "NULL"));
-
-        ArrayList<String> ar_20170204_t1PK = new ArrayList<>();
-        ar_20170204_t1PK.add("LOC_ID");
-        ar_20170204_t1PK.add("TERMINAL_ID");
-
-        Structure str_20170204_t1 = new Structure(20170204, "U_TERMINALS", ar_20170204_t1, ar_20170204_t1PK);
-        arStructures.add(str_20170204_t1);
-
-        /*Version 201702210*/
-        ArrayList<TblColumn> ar_20170210_t1 = new ArrayList<>();
-        ar_20170210_t1.add(new TblColumn("UTILIZED", "INT", "DEFAULT (1)"));
-        Structure str_20170210_t1 = new Structure(20170210, "T_STOCKPAYMENTS", ar_20170210_t1);
-        arStructures.add(str_20170210_t1);
-
-        ArrayList<TblColumn> ar_20170210_t2 = new ArrayList<>();
-        ar_20170210_t2.add(new TblColumn("CHQ_NO", "VARCHAR(50)", "NOT NULL"));
-        ar_20170210_t2.add(new TblColumn("CHQ_DATE", "DATETIME", "NOT NULL"));
-        ar_20170210_t2.add(new TblColumn("STATE", "VARCHAR(5)", "NOT NULL"));//P,U,R
-        ar_20170210_t2.add(new TblColumn("REFNO", "VARCHAR(50)", "NOT NULL"));
-        ar_20170210_t2.add(new TblColumn("REFTRNTYP", "VARCHAR(5)", "NOT NULL"));
-        ar_20170210_t2.add(new TblColumn("CUS_ID", "VARCHAR(50)", ""));
-        ar_20170210_t2.add(new TblColumn("SUP_ID", "VARCHAR(50)", ""));
-        ar_20170210_t2.add(new TblColumn("AMOUNT", "float", "DEFAULT (0)"));
-        ar_20170210_t2.add(new TblColumn("M_USER_CR", "VARCHAR(50)", ""));
-        ar_20170210_t2.add(new TblColumn("CRDATE", "DATETIME", ""));
-        ar_20170210_t2.add(new TblColumn("M_USER_MD", "VARCHAR(50)", ""));
-        ar_20170210_t2.add(new TblColumn("MDDATE", "DATETIME", ""));
-
-        ArrayList<String> ar_20170210_t2PK = new ArrayList<>();
-        ar_20170210_t2PK.add("CHQ_NO");
-        Structure str_20170210_t2 = new Structure(20170210, "T_CHQPAYMENTS", ar_20170210_t2, ar_20170210_t2PK);
-        arStructures.add(str_20170210_t2);
-
-        Structure str_20170210_sql1 = new Structure(20170210, "ALTER TABLE M_PERMISSIONS ALTER COLUMN TYPE VARCHAR(10) ");
-        arStructures.add(str_20170210_sql1);
-
+        
+        
+        
+        
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults);
 
@@ -243,7 +195,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         try {
             //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-           UIManager.setLookAndFeel("com.jtattoo.plaf." + CommonFun.getSystemTheme());
+            UIManager.setLookAndFeel("com.jtattoo.plaf." + CommonFun.getSystemTheme());
         } catch (Exception ex) {
             Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
         }

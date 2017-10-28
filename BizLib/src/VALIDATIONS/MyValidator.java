@@ -5,7 +5,6 @@
  */
 package VALIDATIONS;
 
-import com.sun.javafx.tk.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
 

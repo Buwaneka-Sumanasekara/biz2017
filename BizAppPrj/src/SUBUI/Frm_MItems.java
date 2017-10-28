@@ -11,7 +11,7 @@ import CONTROLLERS.C_Products;
 import CONTROLLERS.C_Propertise;
 import CONTROLLERS.C_Suppliers;
 import CONTROLLERS.C_Units;
-
+import DB_ACCESS.DB;
 import GLOBALDATA.GlobalData;
 import MAIN.Frm_Main;
 import MODELS.MGroupCommon;
@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
@@ -455,6 +456,11 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layoutPropertise.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propertise", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
         layoutPropertise.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cmbProp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPropActionPerformed(evt);
+            }
+        });
         layoutPropertise.add(cmbProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 20));
 
         txtFproVal.addActionListener(new java.awt.event.ActionListener() {
@@ -706,7 +712,9 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_cmbUnitsActionPerformed
 
     private void tblPropertyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPropertyKeyPressed
-        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_DELETE){
+            RemoveProperty();
+        }
     }//GEN-LAST:event_tblPropertyKeyPressed
 
     private void butPropAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butPropAddActionPerformed
@@ -816,6 +824,10 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private void chk_BatchCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_BatchCreateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chk_BatchCreateActionPerformed
+
+    private void cmbPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPropActionPerformed
+changePropTyp();      
+    }//GEN-LAST:event_cmbPropActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1096,7 +1108,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             String SQLWhere = "";
             Connection currentCon = null;
             try {
-                currentCon = DB_Access.DB.getCurrentCon();
+                currentCon = DB.getCurrentCon();
             } catch (Exception ex) {
                 Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1172,6 +1184,22 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please enter valid values!", GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
+        }
+
+    }
+
+    private void RemoveProperty() {
+
+        try {
+            int selectedRow = tblProperty.getSelectedRow();
+            if (selectedRow > -1) {
+                MPropertise p = (MPropertise) tblProperty.getValueAt(selectedRow, 0);
+
+                removePropIfExists(p);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
+
         }
 
     }
@@ -1301,7 +1329,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                         v.add(property);
                         v.add(property.getFormat());
                         v.add(mProductPropertise.getPropertyValue());
-                        
+
                         dtm1.addRow(v);
                     }
 
@@ -1390,5 +1418,29 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         } catch (Exception ex) {
             // Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void changePropTyp() {
+
+        MPropertise selectedItem = (MPropertise) cmbProp.getSelectedItem();
+        if (selectedItem != null) {
+           try {
+               lblFormat.setText("[" + selectedItem.getFormat() + "]");
+               
+               MaskFormatter mfWarranty = new MaskFormatter("##-##-##");
+               txtFproVal.setText("");
+               switch (selectedItem.getDataType()) {
+                   case 5:
+                       
+                       txtFproVal.setFormatterFactory(new DefaultFormatterFactory(mfWarranty));
+                       default:
+                       txtFproVal.setFormatterFactory(new DefaultFormatterFactory());    
+               }
+               
+           } catch (ParseException ex) {
+               Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
+    
     }
 }

@@ -7,6 +7,7 @@ package SUBUI;
 
 import COMMONFUN.CommonFun;
 import CONTROLLERS.C_Suppliers;
+import DB_ACCESS.DB;
 import MAIN.Frm_Main;
 import MODELS.MSupplier;
 import UI.Frm_Table;
@@ -515,7 +516,7 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
         String SQLWhere = "";
         Connection currentCon = null;
         try {
-            currentCon = DB_Access.DB.getCurrentCon();
+            currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_MSupplier.class.getName()).log(Level.SEVERE, null, ex);
         }

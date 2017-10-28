@@ -48,6 +48,10 @@ public class DefaultData {
         ar.add(new MPermissions("M00010", "M00000", "CUS", "Customer", "CUS", (byte) 0, (byte) 1,"A"));
         ar.add(new MPermissions("M00011", "M00000", "GROUPMAP", "Group Map", "GRPM", (byte) 0, (byte) 1,"A"));
         ar.add(new MPermissions("M00012", "M00000", "UGRP", "Unit Group", "UGRP", (byte) 0, (byte) 1,"A"));
+        ar.add(new MPermissions("M00013", "M00000", "GVCRE", "Gift Voucher Creation", "GVCRE", (byte) 0, (byte) 1,"A"));
+        ar.add(new MPermissions("M00014", "M00000", "GVSTA", "Gift Voucher Status", "GVSTA", (byte) 0, (byte) 1,"A"));
+        
+        
         
        //Security
        ar.add(new MPermissions("S00000", "S00000", "SECURITY", "Security", "SECUR", (byte) 1, (byte) 1,"A"));
@@ -89,6 +93,9 @@ public class DefaultData {
         ar.add(new MPermissions("P00019", "P00000", "P19", "Cheque Payment Update State", "GEN_PER", (byte) 0, (byte) 0,"A"));
         ar.add(new MPermissions("P00020", "P00000", "P20", "Cheque Payment Special Update(Re-Assign)", "GEN_PER", (byte) 0, (byte) 0,"A"));
          
+        ar.add(new MPermissions("P00021", "P00000", "P21", "Gift voucher purchase", "GEN_PER", (byte) 0, (byte) 0,"A"));
+        ar.add(new MPermissions("P00022", "P00000", "P22", "Gift voucher redeem", "GEN_PER", (byte) 0, (byte) 0,"A"));
+        
          
 
         CPerm.saveBullkPermissions(ar);

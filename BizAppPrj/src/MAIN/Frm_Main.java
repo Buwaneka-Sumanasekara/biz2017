@@ -11,13 +11,9 @@ import MODELS.MPermissions;
 import MODELS.MUsergroup;
 import WINMNG.MyWindowManager;
 import java.awt.Component;
-import java.beans.PropertyVetoException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -149,19 +145,19 @@ public class Frm_Main extends javax.swing.JFrame {
     }//GEN-LAST:event_TUserMenuValueChanged
 
     public static void main(String args[]) {
-        
-       /* try {
-            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-*/
+
+        /* try {
+         UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+         } catch (ClassNotFoundException ex) {
+         Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (InstantiationException ex) {
+         Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (IllegalAccessException ex) {
+         Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (UnsupportedLookAndFeelException ex) {
+         Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         */
         //frm.setVisible(true);
     }
 
@@ -215,12 +211,15 @@ public class Frm_Main extends javax.swing.JFrame {
             });
 
             for (MPermissions p : menus) {
-              //  System.out.println(p.getId() + "-" + p.getParentid());
+             System.out.println(p.getId() + "-" + p.getParentid());
+              
                 if (p.getId().equals(p.getParentid())) {
                     if (NodesMap.get(p.getId()) == null) {
                         DefaultMutableTreeNode parent = new DefaultMutableTreeNode(p);
                         NodesMap.put(p.getId(), parent);
                         root.add(parent);
+                        
+                       
                     }
                 } else {
                     DefaultMutableTreeNode parent = NodesMap.get(p.getParentid());
@@ -240,64 +239,63 @@ public class Frm_Main extends javax.swing.JFrame {
     }
 
     private void openWindow(MPermissions p) throws Exception {
-       
-            JInternalFrame jf = myw.getRequestWindow(p, this);
-            if (jf != null) {
-                jf.setFocusCycleRoot(true);
-                jf.addInternalFrameListener(new InternalFrameListener() {
-                    
-                    @Override
-                    public void internalFrameOpened(InternalFrameEvent e) {
-                    }
-                    
-                    @Override
-                    public void internalFrameClosing(InternalFrameEvent e) {
-                        CurrentFrame="";
-                    }
-                    
-                    @Override
-                    public void internalFrameClosed(InternalFrameEvent e) {
-                        CurrentFrame="";
-                    }
-                    
-                    @Override
-                    public void internalFrameIconified(InternalFrameEvent e) {
-                    }
-                    
-                    @Override
-                    public void internalFrameDeiconified(InternalFrameEvent e) {
-                    }
-                    
-                    @Override
-                    public void internalFrameActivated(InternalFrameEvent e) {
-                    }
-                    
-                    @Override
-                    public void internalFrameDeactivated(InternalFrameEvent e) {
-                    }
-                });
-                
-                if (CurrentFrame.equals(p.getId())) {
-                    jf.setSelected(true);
-                    
-                    jf.setFocusable(true);
-                    jf.moveToFront();
-                } else {
-                    CurrentFrame = p.getId();
-                    JDesktopF.removeAll();
-                    JDesktopF.updateUI();
-                    
-                    JDesktopF.add(jf);
-                    
-                    jf.setVisible(true);
-                    
-                    jf.setFocusable(true);
-                    jf.setSelected(true);
-                    jf.moveToFront();
+
+        JInternalFrame jf = myw.getRequestWindow(p, this);
+        if (jf != null) {
+            jf.setFocusCycleRoot(true);
+            jf.addInternalFrameListener(new InternalFrameListener() {
+
+                @Override
+                public void internalFrameOpened(InternalFrameEvent e) {
                 }
 
+                @Override
+                public void internalFrameClosing(InternalFrameEvent e) {
+                    CurrentFrame = "";
+                }
+
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    CurrentFrame = "";
+                }
+
+                @Override
+                public void internalFrameIconified(InternalFrameEvent e) {
+                }
+
+                @Override
+                public void internalFrameDeiconified(InternalFrameEvent e) {
+                }
+
+                @Override
+                public void internalFrameActivated(InternalFrameEvent e) {
+                }
+
+                @Override
+                public void internalFrameDeactivated(InternalFrameEvent e) {
+                }
+            });
+
+            if (CurrentFrame.equals(p.getId())) {
+                jf.setSelected(true);
+
+                jf.setFocusable(true);
+                jf.moveToFront();
+            } else {
+                CurrentFrame = p.getId();
+                JDesktopF.removeAll();
+                JDesktopF.updateUI();
+
+                JDesktopF.add(jf);
+
+                jf.setVisible(true);
+
+                jf.setFocusable(true);
+                jf.setSelected(true);
+                jf.moveToFront();
             }
-      
+
+        }
 
     }
 

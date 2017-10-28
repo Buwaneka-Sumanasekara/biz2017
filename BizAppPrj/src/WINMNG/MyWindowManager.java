@@ -9,6 +9,7 @@ import CONTROLLERS.C_TransactionSetup;
 import MAIN.Frm_Main;
 import MODELS.MPermissions;
 import MODELS.UTransactions;
+import SUBUI.Frm_GvCreation;
 import SUBUI.Frm_MCustomer;
 import SUBUI.Frm_MGroup;
 import SUBUI.Frm_MGroupMap;
@@ -76,6 +77,9 @@ public class MyWindowManager {
                 case "M00012":
                     jf = new Frm_MUnitGroup(fm, p.getDescription());
                     break;
+                       case "M00013":
+                    jf = new Frm_GvCreation(fm, p.getDescription());
+                    break;
                 case "S00001":
                     jf = new Frm_SUserCreation(fm, p.getDescription());
                     break;
@@ -88,14 +92,18 @@ public class MyWindowManager {
                      case "A00001":
                     jf = new Frm_TChequePayments(fm, p.getDescription());
                     break;
+                         
+                         
             }
         } else if (p.getType().equals("TRN")) {
             switch (p.getId()) {
                 default:
 
                     UTransactions transactionConfig = cTrnSetup.getTransactionConfig(p.getId());
-                    if (transactionConfig != null) {
+                    if (transactionConfig != null  ) {
+                      
                         jf = new Frm_TCommonTrn(fm, transactionConfig.getTrndesc(), transactionConfig);
+                       
                     }
 
                     break;

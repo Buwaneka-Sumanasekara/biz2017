@@ -6,8 +6,8 @@
 package SUBUI;
 
 
+import DB_ACCESS.DB;
 import MAIN.Frm_Main;
-
 import UI.Frm_Table;
 import VALIDATIONS.MyValidator;
 import WINMNG.MyWindowBasicControllers;
@@ -213,7 +213,7 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
         String SQLWhere=" VISIBLE=1 AND ";
         Connection currentCon = null;
         try {
-            currentCon = DB_Access.DB.getCurrentCon();
+            currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_SUserSecurity.class.getName()).log(Level.SEVERE, null, ex);
         } 

@@ -6,8 +6,8 @@
 package SUBUI;
 
 
+import DB_ACCESS.DB;
 import MAIN.Frm_Main;
-
 import UI.Frm_Table;
 import VALIDATIONS.MyValidator;
 import WINMNG.MyWindowBasicControllers;
@@ -15,7 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -213,7 +212,7 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
         String SQLWhere=" VISIBLE=1 AND ";
         Connection currentCon = null;
         try {
-            currentCon = DB_Access.DB.getCurrentCon();
+            currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_DEF.class.getName()).log(Level.SEVERE, null, ex);
         } 

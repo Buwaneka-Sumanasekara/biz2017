@@ -6,7 +6,7 @@
 
 package CONTROLLERS;
 
-import DB_Access.DB;
+import DB_ACCESS.DB;
 import MODELS.MPropertise;
 import java.sql.ResultSet;
 import java.sql.SQLException;

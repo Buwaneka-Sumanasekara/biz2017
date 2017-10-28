@@ -6,7 +6,7 @@
 
 package CONTROLLERS;
 
-import DB_Access.DB;
+import DB_ACCESS.DB;
 import MODELS.USetup;
 import java.sql.ResultSet;
 
@@ -33,7 +33,7 @@ public class C_Setup {
                 u.setUitheme(rs.getInt("UITHEME"));
                u.setUitheme(rs.getInt("UITHEME"));
                u.setBatchenable(rs.getInt("BATCH_ENABLE"));
-                
+                u.setCurLoc(rs.getInt("CURLOC"));
                 
             }
             

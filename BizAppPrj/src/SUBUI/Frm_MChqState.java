@@ -6,6 +6,7 @@
 package SUBUI;
 
 import CONTROLLERS.C_ChequePayments;
+import GLOBALDATA.GlobalData;
 import MODELS.TChqPayments;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -289,9 +290,16 @@ public class Frm_MChqState extends javax.swing.JDialog {
             txtChqCustomer.setVisible(false);
             lblChqCustomer.setVisible(false);
             
-            butRealized.setVisible((m.getChqState().equals("P")||m.getChqState().equals("R"))?true:false);
-            butReturned.setVisible((m.getChqState().equals("P")||m.getChqState().equals("U"))?true:false);
+            butRealized.setVisible((m.getChqState().equals("P"))?true:false);
+            butReturned.setVisible((m.getChqState().equals("P"))?true:false);
            // butUnrealized.setVisible((m.getChqState().equals("U")||m.getChqState().equals("R"))?true:false);
+            
+            if(GlobalData.SpecialPer.get("P00020")!=null){
+                
+            butRealized.setVisible((m.getChqState().equals("R"))?true:false);
+            butReturned.setVisible((m.getChqState().equals("U"))?true:false);
+           
+            }
             
             
 

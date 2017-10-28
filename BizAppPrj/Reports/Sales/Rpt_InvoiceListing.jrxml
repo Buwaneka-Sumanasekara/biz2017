@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SalesSumary" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d6eb293a-b621-4818-b20f-7cf5fe9cd248">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="48"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="PARA_SDATE" class="java.lang.String"/>
+	<parameter name="PARA_EDATE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT SP.T_STOCKMST_ID,(CASE SP.UTILIZED WHEN 1 then '' WHEN 0 THEN 'UNREALIZED' END) as STATE_OF_PAY,
+SP.TRNTYP,SP.PAYHEDID,SP.PAYDETID,SUM(SP.AMOUNT)AS AMT,sp.EFT_DATE
+FROM T_STOCKPAYMENTS SP INNER JOIN U_TRANSACTIONS T ON SP.TRNTYP=T.TRNTYPE
+
+WHERE SP.TRNTYP='INV' AND SP.EFT_DATE BETWEEN $P{PARA_SDATE} AND $P{PARA_EDATE}
+
+GROUP BY  SP.T_STOCKMST_ID,SP.UTILIZED,SP.TRNTYP,SP.PAYHEDID,SP.PAYDETID,sp.EFT_DATE]]>
+	</queryString>
+	<field name="T_STOCKMST_ID" class="java.lang.String"/>
+	<field name="STATE_OF_PAY" class="java.lang.String"/>
+	<field name="TRNTYP" class="java.lang.String"/>
+	<field name="PAYHEDID" class="java.lang.String"/>
+	<field name="PAYDETID" class="java.lang.String"/>
+	<field name="AMT" class="java.lang.Double"/>
+	<field name="EFT_DATE" class="java.sql.Timestamp"/>
+	<variable name="Amount" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="105" height="20" uuid="408947e4-f352-4966-8152-a66461c58d59"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="0" width="100" height="20" uuid="9fbbec88-fdef-4ee9-8e7e-403171c841da"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pay Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="0" width="100" height="20" uuid="b77e6a38-3c4b-4598-925e-325fada3772b"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sub Pay Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="0" width="100" height="20" uuid="457b3775-1cb1-474d-9e24-2226e9ba7d41"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="105" height="20" uuid="46cdc02b-574c-4f3d-8bbd-7c14f5132153"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trn No]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="105" y="0" width="100" height="20" uuid="d2e94298-0d56-4325-85d3-6ac4ee6fa086"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{T_STOCKMST_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="205" y="0" width="100" height="20" uuid="4b2ee6ed-fc5d-4597-83be-ed3787c2aeab"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{PAYHEDID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="0" width="100" height="20" uuid="df94b297-792a-463f-8c45-e14bcf3f85a4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{PAYDETID}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(#,##0.00)">
+				<reportElement x="452" y="0" width="100" height="20" uuid="79ba00f4-c3fc-4233-b9cf-a15b675bbe96"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{AMT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="5" y="2" width="100" height="20" uuid="09523175-22fc-42af-8f62-4d8af0f98e1f"/>
+				<textFieldExpression><![CDATA[$F{EFT_DATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
+				<reportElement x="377" y="0" width="175" height="20" uuid="83ff2b0e-d86b-4994-b7f2-2e9cf1f45549"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Amount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="265" y="0" width="100" height="20" uuid="5c5f0e7c-2bd7-4da2-81fc-1e4a4e9c1ae9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Total Sale]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
