@@ -5,6 +5,7 @@
  */
 package SUBUI;
 
+import COMMONFUN.CommonFun;
 import COMMONFUN.MyTableModel;
 import COMMONFUN.ReportC;
 import COMMONFUN.TblCellColour;
@@ -80,6 +81,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     ArrayList<JComponent> FocusingOrder = null;
     ReportC C_Report = null;
     
+    CommonFun cf=null;
+    
     public Frm_TCommonTrn(Frm_Main mainw, String ScreenName, UTransactions TrnSetup) {
         initComponents();
         this.setTitle(ScreenName);
@@ -97,6 +100,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         this.C_TrnCom = new C_TransactionCom();
         this.FocusingOrder = new ArrayList<JComponent>();
         this.C_Report = new ReportC();
+        this.cf=new CommonFun();
         Refresh();
         setShortCutKeys(this);
         // createTrnWindow();
@@ -1037,9 +1041,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             hed.setRefnote("");
             hed.setIsactive((byte) 1);
             hed.setTrnstate(TrnState);
-            hed.setGramount(Double.parseDouble(txt_FSubTot.getText()));
+            hed.setGramount(cf.parseValueWithComma(txt_FSubTot.getText()).doubleValue());
             hed.setNetdis(Double.parseDouble(txt_FNetDis.getText()));
-            hed.setNetamount(Double.parseDouble(txt_FAmount.getText()));
+            hed.setNetamount(cf.parseValueWithComma(txt_FAmount.getText()).doubleValue());
             
             if (TrnSetup.getCustomer() == 1) {
                 MCustomer cus = cmb_Cus.getSelectedIndex() == -1 ? null : (MCustomer) cmb_Cus.getSelectedItem();
@@ -1802,10 +1806,10 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             Amount += Double.parseDouble(dtm.getValueAt(i, 9).toString());
         }
         
-        txt_FSubTot.setText("" + Amount);
+        txt_FSubTot.setText("" + cf.getValueWithComma(Amount));
         double DisPer = txt_FNetDis.getText().equals("") ? 0.0 : Double.parseDouble(txt_FNetDis.getText());
         double NetAmt = Amount - (Amount * DisPer / 100);
-        txt_FAmount.setText("" + NetAmt);
+        txt_FAmount.setText("" + cf.getValueWithComma(NetAmt));
         
     }
     

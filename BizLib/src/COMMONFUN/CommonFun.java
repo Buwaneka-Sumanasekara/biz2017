@@ -9,28 +9,37 @@ import CONTROLLERS.C_GroupCommon;
 import DB_ACCESS.DB;
 import GLOBALDATA.GlobalData;
 import MODELS.MGroupCommon;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author HOME
  */
 public class CommonFun {
-    C_GroupCommon gc=null;
+
+    C_GroupCommon gc = null;
 
     public CommonFun() {
-        gc=new C_GroupCommon();
+        gc = new C_GroupCommon();
     }
 
     public String generateNextNo(int length, String Prefix, String tbl, String tblIDCol) throws Exception {
-        return generateNextNo(length, Prefix, tbl, tblIDCol,"");
+        return generateNextNo(length, Prefix, tbl, tblIDCol, "");
     }
-    
-    public String generateNextNo(int length, String Prefix, String tbl, String tblIDCol,String WhereClause) throws Exception {
-        String q = "SELECT Max(" + tblIDCol + ") as ID FROM " + tbl+" "+WhereClause;
+
+    public String generateNextNo(int length, String Prefix, String tbl, String tblIDCol, String WhereClause) throws Exception {
+        String q = "SELECT Max(" + tblIDCol + ") as ID FROM " + tbl + " " + WhereClause;
         ResultSet rs = DB.Search(q);
         String ID = "";
         if (rs.next()) {
@@ -45,8 +54,8 @@ public class CommonFun {
         return ID;
     }
 
-     public String generateLastNo(int length, String Prefix, String tbl, String tblIDCol,String WhereClause) throws Exception {
-        String q = "SELECT Max(" + tblIDCol + ") as ID FROM " + tbl+" "+WhereClause;
+    public String generateLastNo(int length, String Prefix, String tbl, String tblIDCol, String WhereClause) throws Exception {
+        String q = "SELECT Max(" + tblIDCol + ") as ID FROM " + tbl + " " + WhereClause;
         ResultSet rs = DB.Search(q);
         String ID = "";
         if (rs.next()) {
@@ -60,6 +69,7 @@ public class CommonFun {
 
         return ID;
     }
+
     private String getNxtNo(int length, String prf, String CurrentId) {
         String ID = "";
         if (CurrentId.equals("")) {
@@ -80,19 +90,17 @@ public class CommonFun {
         return ID;
     }
 
-    
     //Create Product Name
     public String getProductName(ArrayList<MGroupCommon> GList) {
         String ProName = "";
         //G1000
-        
-        
+
         for (MGroupCommon G : GList) {
-            
-            if (G!=null && !gc.IsDefaultGroup(G.getId())) {
-               
+
+            if (G != null && !gc.IsDefaultGroup(G.getId())) {
+
                 if (ProName.length() > 0) {
-                    ProName += " "+G.getName();
+                    ProName += " " + G.getName();
                 } else {
                     ProName = G.getName();
                 }
@@ -101,26 +109,63 @@ public class CommonFun {
         return ProName.toUpperCase();
     }
 
-    public static String getSystemTheme(){
-         String theme="mint.MintLookAndFeel";
+    public static String getSystemTheme() {
+        String theme = "mint.MintLookAndFeel";
         try {
-           
-             ResultSet rs = DB.Search("SELECT * FROM u_systhemes WHERE ID="+GlobalData.Setup.getUitheme()+"");
-             if(rs.next()){
-                 theme=rs.getString("URL");
-             }
+
+            ResultSet rs = DB.Search("SELECT * FROM u_systhemes WHERE ID=" + GlobalData.Setup.getUitheme() + "");
+            if (rs.next()) {
+                theme = rs.getString("URL");
+            }
         } catch (Exception ex) {
-            
+
         }
         return theme;
     }
-    
-    public static String getCurrentDateTime(Date d){
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    public static String getCurrentDateTime(Date d) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(d);
     }
-      public static String getCurrentDate(Date d){
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+
+    public static String getCurrentDate(Date d) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(d);
     }
+
+    public String getValueWithComma(double amount) {
+
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+
+        symbols.setGroupingSeparator(',');
+        formatter.setDecimalFormatSymbols(symbols);
+        return formatter.format(amount);
+    }
+    public BigDecimal parseValueWithComma(String amount) throws ParseException {
+
+        
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ROOT);
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+ 
+      
+        symbols.setGroupingSeparator(',');
+        formatter.setDecimalFormatSymbols(symbols);
+        formatter.setMaximumFractionDigits(0);
+        return BigDecimal.valueOf(formatter.parse(amount).doubleValue());
+    }
+
+    public static void main(String[] args) {
+        try {
+            CommonFun c = new CommonFun();
+            double d=5000000000.45;
+            
+            String amt=c.getValueWithComma(d);
+            System.out.println(amt);
+            System.out.println(c.parseValueWithComma(amt)+"");
+        } catch (ParseException ex) {
+            Logger.getLogger(CommonFun.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

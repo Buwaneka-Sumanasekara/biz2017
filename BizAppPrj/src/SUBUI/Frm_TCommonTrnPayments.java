@@ -5,6 +5,7 @@
  */
 package SUBUI;
 
+import COMMONFUN.CommonFun;
 import COMMONFUN.TblPayment;
 import CONTROLLERS.C_Payments;
 import CONTROLLERS.C_TransactionCom;
@@ -41,7 +42,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Buwanaka
  */
 public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
-    
+
     private static String TrnNo = "";
     Frm_Main MainFrm = null;
     Frm_TCommonTrn Parent_Trn = null;
@@ -49,15 +50,17 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     UTransactions TrnSetup = null;
     TStockmst hed = null;
     ArrayList<TStockline> det = null;
-    
+
     C_TransactionCom c_trn = null;
-    
+
+    CommonFun cf = null;
+
     private Frm_TCommonTrnPayments(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         C_Payment = new C_Payments();
     }
-    
+
     private Frm_TCommonTrnPayments(Frm_Main parent, Frm_TCommonTrn parent_trn, boolean modal, UTransactions TrnSetup, TStockmst Hed, ArrayList<TStockline> Det) {
         super(parent, modal);
         initComponents();
@@ -69,18 +72,18 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         this.TrnSetup = TrnSetup;
         this.hed = Hed;
         this.det = Det;
-        
+        this.cf = new CommonFun();
         createLayout();
         RefreshScreen();
         txt_Amount.grabFocus();
         setShortCutKeys(this);
     }
-    
+
     @Override
     public void dispose() {
         super.dispose(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public static String getPaymentScreen(Frm_Main parent, Frm_TCommonTrn parent_trn, boolean modal, UTransactions TrnSetup, TStockmst Hed, ArrayList<TStockline> Det) {
         Frm_TCommonTrnPayments frm = new Frm_TCommonTrnPayments(parent, parent_trn, modal, TrnSetup, Hed, Det);
         frm.setVisible(true);
@@ -464,11 +467,26 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     }//GEN-LAST:event_but_6ActionPerformed
 
     private void but_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_addActionPerformed
-        addPayment();        // TODO add your handling code here:
+        try {
+            addPayment();
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(Parent_Trn, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_but_addActionPerformed
 
     private void but_BillCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_BillCloseActionPerformed
-        billClose(true);
+        
+        
+        try {
+            billClose(true);
+        } catch (Exception ex) {
+                JOptionPane.showMessageDialog(Parent_Trn, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+        
     }//GEN-LAST:event_but_BillCloseActionPerformed
 
     private void cmb_PayDetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_PayDetActionPerformed
@@ -476,28 +494,28 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     }//GEN-LAST:event_cmb_PayDetActionPerformed
 
     private void cmb_PayHedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_PayHedActionPerformed
-        
+
         if (cmb_PayHed.getSelectedIndex() > -1) {
             try {
                 MPaymst mst = (MPaymst) cmb_PayHed.getSelectedItem();
-                
+
                 if (mst.getRefreq() == 1) {
                     txt_RefNo.setVisible(true);
                     txt_RefNo.grabFocus();
                 } else {
                     txt_RefNo.setVisible(false);
-                    
+
                 }
-                
+
                 if (mst.getDatef() == 1) {
                     txt_DateF.setVisible(true);
                     // txt_DateF.grabFocus();
                 } else {
                     txt_DateF.setVisible(false);
-                    
+
                 }
                 loadSubPayModes();
-                
+
             } catch (Exception ex) {
                 //Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -505,7 +523,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     }//GEN-LAST:event_cmb_PayHedActionPerformed
 
     private void txt_AmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_AmountActionPerformed
-        addPayment();        // TODO add your handling code here:
+        try {
+            addPayment();
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(Parent_Trn, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_txt_AmountActionPerformed
 
     private void txt_RefNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_RefNoActionPerformed
@@ -634,9 +656,9 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     public void exit() {
         this.dispose();
     }
-    
+
     public void setShortCutKeys(JDialog f) {
-        
+
         String exit = "exit";
         InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap0.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), exit);
@@ -645,7 +667,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             public void actionPerformed(ActionEvent e) {
                 exit();
             }
-            
+
         }
         );
         String refresh = "Refresh";
@@ -656,11 +678,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             public void actionPerformed(ActionEvent e) {
                 RefreshScreen();
             }
-            
+
         }
         );
     }
-    
+
     private void createLayout() {
         try {
             layout_ButPanel.setOpaque(true);
@@ -669,21 +691,21 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             tblPayment.setTableHeader(null);
             tblPayment.setBackground(new Color(153, 153, 153));
             jScrollPane1.getViewport().setBackground(new Color(153, 153, 153));
-            
+
         } catch (Exception ex) {
             Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     private void RefreshScreen() {
         try {
-            lbl_ToPay.setText("" + hed.getNetamount());
+            lbl_ToPay.setText("" + cf.getValueWithComma(hed.getNetamount()));
             lbl_Payment.setText("0.0");
             lbl_Balance.setText("0.0");
-            lbl_due.setText("" + hed.getNetamount());
+            lbl_due.setText("" + cf.getValueWithComma(hed.getNetamount()));
             txt_DateF.setVisible(false);
-            
+
             int eftAmtindex = 4;
             //tblPayment.getColumnModel().getColumn(eftAmtindex).setMinWidth(0);
             // tblPayment.getColumnModel().getColumn(eftAmtindex).setMaxWidth(0);
@@ -699,25 +721,25 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             //  Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void addPayment() {
+
+    private void addPayment() throws ParseException {
         if (doValidations()) {
             MPaymst mst = (MPaymst) cmb_PayHed.getSelectedItem();
             MPaydet det = cmb_PayDet.getSelectedIndex() > -1 ? (MPaydet) cmb_PayDet.getSelectedItem() : new MPaydet();
             String RefNo = txt_RefNo.isVisible() ? txt_RefNo.getText() : "";
             double Amount = Double.parseDouble(txt_Amount.getText());
-            
+
             try {
                 double CheckExists = CheckExists(mst, det);
                 Amount = CheckExists + Amount;
             } catch (Exception e) {
-                
+
             }
-            
+
             double calBalance = getcalculateBalance();
-            
+
             double eftamt = Amount;
-            
+
             if (mst.getOverpay() == 1) {
                 if (calBalance < Amount) {
                     eftamt = calBalance;
@@ -725,11 +747,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                     eftamt = Amount;
                 }
             }
-            
+
             Date eftDatee = (txt_DateF.isVisible() ? txt_DateF.getDate() : new Date());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String eftdate = sdf.format(eftDatee);
-            
+
             DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
             Vector v = new Vector();
             v.add(mst);
@@ -743,37 +765,37 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             calculateTotal();
         }
     }
-    
+
     private boolean doValidations() {
         boolean state = true;
         MPaymst mst = (MPaymst) cmb_PayHed.getSelectedItem();
         MPaydet det = cmb_PayDet.getSelectedIndex() > -1 ? (MPaydet) cmb_PayDet.getSelectedItem() : new MPaydet();
         if (cmb_PayHed.getSelectedIndex() == (-1)) {
-            
+
             state = false;
             JOptionPane.showMessageDialog(this, "Please select Pay mode", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-            
+
         } else if (txt_Amount.getText().equals("")) {
             state = false;
             JOptionPane.showMessageDialog(this, "Amount can`t be blank", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-            
+
         } else if (txt_RefNo.isVisible() && txt_RefNo.getText().equals("")) {
             state = false;
             JOptionPane.showMessageDialog(this, "Need reference number", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-            
+
         } else if (mst.getId() != null && mst.getOverpay() == 0 && Double.parseDouble(txt_Amount.getText()) > Double.parseDouble(lbl_due.getText())) {
             state = false;
             JOptionPane.showMessageDialog(this, "You can`t over pay when using this paymode", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-            
+
         } else if (txt_DateF.isVisible() && txt_DateF.getDate() == null) {
             state = false;
             JOptionPane.showMessageDialog(this, "Please select Date", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-            
+
         }
-        
+
         return state;
     }
-    
+
     private double CheckExists(MPaymst mst, MPaydet det) throws Exception {
         DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
         double amount = 0;
@@ -781,7 +803,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         for (int i = 0; i < dtm.getRowCount(); i++) {
             MPaymst mstP = (MPaymst) dtm.getValueAt(i, 0);
             MPaydet detP = (MPaydet) dtm.getValueAt(i, 1);
-            
+
             if (detP.getId() == null || detP.getId().equals("")) {
                 if (mstP.equals(mst)) {
                     amount = Double.parseDouble(dtm.getValueAt(i, 3).toString());
@@ -789,22 +811,20 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                     state = true;
                     break;
                 }
-            } else {
-                if (mstP.equals(mst) && detP.equals(det)) {
-                    amount = Double.parseDouble(dtm.getValueAt(i, 3).toString());
-                    dtm.removeRow(i);
-                    state = true;
-                    break;
-                }
+            } else if (mstP.equals(mst) && detP.equals(det)) {
+                amount = Double.parseDouble(dtm.getValueAt(i, 3).toString());
+                dtm.removeRow(i);
+                state = true;
+                break;
             }
         }
         if (state == true) {
             throw new Exception("Avaialble");
         }
         return amount;
-        
+
     }
-    
+
     private void clearPaymentBox() {
         try {
             cmb_PayDet.setVisible(false);
@@ -820,55 +840,59 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             // Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void calculateTotal() {
-        DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
-        double amount = 0;
-        for (int i = 0; i < dtm.getRowCount(); i++) {
-            
-            amount += Double.parseDouble(dtm.getValueAt(i, 3).toString());
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
+            double amount = 0;
+            for (int i = 0; i < dtm.getRowCount(); i++) {
+
+                amount += Double.parseDouble(dtm.getValueAt(i, 3).toString());
+            }
+
+            double ToPay = Double.parseDouble(lbl_ToPay.getText());
+            double Paid = amount;
+            double balance = ToPay - Paid;
+
+            if (balance >= 0) {
+                lbl_due.setText("" + cf.getValueWithComma(balance));
+                lbl_Balance.setText("0.0");
+                billClose(false);
+            } else {
+                lbl_due.setText("0.0");
+                lbl_Balance.setText("" + cf.getValueWithComma((balance * -1)));
+                billClose(false);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(Parent_Trn, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
         }
-        
-        double ToPay = Double.parseDouble(lbl_ToPay.getText());
-        double Paid = amount;
-        double balance = ToPay - Paid;
-        
-        if (balance >= 0) {
-            lbl_due.setText("" + balance);
-            lbl_Balance.setText("0.0");
-            billClose(false);
-        } else {
-            lbl_due.setText("0.0");
-            lbl_Balance.setText("" + (balance * -1));
-            billClose(false);
-        }
-        
+
     }
-    
-    private double getcalculateBalance() {
+
+    private double getcalculateBalance() throws ParseException {
         DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
         double amount = 0;
         for (int i = 0; i < dtm.getRowCount(); i++) {
-            
+
             amount += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
-        
-        double ToPay = Double.parseDouble(lbl_ToPay.getText());
+
+        double ToPay = cf.parseValueWithComma(lbl_ToPay.getText()).doubleValue();
         double Paid = amount;
         double balance = ToPay - Paid;
-        
+
         if (balance > 0) {
             return balance;
         } else {
             return 0;
         }
-        
+
     }
-    
-    private void billClose(boolean b) {
+
+    private void billClose(boolean b) throws Exception {
         double due = Double.parseDouble(lbl_due.getText());
         if (due == 0) {
-            double change = Double.parseDouble(lbl_Balance.getText());
+            double change = cf.parseValueWithComma(lbl_Balance.getText()).doubleValue();
             String pretxt = ((change > 0) ? "<html><h1>Change: " + lbl_Balance.getText() + "</h1><br/><p>Do you want to close the bill?</p></html> " : "<html><p>Do you want to close the bill?</p></html> ");
             int state = JOptionPane.showConfirmDialog(this, pretxt, GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.YES_NO_OPTION);
             if (state == JOptionPane.YES_OPTION) {
@@ -876,33 +900,31 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                     TrnNo = saveData();
                     Parent_Trn.Refresh();
                     JOptionPane.showMessageDialog(rootPane, "Save " + TrnSetup.getTrndesc() + " Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
-                    
+
                     this.dispose();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-                    
+
                 }
-                
+
             }
-        } else {
-            if (b) {
-                JOptionPane.showMessageDialog(this, "Please complete due amount :" + due, GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
-            }
+        } else if (b) {
+            JOptionPane.showMessageDialog(this, "Please complete due amount :" + due, GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    
+
     private void loadSubPayModes() {
         if (cmb_PayHed.getSelectedIndex() > -1) {
             try {
                 MPaymst mst = (MPaymst) cmb_PayHed.getSelectedItem();
                 Vector<MPaydet> v = C_Payment.getPayDet(mst.getId());
                 cmb_PayDet.setModel(new DefaultComboBoxModel(v));
-                
+
                 if (v.size() > 0) {
                     cmb_PayDet.setVisible(true);
                     MPaydet det = (MPaydet) cmb_PayDet.getSelectedItem();
-                    
+
                     if (det.getRefreq() == 1) {
                         txt_RefNo.setVisible(true);
                         txt_RefNo.grabFocus();
@@ -910,25 +932,25 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                         txt_RefNo.setVisible(false);
                         txt_Amount.grabFocus();
                     }
-                    
+
                     if (det.getDatef() == 1) {
                         txt_DateF.setVisible(true);
                         // txt_DateF.grabFocus();
                     } else {
                         txt_DateF.setVisible(false);
-                        
+
                     }
                 } else {
                     cmb_PayDet.setVisible(false);
                     txt_Amount.grabFocus();
                 }
-                
+
             } catch (Exception ex) {
                 //Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
+
     private String saveData() throws Exception {
 
         //DefaultTableModel dtm=(DefaultTableModel) tblPayment.getModel();
@@ -940,9 +962,9 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             String paydetId = (d == null || d.getId() == null || d.getId().equals("")) ? "" : d.getId();
             double FAmount = Double.parseDouble(tblPayment.getValueAt(i, 3).toString());
             double EftAmount = Double.parseDouble(tblPayment.getValueAt(i, 4).toString());
-            String date = tblPayment.getValueAt(i, 5).toString();            
+            String date = tblPayment.getValueAt(i, 5).toString();
             int utilized = payh.getId().equals("CHQ") ? 0 : 1;
-            
+
             TStockpayments m = new TStockpayments();
             m.setId(i);
             m.setTStockmst(hed);
@@ -957,13 +979,13 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             m.setUtilized(utilized);
             arp.add(m);
         }
-        hed.setChange(Double.parseDouble(lbl_Balance.getText()));
+        hed.setChange(cf.parseValueWithComma(lbl_Balance.getText()).doubleValue());
         return c_trn.saveTransaction(hed, det, arp);
-        
+
     }
-    
+
     private void setAmount(String val) {
         txt_Amount.setText(txt_Amount.getText() + val);
-        
+
     }
 }
