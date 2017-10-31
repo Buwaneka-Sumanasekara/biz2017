@@ -469,7 +469,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     private void but_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_addActionPerformed
         try {
             addPayment();
-        } catch (ParseException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(Parent_Trn, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
         }
 
@@ -525,7 +525,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     private void txt_AmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_AmountActionPerformed
         try {
             addPayment();
-        } catch (ParseException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(Parent_Trn, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_txt_AmountActionPerformed
@@ -722,12 +722,12 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         }
     }
 
-    private void addPayment() throws ParseException {
+    private void addPayment() throws Exception {
         if (doValidations()) {
             MPaymst mst = (MPaymst) cmb_PayHed.getSelectedItem();
             MPaydet det = cmb_PayDet.getSelectedIndex() > -1 ? (MPaydet) cmb_PayDet.getSelectedItem() : new MPaydet();
             String RefNo = txt_RefNo.isVisible() ? txt_RefNo.getText() : "";
-            double Amount = Double.parseDouble(txt_Amount.getText());
+            double Amount = cf.parseValueWithComma(txt_Amount.getText()).doubleValue();
 
             try {
                 double CheckExists = CheckExists(mst, det);
@@ -766,7 +766,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         }
     }
 
-    private boolean doValidations() {
+    private boolean doValidations() throws Exception {
         boolean state = true;
         MPaymst mst = (MPaymst) cmb_PayHed.getSelectedItem();
         MPaydet det = cmb_PayDet.getSelectedIndex() > -1 ? (MPaydet) cmb_PayDet.getSelectedItem() : new MPaydet();
@@ -783,7 +783,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             state = false;
             JOptionPane.showMessageDialog(this, "Need reference number", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
 
-        } else if (mst.getId() != null && mst.getOverpay() == 0 && Double.parseDouble(txt_Amount.getText()) > Double.parseDouble(lbl_due.getText())) {
+        } else if (mst.getId() != null && mst.getOverpay() == 0 && cf.parseValueWithComma(txt_Amount.getText()).doubleValue() > cf.parseValueWithComma(lbl_due.getText()).doubleValue()) {
             state = false;
             JOptionPane.showMessageDialog(this, "You can`t over pay when using this paymode", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
 
@@ -850,7 +850,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                 amount += Double.parseDouble(dtm.getValueAt(i, 3).toString());
             }
 
-            double ToPay = Double.parseDouble(lbl_ToPay.getText());
+            double ToPay = cf.parseValueWithComma(lbl_ToPay.getText()).doubleValue();
             double Paid = amount;
             double balance = ToPay - Paid;
 
@@ -890,7 +890,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     }
 
     private void billClose(boolean b) throws Exception {
-        double due = Double.parseDouble(lbl_due.getText());
+        double due = cf.parseValueWithComma(lbl_due.getText()).doubleValue();
         if (due == 0) {
             double change = cf.parseValueWithComma(lbl_Balance.getText()).doubleValue();
             String pretxt = ((change > 0) ? "<html><h1>Change: " + lbl_Balance.getText() + "</h1><br/><p>Do you want to close the bill?</p></html> " : "<html><p>Do you want to close the bill?</p></html> ");
