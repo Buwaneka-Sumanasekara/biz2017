@@ -5,26 +5,44 @@
  */
 package SUBUI;
 
-
+import CONTROLLERS.C_UserGroup;
 import DB_ACCESS.DB;
 import MAIN.Frm_Main;
+import MODELS.MPermissions;
+import MODELS.MUsergroup;
 import UI.Frm_Table;
 import VALIDATIONS.MyValidator;
 import WINMNG.MyWindowBasicControllers;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTree;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultTreeSelectionModel;
+import javax.swing.tree.TreePath;
+import jdk.nashorn.internal.objects.Global;
 
 /**
  *
@@ -33,24 +51,22 @@ import javax.swing.KeyStroke;
 public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyWindowBasicControllers {
 
     Frm_Table ft = null;
-  
-    Frm_Main mainW=null;
-    MyValidator fv=null;
-    
-    public Frm_SUserGroupPer(Frm_Main mainw,String ScreenName) {
+
+    Frm_Main mainW = null;
+    MyValidator fv = null;
+    C_UserGroup cug = null;
+
+    public Frm_SUserGroupPer(Frm_Main mainw, String ScreenName) {
         initComponents();
-       this.setTitle(ScreenName);
-       this.lblScreenName.setText(ScreenName);
-        this.mainW=mainw;
-        this.fv=new MyValidator();
+        this.setTitle(ScreenName);
+        this.lblScreenName.setText(ScreenName);
+        this.mainW = mainw;
+        this.fv = new MyValidator();
+        this.cug = new C_UserGroup();
         Refresh();
-       setShortCutKeys(this);
+        setShortCutKeys(this);
     }
 
-    
-
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,22 +77,20 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txt_LocCode = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        but_LocUpdate = new javax.swing.JButton();
-        but_LocSave = new javax.swing.JButton();
-        but_LocSearch = new javax.swing.JButton();
-        butLocRefresh = new javax.swing.JButton();
         lblScreenName = new javax.swing.JLabel();
         jpanelq = new javax.swing.JPanel();
-        txt_LocDescription = new javax.swing.JTextField();
-        Chk_Active = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txt_LocRefNO = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        cmb_Usergrp_Cur = new javax.swing.JComboBox<>();
+        cmb_Usergrp = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        butNewUsergrp = new javax.swing.JButton();
+        butEditUsergrp = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tree_sel_usergrp = new javax.swing.JTree();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tree_cur_usergrp = new javax.swing.JTree();
+        butAddPer = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("caption");
@@ -104,64 +118,8 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         jPanel1.setBackground(new java.awt.Color(226, 226, 226));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txt_LocCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_LocCodeActionPerformed(evt);
-            }
-        });
-        txt_LocCode.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_LocCodeKeyTyped(evt);
-            }
-        });
-        jPanel1.add(txt_LocCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 150, 30));
-
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        but_LocUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit.png"))); // NOI18N
-        but_LocUpdate.setToolTipText("Save");
-        but_LocUpdate.setContentAreaFilled(false);
-        but_LocUpdate.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit_disable.png"))); // NOI18N
-        but_LocUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocUpdateActionPerformed(evt);
-            }
-        });
-        jPanel2.add(but_LocUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
-
-        but_LocSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save.png"))); // NOI18N
-        but_LocSave.setToolTipText("Save");
-        but_LocSave.setContentAreaFilled(false);
-        but_LocSave.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save_disable.png"))); // NOI18N
-        but_LocSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocSaveActionPerformed(evt);
-            }
-        });
-        jPanel2.add(but_LocSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
-
-        but_LocSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search.png"))); // NOI18N
-        but_LocSearch.setToolTipText("Search(F2)");
-        but_LocSearch.setContentAreaFilled(false);
-        but_LocSearch.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search_disable.png"))); // NOI18N
-        but_LocSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocSearchActionPerformed(evt);
-            }
-        });
-        jPanel2.add(but_LocSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 40, 40));
-
-        butLocRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
-        butLocRefresh.setToolTipText("Refresh");
-        butLocRefresh.setContentAreaFilled(false);
-        butLocRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh_disable.png"))); // NOI18N
-        butLocRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butLocRefreshActionPerformed(evt);
-            }
-        });
-        jPanel2.add(butLocRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, 40));
 
         lblScreenName.setBackground(new java.awt.Color(153, 255, 51));
         lblScreenName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -170,138 +128,146 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         jPanel2.add(jpanelq, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
-        jPanel1.add(txt_LocDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 260, 30));
 
-        Chk_Active.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Chk_ActiveMouseClicked(evt);
+        jLabel4.setText("Your User Group");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 160, 30));
+
+        jPanel1.add(cmb_Usergrp_Cur, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 150, 30));
+
+        jPanel1.add(cmb_Usergrp, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 150, 30));
+
+        jLabel5.setText("User Group");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 70, 30));
+
+        butNewUsergrp.setText("New +");
+        butNewUsergrp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butNewUsergrpActionPerformed(evt);
             }
         });
-        jPanel1.add(Chk_Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 180, -1));
+        jPanel1.add(butNewUsergrp, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 60, -1, 30));
 
-        jLabel1.setText("Reference No/ID");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 110, 30));
+        butEditUsergrp.setText("Edit");
+        butEditUsergrp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butEditUsergrpActionPerformed(evt);
+            }
+        });
+        jPanel1.add(butEditUsergrp, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 60, 60, 30));
 
-        jLabel2.setText("Code");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 110, 30));
-        jPanel1.add(txt_LocRefNO, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 160, 30));
+        jScrollPane1.setViewportView(tree_sel_usergrp);
 
-        jLabel4.setText("Description *");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 110, 30));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 360, 490));
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jScrollPane2.setViewportView(tree_cur_usergrp);
 
-        jLabel5.setForeground(new java.awt.Color(153, 51, 0));
-        jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 810, 40));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 350, 490));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 820, 40));
+        butAddPer.setText(">>");
+        butAddPer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butAddPerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(butAddPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 80, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 580));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 620));
 
         setBounds(0, 0, 867, 646);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void but_LocSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSearchActionPerformed
-        Vector<String> col = new Vector<>();
-        col.add("Code");
-        col.add("Des");
-
-        String[] SQL_Col = {"ID", "NAME"};
-        String SQL = "select ID,NAME from m_location ";
-        String SQLWhere=" VISIBLE=1 AND ";
-        Connection currentCon = null;
-        try {
-            currentCon =DB.getCurrentCon();
-        } catch (Exception ex) {
-            Logger.getLogger(Frm_SUserGroupPer.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        if (ft == null) {
-
-            ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL,SQLWhere);
-            ft.setVisible(true);
-
-        } else {
-            ft=null;
-             ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL,SQLWhere);
-            ft.setFocusable(true);
-            ft.setVisible(true);
-        }
-    }//GEN-LAST:event_but_LocSearchActionPerformed
-
-    private void butLocRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLocRefreshActionPerformed
-        Refresh();
-    }//GEN-LAST:event_butLocRefreshActionPerformed
-
-    private void Chk_ActiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Chk_ActiveMouseClicked
-       
-    }//GEN-LAST:event_Chk_ActiveMouseClicked
-
-    private void txt_LocCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_LocCodeActionPerformed
-      
-    }//GEN-LAST:event_txt_LocCodeActionPerformed
-
-    private void but_LocSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSaveActionPerformed
-       
-    }//GEN-LAST:event_but_LocSaveActionPerformed
-
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-      
+
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-   
+
     }//GEN-LAST:event_formInternalFrameOpened
 
-    private void but_LocUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocUpdateActionPerformed
-  
-    }//GEN-LAST:event_but_LocUpdateActionPerformed
+    private void butEditUsergrpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butEditUsergrpActionPerformed
+        MUsergroup ug = (MUsergroup) cmb_Usergrp.getSelectedItem();
+        if (ug != null) {
+            Frm_Sub_UserGrp frm_ug = new Frm_Sub_UserGrp(mainW, true, ug);
+            frm_ug.setVisible(true);
+            Refresh();
+        }
 
-    private void txt_LocCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_LocCodeKeyTyped
-      
-    }//GEN-LAST:event_txt_LocCodeKeyTyped
+
+    }//GEN-LAST:event_butEditUsergrpActionPerformed
+
+    private void butNewUsergrpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butNewUsergrpActionPerformed
+
+        Frm_Sub_UserGrp frm_ug = new Frm_Sub_UserGrp(mainW, true, null);
+        frm_ug.setVisible(true);
+        Refresh();
+
+
+    }//GEN-LAST:event_butNewUsergrpActionPerformed
+
+    private void butAddPerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAddPerActionPerformed
+
+        addPermissions();
+
+    }//GEN-LAST:event_butAddPerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox Chk_Active;
-    private javax.swing.JButton butLocRefresh;
-    private javax.swing.JButton but_LocSave;
-    private javax.swing.JButton but_LocSearch;
-    private javax.swing.JButton but_LocUpdate;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton butAddPer;
+    private javax.swing.JButton butEditUsergrp;
+    private javax.swing.JButton butNewUsergrp;
+    private javax.swing.JComboBox<String> cmb_Usergrp;
+    private javax.swing.JComboBox<String> cmb_Usergrp_Cur;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jpanelq;
     private javax.swing.JLabel lblScreenName;
-    private javax.swing.JTextField txt_LocCode;
-    private javax.swing.JTextField txt_LocDescription;
-    private javax.swing.JTextField txt_LocRefNO;
+    private javax.swing.JTree tree_cur_usergrp;
+    private javax.swing.JTree tree_sel_usergrp;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void SaveProcess() {
 
-      
     }
 
     @Override
     public void EditMode() {
-       
+
     }
 
     @Override
     public void Refresh() {
-       
+
+        try {
+            cmb_Usergrp.setModel(new DefaultComboBoxModel(cug.getUserGroups(true, true)));
+
+            cmb_Usergrp_Cur.setModel(new DefaultComboBoxModel(cug.getUserGroups(false, false)));
+            cmb_Usergrp_Cur.setEnabled(false);
+            cmb_Usergrp_Cur.setSelectedItem(GLOBALDATA.GlobalData.CurUser.getMUsergroup());
+
+            tree_cur_usergrp.setModel(null);
+
+            tree_sel_usergrp.setModel(null);
+
+            MUsergroup ugc = (MUsergroup) cmb_Usergrp_Cur.getSelectedItem();
+            MUsergroup ug = (MUsergroup) cmb_Usergrp.getSelectedItem();
+            createUserMenu(ugc.getId(), tree_cur_usergrp);
+            if (ug != null) {
+                createUserMenu(ug.getId(), tree_sel_usergrp);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(Frm_SUserGroupPer.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
     }
 
     public void setShortCutKeys(JInternalFrame f) {
 
-       String exit = "exit";
+        String exit = "exit";
         InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap0.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), exit);
         ActionMap actionMap0 = f.getRootPane().getActionMap();
@@ -324,8 +290,8 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
 
         }
         );
-        
-          String Save = "Save";
+
+        String Save = "Save";
         InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), Save);
         ActionMap actionMap2 = f.getRootPane().getActionMap();
@@ -336,8 +302,8 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
 
         }
         );
-        
-           String Edit = "Edit";
+
+        String Edit = "Edit";
         InputMap inputMap3 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap3.put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), Edit);
         ActionMap actionMap3 = f.getRootPane().getActionMap();
@@ -348,8 +314,8 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
 
         }
         );
-        
-          String Refresh = "Refresh";
+
+        String Refresh = "Refresh";
         InputMap inputMap4 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap4.put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), Refresh);
         ActionMap actionMap4 = f.getRootPane().getActionMap();
@@ -361,19 +327,18 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         }
         );
 
-
     }
 
     private void exit() {
-      
+
         try {
             this.setClosed(true);
-            mainW.CurrentFrame="";
-            
+            mainW.CurrentFrame = "";
+
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(Frm_SUserGroupPer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Frm_SUserGroupPer.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
-        
+
     }
 
     @Override
@@ -384,12 +349,91 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         for (JComponent c : EnComlist) {
             c.setEnabled(true);
         }
-        
+
     }
 
     @Override
     public void SearchMode() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void createUserMenu(int ugid, JTree tree) {
+        Map<String, DefaultMutableTreeNode> NodesMap = new TreeMap<String, DefaultMutableTreeNode>();
+        try {
+            ArrayList<MPermissions> menus = cug.getUserGroupPermitions(ugid, 0);
+            //create the root node
+            DefaultMutableTreeNode root = new DefaultMutableTreeNode("");
+
+            tree.setCellRenderer(new DefaultTreeCellRenderer() {
+                private Icon loadIcon = UIManager.getIcon("OptionPane.errorIcon");
+                // private Icon homeIcon = new ImageIcon(getClass().getResource("/SYSIMG/TreeIcons/home.png"));
+                private Icon saveIcon = UIManager.getIcon("OptionPane.informationIcon");
+
+                //private Icon loadIcon = new ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"));
+                //private Icon saveIcon = new ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"));
+                @Override
+                public Component getTreeCellRendererComponent(JTree tree,
+                        Object value, boolean selected, boolean expanded,
+                        boolean isLeaf, int row, boolean focused) {
+                    Component c = super.getTreeCellRendererComponent(tree, value,
+                            selected, expanded, isLeaf, row, focused);
+
+                    if (selected) {
+                        if (value.toString().equals("Home")) {
+                            //   setIcon(homeIcon);
+                        }
+                    } else if (value.toString().equals("Home")) {
+                        //  setIcon(homeIcon);
+                    }
+
+                    return c;
+
+                }
+            });
+
+            for (MPermissions p : menus) {
+                //System.out.println(p.getId() + "-" + p.getParentid());
+
+                if (p.getId().equals(p.getParentid())) {
+                    if (NodesMap.get(p.getId()) == null) {
+                        DefaultMutableTreeNode parent = new DefaultMutableTreeNode(p);
+                        NodesMap.put(p.getId(), parent);
+                        root.add(parent);
+
+                    }
+                } else {
+                    DefaultMutableTreeNode parent = NodesMap.get(p.getParentid());
+                    if (parent != null) {
+                        DefaultMutableTreeNode node = new DefaultMutableTreeNode(p);
+                        NodesMap.put(p.getId(), node);
+                        parent.add(node);
+                    }
+                }
+            }
+            tree.setModel(new DefaultTreeModel(root));
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+
+    private void addPermissions() {
+        try {
+            TreePath selectionPath = tree_cur_usergrp.getSelectionPath();
+            System.out.println(selectionPath.getLastPathComponent());
+
+            MUsergroup ug = (MUsergroup) cmb_Usergrp.getSelectedItem();
+            DefaultMutableTreeNode mtn = (DefaultMutableTreeNode) selectionPath.getLastPathComponent();
+            MPermissions p = (MPermissions) mtn.getUserObject();
+            if (ug != null) {
+                cug.AddPermissionToGroup(ug.getId(), p);
+                createUserMenu(ug.getId(), tree_sel_usergrp);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
 }

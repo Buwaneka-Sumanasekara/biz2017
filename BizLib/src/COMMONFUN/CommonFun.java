@@ -11,6 +11,7 @@ import GLOBALDATA.GlobalData;
 import MODELS.MGroupCommon;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -89,6 +90,20 @@ public class CommonFun {
         }
         return ID;
     }
+    
+    
+    
+    public int generateNxtIntNo(String tbl, String tblIDCol, String WhereClause) throws Exception{
+         String q = "SELECT Max(" + tblIDCol + ") as ID FROM " + tbl + " " + WhereClause;
+        ResultSet rs = DB.Search(q);
+        int id=1;
+        
+        if(rs.next()){
+            id=rs.getInt("ID")+1;
+        }
+        return id;
+    }
+    
 
     //Create Product Name
     public String getProductName(ArrayList<MGroupCommon> GList) {
@@ -133,6 +148,9 @@ public class CommonFun {
         return sdf.format(d);
     }
 
+
+    
+    
     public String getValueWithComma(double amount) {
 
         DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);

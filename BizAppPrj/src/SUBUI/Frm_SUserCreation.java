@@ -5,24 +5,31 @@
  */
 package SUBUI;
 
-
+import CONTROLLERS.C_UserGroup;
 import DB_ACCESS.DB;
 import MAIN.Frm_Main;
 import UI.Frm_Table;
 import VALIDATIONS.MyValidator;
 import WINMNG.MyWindowBasicControllers;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.KeyStroke;
 
@@ -31,26 +38,23 @@ import javax.swing.KeyStroke;
  * @author HOME
  */
 public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyWindowBasicControllers {
-
-    Frm_Table ft = null;
-  
-    Frm_Main mainW=null;
-    MyValidator fv=null;
     
-    public Frm_SUserCreation(Frm_Main mainw,String ScreenName) {
+    Frm_Table ft = null;
+    
+    Frm_Main mainW = null;
+    MyValidator fv = null;
+        C_UserGroup cug = null;
+    public Frm_SUserCreation(Frm_Main mainw, String ScreenName) {
         initComponents();
-       this.setTitle(ScreenName);
-       this.lblScreenName.setText(ScreenName);
-        this.mainW=mainw;
-        this.fv=new MyValidator();
+        this.setTitle(ScreenName);
+        this.lblScreenName.setText(ScreenName);
+        this.mainW = mainw;
+        this.fv = new MyValidator();
+        this.cug=new C_UserGroup();
         Refresh();
-       setShortCutKeys(this);
+        setShortCutKeys(this);
     }
 
-    
-
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,8 +64,9 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        img_chooser = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
-        txt_LocCode = new javax.swing.JTextField();
+        txt_UserId = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         but_LocUpdate = new javax.swing.JButton();
         but_LocSave = new javax.swing.JButton();
@@ -69,14 +74,19 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         butLocRefresh = new javax.swing.JButton();
         lblScreenName = new javax.swing.JLabel();
         jpanelq = new javax.swing.JPanel();
-        txt_LocDescription = new javax.swing.JTextField();
+        txt_FirstName = new javax.swing.JTextField();
         Chk_Active = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txt_LocRefNO = new javax.swing.JTextField();
+        txt_LastName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cmb_UserGrp = new javax.swing.JComboBox<>();
+        lblimg = new javax.swing.JLabel();
+        but_ChooseImg = new javax.swing.JButton();
+        txt_imgurl = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("caption");
@@ -104,17 +114,17 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         jPanel1.setBackground(new java.awt.Color(226, 226, 226));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txt_LocCode.addActionListener(new java.awt.event.ActionListener() {
+        txt_UserId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_LocCodeActionPerformed(evt);
+                txt_UserIdActionPerformed(evt);
             }
         });
-        txt_LocCode.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_UserId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_LocCodeKeyTyped(evt);
+                txt_UserIdKeyTyped(evt);
             }
         });
-        jPanel1.add(txt_LocCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 150, 30));
+        jPanel1.add(txt_UserId, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 150, 30));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -170,24 +180,24 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         jPanel2.add(jpanelq, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
-        jPanel1.add(txt_LocDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 260, 30));
+        jPanel1.add(txt_FirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 260, 30));
 
         Chk_Active.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Chk_ActiveMouseClicked(evt);
             }
         });
-        jPanel1.add(Chk_Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 180, -1));
+        jPanel1.add(Chk_Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 180, -1));
 
-        jLabel1.setText("Reference No/ID");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 110, 30));
+        jLabel1.setText("User Group");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 110, 30));
 
-        jLabel2.setText("Code");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 110, 30));
-        jPanel1.add(txt_LocRefNO, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 160, 30));
+        jLabel2.setText("Id");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 110, 30));
+        jPanel1.add(txt_LastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 260, 30));
 
-        jLabel4.setText("Description *");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 110, 30));
+        jLabel4.setText("First Name");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 110, 30));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -198,7 +208,26 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 820, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 580));
+        jLabel3.setText("Last Name");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 110, 30));
+
+        jPanel1.add(cmb_UserGrp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 260, 30));
+
+        lblimg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        jPanel1.add(lblimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 150, 190));
+
+        but_ChooseImg.setText("Browse");
+        but_ChooseImg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_ChooseImgActionPerformed(evt);
+            }
+        });
+        jPanel1.add(but_ChooseImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, -1, -1));
+
+        txt_imgurl.setText("path/to/user/jpg");
+        jPanel1.add(txt_imgurl, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 360, 300, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 620));
 
         setBounds(0, 0, 867, 646);
     }// </editor-fold>//GEN-END:initComponents
@@ -207,24 +236,24 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         Vector<String> col = new Vector<>();
         col.add("Code");
         col.add("Des");
-
+        
         String[] SQL_Col = {"ID", "NAME"};
         String SQL = "select ID,NAME from m_location ";
-        String SQLWhere=" VISIBLE=1 AND ";
+        String SQLWhere = " VISIBLE=1 AND ";
         Connection currentCon = null;
         try {
             currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_SUserCreation.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         if (ft == null) {
-
-            ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL,SQLWhere);
+            
+            ft = new Frm_Table(txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere);
             ft.setVisible(true);
-
+            
         } else {
-            ft=null;
-             ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL,SQLWhere);
+            ft = null;
+            ft = new Frm_Table(txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere);
             ft.setFocusable(true);
             ft.setVisible(true);
         }
@@ -235,42 +264,68 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
     }//GEN-LAST:event_butLocRefreshActionPerformed
 
     private void Chk_ActiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Chk_ActiveMouseClicked
-       
+ChangeActive();
     }//GEN-LAST:event_Chk_ActiveMouseClicked
 
-    private void txt_LocCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_LocCodeActionPerformed
-      
-    }//GEN-LAST:event_txt_LocCodeActionPerformed
+    private void txt_UserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_UserIdActionPerformed
+
+    }//GEN-LAST:event_txt_UserIdActionPerformed
 
     private void but_LocSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSaveActionPerformed
-       
+        System.out.println(txt_imgurl.getText());
     }//GEN-LAST:event_but_LocSaveActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-      
+
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-   
+
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void but_LocUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocUpdateActionPerformed
-  
+
     }//GEN-LAST:event_but_LocUpdateActionPerformed
 
-    private void txt_LocCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_LocCodeKeyTyped
-      
-    }//GEN-LAST:event_txt_LocCodeKeyTyped
+    private void txt_UserIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_UserIdKeyTyped
+
+    }//GEN-LAST:event_txt_UserIdKeyTyped
+
+    private void but_ChooseImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ChooseImgActionPerformed
+        
+        int returnval = img_chooser.showOpenDialog(but_ChooseImg);
+        if (returnval == JFileChooser.APPROVE_OPTION) {
+            File file = img_chooser.getSelectedFile();
+            txt_imgurl.setText(file.getAbsolutePath());
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Image dimg = img.getScaledInstance(lblimg.getWidth(), lblimg.getHeight(),
+                    Image.SCALE_SMOOTH);
+            
+            lblimg.setIcon(new ImageIcon(dimg));
+            
+        }
+        
+
+    }//GEN-LAST:event_but_ChooseImgActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Chk_Active;
     private javax.swing.JButton butLocRefresh;
+    private javax.swing.JButton but_ChooseImg;
     private javax.swing.JButton but_LocSave;
     private javax.swing.JButton but_LocSearch;
     private javax.swing.JButton but_LocUpdate;
+    private javax.swing.JComboBox<String> cmb_UserGrp;
+    private javax.swing.JFileChooser img_chooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
@@ -278,30 +333,47 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jpanelq;
     private javax.swing.JLabel lblScreenName;
-    private javax.swing.JTextField txt_LocCode;
-    private javax.swing.JTextField txt_LocDescription;
-    private javax.swing.JTextField txt_LocRefNO;
+    private javax.swing.JLabel lblimg;
+    private javax.swing.JTextField txt_FirstName;
+    private javax.swing.JTextField txt_LastName;
+    private javax.swing.JTextField txt_UserId;
+    private javax.swing.JLabel txt_imgurl;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void SaveProcess() {
-
-      
+        
     }
-
+    
     @Override
     public void EditMode() {
-       
+        
     }
-
+    
     @Override
     public void Refresh() {
-       
+        try {
+            txt_FirstName.setText("");
+            txt_LastName.setText("");
+            txt_UserId.setText("");
+            txt_imgurl.setText("");
+            lblimg.setIcon(null);
+            Chk_Active.setSelected(true);
+            
+            txt_imgurl.setVisible(false);
+            
+            cmb_UserGrp.setModel(new DefaultComboBoxModel(cug.getUserGroups(true, false)));
+            
+            
+            ChangeActive();
+        } catch (Exception ex) {
+            Logger.getLogger(Frm_SUserCreation.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
     }
-
+    
     public void setShortCutKeys(JInternalFrame f) {
-
-       String exit = "exit";
+        
+        String exit = "exit";
         InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap0.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), exit);
         ActionMap actionMap0 = f.getRootPane().getActionMap();
@@ -309,10 +381,10 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
             public void actionPerformed(ActionEvent e) {
                 exit();
             }
-
+            
         }
         );
-
+        
         String Search = "Search";
         InputMap inputMap1 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap1.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), Search);
@@ -321,11 +393,11 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
             public void actionPerformed(ActionEvent e) {
                 SearchMode();
             }
-
+            
         }
         );
         
-          String Save = "Save";
+        String Save = "Save";
         InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), Save);
         ActionMap actionMap2 = f.getRootPane().getActionMap();
@@ -333,11 +405,11 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
             public void actionPerformed(ActionEvent e) {
                 SaveProcess();
             }
-
+            
         }
         );
         
-           String Edit = "Edit";
+        String Edit = "Edit";
         InputMap inputMap3 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap3.put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), Edit);
         ActionMap actionMap3 = f.getRootPane().getActionMap();
@@ -345,11 +417,11 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
             public void actionPerformed(ActionEvent e) {
                 EditMode();
             }
-
+            
         }
         );
         
-          String Refresh = "Refresh";
+        String Refresh = "Refresh";
         InputMap inputMap4 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap4.put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), Refresh);
         ActionMap actionMap4 = f.getRootPane().getActionMap();
@@ -357,25 +429,24 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
             public void actionPerformed(ActionEvent e) {
                 Refresh();
             }
-
+            
         }
         );
-
-
+        
     }
-
+    
     private void exit() {
-      
+        
         try {
             this.setClosed(true);
-            mainW.CurrentFrame="";
+            mainW.CurrentFrame = "";
             
         } catch (PropertyVetoException ex) {
             Logger.getLogger(Frm_SUserCreation.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
-
+    
     @Override
     public void setDisableEnableComponents(JComponent[] EnComlist, JComponent[] DisComlist) {
         for (JComponent c : DisComlist) {
@@ -386,10 +457,19 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         }
         
     }
-
+    
     @Override
     public void SearchMode() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    private void ChangeActive() {
+       if(Chk_Active.isSelected()){
+           Chk_Active.setText("Active");
+       }else{
+               Chk_Active.setText("Deactive");
+       }
+    
+    }
+    
 }

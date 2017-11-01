@@ -9,6 +9,7 @@ import CONTROLLERS.C_Permissions;
 import CONTROLLERS.C_Users;
 import MODELS.MPermissions;
 import MODELS.MUser;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -29,6 +30,7 @@ public class DefaultData {
         createSuperAdmin();
         createPermissions();
         createSuperAdminPrevilages();
+        createDefaultFolders();
     }
 
     private void createPermissions() {
@@ -111,7 +113,7 @@ public class DefaultData {
                     try {
                         CPerm.saveGroupPermissions(user.getMUsergroup().getId(), mPermissions.getId(), mPermissions.getParentid(), mPermissions.getAcesst());
                     } catch (Exception e) {
-                        System.err.println(e.getMessage());
+                        System.err.println("DEF PERMISSION CREATION ERROR:"+e.getMessage());
                     }
 
                 }
@@ -125,5 +127,21 @@ public class DefaultData {
 
     private void createSuperAdmin() {
 
+    }
+
+    private void createDefaultFolders() {
+        try {
+            File f_myData=new File("MyData");
+            if(f_myData.exists()==false){
+                f_myData.mkdir();
+            }
+            File f_UserImg=new File(f_myData,"Users");
+             if(f_UserImg.exists()==false){
+                f_UserImg.mkdir();
+            }
+        } catch (Exception e) {
+            System.err.println("FOLDER CREATION ERROR:"+e.getMessage());
+        }
+    
     }
 }
