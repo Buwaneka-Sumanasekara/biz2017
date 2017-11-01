@@ -110,6 +110,9 @@ public final class Frm_Start extends javax.swing.JDialog {
         arStructures.add(str_20170305_t2);
 
         
+        String q_20171101_t1="ALTER TABLE m_user DROP COLUMN LOCID";
+        Structure str_20171101_t1 = new Structure(20171101,q_20171101_t1);
+        arStructures.add(str_20171101_t1);
         
         
         

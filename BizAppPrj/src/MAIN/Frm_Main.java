@@ -11,9 +11,14 @@ import MODELS.MPermissions;
 import MODELS.MUsergroup;
 import WINMNG.MyWindowManager;
 import java.awt.Component;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -52,6 +57,7 @@ public class Frm_Main extends javax.swing.JFrame {
         this.myw = new MyWindowManager();
         this.lblUsername.setText(GlobalData.CurUser.getFirstname());
         this.lblCompanyName.setText(GlobalData.Setup.getComname());
+        RefreshLayOut();
         createUserMenu();
     }
 
@@ -66,7 +72,7 @@ public class Frm_Main extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         TUserMenu = new javax.swing.JTree();
-        jLabel1 = new javax.swing.JLabel();
+        lblUserimg = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
         lblCompanyName = new javax.swing.JLabel();
         JDesktopF = new javax.swing.JDesktopPane();
@@ -94,8 +100,8 @@ public class Frm_Main extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 150, 550));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/1465731972_user-01.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 70, 70));
+        lblUserimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/1465731972_user-01.png"))); // NOI18N
+        getContentPane().add(lblUserimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 70, 70));
 
         lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUsername.setText("BUWANEKA");
@@ -116,7 +122,7 @@ public class Frm_Main extends javax.swing.JFrame {
         JDesktopF.add(jLabel5);
         jLabel5.setBounds(410, 280, 90, 58);
 
-        getContentPane().add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 860, 640));
+        getContentPane().add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 870, 640));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 0, 0));
@@ -165,12 +171,12 @@ public class Frm_Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JDesktopPane JDesktopF;
     private javax.swing.JTree TUserMenu;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCompanyName;
+    private javax.swing.JLabel lblUserimg;
     private javax.swing.JLabel lblUsername;
     // End of variables declaration//GEN-END:variables
 
@@ -199,10 +205,8 @@ public class Frm_Main extends javax.swing.JFrame {
                         if (value.toString().equals("Home")) {
                             setIcon(homeIcon);
                         }
-                    } else {
-                        if (value.toString().equals("Home")) {
-                            setIcon(homeIcon);
-                        }
+                    } else if (value.toString().equals("Home")) {
+                        setIcon(homeIcon);
                     }
 
                     return c;
@@ -211,15 +215,14 @@ public class Frm_Main extends javax.swing.JFrame {
             });
 
             for (MPermissions p : menus) {
-             System.out.println(p.getId() + "-" + p.getParentid());
-              
+                System.out.println(p.getId() + "-" + p.getParentid());
+
                 if (p.getId().equals(p.getParentid())) {
                     if (NodesMap.get(p.getId()) == null) {
                         DefaultMutableTreeNode parent = new DefaultMutableTreeNode(p);
                         NodesMap.put(p.getId(), parent);
                         root.add(parent);
-                        
-                       
+
                     }
                 } else {
                     DefaultMutableTreeNode parent = NodesMap.get(p.getParentid());
@@ -295,6 +298,27 @@ public class Frm_Main extends javax.swing.JFrame {
                 jf.moveToFront();
             }
 
+        }
+
+    }
+
+    private void RefreshLayOut() {
+        String imgpath = GlobalData.CurUser.getImgurl();
+        File f = new File(imgpath);
+        if (f.exists()) {
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(f);
+                Image dimg = img.getScaledInstance(lblUserimg.getWidth(), lblUserimg.getHeight(),
+                        Image.SCALE_SMOOTH);
+
+                lblUserimg.setIcon(new ImageIcon(dimg));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            lblUserimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/1465731972_user-01.png"))); // NOI18N
         }
 
     }

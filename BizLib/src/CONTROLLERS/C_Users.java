@@ -30,7 +30,7 @@ public class C_Users {
             user.setFirstname(rs.getString("FIRSTNAME"));
             user.setImgurl(rs.getString("IMGURL"));
             user.setLastname(rs.getString("LASTNAME"));
-            user.setMLocation(new C_Locations().getLocation(rs.getString("LOCID")));
+          //  user.setMLocation(new C_Locations().getLocation(rs.getString("LOCID")));
             user.setMUsergroup(new C_UserGroup().getUserGroup(rs.getString("UGRUID")));
         }
 

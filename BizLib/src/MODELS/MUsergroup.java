@@ -43,5 +43,21 @@ public class MUsergroup implements java.io.Serializable {
         this.visible = visible;
     }
 
+    @Override
+    public String toString() {
+        return getGroupname();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        MUsergroup ug=(MUsergroup) obj;
+        if(this.getId()==ug.getId()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    
     
 }

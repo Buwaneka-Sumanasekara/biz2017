@@ -115,6 +115,16 @@ public class MPermissions  implements java.io.Serializable {
         return this.getDescription();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        MPermissions p=(MPermissions) obj;
+        if(this.id.equals(p.id)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     
    
     
