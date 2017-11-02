@@ -36,6 +36,7 @@ public class UTransactions  implements java.io.Serializable {
      private String Reportpath;
      private Byte isPosTran;
      private Byte displayunit;
+     private Byte PreviewRep;
      private Set TStockmsts = new HashSet(0);
 
     public UTransactions() {
@@ -231,6 +232,14 @@ public class UTransactions  implements java.io.Serializable {
 
     public void setIsPosTran(Byte isPosTran) {
         this.isPosTran = isPosTran;
+    }
+
+    public Byte getPreviewRep() {
+        return PreviewRep;
+    }
+
+    public void setPreviewRep(Byte PreviewRep) {
+        this.PreviewRep = PreviewRep;
     }
 
 

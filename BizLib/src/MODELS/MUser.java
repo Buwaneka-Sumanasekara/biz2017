@@ -11,10 +11,14 @@ public class MUser implements java.io.Serializable {
     private MUsergroup MUsergroup;
     private String firstname;
     private String lastname;
+    private String username;
     private String imgurl;
     private Byte active;
     private Byte visible;
 
+    
+    
+    
     public String getId() {
         return this.id;
     }
@@ -77,6 +81,14 @@ public class MUser implements java.io.Serializable {
 
     public void setVisible(Byte visible) {
         this.visible = visible;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
  

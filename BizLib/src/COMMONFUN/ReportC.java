@@ -26,24 +26,25 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class ReportC {
 
-    
     public boolean printFromDB_Trn(String TrnNo, UTransactions trnSetup, boolean isReprint) throws Exception {
-        
+
         return printFromDB_Trn(TrnNo, trnSetup, isReprint);
-        
+
     }
-    public boolean printFromDB_Trn(String TrnNo, UTransactions trnSetup, boolean isReprint,boolean printwindows) throws Exception {
+
+    public boolean printFromDB_Trn(String TrnNo, UTransactions trnSetup, boolean isReprint, boolean printwindows) throws Exception {
+        boolean printReport = false;
         USetup setup = GlobalData.Setup;
         String MasterreportPath = new File("").getAbsolutePath() + "\\Reports\\Transactions\\" + ((trnSetup.getReportpath() == null || trnSetup.getReportpath().equals("")) ? "DEF\\TRpt_Default.jrxml" : trnSetup.getReportpath());
-        String folder="";
-        if((trnSetup.getReportpath() == null || trnSetup.getReportpath().equals(""))){
-          folder="DEF";
-        }else{
-            folder=trnSetup.getTrntype().toUpperCase();
-            
+        String folder = "";
+        if ((trnSetup.getReportpath() == null || trnSetup.getReportpath().equals(""))) {
+            folder = "DEF";
+        } else {
+            folder = trnSetup.getTrntype().toUpperCase();
+
         }
-        
-        String SubReport = new File("").getAbsolutePath() + "\\Reports\\Transactions\\"+folder+"\\";
+
+        String SubReport = new File("").getAbsolutePath() + "\\Reports\\Transactions\\" + folder + "\\";
 
         if (new File(MasterreportPath).exists() == false) {
             throw new Exception("Report Path is invalid!");
@@ -54,7 +55,7 @@ public class ReportC {
         // JREmptyDataSource datasource = new JREmptyDataSource();
         Connection con = DB.getCurrentCon();
         Map<String, Object> para = new HashMap<>();
-        para.put("SUBREPORT_DIR",SubReport);
+        para.put("SUBREPORT_DIR", SubReport);
         para.put("PARA_TRNNO", TrnNo);
         para.put("PARA_TITLE", trnSetup.getTrndesc().toUpperCase());
         para.put("PARA_COMNAME", setup.getComname());
@@ -65,17 +66,17 @@ public class ReportC {
         para.put("PARA_CONTACT", "");
         para.put("PARA_TRNTYP", trnSetup.getTrntype());
 
-        
-         JasperPrint print = JasperFillManager.fillReport(jasperMasterReport, para, con);
+        JasperPrint print = JasperFillManager.fillReport(jasperMasterReport, para, con);
 
-        if(printwindows){
-           //  boolean printReport = JasperPrintManager.printReport(print, false);
-           JasperViewer.viewReport(print,false);
-        }else{
-       
-        boolean printReport = JasperPrintManager.printReport(print, false);
+        if (trnSetup.getPreviewRep() == 1) {
+            //  boolean printReport = JasperPrintManager.printReport(print, false);
+            JasperViewer.viewReport(print, false);
+            printReport = true;
+        } else {
+
+            printReport = JasperPrintManager.printReport(print, false);
         }
-        return true;
+        return printReport;
 
     }
 

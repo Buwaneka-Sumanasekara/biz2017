@@ -79,6 +79,7 @@ public class Frm_Main extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        butLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -110,7 +111,7 @@ public class Frm_Main extends javax.swing.JFrame {
         lblCompanyName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblCompanyName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCompanyName.setText("COMPANY NAME");
-        getContentPane().add(lblCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 770, 30));
+        getContentPane().add(lblCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 760, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"))); // NOI18N
         JDesktopF.add(jLabel3);
@@ -128,6 +129,16 @@ public class Frm_Main extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(204, 0, 0));
         jLabel2.setText("[  F2 : SEARCH   ]   [   F3: EDIT  ]  [  F4: REFRESH  ]   [  F5: SAVE  ]  [F6: HOLD]");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 670, 750, -1));
+
+        butLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/if_exit_7989 (2).png"))); // NOI18N
+        butLogout.setBorderPainted(false);
+        butLogout.setContentAreaFilled(false);
+        butLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butLogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(butLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(963, 0, 60, 30));
 
         setSize(new java.awt.Dimension(1024, 720));
         setLocationRelativeTo(null);
@@ -150,6 +161,10 @@ public class Frm_Main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_TUserMenuValueChanged
 
+    private void butLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLogoutActionPerformed
+        Logout();
+    }//GEN-LAST:event_butLogoutActionPerformed
+
     public static void main(String args[]) {
 
         /* try {
@@ -171,6 +186,7 @@ public class Frm_Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JDesktopPane JDesktopF;
     private javax.swing.JTree TUserMenu;
+    private javax.swing.JButton butLogout;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -309,7 +325,7 @@ public class Frm_Main extends javax.swing.JFrame {
             BufferedImage img = null;
             try {
                 img = ImageIO.read(f);
-                Image dimg = img.getScaledInstance(lblUserimg.getWidth(), lblUserimg.getHeight(),
+                Image dimg = img.getScaledInstance(70, 70,
                         Image.SCALE_SMOOTH);
 
                 lblUserimg.setIcon(new ImageIcon(dimg));
@@ -319,6 +335,16 @@ public class Frm_Main extends javax.swing.JFrame {
 
         } else {
             lblUserimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/1465731972_user-01.png"))); // NOI18N
+        }
+
+    }
+
+    private void Logout() {
+        int showConfirmDialog = JOptionPane.showConfirmDialog(rootPane, "Do you want to logout from the System", GlobalData.MESSAGEBOX, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (showConfirmDialog == JOptionPane.YES_OPTION) {
+            Frm_Login l = new Frm_Login();
+            this.dispose();
+            l.setVisible(true);
         }
 
     }

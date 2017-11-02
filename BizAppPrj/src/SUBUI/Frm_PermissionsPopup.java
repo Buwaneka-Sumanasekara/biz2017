@@ -7,6 +7,7 @@ package SUBUI;
 
 import CONTROLLERS.C_UserGroup;
 import CONTROLLERS.C_Users;
+import MODELS.MPermissions;
 import MODELS.MUser;
 import java.util.Map;
 import java.util.TreeMap;
@@ -173,7 +174,7 @@ public class Frm_PermissionsPopup extends javax.swing.JDialog {
         try {
             MUser u = CUser.CheckUserLogin(txtuname.getText(), txtpass.getText());
             if (u != null && u.getActive() == 1) {
-                Map<String, String> userGroupPermitions_Map = ug.getUserGroupPermitions_Map(u.getMUsergroup().getId(), 2, "");
+                Map<String, MPermissions> userGroupPermitions_Map = ug.getUserGroupPermitions_Map(u.getMUsergroup().getId(), 2, "");
                 if (userGroupPermitions_Map.get(PerId) != null) {
                     CurState = true;
                     this.dispose();

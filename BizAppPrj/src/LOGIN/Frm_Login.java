@@ -179,7 +179,7 @@ UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     this.dispose();
 
                     ArrayList<MPermissions> Menus = ug.getUserGroupPermitions(user.getMUsergroup().getId(), 1);
-                    Map<String,String> SpecialPer = ug.getUserGroupPermitions_Map(user.getMUsergroup().getId(), 2,"");
+                    Map<String,MPermissions> SpecialPer = ug.getUserGroupPermitions_Map(user.getMUsergroup().getId(), 2,"");
                     GlobalData.SpecialPer = SpecialPer;
                     GlobalData.CurUser=user;
                     final Frm_Main frm = new Frm_Main(this, Menus);
@@ -191,7 +191,7 @@ UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-
+System.exit(0);
             }
         }
 

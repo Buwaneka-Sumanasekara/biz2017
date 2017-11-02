@@ -55,23 +55,21 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20170226_t1 = new Structure(20170226, "u_transactions", ar_20170226_t1);
         arStructures.add(str_20170226_t1);
 
-        
-         /*20170305*/
-         ArrayList<TblColumn> ar_20170305_t0 = new ArrayList<>();
+        /*20170305*/
+        ArrayList<TblColumn> ar_20170305_t0 = new ArrayList<>();
         ar_20170305_t0.add(new TblColumn("GRP_ID", "VARCHAR(50)", "NOT NULL"));
         ar_20170305_t0.add(new TblColumn("GRP_NAME", "VARCHAR(100)", "NOT NULL"));
         ar_20170305_t0.add(new TblColumn("GRP_STARTNO", "VARCHAR(100)", "NOT NULL"));
         ar_20170305_t0.add(new TblColumn("GRP_ENDNO", "VARCHAR(100)", "NOT NULL"));
         ar_20170305_t0.add(new TblColumn("GRP_QTY", "INT", "NOT NULL DEFAULT 0"));
         ar_20170305_t0.add(new TblColumn("GRP_ACTIVE", "INT", "NOT NULL DEFAULT 0"));
-        
+
         ArrayList<String> ar_20170305_t0PK = new ArrayList<>();
         ar_20170305_t0PK.add("GRP_ID");
-        
+
         Structure str_20170305_t0 = new Structure(20170305, "M_GIFTVOUCHER_GROUP", ar_20170305_t0, ar_20170305_t0PK);
         arStructures.add(str_20170305_t0);
-        
-        
+
         ArrayList<TblColumn> ar_20170305_t1 = new ArrayList<>();
         ar_20170305_t1.add(new TblColumn("GRP_ID", "VARCHAR(50)", "NOT NULL"));
         ar_20170305_t1.add(new TblColumn("GV_NO", "VARCHAR(100)", "NOT NULL"));
@@ -86,11 +84,11 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20170305_t1.add(new TblColumn("ACTIVE", "INT", "NOT NULL DEFAULT 0"));
         ar_20170305_t1.add(new TblColumn("ISPUR", "INT", "NOT NULL DEFAULT 0"));
         ar_20170305_t1.add(new TblColumn("GV_DES", "VARCHAR(100)", ""));
-        
+
         ArrayList<String> ar_20170305_t1PK = new ArrayList<>();
-       // ar_20170305_t1PK.add("GRP_ID");
+        // ar_20170305_t1PK.add("GRP_ID");
         ar_20170305_t1PK.add("GV_NO");
-        
+
         Structure str_20170305_t1 = new Structure(20170305, "M_GIFTVOUCHER", ar_20170305_t1, ar_20170305_t1PK);
         arStructures.add(str_20170305_t1);
 
@@ -101,21 +99,30 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20170305_t2.add(new TblColumn("RED_LOC", "INT", "NOT NULL"));
         ar_20170305_t2.add(new TblColumn("RED_CRBY", "VARCHAR(50)", "NOT NULL"));
         ar_20170305_t2.add(new TblColumn("RED_REFNO", "VARCHAR(100)", "NOT NULL"));
-        
+
         ArrayList<String> ar_20170305_t2PK = new ArrayList<>();
         ar_20170305_t2PK.add("NO");
         ar_20170305_t2PK.add("GV_NO");
-        
+
         Structure str_20170305_t2 = new Structure(20170305, "T_GVREDEEM", ar_20170305_t2, ar_20170305_t2PK);
         arStructures.add(str_20170305_t2);
 
-        
-        String q_20171101_t1="ALTER TABLE m_user DROP COLUMN LOCID";
-        Structure str_20171101_t1 = new Structure(20171101,q_20171101_t1);
+        String q_20171101_t1 = "ALTER TABLE m_user DROP COLUMN LOCID";
+        Structure str_20171101_t1 = new Structure(20171101, q_20171101_t1);
         arStructures.add(str_20171101_t1);
+
         
         
-        
+        ArrayList<TblColumn> ar_20171102_t1 = new ArrayList<>();
+        ar_20171102_t1.add(new TblColumn("PREV_REP", "INT", "NOT NULL DEFAULT 1"));
+
+        ArrayList<String> ar_20171102_t1PK = new ArrayList<>();
+        ar_20170305_t2PK.add("TRNNO");
+        ar_20170305_t2PK.add("TRNTYPE");
+
+        Structure str_20171102_t2 = new Structure(20171102, "u_transactions", ar_20171102_t1, ar_20171102_t1PK);
+        arStructures.add(str_20171102_t2);
+
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults);
 

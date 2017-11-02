@@ -6,8 +6,10 @@
 package SUBUI;
 
 
+import CONTROLLERS.C_Users;
 import DB_ACCESS.DB;
 import MAIN.Frm_Main;
+import MODELS.MUsersecurity;
 import UI.Frm_Table;
 import VALIDATIONS.MyValidator;
 import WINMNG.MyWindowBasicControllers;
@@ -24,6 +26,7 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 /**
@@ -36,13 +39,14 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
   
     Frm_Main mainW=null;
     MyValidator fv=null;
-    
+    C_Users cuser=null;
     public Frm_SUserSecurity(Frm_Main mainw,String ScreenName) {
         initComponents();
        this.setTitle(ScreenName);
        this.lblScreenName.setText(ScreenName);
         this.mainW=mainw;
         this.fv=new MyValidator();
+        this.cuser=new C_Users();
         Refresh();
        setShortCutKeys(this);
     }
@@ -61,22 +65,18 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txt_LocCode = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        but_LocUpdate = new javax.swing.JButton();
         but_LocSave = new javax.swing.JButton();
-        but_LocSearch = new javax.swing.JButton();
-        butLocRefresh = new javax.swing.JButton();
         lblScreenName = new javax.swing.JLabel();
         jpanelq = new javax.swing.JPanel();
-        txt_LocDescription = new javax.swing.JTextField();
-        Chk_Active = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txt_LocRefNO = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtConfPass = new javax.swing.JPasswordField();
+        txtCurPass = new javax.swing.JPasswordField();
+        txtNewPass = new javax.swing.JPasswordField();
 
         setClosable(true);
         setTitle("caption");
@@ -104,31 +104,21 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
         jPanel1.setBackground(new java.awt.Color(226, 226, 226));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txt_LocCode.addActionListener(new java.awt.event.ActionListener() {
+        txtUsername.setEditable(false);
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_LocCodeActionPerformed(evt);
+                txtUsernameActionPerformed(evt);
             }
         });
-        txt_LocCode.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_LocCodeKeyTyped(evt);
+                txtUsernameKeyTyped(evt);
             }
         });
-        jPanel1.add(txt_LocCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 150, 30));
+        jPanel1.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 190, 30));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        but_LocUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit.png"))); // NOI18N
-        but_LocUpdate.setToolTipText("Save");
-        but_LocUpdate.setContentAreaFilled(false);
-        but_LocUpdate.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit_disable.png"))); // NOI18N
-        but_LocUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocUpdateActionPerformed(evt);
-            }
-        });
-        jPanel2.add(but_LocUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
 
         but_LocSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save.png"))); // NOI18N
         but_LocSave.setToolTipText("Save");
@@ -141,28 +131,6 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
         });
         jPanel2.add(but_LocSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
-        but_LocSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search.png"))); // NOI18N
-        but_LocSearch.setToolTipText("Search(F2)");
-        but_LocSearch.setContentAreaFilled(false);
-        but_LocSearch.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search_disable.png"))); // NOI18N
-        but_LocSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocSearchActionPerformed(evt);
-            }
-        });
-        jPanel2.add(but_LocSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 40, 40));
-
-        butLocRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
-        butLocRefresh.setToolTipText("Refresh");
-        butLocRefresh.setContentAreaFilled(false);
-        butLocRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh_disable.png"))); // NOI18N
-        butLocRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butLocRefreshActionPerformed(evt);
-            }
-        });
-        jPanel2.add(butLocRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, 40));
-
         lblScreenName.setBackground(new java.awt.Color(153, 255, 51));
         lblScreenName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblScreenName.setText("caption");
@@ -170,80 +138,33 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
         jPanel2.add(jpanelq, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
-        jPanel1.add(txt_LocDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 260, 30));
 
-        Chk_Active.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Chk_ActiveMouseClicked(evt);
-            }
-        });
-        jPanel1.add(Chk_Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 180, -1));
+        jLabel1.setText("Confirm Password");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 110, 30));
 
-        jLabel1.setText("Reference No/ID");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 110, 30));
-
-        jLabel2.setText("Code");
+        jLabel2.setText("User name");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 110, 30));
-        jPanel1.add(txt_LocRefNO, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 160, 30));
 
-        jLabel4.setText("Description *");
+        jLabel4.setText("Current Password");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 110, 30));
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jLabel3.setText("New Password");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 110, 30));
+        jPanel1.add(txtConfPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 190, 30));
+        jPanel1.add(txtCurPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 190, 30));
+        jPanel1.add(txtNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 190, 30));
 
-        jLabel5.setForeground(new java.awt.Color(153, 51, 0));
-        jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 810, 40));
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 820, 40));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 580));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 620));
 
         setBounds(0, 0, 867, 646);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void but_LocSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSearchActionPerformed
-        Vector<String> col = new Vector<>();
-        col.add("Code");
-        col.add("Des");
-
-        String[] SQL_Col = {"ID", "NAME"};
-        String SQL = "select ID,NAME from m_location ";
-        String SQLWhere=" VISIBLE=1 AND ";
-        Connection currentCon = null;
-        try {
-            currentCon = DB.getCurrentCon();
-        } catch (Exception ex) {
-            Logger.getLogger(Frm_SUserSecurity.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        if (ft == null) {
-
-            ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL,SQLWhere);
-            ft.setVisible(true);
-
-        } else {
-            ft=null;
-             ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL,SQLWhere);
-            ft.setFocusable(true);
-            ft.setVisible(true);
-        }
-    }//GEN-LAST:event_but_LocSearchActionPerformed
-
-    private void butLocRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLocRefreshActionPerformed
-        Refresh();
-    }//GEN-LAST:event_butLocRefreshActionPerformed
-
-    private void Chk_ActiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Chk_ActiveMouseClicked
-       
-    }//GEN-LAST:event_Chk_ActiveMouseClicked
-
-    private void txt_LocCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_LocCodeActionPerformed
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
       
-    }//GEN-LAST:event_txt_LocCodeActionPerformed
+    }//GEN-LAST:event_txtUsernameActionPerformed
 
     private void but_LocSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSaveActionPerformed
-       
+SaveProcess();
     }//GEN-LAST:event_but_LocSaveActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
@@ -254,38 +175,41 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
    
     }//GEN-LAST:event_formInternalFrameOpened
 
-    private void but_LocUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocUpdateActionPerformed
-  
-    }//GEN-LAST:event_but_LocUpdateActionPerformed
-
-    private void txt_LocCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_LocCodeKeyTyped
+    private void txtUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyTyped
       
-    }//GEN-LAST:event_txt_LocCodeKeyTyped
+    }//GEN-LAST:event_txtUsernameKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox Chk_Active;
-    private javax.swing.JButton butLocRefresh;
     private javax.swing.JButton but_LocSave;
-    private javax.swing.JButton but_LocSearch;
-    private javax.swing.JButton but_LocUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jpanelq;
     private javax.swing.JLabel lblScreenName;
-    private javax.swing.JTextField txt_LocCode;
-    private javax.swing.JTextField txt_LocDescription;
-    private javax.swing.JTextField txt_LocRefNO;
+    private javax.swing.JPasswordField txtConfPass;
+    private javax.swing.JPasswordField txtCurPass;
+    private javax.swing.JPasswordField txtNewPass;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void SaveProcess() {
-
+        try {
+            if(validateSec()){
+                MUsersecurity usec=new MUsersecurity();
+                usec.setUsername(txtUsername.getText());
+                usec.setPassword(txtConfPass.getText());
+                cuser.updatePassword(usec,txtCurPass.getText());
+                JOptionPane.showMessageDialog(rootPane, "Password updated sucessfully!",GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
+                Refresh();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX,JOptionPane.ERROR_MESSAGE);
+        }
       
     }
 
@@ -296,7 +220,12 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
 
     @Override
     public void Refresh() {
+       txtNewPass.setText("");
+       txtCurPass.setText("");
+       txtConfPass.setText("");
        
+       txtUsername.setText(GLOBALDATA.GlobalData.CurUser.getUsername());
+       txtCurPass.grabFocus();
     }
 
     public void setShortCutKeys(JInternalFrame f) {
@@ -390,6 +319,29 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
     @Override
     public void SearchMode() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean validateSec()throws Exception {
+      boolean state=true;
+        if(txtUsername.getText().length()==0){
+            state=false;
+          throw new Exception("Plase enter username");
+      } else if(txtCurPass.getText().length()==0){
+          state=false;
+          throw new Exception("Please enter current password");
+      } else if(txtNewPass.getText().length()==0){
+          state=false;
+          throw new Exception("Please enter New  password");
+      }else if(txtConfPass.getText().length()==0){
+          state=false;
+          throw new Exception("Please enter Confirm  password");
+      }else if(!txtConfPass.getText().equals(txtNewPass.getText())){
+          state=false;
+          throw new Exception("Passwords should be match");
+      }
+    return state;
+    
+    
     }
 
 }

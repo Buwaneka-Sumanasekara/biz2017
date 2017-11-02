@@ -6,6 +6,7 @@
 package GLOBALDATA;
 
 import CONTROLLERS.C_Setup;
+import MODELS.MPermissions;
 import MODELS.MUser;
 import MODELS.USetup;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class GlobalData {
  
     
     public static Map<String, Object> Settings = SETTINGS.Settings.readFile();
-    public static Map<String,String> SpecialPer = null;
+    public static Map<String,MPermissions> SpecialPer = null;
     public static USetup Setup = C_Setup.getSetupRec();
   
     

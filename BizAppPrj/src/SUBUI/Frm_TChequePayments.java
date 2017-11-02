@@ -7,6 +7,7 @@ package SUBUI;
 
 import CONTROLLERS.C_ChequePayments;
 import MAIN.Frm_Main;
+import MODELS.MPermissions;
 import MODELS.TChqPayments;
 
 import UI.Frm_Table;
@@ -434,9 +435,9 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
             try {
                 String state = tblChqStatus.getValueAt(tblChqStatus.getSelectedRow(), 7).toString();
                 
-                String Per = GLOBALDATA.GlobalData.SpecialPer.get("P00019");
+                MPermissions Per = GLOBALDATA.GlobalData.SpecialPer.get("P00019");
                 if (Per != null) {
-                    String PerSp = GLOBALDATA.GlobalData.SpecialPer.get("P00020");
+                    MPermissions PerSp = GLOBALDATA.GlobalData.SpecialPer.get("P00020");
                     if (PerSp != null) {
                         String ChqNo = tblChqStatus.getValueAt(tblChqStatus.getSelectedRow(), 0).toString();
                         TChqPayments specificPayment = CChq.getSpecificPayment(ChqNo);

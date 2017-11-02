@@ -55,6 +55,8 @@ public class C_TransactionSetup {
             m.setReportpath(rs.getString("REPORT_PATH"));
              m.setIsPosTran(rs.getByte("IS_POSTRN"));
             m.setDisplayunit(rs.getByte("DISPLAY_UNIT"));
+            m.setPreviewRep(rs.getByte("PREV_REP"));
+            //
             
         }else{
             throw new Exception("Can`t Find Specific Trnasaction on setup table");
