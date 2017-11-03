@@ -41,6 +41,10 @@ public final class Frm_Start extends javax.swing.JDialog {
     }
 
     public void startPrograme() {
+        txtStatues.setText("");
+      super.update(this.getGraphics());
+        
+        
         ArrayList<Structure> arStructures = new ArrayList<>();
 
         ArrayList<TblColumn> ar_20161002_t1 = new ArrayList<>();
@@ -111,10 +115,10 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20171101_t1 = new Structure(20171101, q_20171101_t1);
         arStructures.add(str_20171101_t1);
 
-        
-        
         ArrayList<TblColumn> ar_20171102_t1 = new ArrayList<>();
         ar_20171102_t1.add(new TblColumn("PREV_REP", "INT", "NOT NULL DEFAULT 1"));
+        ar_20171102_t1.add(new TblColumn("CANCEL_OPT", "INT", "NOT NULL DEFAULT 0"));
+        ar_20171102_t1.add(new TblColumn("CANCEL_DAYS_WITH", "INT", "NOT NULL DEFAULT 1"));
 
         ArrayList<String> ar_20171102_t1PK = new ArrayList<>();
         ar_20170305_t2PK.add("TRNNO");
@@ -124,16 +128,22 @@ public final class Frm_Start extends javax.swing.JDialog {
         arStructures.add(str_20171102_t2);
 
         int TotalResults = arStructures.size() + 1;
-        InitPrgressBar(TotalResults);
+        InitPrgressBar(TotalResults + 2);
 
         /* ##################### TABLE STRUCTURE CREATION ###########################*/
         int latestVersion = 20160901;
+
+        txtStatues.setText("Creating Structure changes...");
+      super.update(this.getGraphics());
+       
+        
         for (Structure structure : arStructures) {
             if (structure.version > settings.getVersion()) {
 
                 try {
 
                     if (structure.getSQL() == null || structure.getSQL().equals("")) {
+
                         TblStru.createTable(structure.getTableName(), structure.getColumns(), structure.getPrimaryKeys());
                     } else {
                         TblStru.executeSql(structure.getSQL());
@@ -150,7 +160,26 @@ public final class Frm_Start extends javax.swing.JDialog {
         }
 
         settings.UpdateVersion("" + latestVersion);
+        
+        
+       
+
+        txtStatues.setText("Adding Default Data...");
+         super.update(this.getGraphics());
+     
+        
         DefData.createDefaultData();
+        setProgressBarVal();
+
+       
+        
+        
+        txtStatues.setText("Compiling Reports...");
+        
+        super.update(this.getGraphics());
+       
+        
+        DefData.compileReports();
         setProgressBarVal();
 
         this.dispose();
@@ -165,6 +194,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         jProgressBar1 = new javax.swing.JProgressBar();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        txtStatues = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -184,6 +214,10 @@ public final class Frm_Start extends javax.swing.JDialog {
         jLabel5.setForeground(new java.awt.Color(110, 147, 169));
         jLabel5.setText("Biz");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 100, 50));
+
+        txtStatues.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtStatues.setText("aaa");
+        getContentPane().add(txtStatues, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 560, 20));
 
         pack();
         setLocationRelativeTo(null);
@@ -298,5 +332,6 @@ public final class Frm_Start extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel txtStatues;
     // End of variables declaration//GEN-END:variables
 }

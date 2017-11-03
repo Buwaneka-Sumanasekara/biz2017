@@ -78,7 +78,7 @@ public class Frm_Main extends javax.swing.JFrame {
         JDesktopF = new javax.swing.JDesktopPane();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lbl_Global_Instructions = new javax.swing.JLabel();
         butLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -125,10 +125,10 @@ public class Frm_Main extends javax.swing.JFrame {
 
         getContentPane().add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 870, 640));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel2.setText("[  F2 : SEARCH   ]   [   F3: EDIT  ]  [  F4: REFRESH  ]   [  F5: SAVE  ]  [F6: HOLD]");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 670, 750, -1));
+        lbl_Global_Instructions.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lbl_Global_Instructions.setForeground(new java.awt.Color(204, 0, 0));
+        lbl_Global_Instructions.setText("[  F2 : SEARCH   ]   [   F3: EDIT  ]  [  F4: REFRESH  ]   [  F5: SAVE  ]  [F6: HOLD]  [F7: CANCEL]");
+        getContentPane().add(lbl_Global_Instructions, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 670, 750, -1));
 
         butLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/if_exit_7989 (2).png"))); // NOI18N
         butLogout.setBorderPainted(false);
@@ -187,13 +187,13 @@ public class Frm_Main extends javax.swing.JFrame {
     public javax.swing.JDesktopPane JDesktopF;
     private javax.swing.JTree TUserMenu;
     private javax.swing.JButton butLogout;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCompanyName;
     private javax.swing.JLabel lblUserimg;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JLabel lbl_Global_Instructions;
     // End of variables declaration//GEN-END:variables
 
     private void createUserMenu() {

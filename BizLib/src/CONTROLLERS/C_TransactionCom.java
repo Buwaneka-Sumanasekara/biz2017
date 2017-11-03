@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
@@ -86,6 +87,28 @@ public class C_TransactionCom {
             c.setAutoCommit(true);
         }
 
+    }
+
+    public void CancelStock(TStockmst m, UTransactions trnsetup) throws Exception {
+        if (m != null) {
+            if (trnsetup.getCancelOpt() == 1) {
+
+                if (!m.getTrnstate().equals("C")) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.DATE, (-1 * trnsetup.getCancelDaysWithing()));
+                    boolean cancancel = calendar.after(m.getMddate());
+
+                    if (cancancel || trnsetup.getCancelDaysWithing()<0 ) {
+                        String q = "UPDATE T_STOCKMST SET TRNSTATE='C',MDDATE=NOW()  WHERE ID='" + m.getId() + "' AND TRNTYPE='" + m.getUTransactions().getTrntype() + "' ";
+                        DB.Update(q);
+                    } else {
+                        throw new Exception("To cancel this transaction modificaion date should be withing " + trnsetup.getCancelDaysWithing() + " day(s) [Date after " + sdf.format(calendar.getTime()) + " ]   ");
+                    }
+                }
+            } else {
+                throw new Exception("Cancel Option is not avialble for this transaction [" + trnsetup.getTrndesc() + "]");
+            }
+        }
     }
 
     public TStockmst getStockHed(String TrnNo, UTransactions TrnTyp) throws Exception {
@@ -333,8 +356,8 @@ public class C_TransactionCom {
                         double voucherRemainAmt = CVou.getVoucherRemainAmt(pay.getRefno());
                         if (voucherRemainAmt < pay.getAmount()) {
                             throw new Exception("Exceed voucher remian amount");
-                        }else{
-                            DB.Save(CVou.saveRedeemRecord(pay.getRefno(),hed.getMLocationByMLocationSource().getId(),pay.getAmount(), hed.getMUserByMUserMd().getId(), hed.getId()));
+                        } else {
+                            DB.Save(CVou.saveRedeemRecord(pay.getRefno(), hed.getMLocationByMLocationSource().getId(), pay.getAmount(), hed.getMUserByMUserMd().getId(), hed.getId()));
                         }
                     }
                 }

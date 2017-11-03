@@ -37,6 +37,9 @@ public class UTransactions  implements java.io.Serializable {
      private Byte isPosTran;
      private Byte displayunit;
      private Byte PreviewRep;
+     private Byte CancelOpt;
+     private int CancelDaysWithing;
+     
      private Set TStockmsts = new HashSet(0);
 
     public UTransactions() {
@@ -240,6 +243,22 @@ public class UTransactions  implements java.io.Serializable {
 
     public void setPreviewRep(Byte PreviewRep) {
         this.PreviewRep = PreviewRep;
+    }
+
+    public Byte getCancelOpt() {
+        return CancelOpt;
+    }
+
+    public void setCancelOpt(Byte CancelOpt) {
+        this.CancelOpt = CancelOpt;
+    }
+
+    public int getCancelDaysWithing() {
+        return CancelDaysWithing;
+    }
+
+    public void setCancelDaysWithing(int CancelDaysWithing) {
+        this.CancelDaysWithing = CancelDaysWithing;
     }
 
 

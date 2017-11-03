@@ -42,6 +42,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
+import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,6 +59,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
 
 /**
  *
@@ -82,6 +85,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     ArrayList<JComponent> FocusingOrder = null;
     ReportC C_Report = null;
 
+    JasperReport jr = null;
+
     CommonFun cf = null;
 
     public Frm_TCommonTrn(Frm_Main mainw, String ScreenName, UTransactions TrnSetup) {
@@ -102,6 +107,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         this.FocusingOrder = new ArrayList<JComponent>();
         this.C_Report = new ReportC();
         this.cf = new CommonFun();
+        CompileReport();
         Refresh();
         setShortCutKeys(this);
         // createTrnWindow();
@@ -132,14 +138,20 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        layout_LoadingPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         layout_TopActionPanel = new javax.swing.JPanel();
-        but_LocUpdate = new javax.swing.JButton();
-        but_LocSave = new javax.swing.JButton();
-        but_Hold = new javax.swing.JButton();
-        butLocRefresh = new javax.swing.JButton();
+        but_TrnUpdate = new javax.swing.JButton();
+        but_TrnSave = new javax.swing.JButton();
+        but_TrnHold = new javax.swing.JButton();
+        but_TrnRefresh = new javax.swing.JButton();
         lblScreenName = new javax.swing.JLabel();
         jpanelq = new javax.swing.JPanel();
-        but_Search = new javax.swing.JButton();
+        but_TrnSearch = new javax.swing.JButton();
+        but_TrnCancel = new javax.swing.JButton();
+        txt_State = new javax.swing.JLabel();
+        but_TrnPrint = new javax.swing.JButton();
         layout_TopMsgPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         lbl_TrnNo = new javax.swing.JLabel();
@@ -219,52 +231,65 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jPanel1.setBackground(new java.awt.Color(226, 226, 226));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        layout_LoadingPanel.setBackground(new java.awt.Color(255, 255, 255));
+        layout_LoadingPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Processing ..");
+        layout_LoadingPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 250, 40));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/loader_seq.gif"))); // NOI18N
+        layout_LoadingPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 340, 180));
+
+        jPanel1.add(layout_LoadingPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 390, 320));
+
         layout_TopActionPanel.setBackground(new java.awt.Color(204, 204, 204));
         layout_TopActionPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        but_LocUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit.png"))); // NOI18N
-        but_LocUpdate.setToolTipText("Save");
-        but_LocUpdate.setContentAreaFilled(false);
-        but_LocUpdate.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit_disable.png"))); // NOI18N
-        but_LocUpdate.addActionListener(new java.awt.event.ActionListener() {
+        but_TrnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit.png"))); // NOI18N
+        but_TrnUpdate.setToolTipText("Edit");
+        but_TrnUpdate.setContentAreaFilled(false);
+        but_TrnUpdate.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit_disable.png"))); // NOI18N
+        but_TrnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocUpdateActionPerformed(evt);
+                but_TrnUpdateActionPerformed(evt);
             }
         });
-        layout_TopActionPanel.add(but_LocUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
+        layout_TopActionPanel.add(but_TrnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
 
-        but_LocSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save.png"))); // NOI18N
-        but_LocSave.setToolTipText("Save");
-        but_LocSave.setContentAreaFilled(false);
-        but_LocSave.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save_disable.png"))); // NOI18N
-        but_LocSave.addActionListener(new java.awt.event.ActionListener() {
+        but_TrnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save.png"))); // NOI18N
+        but_TrnSave.setToolTipText("Save");
+        but_TrnSave.setContentAreaFilled(false);
+        but_TrnSave.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save_disable.png"))); // NOI18N
+        but_TrnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocSaveActionPerformed(evt);
+                but_TrnSaveActionPerformed(evt);
             }
         });
-        layout_TopActionPanel.add(but_LocSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
+        layout_TopActionPanel.add(but_TrnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
-        but_Hold.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/hold.png"))); // NOI18N
-        but_Hold.setToolTipText("Hold(F6)");
-        but_Hold.setContentAreaFilled(false);
-        but_Hold.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/hold_disable.png"))); // NOI18N
-        but_Hold.addActionListener(new java.awt.event.ActionListener() {
+        but_TrnHold.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/hold.png"))); // NOI18N
+        but_TrnHold.setToolTipText("Hold(F6)");
+        but_TrnHold.setContentAreaFilled(false);
+        but_TrnHold.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/hold_disable.png"))); // NOI18N
+        but_TrnHold.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_HoldActionPerformed(evt);
+                but_TrnHoldActionPerformed(evt);
             }
         });
-        layout_TopActionPanel.add(but_Hold, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 40, 40));
+        layout_TopActionPanel.add(but_TrnHold, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 40, 40));
 
-        butLocRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
-        butLocRefresh.setToolTipText("Refresh");
-        butLocRefresh.setContentAreaFilled(false);
-        butLocRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh_disable.png"))); // NOI18N
-        butLocRefresh.addActionListener(new java.awt.event.ActionListener() {
+        but_TrnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
+        but_TrnRefresh.setToolTipText("Refresh");
+        but_TrnRefresh.setContentAreaFilled(false);
+        but_TrnRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh_disable.png"))); // NOI18N
+        but_TrnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butLocRefreshActionPerformed(evt);
+                but_TrnRefreshActionPerformed(evt);
             }
         });
-        layout_TopActionPanel.add(butLocRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, 40));
+        layout_TopActionPanel.add(but_TrnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, 40));
 
         lblScreenName.setBackground(new java.awt.Color(153, 255, 51));
         lblScreenName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -272,16 +297,44 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         layout_TopActionPanel.add(lblScreenName, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 180, 40));
         layout_TopActionPanel.add(jpanelq, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
 
-        but_Search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search.png"))); // NOI18N
-        but_Search.setToolTipText("Search(F2)");
-        but_Search.setContentAreaFilled(false);
-        but_Search.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search_disable.png"))); // NOI18N
-        but_Search.addActionListener(new java.awt.event.ActionListener() {
+        but_TrnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search.png"))); // NOI18N
+        but_TrnSearch.setToolTipText("Search(F2)");
+        but_TrnSearch.setContentAreaFilled(false);
+        but_TrnSearch.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search_disable.png"))); // NOI18N
+        but_TrnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_SearchActionPerformed(evt);
+                but_TrnSearchActionPerformed(evt);
             }
         });
-        layout_TopActionPanel.add(but_Search, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 40, 40));
+        layout_TopActionPanel.add(but_TrnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 40, 40));
+
+        but_TrnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_352-Document_Remove_2124269.png"))); // NOI18N
+        but_TrnCancel.setToolTipText("Cancel(F7)");
+        but_TrnCancel.setContentAreaFilled(false);
+        but_TrnCancel.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/hold_disable.png"))); // NOI18N
+        but_TrnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_TrnCancelActionPerformed(evt);
+            }
+        });
+        layout_TopActionPanel.add(but_TrnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 40, 40));
+
+        txt_State.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txt_State.setForeground(new java.awt.Color(255, 0, 0));
+        txt_State.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_State.setText("jLabel2");
+        layout_TopActionPanel.add(txt_State, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 200, 40));
+
+        but_TrnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_print__outline__printer__document__office__computer__networkprinter_2318007 (1).png"))); // NOI18N
+        but_TrnPrint.setToolTipText("Cancel(F7)");
+        but_TrnPrint.setContentAreaFilled(false);
+        but_TrnPrint.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/hold_disable.png"))); // NOI18N
+        but_TrnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_TrnPrintActionPerformed(evt);
+            }
+        });
+        layout_TopActionPanel.add(but_TrnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 40, 40));
 
         jPanel1.add(layout_TopActionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
 
@@ -344,7 +397,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jPanel1.add(cmb_Sup, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 280, 30));
 
         lbl_Sup.setText("Supplier");
-        jPanel1.add(lbl_Sup, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 80, 30));
+        jPanel1.add(lbl_Sup, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 80, 20));
 
         lbl_Cus.setText("Customer");
         jPanel1.add(lbl_Cus, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 80, 30));
@@ -353,7 +406,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
         lbl_RefTrn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_RefTrn.setText("Ref Trn");
-        jPanel1.add(lbl_RefTrn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 110, 20));
+        jPanel1.add(lbl_RefTrn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 110, 30));
 
         txt_RefTrn.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -693,17 +746,17 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         setBounds(0, 0, 857, 633);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void but_HoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_HoldActionPerformed
+    private void but_TrnHoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnHoldActionPerformed
         HoldProcess();
-    }//GEN-LAST:event_but_HoldActionPerformed
+    }//GEN-LAST:event_but_TrnHoldActionPerformed
 
-    private void butLocRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLocRefreshActionPerformed
+    private void but_TrnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnRefreshActionPerformed
         Refresh();
-    }//GEN-LAST:event_butLocRefreshActionPerformed
+    }//GEN-LAST:event_but_TrnRefreshActionPerformed
 
-    private void but_LocSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSaveActionPerformed
+    private void but_TrnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnSaveActionPerformed
         SaveProcess();
-    }//GEN-LAST:event_but_LocSaveActionPerformed
+    }//GEN-LAST:event_but_TrnSaveActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
 
@@ -713,9 +766,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
     }//GEN-LAST:event_formInternalFrameOpened
 
-    private void but_LocUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocUpdateActionPerformed
-
-    }//GEN-LAST:event_but_LocUpdateActionPerformed
+    private void but_TrnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnUpdateActionPerformed
+        EditMode();
+    }//GEN-LAST:event_but_TrnUpdateActionPerformed
 
     private void but_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_AddActionPerformed
         addToTable();
@@ -930,24 +983,34 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         txt_TrnNo.setBackground(Color.WHITE);         // TODO add your handling code here:
     }//GEN-LAST:event_txt_TrnNoFocusLost
 
-    private void but_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_SearchActionPerformed
+    private void but_TrnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnSearchActionPerformed
         SearchMode();        // TODO add your handling code here:
-    }//GEN-LAST:event_but_SearchActionPerformed
+    }//GEN-LAST:event_but_TrnSearchActionPerformed
 
     private void txt_TrnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TrnNoActionPerformed
         loadTransaction();
 
     }//GEN-LAST:event_txt_TrnNoActionPerformed
 
+    private void but_TrnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnCancelActionPerformed
+        cancelTrn();
+    }//GEN-LAST:event_but_TrnCancelActionPerformed
+
+    private void but_TrnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnPrintActionPerformed
+        printTrn();
+    }//GEN-LAST:event_but_TrnPrintActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton butLocRefresh;
     private javax.swing.JButton but_Add;
-    private javax.swing.JButton but_Hold;
     private javax.swing.JButton but_ItemSearch;
-    private javax.swing.JButton but_LocSave;
-    private javax.swing.JButton but_LocUpdate;
-    private javax.swing.JButton but_Search;
+    private javax.swing.JButton but_TrnCancel;
+    private javax.swing.JButton but_TrnHold;
+    private javax.swing.JButton but_TrnPrint;
+    private javax.swing.JButton but_TrnRefresh;
+    private javax.swing.JButton but_TrnSave;
+    private javax.swing.JButton but_TrnSearch;
+    private javax.swing.JButton but_TrnUpdate;
     private javax.swing.JComboBox cmb_Cus;
     private javax.swing.JComboBox cmb_DestLoc;
     private javax.swing.JComboBox cmb_LUnit;
@@ -955,11 +1018,14 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     private javax.swing.JComboBox cmb_Sup;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpanelq;
+    private javax.swing.JPanel layout_LoadingPanel;
     private javax.swing.JPanel layout_LocationsPanel;
     private javax.swing.JPanel layout_TopActionPanel;
     private javax.swing.JPanel layout_TopMsgPanel;
@@ -1000,19 +1066,27 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     private javax.swing.JTextField txt_RefNo;
     private javax.swing.JTextField txt_RefNo2;
     private javax.swing.JTextField txt_RefTrn;
+    private javax.swing.JLabel txt_State;
     private javax.swing.JTextField txt_TrnNo;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void SaveProcess() {
         try {
+            layout_LoadingPanel.setVisible(true);
             String trnno = SaveProcess("P");
             if (!trnno.equals("")) {
-                boolean printFromDB_Trn = C_Report.printFromDB_Trn(trnno, TrnSetup, false, true);
+                if(jr!=null){
+                     boolean printFromDB_Trn = C_Report.printFromDB_Trn(jr,trnno, TrnSetup, false, "", true);
+                }
+               
+                layout_LoadingPanel.setVisible(false);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, "Faild to Process due to:" + ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
 
+        } finally {
+            layout_LoadingPanel.setVisible(false);
         }
     }
 
@@ -1026,120 +1100,162 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     public String SaveProcess(String TrnState) throws Exception {
+
         String TrnNo = "";
+        if (but_TrnSave.isEnabled()) {
 
-        if (doFormValidations()) {
-            TStockmst hed = new TStockmst();
-            hed.setId(txt_TrnNo.getText());
-            hed.setUTransactions(TrnSetup);
-            hed.setFullutilize((byte) 1);
-            hed.setCrdate(new Date());
-            hed.setMUserByMUserCr(GLOBALDATA.GlobalData.CurUser);
-            hed.setMUserByMUserMd(GLOBALDATA.GlobalData.CurUser);
-            hed.setMddate(new Date());
-            hed.setRefno(txt_RefNo.getText());
-            hed.setRefno2(txt_RefNo2.getText());
-            hed.setRefnote("");
-            hed.setIsactive((byte) 1);
-            hed.setTrnstate(TrnState);
-            hed.setGramount(cf.parseValueWithComma(txt_FSubTot.getText()).doubleValue());
-            hed.setNetdis(Double.parseDouble(txt_FNetDis.getText()));
-            hed.setNetamount(cf.parseValueWithComma(txt_FAmount.getText()).doubleValue());
+            if (doFormValidations()) {
+                TStockmst hed = new TStockmst();
+                hed.setId(txt_TrnNo.getText());
+                hed.setUTransactions(TrnSetup);
+                hed.setFullutilize((byte) 1);
+                hed.setCrdate(new Date());
+                hed.setMUserByMUserCr(GLOBALDATA.GlobalData.CurUser);
+                hed.setMUserByMUserMd(GLOBALDATA.GlobalData.CurUser);
+                hed.setMddate(new Date());
+                hed.setRefno(txt_RefNo.getText());
+                hed.setRefno2(txt_RefNo2.getText());
+                hed.setRefnote("");
+                hed.setIsactive((byte) 1);
+                hed.setTrnstate(TrnState);
+                hed.setGramount(cf.parseValueWithComma(txt_FSubTot.getText()).doubleValue());
+                hed.setNetdis(Double.parseDouble(txt_FNetDis.getText()));
+                hed.setNetamount(cf.parseValueWithComma(txt_FAmount.getText()).doubleValue());
 
-            if (TrnSetup.getCustomer() == 1) {
-                MCustomer cus = cmb_Cus.getSelectedIndex() == -1 ? null : (MCustomer) cmb_Cus.getSelectedItem();
-                hed.setMCustomer(cus);
-            } else {
-                hed.setMCustomer(null);
+                if (TrnSetup.getCustomer() == 1) {
+                    MCustomer cus = cmb_Cus.getSelectedIndex() == -1 ? null : (MCustomer) cmb_Cus.getSelectedItem();
+                    hed.setMCustomer(cus);
+                } else {
+                    hed.setMCustomer(null);
+                }
+                if (TrnSetup.getSupplier() == 1) {
+                    MSupplier sup = cmb_Sup.getSelectedIndex() == -1 ? null : (MSupplier) cmb_Sup.getSelectedItem();
+                    hed.setMSupplier(sup);
+                } else {
+                    hed.setMSupplier(null);
+                }
+                MLocation LocSource = cmb_SourceLoc.getSelectedIndex() == -1 ? null : (MLocation) cmb_SourceLoc.getSelectedItem();
+                hed.setMLocationByMLocationSource(LocSource);
+
+                if (TrnSetup.getDestloc() == 1) {
+                    MLocation LocDest = cmb_DestLoc.getSelectedIndex() == -1 ? null : (MLocation) cmb_DestLoc.getSelectedItem();
+                    hed.setMLocationByMLocationDest(LocDest);
+                } else {
+                    hed.setMLocationByMLocationDest(null);
+                }
+                hed.setEftDate(txt_DateSelector.getDate());
+                hed.setRefTrnNo(txt_RefTrn.getText());
+
+                ArrayList<TStockline> det = new ArrayList<>();
+
+                DefaultTableModel dtm = (DefaultTableModel) tblTrn.getModel();
+
+                for (int i = 0; i < dtm.getRowCount(); i++) {
+
+                    String ProCode = dtm.getValueAt(i, 0).toString();
+
+                    String ProDes = dtm.getValueAt(i, 1).toString();
+                    double ProCost = Double.parseDouble(dtm.getValueAt(i, 2).toString());
+                    double ProSell = Double.parseDouble(dtm.getValueAt(i, 3).toString());
+                    double ProQty = Double.parseDouble(dtm.getValueAt(i, 4).toString());
+                    String unitSym = dtm.getValueAt(i, 5).toString();
+                    MUnits unit = (MUnits) dtm.getValueAt(i, 6);
+
+                    double ProDisPer = Double.parseDouble(dtm.getValueAt(i, 7).toString());
+                    double ProDisAmt = Double.parseDouble(dtm.getValueAt(i, 8).toString());
+                    double ProAmt = Double.parseDouble(dtm.getValueAt(i, 9).toString());
+                    String Batch = dtm.getValueAt(i, 10).toString();
+
+                    TStockline stLine = new TStockline();
+                    stLine.setTStockmst(hed);
+                    stLine.setLineNo(i + 1);
+                    stLine.setProId(ProCode);
+                    stLine.setSprice(ProSell);
+                    stLine.setCprice(ProCost);
+                    stLine.setQty(ProQty);
+                    stLine.setLdisper(ProDisPer);
+                    stLine.setLdis(ProDisAmt);
+                    stLine.setAmount(ProAmt);
+                    stLine.setUnitId(unit.getId());
+                    stLine.setUnitGroupId(C_Pro.getProduct(ProCode).getUnitGroupId());
+                    stLine.setProname(ProDes);
+                    stLine.setBatch(Batch);
+                    stLine.setUTransactions(TrnSetup);
+                    det.add(stLine);
+                }
+
+                if (TrnSetup.getPayments() == 1 && TrnState.equals("P")) {
+                    TrnNo = Frm_TCommonTrnPayments.getPaymentScreen(mainW, this, true, TrnSetup, hed, det);
+                    //FrmComPay.setVisible(true);
+                } else {
+                    TrnNo = C_TrnCom.saveTransaction(hed, det, null);
+                    Refresh();
+                    JOptionPane.showMessageDialog(rootPane, "" + TrnSetup.getTrndesc() + "Processed Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
+                }
+
             }
-            if (TrnSetup.getSupplier() == 1) {
-                MSupplier sup = cmb_Sup.getSelectedIndex() == -1 ? null : (MSupplier) cmb_Sup.getSelectedItem();
-                hed.setMSupplier(sup);
-            } else {
-                hed.setMSupplier(null);
-            }
-            MLocation LocSource = cmb_SourceLoc.getSelectedIndex() == -1 ? null : (MLocation) cmb_SourceLoc.getSelectedItem();
-            hed.setMLocationByMLocationSource(LocSource);
-
-            if (TrnSetup.getDestloc() == 1) {
-                MLocation LocDest = cmb_DestLoc.getSelectedIndex() == -1 ? null : (MLocation) cmb_DestLoc.getSelectedItem();
-                hed.setMLocationByMLocationDest(LocDest);
-            } else {
-                hed.setMLocationByMLocationDest(null);
-            }
-            hed.setEftDate(txt_DateSelector.getDate());
-            hed.setRefTrnNo(txt_RefTrn.getText());
-
-            ArrayList<TStockline> det = new ArrayList<>();
-
-            DefaultTableModel dtm = (DefaultTableModel) tblTrn.getModel();
-
-            for (int i = 0; i < dtm.getRowCount(); i++) {
-
-                String ProCode = dtm.getValueAt(i, 0).toString();
-
-                String ProDes = dtm.getValueAt(i, 1).toString();
-                double ProCost = Double.parseDouble(dtm.getValueAt(i, 2).toString());
-                double ProSell = Double.parseDouble(dtm.getValueAt(i, 3).toString());
-                double ProQty = Double.parseDouble(dtm.getValueAt(i, 4).toString());
-                String unitSym = dtm.getValueAt(i, 5).toString();
-                MUnits unit = (MUnits) dtm.getValueAt(i, 6);
-
-                double ProDisPer = Double.parseDouble(dtm.getValueAt(i, 7).toString());
-                double ProDisAmt = Double.parseDouble(dtm.getValueAt(i, 8).toString());
-                double ProAmt = Double.parseDouble(dtm.getValueAt(i, 9).toString());
-                String Batch = dtm.getValueAt(i, 10).toString();
-
-                TStockline stLine = new TStockline();
-                stLine.setTStockmst(hed);
-                stLine.setLineNo(i + 1);
-                stLine.setProId(ProCode);
-                stLine.setSprice(ProSell);
-                stLine.setCprice(ProCost);
-                stLine.setQty(ProQty);
-                stLine.setLdisper(ProDisPer);
-                stLine.setLdis(ProDisAmt);
-                stLine.setAmount(ProAmt);
-                stLine.setUnitId(unit.getId());
-                stLine.setUnitGroupId(C_Pro.getProduct(ProCode).getUnitGroupId());
-                stLine.setProname(ProDes);
-                stLine.setBatch(Batch);
-                stLine.setUTransactions(TrnSetup);
-                det.add(stLine);
-            }
-
-            if (TrnSetup.getPayments() == 1 && TrnState.equals("P")) {
-                TrnNo = Frm_TCommonTrnPayments.getPaymentScreen(mainW, this, true, TrnSetup, hed, det);
-                //FrmComPay.setVisible(true);
-            } else {
-                TrnNo = C_TrnCom.saveTransaction(hed, det, null);
-                Refresh();
-                JOptionPane.showMessageDialog(rootPane, "" + TrnSetup.getTrndesc() + "Processed Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
-            }
-
+        } else {
+            throw new Exception(" " + TrnSetup.getTrndesc() + " save not avaialble");
         }
         return TrnNo;
+
     }
 
     @Override
     public void EditMode() {
+        //   but_TrnSave.setEnabled(false);
+        //but_TrnHold, but_TrnCancel,,but_TrnSave,, but_Add              
 
+        if (but_TrnUpdate.isEnabled()) {
+
+            but_TrnPrint.setEnabled(true);
+
+            if (but_TrnHold.isVisible()) {
+                but_TrnSave.setEnabled(true);
+                but_TrnHold.setEnabled(true);
+            }
+
+            if (but_TrnCancel.isVisible()) {
+                but_TrnCancel.setEnabled(true);
+            }
+
+            JComponent[] dis = {but_TrnSearch, but_TrnUpdate, txt_TrnNo};
+            JComponent[] enb = {but_TrnPrint, but_Add, but_TrnRefresh, but_ItemSearch, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
+            setDisableEnableComponents(enb, dis);
+        }
     }
 
     @Override
     public void Refresh() {
         clearLine();
         txt_TrnNo.setText("");
-
+        txt_TrnNo.setEnabled(true);
         txt_DateSelector.setDate(null);
         txt_RefNo.setText("");
         txt_RefNo2.setText("");
         txt_RefTrn.setText("");
-
+        txt_State.setText("");
+        layout_LoadingPanel.setVisible(false);
         DefaultTableModel dtm = (DefaultTableModel) tblTrn.getModel();
         dtm.setRowCount(0);
 
+        but_TrnSearch.setEnabled(true);
+        but_TrnHold.setEnabled(false);
+        but_TrnSave.setEnabled(true);
+        but_TrnUpdate.setEnabled(false);
+        but_TrnRefresh.setEnabled(true);
+
+        but_TrnPrint.setEnabled(false);
+        but_TrnPrint.setVisible(false);
+        but_TrnCancel.setEnabled(false);
+        but_TrnCancel.setVisible(false);
+
         txt_TrnNo.grabFocus();
+
+        JComponent[] dis = {but_TrnUpdate};
+        JComponent[] enb = {txt_TrnNo, but_TrnSearch, but_Add, but_TrnRefresh, but_ItemSearch, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
+        setDisableEnableComponents(enb, dis);
+
         createTrnWindow();
     }
 
@@ -1253,6 +1369,18 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         }
         );
 
+        String TrnCancel = "TrnCancel";
+        InputMap inputMap9 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap9.put(KeyStroke.getKeyStroke(KeyEvent.VK_F7, 0), TrnCancel);
+        ActionMap actionMap9 = f.getRootPane().getActionMap();
+        actionMap9.put(TrnCancel, new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                cancelTrn();
+            }
+
+        }
+        );
+
     }
 
     private void removeSelectedLine() {
@@ -1294,14 +1422,18 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
     @Override
     public void SearchMode() {
-        if (but_Search.isEnabled()) {
+        if (but_TrnSearch.isEnabled()) {
             Vector<String> col = new Vector<>();
             col.add("Code");
+            col.add("State");
             col.add("CR Date");
             col.add("MD Date");
-            String[] SQL_Col = {"ID", "CRDATE", "MDDATE"};
-            String SQL = "select ID,CRDATE,MDDATE from T_STOCKMST ";
-            String SQLWhere = " TRNSTATE='H' AND TRNTYPE='" + TrnSetup.getTrntype() + "' AND ";
+            String[] SQL_Col = {"ID", "STATE", "CRDATE", "MDDATE"};
+            String SQL = "select ID,IF (TRNSTATE='H','HOLD', IF(TRNSTATE='P','PROCESSED','CANCELLED')) AS STATE,CRDATE,MDDATE from T_STOCKMST ";
+
+            String SQLWhere = "   TRNTYPE='" + TrnSetup.getTrntype() + "' AND ";
+            String SQLEnd = " ORDER BY MDDATE desc LIMIT 100 ";
+
             Connection currentCon = null;
             try {
                 currentCon = DB.getCurrentCon();
@@ -1310,12 +1442,12 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             }
             if (ft == null) {
 
-                ft = new Frm_Table(this, true, txt_TrnNo, currentCon, col, SQL_Col, SQL, SQLWhere);
+                ft = new Frm_Table(this, true, txt_TrnNo, currentCon, col, SQL_Col, SQL, SQLWhere, SQLEnd);
                 ft.setVisible(true);
 
             } else {
                 ft = null;
-                ft = new Frm_Table(this, true, txt_TrnNo, currentCon, col, SQL_Col, SQL, SQLWhere);
+                ft = new Frm_Table(this, true, txt_TrnNo, currentCon, col, SQL_Col, SQL, SQLWhere, SQLEnd);
                 ft.setFocusable(true);
                 ft.setVisible(true);
             }
@@ -1602,7 +1734,13 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 v.add(Colour);//11
                 v.add(0);//12
 
-                if (checkPermissions(v)) {
+                if (txt_TrnNo.getText().length() > 0) {
+                    dtm.addRow(v);
+
+                    clearLine();
+                    CalculateTotal();
+
+                } else if (checkPermissions(v)) {
                     dtm.addRow(v);
 
                     clearLine();
@@ -1745,6 +1883,12 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         } else if (cmb_LUnit.getSelectedIndex() == -1) {
             state = false;
             throw new Exception("Select Unit");
+        } else if (txt_TrnNo.getText().length() > 0) {
+            TStockmst stockHed = C_TrnCom.getStockHed(txt_TrnNo.getText(), TrnSetup);
+            if (stockHed == null) {
+                state = false;
+                throw new Exception("Invalid Transaction No");
+            }
         }
 
         return state;
@@ -1952,6 +2096,12 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 txt_TrnNo.setText(TrnNo);
                 TStockmst stockHed = C_TrnCom.getStockHed(TrnNo, TrnSetup);
 
+                txt_DateSelector.setVisible(true);
+                txt_DateSelector.setEnabled(false);
+                txt_DateSelector.setDate(stockHed.getEftDate());
+
+                but_TrnPrint.setVisible(true);
+
                 if (TrnSetup != null) {
                     if (TrnSetup.getSupplier() == 1) {
                         cmb_Sup.setSelectedItem(stockHed.getMSupplier());
@@ -1966,7 +2116,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         cmb_DestLoc.setSelectedItem(stockHed.getMLocationByMLocationDest());
                     }
                     if (TrnSetup.getDatechooser() == 1) {
-                        txt_DateSelector.setDate(stockHed.getEftDate());
+                        txt_DateSelector.setEnabled(true);
                     }
                     if (TrnSetup.getReftrntype() != null && !TrnSetup.getReftrntype().equals("")) {
                         txt_RefTrn.setText(stockHed.getRefTrnNo());
@@ -1976,6 +2126,46 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                     }
                     if (TrnSetup.getRefno2() != null && !TrnSetup.getRefno2().equals("")) {
                         txt_RefNo2.setText(stockHed.getRefno2());
+                    }
+
+                    if (stockHed.getTrnstate().equals("C")) {
+                        txt_State.setForeground(Color.red);
+                        txt_State.setText("**CANCELLED**");
+
+                        // but_TrnHold.setEnabled(false);
+                        but_TrnHold.setVisible(false);
+                        but_TrnCancel.setEnabled(false);
+                        but_TrnCancel.setVisible(false);
+
+                        but_TrnSave.setEnabled(false);
+
+                    }
+                    if (stockHed.getTrnstate().equals("P")) {
+                        //  but_TrnHold.setEnabled(false);
+                        but_TrnHold.setVisible(false);
+
+                        but_TrnSave.setEnabled(false);
+
+                        if (TrnSetup.getCancelOpt() == 1) {
+                            but_TrnCancel.setEnabled(true);
+                            but_TrnCancel.setVisible(true);
+                        }
+
+                        txt_State.setForeground(Color.BLUE);
+                        txt_State.setText("**PROCESSED**");
+                    }
+                    if (stockHed.getTrnstate().equals("H")) {
+                        //  but_TrnHold.setEnabled(true);
+                        but_TrnHold.setVisible(true);
+                        but_TrnUpdate.setEnabled(true);
+
+                        if (TrnSetup.getCancelOpt() == 1) {
+                            but_TrnCancel.setEnabled(true);
+                            but_TrnCancel.setVisible(true);
+                        }
+
+                        txt_State.setForeground(Color.WHITE);
+                        txt_State.setText("**HOLD**");
                     }
 
                     ArrayList<TStockline> arLine = C_TrnCom.getStockLine(TrnNo, TrnSetup);
@@ -2004,6 +2194,10 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
                 CalculateTotal();
 
+                JComponent[] enb = {but_TrnRefresh, but_TrnPrint};
+                JComponent[] dis = {txt_TrnNo, but_TrnHold, but_TrnSearch, but_TrnSave, but_Add, but_ItemSearch, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
+                setDisableEnableComponents(enb, dis);
+
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
 
@@ -2012,26 +2206,86 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
     }
 
-    private boolean checkPermissions(Vector v)throws Exception {
+    private boolean checkPermissions(Vector v) throws Exception {
         boolean state = true;
-        if (Double.parseDouble(v.get(7).toString())>0 || Double.parseDouble(v.get(8).toString())>0) {
-             if(Double.parseDouble(v.get(7).toString())>0){ //Dis Per %
-                 MPermissions p = GLOBALDATA.GlobalData.SpecialPer.get("P00023");
-                 if(p!=null){
-                     state=true;
-                 }else{
-                     state=Frm_PermissionsPopup.createPermissionPopUp(mainW, true, "P00023");
-                 }
-             }else if(Double.parseDouble(v.get(8).toString())>0){//Dis Amt
-                  MPermissions p = GLOBALDATA.GlobalData.SpecialPer.get("P00024");
-                 if(p!=null){
-                     state=true;
-                 }else{
-                     state=Frm_PermissionsPopup.createPermissionPopUp(mainW, true, "P00024");
-                 }
-             }  
+        if (Double.parseDouble(v.get(7).toString()) > 0 || Double.parseDouble(v.get(8).toString()) > 0) {
+            if (Double.parseDouble(v.get(7).toString()) > 0) { //Dis Per %
+                MPermissions p = GLOBALDATA.GlobalData.SpecialPer.get("P00023");
+                if (p != null) {
+                    state = true;
+                } else {
+                    state = Frm_PermissionsPopup.createPermissionPopUp(mainW, true, "P00023");
+                }
+            } else if (Double.parseDouble(v.get(8).toString()) > 0) {//Dis Amt
+                MPermissions p = GLOBALDATA.GlobalData.SpecialPer.get("P00024");
+                if (p != null) {
+                    state = true;
+                } else {
+                    state = Frm_PermissionsPopup.createPermissionPopUp(mainW, true, "P00024");
+                }
+            }
         }
         return state;
+    }
+
+    private void cancelTrn() {
+        if (but_TrnCancel.isEnabled()) {
+            if (txt_TrnNo.getText().length() > 0) {
+                try {
+                    TStockmst stockHed = C_TrnCom.getStockHed(txt_TrnNo.getText(), TrnSetup);
+                    if (stockHed != null) {
+                        if (stockHed.getTrnstate().equals("P") || stockHed.getTrnstate().equals("H")) {
+                            C_TrnCom.CancelStock(stockHed, TrnSetup);
+                            JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " No [" + stockHed.getId() + "] is sucessfully cancelled", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
+                            Refresh();
+                        }
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+
+        }
+
+    }
+
+    private void printTrn() {
+        if (txt_TrnNo.getText().length() > 0) {
+            try {
+                layout_LoadingPanel.setVisible(true);
+
+                TStockmst stockHed = C_TrnCom.getStockHed(txt_TrnNo.getText(), TrnSetup);
+                if (stockHed != null) {
+                    String txt = stockHed.getTrnstate().equals("C") ? "**CANCELLED**" : (stockHed.getTrnstate().equals("H") ? "**HOLD**" : "");
+                    if (jr != null) {
+                        C_Report.printFromDB_Trn(jr,stockHed.getId(), TrnSetup, true, txt, true);
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " Report Not Avialable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+
+                    }
+
+                }
+
+            } catch (Exception e) {
+                layout_LoadingPanel.setVisible(false);
+                JOptionPane.showMessageDialog(rootPane, "<p>" + e.getMessage() + "</p>", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+
+            } finally {
+                layout_LoadingPanel.setVisible(false);
+            }
+
+        }
+
+    }
+
+    private void CompileReport() {
+       
+            
+         
+        
+        jr=GLOBALDATA.GlobalData.CompiledReports.get("RPT_"+TrnSetup.getTrnno());
+
     }
 
 }

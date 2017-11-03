@@ -32,7 +32,7 @@ public class ReportC {
 
     }
 
-    public boolean printFromDB_Trn(String TrnNo, UTransactions trnSetup, boolean isReprint, boolean printwindows) throws Exception {
+    public boolean printFromDB_Trn(String TrnNo, UTransactions trnSetup, boolean isReprint,String extraTxt, boolean printwindows) throws Exception {
         boolean printReport = false;
         USetup setup = GlobalData.Setup;
         String MasterreportPath = new File("").getAbsolutePath() + "\\Reports\\Transactions\\" + ((trnSetup.getReportpath() == null || trnSetup.getReportpath().equals("")) ? "DEF\\TRpt_Default.jrxml" : trnSetup.getReportpath());
@@ -50,7 +50,7 @@ public class ReportC {
             throw new Exception("Report Path is invalid!");
         }
 
-        JasperReport jasperMasterReport = JasperCompileManager.compileReport(MasterreportPath);
+       JasperReport jasperMasterReport = JasperCompileManager.compileReport(MasterreportPath);
         // Map<String, String> ComData = GlobleData.CompanyDetails;
         // JREmptyDataSource datasource = new JREmptyDataSource();
         Connection con = DB.getCurrentCon();
@@ -65,8 +65,56 @@ public class ReportC {
         para.put("PARA_ADD4", setup.getAdd3());
         para.put("PARA_CONTACT", "");
         para.put("PARA_TRNTYP", trnSetup.getTrntype());
+        para.put("PARA_REPRINT", (isReprint?"[REPRINT]":""));
+        para.put("PARA_EXTRA_HED", extraTxt);
 
         JasperPrint print = JasperFillManager.fillReport(jasperMasterReport, para, con);
+
+        if (trnSetup.getPreviewRep() == 1) {
+            //  boolean printReport = JasperPrintManager.printReport(print, false);
+            JasperViewer.viewReport(print, false);
+            printReport = true;
+        } else {
+
+            printReport = JasperPrintManager.printReport(print, false);
+        }
+        return printReport;
+
+    }
+
+    public boolean printFromDB_Trn(JasperReport jr,String TrnNo, UTransactions trnSetup, boolean isReprint,String extraTxt, boolean printwindows) throws Exception {
+        boolean printReport = false;
+        USetup setup = GlobalData.Setup;
+        
+        
+        String folder = "";
+        if ((trnSetup.getReportpath() == null || trnSetup.getReportpath().equals(""))) {
+            folder = "DEF";
+        } else {
+            folder = trnSetup.getTrntype().toUpperCase();
+
+        }
+
+        String SubReport = new File("").getAbsolutePath() + "\\Reports\\Transactions\\" + folder + "\\";
+
+        // Map<String, String> ComData = GlobleData.CompanyDetails;
+        // JREmptyDataSource datasource = new JREmptyDataSource();
+        Connection con = DB.getCurrentCon();
+        Map<String, Object> para = new HashMap<>();
+        para.put("SUBREPORT_DIR", SubReport);
+        para.put("PARA_TRNNO", TrnNo);
+        para.put("PARA_TITLE", trnSetup.getTrndesc().toUpperCase());
+        para.put("PARA_COMNAME", setup.getComname());
+        para.put("PARA_ADD1", setup.getAddno());
+        para.put("PARA_ADD2", setup.getAdd1());
+        para.put("PARA_ADD3", setup.getAdd2());
+        para.put("PARA_ADD4", setup.getAdd3());
+        para.put("PARA_CONTACT", "");
+        para.put("PARA_TRNTYP", trnSetup.getTrntype());
+        para.put("PARA_REPRINT", (isReprint?"[REPRINT]":""));
+        para.put("PARA_EXTRA_HED", extraTxt);
+
+        JasperPrint print = JasperFillManager.fillReport(jr, para, con);
 
         if (trnSetup.getPreviewRep() == 1) {
             //  boolean printReport = JasperPrintManager.printReport(print, false);

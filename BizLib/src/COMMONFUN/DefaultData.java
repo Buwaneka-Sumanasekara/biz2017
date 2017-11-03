@@ -6,11 +6,20 @@
 package COMMONFUN;
 
 import CONTROLLERS.C_Permissions;
+import CONTROLLERS.C_TransactionSetup;
 import CONTROLLERS.C_Users;
 import MODELS.MPermissions;
 import MODELS.MUser;
+import MODELS.UTransactions;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
 
 /**
  *
@@ -20,10 +29,12 @@ public class DefaultData {
 
     C_Permissions CPerm = null;
     C_Users CUsers = null;
+    C_TransactionSetup cTrn = null;
 
     public DefaultData() {
         CPerm = new C_Permissions();
         CUsers = new C_Users();
+        cTrn = new C_TransactionSetup();
     }
 
     public void createDefaultData() {
@@ -144,5 +155,25 @@ public class DefaultData {
             System.err.println("FOLDER CREATION ERROR:" + e.getMessage());
         }
 
+    }
+
+    public void compileReports() {
+        Map<String, JasperReport> map_rep = new TreeMap<>();
+
+        ArrayList<UTransactions> artrn = cTrn.getAllTransations();
+        for (UTransactions TrnSetup : artrn) {
+            String MasterreportPath = new File("").getAbsolutePath() + "\\Reports\\Transactions\\" + ((TrnSetup.getReportpath() == null || TrnSetup.getReportpath().equals("")) ? "DEF\\TRpt_Default.jrxml" : TrnSetup.getReportpath());
+
+            if (new File(MasterreportPath).exists()) {
+                try {
+                    map_rep.put("RPT_" + TrnSetup.getTrnno(), JasperCompileManager.compileReport(MasterreportPath));
+                } catch (JRException ex) {
+                    System.err.println("COMPINLING REPORTS:" + ex.getMessage());
+                }
+            }
+
+        }
+
+        GLOBALDATA.GlobalData.CompiledReports = map_rep;
     }
 }

@@ -10,6 +10,7 @@ import MODELS.MPermissions;
 import MODELS.MUser;
 import MODELS.USetup;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperReport;
 
 /**
  *
@@ -24,6 +25,7 @@ public class GlobalData {
     public static Map<String,MPermissions> SpecialPer = null;
     public static USetup Setup = C_Setup.getSetupRec();
   
+    public static Map<String,JasperReport>CompiledReports=null;
     
     public static MUser CurUser=null;
   
