@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TRpt_Invoice" pageWidth="226" pageHeight="842" columnWidth="186" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="229b3f73-f52d-4084-bbef-b137b9918283">
 	<property name="ireport.zoom" value="1.9487171000000019"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="587"/>
+	<property name="ireport.y" value="553"/>
 	<parameter name="PARA_TITLE" class="java.lang.String"/>
 	<parameter name="PARA_COMNAME" class="java.lang.String"/>
 	<parameter name="PARA_ADD1" class="java.lang.String"/>
@@ -253,7 +253,7 @@ WHERE VIEW_TRNFULL.ID=$P{PARA_TRNNO} AND VIEW_TRNFULL.TRNTYPE=$P{PARA_TRNTYP}]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="45" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="60" height="12" uuid="c98db4b5-fbb4-49e2-ab3d-093343e6800f"/>
 				<textElement>
@@ -268,50 +268,52 @@ WHERE VIEW_TRNFULL.ID=$P{PARA_TRNNO} AND VIEW_TRNFULL.TRNTYPE=$P{PARA_TRNTYP}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PRONAME}]]></textFieldExpression>
 			</textField>
+		</band>
+		<band height="24">
 			<textField>
-				<reportElement x="1" y="15" width="52" height="12" uuid="fbdbf71c-2de7-41f3-9d47-c991fbe2cb4d"/>
-				<textElement textAlignment="Right">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{SPRICE}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="65" y="15" width="27" height="12" uuid="bc62b4c7-20cc-4ce4-9fc1-2f63d181bbcc"/>
-				<textElement textAlignment="Right">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{QTY}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="96" y="15" width="17" height="12" uuid="fff0a703-bb12-4571-aade-1cf8f98f82a5"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{SYMBLE}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="1" y="27" width="20" height="12" uuid="da1b49bc-63a9-44eb-84ff-0902165d63bb"/>
+				<reportElement x="1" y="12" width="20" height="12" uuid="da1b49bc-63a9-44eb-84ff-0902165d63bb"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LDISPER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="29" y="27" width="30" height="12" uuid="35f07236-5066-4a26-9d20-645642bdef9b"/>
+				<reportElement x="23" y="12" width="30" height="12" uuid="35f07236-5066-4a26-9d20-645642bdef9b"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LDIS}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="118" y="27" width="68" height="12" uuid="f08fd16f-c040-43e3-948f-807161deebd8"/>
+				<reportElement x="0" y="0" width="52" height="12" uuid="fbdbf71c-2de7-41f3-9d47-c991fbe2cb4d"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SPRICE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="65" y="0" width="27" height="12" uuid="bc62b4c7-20cc-4ce4-9fc1-2f63d181bbcc"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="0" width="17" height="12" uuid="fff0a703-bb12-4571-aade-1cf8f98f82a5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SYMBLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="116" y="0" width="68" height="12" uuid="f08fd16f-c040-43e3-948f-807161deebd8"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{AMOUNT}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="24">
+		<band height="25">
 			<subreport>
 				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" mode="Transparent" x="1" y="0" width="185" height="21" isRemoveLineWhenBlank="true" uuid="a24275cb-0429-4711-9750-f31adcc217c4"/>
 				<subreportParameter name="PARA_PROID">
@@ -371,7 +373,7 @@ WHERE VIEW_TRNFULL.ID=$P{PARA_TRNNO} AND VIEW_TRNFULL.TRNTYPE=$P{PARA_TRNTYP}]]>
 				<textFieldExpression><![CDATA[$F{NETAMOUNT}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="485" y="1" width="69" height="1" uuid="d14f1622-cfbf-4b53-8919-5e17bde4d418"/>
+				<reportElement x="115" y="0" width="69" height="1" uuid="d14f1622-cfbf-4b53-8919-5e17bde4d418"/>
 			</line>
 			<line>
 				<reportElement x="116" y="24" width="69" height="1" uuid="7750d21a-d307-48c2-a4d1-033ff822592a"/>
@@ -383,7 +385,7 @@ WHERE VIEW_TRNFULL.ID=$P{PARA_TRNNO} AND VIEW_TRNFULL.TRNTYPE=$P{PARA_TRNTYP}]]>
 				</graphicElement>
 			</line>
 			<subreport>
-				<reportElement x="0" y="56" width="185" height="78" isRemoveLineWhenBlank="true" uuid="c4e6d1ce-08ce-4eed-b2fd-294d674a8c8b"/>
+				<reportElement x="0" y="60" width="185" height="78" isRemoveLineWhenBlank="true" uuid="c4e6d1ce-08ce-4eed-b2fd-294d674a8c8b"/>
 				<subreportParameter name="PARA_TRNTYP">
 					<subreportParameterExpression><![CDATA[$F{TRNTYPE}]]></subreportParameterExpression>
 				</subreportParameter>
