@@ -231,7 +231,7 @@ public class Frm_Main extends javax.swing.JFrame {
             });
 
             for (MPermissions p : menus) {
-                System.out.println(p.getId() + "-" + p.getParentid());
+              //  System.out.println(p.getId() + "-" + p.getParentid());
 
                 if (p.getId().equals(p.getParentid())) {
                     if (NodesMap.get(p.getId()) == null) {

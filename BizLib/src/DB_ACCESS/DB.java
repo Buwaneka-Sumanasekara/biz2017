@@ -5,6 +5,7 @@
 package DB_ACCESS;
 
 
+import GLOBALDATA.GlobalData;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,12 +20,13 @@ public class DB {
     private static Connection con;//data type is conection variable static variavle
   
     private static void getConnection() throws SQLException, ClassNotFoundException {         
-            String localServer = "localhost";//this is my localip address
+            String localServer = GlobalData.config.getServer();//this is my localip address
             String localDB ="bizdb";// name of the db
-            String port="3309";
-            String user="root";
-            String pass="123";
+            String port=GlobalData.config.getPort();
+            String user=GlobalData.config.getUsername();
+            String pass=GlobalData.config.getPassword();
             
+            System.out.println(GlobalData.config.getPort());
             Class.forName("com.mysql.jdbc.Driver");//loading the class to conect with db
             con = DriverManager.getConnection("jdbc:mysql://" + localServer + ":"+port+"/" + localDB,user, pass);//this is a static methord
     }

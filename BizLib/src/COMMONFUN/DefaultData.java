@@ -8,6 +8,7 @@ package COMMONFUN;
 import CONTROLLERS.C_Permissions;
 import CONTROLLERS.C_TransactionSetup;
 import CONTROLLERS.C_Users;
+import GLOBALDATA.GlobalData;
 import MODELS.MPermissions;
 import MODELS.MUser;
 import MODELS.UTransactions;
@@ -30,11 +31,12 @@ public class DefaultData {
     C_Permissions CPerm = null;
     C_Users CUsers = null;
     C_TransactionSetup cTrn = null;
-
+CommonFun cf=null;
     public DefaultData() {
         CPerm = new C_Permissions();
         CUsers = new C_Users();
         cTrn = new C_TransactionSetup();
+        cf=new CommonFun();
     }
 
     public void createDefaultData() {
@@ -157,23 +159,4 @@ public class DefaultData {
 
     }
 
-    public void compileReports() {
-        Map<String, JasperReport> map_rep = new TreeMap<>();
-
-        ArrayList<UTransactions> artrn = cTrn.getAllTransations();
-        for (UTransactions TrnSetup : artrn) {
-            String MasterreportPath = new File("").getAbsolutePath() + "\\Reports\\Transactions\\" + ((TrnSetup.getReportpath() == null || TrnSetup.getReportpath().equals("")) ? "DEF\\TRpt_Default.jrxml" : TrnSetup.getReportpath());
-
-            if (new File(MasterreportPath).exists()) {
-                try {
-                    map_rep.put("RPT_" + TrnSetup.getTrnno(), JasperCompileManager.compileReport(MasterreportPath));
-                } catch (JRException ex) {
-                    System.err.println("COMPINLING REPORTS:" + ex.getMessage());
-                }
-            }
-
-        }
-
-        GLOBALDATA.GlobalData.CompiledReports = map_rep;
-    }
 }

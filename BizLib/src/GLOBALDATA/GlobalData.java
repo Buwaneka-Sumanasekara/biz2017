@@ -5,11 +5,12 @@
  */
 package GLOBALDATA;
 
-import CONTROLLERS.C_Setup;
+import MODEL.CONFIG.UConfig;
 import MODELS.MPermissions;
 import MODELS.MUser;
 import MODELS.USetup;
 import java.util.Map;
+import java.util.TreeMap;
 import net.sf.jasperreports.engine.JasperReport;
 
 /**
@@ -19,16 +20,15 @@ import net.sf.jasperreports.engine.JasperReport;
 public class GlobalData {
 
     public static final String APPNAME = "Biz";
- 
-    
+
+    public static UConfig config;
     public static Map<String, Object> Settings = SETTINGS.Settings.readFile();
-    public static Map<String,MPermissions> SpecialPer = null;
-    public static USetup Setup = C_Setup.getSetupRec();
-  
-    public static Map<String,JasperReport>CompiledReports=null;
-    
-    public static MUser CurUser=null;
-  
-    
+    public static Map<String, MPermissions> SpecialPer = null;
+    public static USetup Setup = null;
+
+    public static Map<String, JasperReport> CompiledReports = new TreeMap<String, JasperReport>();
+
+    public static MUser CurUser = null;
+
     public static final String MESSAGEBOX = "Biz Message";
 }

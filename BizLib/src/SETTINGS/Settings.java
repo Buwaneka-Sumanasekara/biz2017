@@ -1,5 +1,6 @@
 package SETTINGS;
 
+import GLOBALDATA.GlobalData;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -22,8 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class Settings {
 
-    private Map<String, Object> mySettings = new TreeMap<>();
-
+   
     public  Integer getVersion() {
         Integer ver = 20160901;
         try {
@@ -68,12 +68,12 @@ public class Settings {
             
     }
     /*Funtion Read Config File*/
-    public static Map<String, Object> readFile() {
+    public static Map<String,Object> readFile() {
 
-        String path = new File("").getAbsolutePath() + "\\settings.biz";
+        String path ="settings.biz";
         File set_file = new File(path);
 
-        Map<String, Object> myConfig = new TreeMap<>();
+        Map<String,Object> m = new TreeMap<>();
         BufferedReader br = null;
         try {
 
@@ -81,7 +81,7 @@ public class Settings {
             while (br.ready()) {
 
                 String[] split = br.readLine().split("=");
-                myConfig.put(split[0], split[1]);
+              m.put(split[0], split[1]);
             }
 
         } catch (FileNotFoundException ex) {
@@ -97,7 +97,7 @@ public class Settings {
                 Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return myConfig;
+        return m ;
     }
 
     /*Funtion get Specific Seting value*/

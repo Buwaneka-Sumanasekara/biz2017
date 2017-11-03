@@ -27,15 +27,15 @@ public class Frm_Login extends javax.swing.JFrame {
 
     C_Users u = null;
     C_UserGroup ug = null;
-    DefaultData def=null;
+    DefaultData def = null;
     Frm_Login frml = null;
 
     public Frm_Login() {
         initComponents();
-        def=new DefaultData();
-        
+        def = new DefaultData();
+
         createLayout();
-        
+
         u = new C_Users();
         ug = new C_UserGroup();
         txtuname.grabFocus();
@@ -140,9 +140,9 @@ public class Frm_Login extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         try {
-UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-           // UIManager.setLookAndFeel("com.jtattoo.plaf." + CommonFun.getSystemTheme());
+            // UIManager.setLookAndFeel("com.jtattoo.plaf." + CommonFun.getSystemTheme());
         } catch (Exception ex) {
             Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -179,9 +179,9 @@ UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     this.dispose();
 
                     ArrayList<MPermissions> Menus = ug.getUserGroupPermitions(user.getMUsergroup().getId(), 1);
-                    Map<String,MPermissions> SpecialPer = ug.getUserGroupPermitions_Map(user.getMUsergroup().getId(), 2,"");
+                    Map<String, MPermissions> SpecialPer = ug.getUserGroupPermitions_Map(user.getMUsergroup().getId(), 2, "");
                     GlobalData.SpecialPer = SpecialPer;
-                    GlobalData.CurUser=user;
+                    GlobalData.CurUser = user;
                     final Frm_Main frm = new Frm_Main(this, Menus);
                     frm.setVisible(true);
 
@@ -191,13 +191,13 @@ UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-System.exit(0);
+                System.exit(0);
             }
         }
 
     }
 
     private void createLayout() {
-       def.createDefaultData();
+        def.createDefaultData();
     }
 }

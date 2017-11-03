@@ -1,1 +1,2 @@
 LOCALSERVER=localhost
+DEBUG_MODE=1

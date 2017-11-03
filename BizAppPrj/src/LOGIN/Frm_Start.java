@@ -2,28 +2,38 @@ package LOGIN;
 
 import COMMONFUN.CommonFun;
 import COMMONFUN.DefaultData;
+import CONTROLLERS.C_Setup;
+import CONTROLLERS.C_TransactionSetup;
+import GLOBALDATA.GlobalData;
+import MODELS.UTransactions;
 import SETTINGS.Settings;
 import TABLE_STRUCT.TableStruCreation;
 import TABLE_STRUCT.TblColumn;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 
 public final class Frm_Start extends javax.swing.JDialog {
 
     TableStruCreation TblStru = null;
     SETTINGS.Settings settings = null;
     DefaultData DefData = null;
+    C_TransactionSetup cTrn = null;
 
     public Frm_Start(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
+        GlobalData.Setup = C_Setup.getSetupRec();
+        GlobalData.Settings=SETTINGS.Settings.readFile();
         TblStru = new TableStruCreation();
         settings = new Settings();
         DefData = new DefaultData();
-
+        cTrn = new C_TransactionSetup();
     }
 
     public void InitPrgressBar(int MaxRecords) {
@@ -42,9 +52,8 @@ public final class Frm_Start extends javax.swing.JDialog {
 
     public void startPrograme() {
         txtStatues.setText("");
-      super.update(this.getGraphics());
-        
-        
+        super.update(this.getGraphics());
+
         ArrayList<Structure> arStructures = new ArrayList<>();
 
         ArrayList<TblColumn> ar_20161002_t1 = new ArrayList<>();
@@ -134,9 +143,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         int latestVersion = 20160901;
 
         txtStatues.setText("Creating Structure changes...");
-      super.update(this.getGraphics());
-       
-        
+        super.update(this.getGraphics());
+
         for (Structure structure : arStructures) {
             if (structure.version > settings.getVersion()) {
 
@@ -160,26 +168,18 @@ public final class Frm_Start extends javax.swing.JDialog {
         }
 
         settings.UpdateVersion("" + latestVersion);
-        
-        
-       
 
         txtStatues.setText("Adding Default Data...");
-         super.update(this.getGraphics());
-     
-        
+        super.update(this.getGraphics());
+
         DefData.createDefaultData();
         setProgressBarVal();
 
-       
-        
-        
         txtStatues.setText("Compiling Reports...");
-        
+
         super.update(this.getGraphics());
-       
-        
-        DefData.compileReports();
+
+        compileReports();
         setProgressBarVal();
 
         this.dispose();
@@ -328,6 +328,30 @@ public final class Frm_Start extends javax.swing.JDialog {
         }
 
     }
+
+    public void compileReports() {
+        //Map<String, JasperReport> map_rep = new TreeMap<>();
+
+        ArrayList<UTransactions> artrn = cTrn.getAllTransations();
+        for (UTransactions TrnSetup : artrn) {
+            String MasterreportPath = "Reports\\Transactions\\" + ((TrnSetup.getReportpath() == null || TrnSetup.getReportpath().equals("")) ? "DEF\\TRpt_Default.jrxml" : TrnSetup.getReportpath());
+            File f = new File(MasterreportPath);
+            if (f.exists()) {
+                try {
+                  //  System.err.println(f.getAbsolutePath());
+                    // cf.WriteLog("REPORTS["+TrnSetup.getTrndesc()+"]",f.getAbsolutePath() ); 
+                    GlobalData.CompiledReports.put("RPT_" + TrnSetup.getTrnno(), JasperCompileManager.compileReport(f.getAbsolutePath()));
+                } catch (JRException ex) {
+                    System.err.println("COMPINLING REPORTS:" + ex.getMessage());
+                }
+            }
+
+        }
+
+        // GLOBALDATA.GlobalData.CompiledReports = map_rep;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
