@@ -29,7 +29,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         initComponents();
 
         GlobalData.Setup = C_Setup.getSetupRec();
-        GlobalData.Settings=SETTINGS.Settings.readFile();
+        GlobalData.Settings = SETTINGS.Settings.readFile();
         TblStru = new TableStruCreation();
         settings = new Settings();
         DefData = new DefaultData();
@@ -268,6 +268,12 @@ public final class Frm_Start extends javax.swing.JDialog {
         private String SQL;
         private ArrayList<String> PrimaryKeys;
 
+        private String Type = "";
+        private String Name;
+        private String Parameters;
+        private ArrayList<String> Lines;
+        private String ReturnType;
+
         public Structure(int version, String TableName, ArrayList<TblColumn> Columns, ArrayList<String> PrimaryKeys) {
             this.version = version;
             this.TableName = TableName;
@@ -285,6 +291,15 @@ public final class Frm_Start extends javax.swing.JDialog {
             this.version = version;
             this.SQL = SQL;
 
+        }
+
+        public Structure(int version, String Type, String Name, String Parameters, ArrayList<String> Lines, String ReturnType) {
+            this.version = version;
+            this.Name = Name;
+            this.Parameters = Parameters;
+            this.Lines = Lines;
+            this.ReturnType = ReturnType;
+            this.Type = Type;
         }
 
         public int getVersion() {
@@ -327,6 +342,38 @@ public final class Frm_Start extends javax.swing.JDialog {
             this.PrimaryKeys = PrimaryKeys;
         }
 
+        public String getName() {
+            return Name;
+        }
+
+        public void setName(String Name) {
+            this.Name = Name;
+        }
+
+        public String getParameters() {
+            return Parameters;
+        }
+
+        public void setParameters(String Parameters) {
+            this.Parameters = Parameters;
+        }
+
+        public ArrayList<String> getLines() {
+            return Lines;
+        }
+
+        public void setLines(ArrayList<String> Lines) {
+            this.Lines = Lines;
+        }
+
+        public String getReturnType() {
+            return ReturnType;
+        }
+
+        public void setReturnType(String ReturnType) {
+            this.ReturnType = ReturnType;
+        }
+
     }
 
     public void compileReports() {
@@ -338,7 +385,7 @@ public final class Frm_Start extends javax.swing.JDialog {
             File f = new File(MasterreportPath);
             if (f.exists()) {
                 try {
-                  //  System.err.println(f.getAbsolutePath());
+                    //  System.err.println(f.getAbsolutePath());
                     // cf.WriteLog("REPORTS["+TrnSetup.getTrndesc()+"]",f.getAbsolutePath() ); 
                     GlobalData.CompiledReports.put("RPT_" + TrnSetup.getTrnno(), JasperCompileManager.compileReport(f.getAbsolutePath()));
                 } catch (JRException ex) {

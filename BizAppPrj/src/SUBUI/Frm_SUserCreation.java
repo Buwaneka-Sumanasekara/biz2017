@@ -609,11 +609,12 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         col.add("State");
         col.add("User Group");
 
-        String[] SQL_Col = {"U.ID", "FIRSTNAME", "LASTNAME", "STATE", "GROUPNAME"};
-        String SQL = "select U.ID,U.FIRSTNAME,U.LASTNAME,IF (U.ACTIVE=1,'ACTIVE', 'DEACTIVE') AS STATE,UG.GROUPNAME from m_user U ";
+        String[] SQL_Col = {"A.ID", "A.FIRSTNAME", "A.LASTNAME", "A.STATEE", "A.GROUPNAME"};
+        String SQL = "SELECT * FROM (select U.ID,U.FIRSTNAME,U.LASTNAME,IF (U.ACTIVE=1,'ACTIVE', 'DEACTIVE') AS STATEE,UG.GROUPNAME from m_user U ";
         SQL += " INNER JOIN m_usergroup UG  ";
-        SQL += " ON U.UGRUID=UG.ID ";
-        String SQLWhere = " U.VISIBLE=1 AND ";
+        SQL += " ON U.UGRUID=UG.ID  ";
+        String SQLWhere = " U.VISIBLE=1 )A WHERE ";
+        String endq="";
         //  System.out.println(SQL);
         Connection currentCon = null;
         try {
@@ -623,12 +624,12 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         }
         if (ft == null) {
 
-            ft = new Frm_Table(txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere);
+            ft = new Frm_Table(this, true,txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere, endq);
             ft.setVisible(true);
 
         } else {
             ft = null;
-            ft = new Frm_Table(txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere);
+            ft = new Frm_Table(this, true,txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere, endq);
             ft.setFocusable(true);
             ft.setVisible(true);
         }

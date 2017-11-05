@@ -7,6 +7,7 @@ package TABLE_STRUCT;
 
 import DB_ACCESS.DB;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -125,4 +126,20 @@ public class TableStruCreation {
             }
         }
     }
+    
+    
+    public void createStoredFunction(String strd_F_Name,String parameters,ArrayList<String> lines,String ReturnType) throws Exception{
+        String q="";
+        
+        q+=" CREATE FUNCTION "+strd_F_Name+" ("+parameters+") ";
+        q+=" RETURNS "+ReturnType+" ";
+        q+=" BEGIN ";
+        for (String q_line : lines) {
+            q+=" "+q_line+" ;";
+        }
+        q+=" END ";
+        
+        DB.Save(q);
+    }
+    
 }
