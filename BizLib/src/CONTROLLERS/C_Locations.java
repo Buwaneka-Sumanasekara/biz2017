@@ -6,6 +6,7 @@
 
 package CONTROLLERS;
 
+import COMMONFUN.CommonFun;
 import DB_ACCESS.DB;
 import MODELS.MLocation;
 import java.sql.ResultSet;
@@ -18,6 +19,13 @@ import java.util.Vector;
  * @author HOME
  */
 public class C_Locations {
+    CommonFun cf=null;
+    public C_Locations() {
+        cf=new CommonFun();
+    }
+    
+    
+    
     
     ////////////////////////METHODS////////////////////////////////////
     public MLocation getLocation(String Id) throws Exception {
@@ -99,13 +107,14 @@ public class C_Locations {
     }
 
     public int SaveLocation(MLocation m) throws Exception {
-        String sql = "INSERT INTO m_location(NAME,REFNO) VALUES('" + m.getName().toUpperCase() + "','" + m.getRefno() + "')";
+         int id = cf.generateNxtIntNo("m_location", "ID", "");
+        String sql = "INSERT INTO m_location(ID,NAME,REFNO,ACTIVE,VISIBLE) VALUES('"+id+"','" + m.getName().toUpperCase() + "','" + m.getRefno() + "',1,1)";
         return DB.Save(sql);
     }
 
     public int UpdateLocation(MLocation m) throws Exception {
         if (m.getId() != 0) {
-            String sql = "UPDATE m_location SET NAME='" + m.getName().toUpperCase() + "',REFNO='" + m.getRefno() + "' WHERE ID=" + m.getId() + "";
+            String sql = "UPDATE m_location SET ACTIVE='"+m.getActive()+"',NAME='" + m.getName().toUpperCase() + "',REFNO='" + m.getRefno() + "' WHERE ID=" + m.getId() + "";
             return DB.Update(sql);
         }else{
             return -1;

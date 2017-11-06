@@ -349,8 +349,8 @@ public class Frm_MLocation extends javax.swing.JInternalFrame implements MyWindo
 
     @Override
     public void EditMode() {
-        JComponent[] DisCom = {but_LocUpdate, but_LocSearch};
-        JComponent[] EnCom = {but_LocSave, butLocRefresh, txt_LocCode, txt_LocDescription, txt_LocRefNO, Chk_Active};
+        JComponent[] DisCom = {but_LocUpdate,  txt_LocCode,but_LocSearch};
+        JComponent[] EnCom = {but_LocSave, butLocRefresh, txt_LocDescription, txt_LocRefNO, Chk_Active};
         setDisableEnableComponents(EnCom, DisCom);
     }
 
@@ -366,7 +366,7 @@ public class Frm_MLocation extends javax.swing.JInternalFrame implements MyWindo
         Chk_Active.setText("Active");
         Chk_Active.setSelected(true);
 
-        JComponent[] EnCom = {but_LocSearch, but_LocSave};
+        JComponent[] EnCom = {but_LocSearch, but_LocSave,butLocRefresh,txt_LocCode,txt_LocDescription,txt_LocRefNO,Chk_Active};
         JComponent[] DisCom = {but_LocUpdate};
         setDisableEnableComponents(EnCom, DisCom);
     }

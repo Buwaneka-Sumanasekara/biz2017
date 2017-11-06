@@ -32,49 +32,57 @@ public class C_Permissions {
             try {
                 addPermission(mPermissions);
             } catch (Exception ex) {
-               // System.err.println(ex.getMessage());
-             //  Logger.getLogger(C_Permissions.class.getName()).log(Level.SEVERE, null, ex);
+                // System.err.println(ex.getMessage());
+                //  Logger.getLogger(C_Permissions.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     public void addPermission(MPermissions m) throws Exception {
         Map<String, String> map = new TreeMap<>();
-        map.put("ID", "'" + m.getId() + "'");
-        map.put("PARENTID", "'" + m.getParentid()+"'");
-        map.put("NAME", "'" + m.getName() + "'");
+        if (SkipList(m)) {
+
+        } else {
+            map.put("NAME", "'" + m.getName() + "'");
+        }
         map.put("DESCRIPTION", "'" + m.getDescription() + "'");
-        map.put("TYPE", "'" + m.getType() + "'");
-        map.put("HASSUB", m.getHassub().toString());
         map.put("ISUIMENU", m.getIsuimenu().toString());
+        map.put("ORD", "" + m.getOrd());
 
         if (IsPermissionExists(m.getId(), m.getParentid()) == false) {
+            map.put("ID", "'" + m.getId() + "'");
+            map.put("PARENTID", "'" + m.getParentid() + "'");
+
+            map.put("TYPE", "'" + m.getType() + "'");
+            map.put("HASSUB", m.getHassub().toString());
+
             DB.Save(qg.SaveRecord("M_PERMISSIONS", map));
         } else {
-            throw new Exception("Already Exists");
+
+            DB.Update(qg.UpdateRecord("M_PERMISSIONS", map, " WHERE ID='" + m.getId() + "' "));
         }
     }
 
-    
-    public ArrayList<MPermissions> getAllPermissions() throws Exception{
-         String q = "SELECT * FROM M_PERMISSIONS ";
-         
+    public ArrayList<MPermissions> getAllPermissions() throws Exception {
+        String q = "SELECT * FROM M_PERMISSIONS ";
+
         ResultSet rs = DB.Search(q);
-        ArrayList<MPermissions> ar=new ArrayList<>();
-        while (rs.next()) {            
-           MPermissions p=new MPermissions();
-           p.setId(rs.getString("ID"));
-           p.setParentid(rs.getString("PARENTID"));
-           p.setDescription(rs.getString("DESCRIPTION"));
-           p.setName(rs.getString("NAME"));
-           p.setType(rs.getString("TYPE"));
-           p.setHassub(rs.getByte("HASSUB"));
-           p.setIsuimenu(rs.getByte("ISUIMENU"));
-           ar.add(p);
+        ArrayList<MPermissions> ar = new ArrayList<>();
+        while (rs.next()) {
+            MPermissions p = new MPermissions();
+            p.setId(rs.getString("ID"));
+            p.setParentid(rs.getString("PARENTID"));
+            p.setDescription(rs.getString("DESCRIPTION"));
+            p.setName(rs.getString("NAME"));
+            p.setType(rs.getString("TYPE"));
+            p.setHassub(rs.getByte("HASSUB"));
+            p.setIsuimenu(rs.getByte("ISUIMENU"));
+            p.setOrd(rs.getInt("ORD"));
+            ar.add(p);
         }
         return ar;
     }
-    
+
     public boolean IsPermissionExists(String SubId, String ParentId) throws Exception {
         boolean state = false;
         String q = "SELECT * FROM M_PERMISSIONS ";
@@ -86,8 +94,6 @@ public class C_Permissions {
         return state;
     }
 
-    
-    
     public boolean IsExistsGroupPermissions(int GroupId, String SubPer, String ParentPer) throws Exception {
         boolean state = false;
         String q = "SELECT * FROM USER_PERMITIONS ";
@@ -110,6 +116,28 @@ public class C_Permissions {
 
             DB.Save(qg.SaveRecord("USER_PERMITIONS", map));
         }
+    }
+
+    private boolean SkipList(MPermissions m) {
+        boolean state = false;
+        switch (m.getId()) {
+            case "M00002":
+                state = true;
+                break;
+            case "M00003":
+                state = true;
+                break;
+            case "M00004":
+                state = true;
+                break;
+            case "M00005":
+                state = true;
+                break;
+            case "M00006":
+                state = true;
+                break;
+        }
+        return state;
     }
 
 }

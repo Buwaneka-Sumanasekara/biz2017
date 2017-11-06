@@ -16,8 +16,9 @@ public class MPermissions  implements java.io.Serializable {
      private Byte hassub;
      private Byte isuimenu;
      private String acesst;
+     private int ord;
 
-    public MPermissions(String id, String parentid, String name, String description, String type, Byte hassub, Byte isuimenu) {
+    public MPermissions(String id, String parentid, String name, String description, String type, Byte hassub, Byte isuimenu,int ord) {
         this.id = id;
         this.parentid = parentid;
         this.name = name;
@@ -25,9 +26,10 @@ public class MPermissions  implements java.io.Serializable {
         this.type = type;
         this.hassub = hassub;
         this.isuimenu = isuimenu;
+        this.ord=ord;
     }
 
-    public MPermissions(String id, String parentid, String name, String description, String type, Byte hassub, Byte isuimenu, String acesst) {
+    public MPermissions(String id, String parentid, String name, String description, String type, Byte hassub, Byte isuimenu, String acesst,int ord) {
         this.id = id;
         this.parentid = parentid;
         this.name = name;
@@ -36,6 +38,7 @@ public class MPermissions  implements java.io.Serializable {
         this.hassub = hassub;
         this.isuimenu = isuimenu;
         this.acesst = acesst;
+             this.ord=ord;
     }
     
 
@@ -123,6 +126,14 @@ public class MPermissions  implements java.io.Serializable {
         }else{
             return false;
         }
+    }
+
+    public int getOrd() {
+        return ord;
+    }
+
+    public void setOrd(int ord) {
+        this.ord = ord;
     }
 
     

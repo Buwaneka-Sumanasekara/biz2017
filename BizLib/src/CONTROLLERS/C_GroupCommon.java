@@ -71,7 +71,7 @@ public class C_GroupCommon {
 
     public int updateGroup(String tbl, MGroupCommon g) throws Exception {
         String q = "UPDATE " + tbl + " SET NAME='" + g.getName() + "',ACTIVE=" + g.getActive() + " WHERE ID='" + g.getId() + "' ";
-
+        System.out.println(q);
         return DB.Update(q);
     }
 

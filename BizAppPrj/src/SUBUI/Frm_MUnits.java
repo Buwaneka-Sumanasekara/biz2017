@@ -60,7 +60,6 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Layout_Parent = new javax.swing.JTabbedPane();
         layout_Unit = new javax.swing.JPanel();
         txt_UnitCode = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -171,7 +170,7 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
         jPanel2.add(lblScreenName, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 180, 40));
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
 
-        layout_Unit.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 860, 40));
+        layout_Unit.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
         layout_Unit.add(txt_UnitDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 260, 30));
 
         Chk_Active.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -184,7 +183,7 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel2.setText("Code");
         layout_Unit.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 110, 30));
 
-        jLabel4.setText("Symble*");
+        jLabel4.setText("Symble");
         layout_Unit.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 110, 30));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
@@ -192,9 +191,9 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
 
         jLabel5.setForeground(new java.awt.Color(153, 51, 0));
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 810, 40));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 40));
 
-        layout_Unit.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 820, 40));
+        layout_Unit.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 820, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Screen/SCR_UNIT.png"))); // NOI18N
         layout_Unit.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 170, 140));
@@ -214,9 +213,7 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel6.setText("Description *");
         layout_Unit.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 110, 30));
 
-        Layout_Parent.addTab("Unit ", layout_Unit);
-
-        getContentPane().add(Layout_Parent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 620));
+        getContentPane().add(layout_Unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 620));
 
         setBounds(0, 0, 867, 646);
     }// </editor-fold>//GEN-END:initComponents
@@ -276,8 +273,9 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
                 }else{
                     txt_UnitDescription.setText(old.getName());
                     Chk_Active.setSelected((boolean) (old.getActive() == 1 ? true : false));
+                    txt_UnitSymble.setText(old.getSymble());
                     JComponent[] EnComlist = {but_UnitUpdate, but_UnitRefresh};
-                    JComponent[] DisComlist = {but_UnitSearch, but_UnitSave, txt_UnitCode, txt_UnitDescription};
+                    JComponent[] DisComlist = {but_UnitSearch, but_UnitSave, txt_UnitCode, txt_UnitDescription,txt_UnitSymble,Chk_Active};
                     setDisableEnableComponents(EnComlist, DisComlist);
                 }
             }
@@ -290,7 +288,6 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Chk_Active;
-    private javax.swing.JTabbedPane Layout_Parent;
     private javax.swing.JButton but_UnitRefresh;
     private javax.swing.JButton but_UnitSave;
     private javax.swing.JButton but_UnitSearch;
@@ -314,10 +311,9 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
     public void SaveProcess() {
         try {
 
-            if (txt_UnitDescription.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Please fill requested fields!", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
-                txt_UnitCode.grabFocus();
-            } else {
+            if (doValidation()) {
+               
+            
                 if (txt_UnitCode.getText().equals("")) {
                     //new unit
                     int state = JOptionPane.showConfirmDialog(rootPane, "Do you want to Save this?", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -371,8 +367,8 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
 
     @Override
     public void EditMode() {
-        JComponent[] EnComlist = {but_UnitSave, but_UnitRefresh, txt_UnitCode, txt_UnitDescription, Chk_Active};
-        JComponent[] DisComlist = {but_UnitUpdate, but_UnitSearch};
+        JComponent[] EnComlist = {but_UnitSave, but_UnitRefresh, txt_UnitDescription, Chk_Active,txt_UnitSymble,Chk_Active};
+        JComponent[] DisComlist = {but_UnitUpdate, but_UnitSearch,txt_UnitCode};
         setDisableEnableComponents(EnComlist, DisComlist);
     }
 
@@ -381,7 +377,7 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
         txt_UnitCode.setText("");
         txt_UnitDescription.setText("");
         txt_UnitCode.grabFocus();
-
+txt_UnitSymble.setText("");
          Chk_Active.setText("Active");
         Chk_Active.setSelected(true);
         
@@ -504,6 +500,18 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
             ft.setFocusable(true);
             ft.setVisible(true);
         }
+    }
+
+    private boolean doValidation() throws Exception{
+       boolean state=true;
+       
+       if(txt_UnitDescription.getText().length()==0){
+           state=false;
+           throw new Exception("Unit description need");
+       }
+       return state;
+    
+    
     }
 
 }

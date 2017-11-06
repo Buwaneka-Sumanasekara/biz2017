@@ -57,7 +57,7 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
         this.comf = new CommonFun();
         this.prf = prf;
         txtTitle.setText(GroupName);
-
+        setShortCutKeys(this);
         ((AbstractDocument) txt_GroupCode.getDocument()).setDocumentFilter(new UperCaseFilter());//User Name Filed to Upper case
         this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
         Refresh();
@@ -81,10 +81,10 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
         jPanel2 = new javax.swing.JPanel();
         txtTitle = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        but_LocSearch = new javax.swing.JButton();
-        butLocRefresh = new javax.swing.JButton();
-        but_LocUpdate = new javax.swing.JButton();
-        but_LocSave = new javax.swing.JButton();
+        but_GrpSearch = new javax.swing.JButton();
+        but_GrpRefresh = new javax.swing.JButton();
+        but_GrpUpdate = new javax.swing.JButton();
+        but_GrpSave = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -134,49 +134,49 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
         jPanel2.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 180, 40));
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
 
-        but_LocSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search.png"))); // NOI18N
-        but_LocSearch.setToolTipText("Search(F2)");
-        but_LocSearch.setContentAreaFilled(false);
-        but_LocSearch.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search_disable.png"))); // NOI18N
-        but_LocSearch.addActionListener(new java.awt.event.ActionListener() {
+        but_GrpSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search.png"))); // NOI18N
+        but_GrpSearch.setToolTipText("Search(F2)");
+        but_GrpSearch.setContentAreaFilled(false);
+        but_GrpSearch.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search_disable.png"))); // NOI18N
+        but_GrpSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocSearchActionPerformed(evt);
+                but_GrpSearchActionPerformed(evt);
             }
         });
-        jPanel2.add(but_LocSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 40, 40));
+        jPanel2.add(but_GrpSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 40, 40));
 
-        butLocRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
-        butLocRefresh.setToolTipText("Refresh");
-        butLocRefresh.setContentAreaFilled(false);
-        butLocRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh_disable.png"))); // NOI18N
-        butLocRefresh.addActionListener(new java.awt.event.ActionListener() {
+        but_GrpRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
+        but_GrpRefresh.setToolTipText("Refresh");
+        but_GrpRefresh.setContentAreaFilled(false);
+        but_GrpRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh_disable.png"))); // NOI18N
+        but_GrpRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butLocRefreshActionPerformed(evt);
+                but_GrpRefreshActionPerformed(evt);
             }
         });
-        jPanel2.add(butLocRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, 40));
+        jPanel2.add(but_GrpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, 40));
 
-        but_LocUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit.png"))); // NOI18N
-        but_LocUpdate.setToolTipText("Save");
-        but_LocUpdate.setContentAreaFilled(false);
-        but_LocUpdate.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit_disable.png"))); // NOI18N
-        but_LocUpdate.addActionListener(new java.awt.event.ActionListener() {
+        but_GrpUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit.png"))); // NOI18N
+        but_GrpUpdate.setToolTipText("Save");
+        but_GrpUpdate.setContentAreaFilled(false);
+        but_GrpUpdate.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit_disable.png"))); // NOI18N
+        but_GrpUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocUpdateActionPerformed(evt);
+                but_GrpUpdateActionPerformed(evt);
             }
         });
-        jPanel2.add(but_LocUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
+        jPanel2.add(but_GrpUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
 
-        but_LocSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save.png"))); // NOI18N
-        but_LocSave.setToolTipText("Save");
-        but_LocSave.setContentAreaFilled(false);
-        but_LocSave.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save_disable.png"))); // NOI18N
-        but_LocSave.addActionListener(new java.awt.event.ActionListener() {
+        but_GrpSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save.png"))); // NOI18N
+        but_GrpSave.setToolTipText("Save");
+        but_GrpSave.setContentAreaFilled(false);
+        but_GrpSave.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save_disable.png"))); // NOI18N
+        but_GrpSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocSaveActionPerformed(evt);
+                but_GrpSaveActionPerformed(evt);
             }
         });
-        jPanel2.add(but_LocSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
+        jPanel2.add(but_GrpSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
 
@@ -202,22 +202,22 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
         }
     }//GEN-LAST:event_Chk_ActiveMouseClicked
 
-    private void but_LocSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSearchActionPerformed
+    private void but_GrpSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_GrpSearchActionPerformed
         SearchMode();
-    }//GEN-LAST:event_but_LocSearchActionPerformed
+    }//GEN-LAST:event_but_GrpSearchActionPerformed
 
-    private void butLocRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLocRefreshActionPerformed
+    private void but_GrpRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_GrpRefreshActionPerformed
         Refresh();
-    }//GEN-LAST:event_butLocRefreshActionPerformed
+    }//GEN-LAST:event_but_GrpRefreshActionPerformed
 
     private void txt_GroupCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_GroupCodeKeyTyped
         fv.LimitForChars(txt_GroupCode, 5, evt);
     }//GEN-LAST:event_txt_GroupCodeKeyTyped
 
-    private void but_LocSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSaveActionPerformed
+    private void but_GrpSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_GrpSaveActionPerformed
         SaveProcess();
 
-    }//GEN-LAST:event_but_LocSaveActionPerformed
+    }//GEN-LAST:event_but_GrpSaveActionPerformed
 
     private void txt_GroupCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_GroupCodeActionPerformed
 
@@ -228,10 +228,10 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
                 MGroupCommon group = g.IsExists(TblName, txt_GroupCode.getText().toUpperCase());
                 if (group != null) {
                     txt_GroupDescription.setText(group.getName());
-                    Chk_Active.setEnabled((boolean) (group.getActive() == 1 ? true : false));
+                    Chk_Active.setSelected( (group.getActive() == 1 ? true : false));
 
-                    JComponent enablecom[] = {butLocRefresh, but_LocUpdate};
-                    JComponent disablecom[] = {but_LocSearch, txt_GroupCode, txt_GroupDescription, but_LocSave, Chk_Active};
+                    JComponent enablecom[] = {but_GrpRefresh, but_GrpUpdate};
+                    JComponent disablecom[] = {but_GrpSearch, txt_GroupCode, txt_GroupDescription, but_GrpSave, Chk_Active};
                     setDisableEnableComponents(enablecom, disablecom);
 
                 } else {
@@ -243,9 +243,9 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
         }
     }//GEN-LAST:event_txt_GroupCodeActionPerformed
 
-    private void but_LocUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocUpdateActionPerformed
+    private void but_GrpUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_GrpUpdateActionPerformed
         EditMode();
-    }//GEN-LAST:event_but_LocUpdateActionPerformed
+    }//GEN-LAST:event_but_GrpUpdateActionPerformed
 
     private void txt_GroupCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_GroupCodeKeyPressed
 
@@ -254,10 +254,10 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Chk_Active;
-    private javax.swing.JButton butLocRefresh;
-    private javax.swing.JButton but_LocSave;
-    private javax.swing.JButton but_LocSearch;
-    private javax.swing.JButton but_LocUpdate;
+    private javax.swing.JButton but_GrpRefresh;
+    private javax.swing.JButton but_GrpSave;
+    private javax.swing.JButton but_GrpSearch;
+    private javax.swing.JButton but_GrpUpdate;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -324,16 +324,16 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
 
     @Override
     public void EditMode() {
-        JComponent enablecom[] = {butLocRefresh, txt_GroupDescription, but_LocSave, Chk_Active};
-        JComponent disablecom[] = {but_LocSearch, but_LocUpdate, txt_GroupCode};
+        JComponent enablecom[] = {but_GrpRefresh, txt_GroupDescription, but_GrpSave, Chk_Active};
+        JComponent disablecom[] = {but_GrpSearch, but_GrpUpdate, txt_GroupCode};
         setDisableEnableComponents(enablecom, disablecom);
     }
 
     @Override
     public void Refresh() {
 
-        JComponent enablecom[] = {butLocRefresh, but_LocSave, but_LocSearch, txt_GroupCode, txt_GroupDescription, Chk_Active};
-        JComponent disablecom[] = {but_LocUpdate};
+        JComponent enablecom[] = {but_GrpRefresh, but_GrpSave, but_GrpSearch, txt_GroupCode, txt_GroupDescription, Chk_Active};
+        JComponent disablecom[] = {but_GrpUpdate};
         setDisableEnableComponents(enablecom, disablecom);
         txt_GroupCode.setText("");
         txt_GroupDescription.setText("");

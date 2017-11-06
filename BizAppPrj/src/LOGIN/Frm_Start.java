@@ -135,6 +135,21 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         Structure str_20171102_t2 = new Structure(20171102, "u_transactions", ar_20171102_t1, ar_20171102_t1PK);
         arStructures.add(str_20171102_t2);
+        
+        
+
+        ArrayList<TblColumn> ar_20171106_t1 = new ArrayList<>();
+        ar_20171106_t1.add(new TblColumn("ORD", "INT", "NOT NULL DEFAULT 0"));
+
+        ArrayList<String> ar_20171106_t1PK = new ArrayList<>();
+        ar_20171106_t1PK.add("ID");
+        ar_20171106_t1PK.add("PARENTID");
+
+        Structure str_20171106_t1 = new Structure(20171106, "m_permissions", ar_20171106_t1, ar_20171106_t1PK);
+        arStructures.add(str_20171106_t1);
+        
+        
+        
 
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults + 2);
