@@ -111,6 +111,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         Refresh();
         setShortCutKeys(this);
         // createTrnWindow();
+  
         tblTrn.setDefaultRenderer(Object.class, new TblCellColour());
 
         tblTrn.addMouseListener(new MouseAdapter() {

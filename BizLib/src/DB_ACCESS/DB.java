@@ -19,6 +19,11 @@ public class DB {
 
     private static Connection con;//data type is conection variable static variavle
   
+    
+    public static void setConnectionNull(){
+      con=null;  
+    }
+    
     private static void getConnection() throws SQLException, ClassNotFoundException {         
             String localServer = GlobalData.config.getServer();//this is my localip address
             String localDB ="bizdb";// name of the db

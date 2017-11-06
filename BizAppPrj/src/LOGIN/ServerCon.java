@@ -42,7 +42,7 @@ public class ServerCon {
         FileOutputStream fos = null;
         ObjectOutputStream ous = null;
 
-        System.out.println("updateConnection:"+f.getAbsolutePath());
+        System.out.println("updateConnection:" + f.getAbsolutePath());
         try {
             if (f.exists()) {
                 System.out.println("File Exists");
@@ -103,6 +103,7 @@ public class ServerCon {
 
     public void checkConnectionOnStart() {
         try {
+            DB.setConnectionNull();
             updateConfigFile();
             if (DB.getCurrentCon().isValid(20)) {
                 setUIDesign();
@@ -139,7 +140,7 @@ public class ServerCon {
             GLOBALDATA.GlobalData.config = u;
 
         } else {
-             System.out.println("Settings file not-exisis");
+            System.out.println("Settings file not-exisis");
             fos = new FileOutputStream(f);
             UConfig u = new UConfig();
             u.setServer("localhost");

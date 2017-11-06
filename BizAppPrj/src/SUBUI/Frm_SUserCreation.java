@@ -405,12 +405,12 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
                             MPermissions p = GLOBALDATA.GlobalData.SpecialPer.get("S00004");
                             if (p != null) {
                                 u.setFirstname(txt_FirstName.getText());
-                                u.setLastname(txt_Uname.getText());
+                                u.setLastname(txt_LastName.getText());
                                 u.setActive((byte) (Chk_Active.isSelected() ? 1 : 0));
 
                                 if (txt_imgurl.getText().length() > 0) {
 
-                                    u.setImgurl("MyData/Users/USER_"+u.getId()+"."+getExtension(new File(txt_imgurl.getText())));
+                                    u.setImgurl("MyData/Users/USER_" + u.getId() + "." + getExtension(new File(txt_imgurl.getText())));
                                 } else {
                                     u.setImgurl("");
                                 }
@@ -444,31 +444,34 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
 
                 } else {
                     //Save
+                  
+                        MUser u = new MUser();
+                        u.setId("");
+                        u.setFirstname(txt_FirstName.getText());
+                        u.setLastname(txt_LastName.getText());
+                        u.setActive((byte) 1);
+                        if (txt_imgurl.getText().length() > 0) {
 
-                    MUser u = new MUser();
-                    u.setId("");
-                    u.setFirstname(txt_FirstName.getText());
-                    u.setLastname(txt_Uname.getText());
-                    u.setActive((byte) 1);
-                    if (txt_imgurl.getText().length() > 0) {
+                            u.setImgurl(getExtension(new File(txt_imgurl.getText())));
+                        } else {
+                            u.setImgurl("");
+                        }
 
-                        u.setImgurl(getExtension(new File(txt_imgurl.getText())));
-                    } else {
-                        u.setImgurl("");
-                    }
+                        MUsergroup usergrp = (MUsergroup) cmb_UserGrp.getSelectedItem();
+                        u.setMUsergroup(usergrp);
+                        MUsersecurity us = new MUsersecurity();
+                        us.setUsername(txt_Uname.getText());
+                        if (chkpassword.isSelected() == false) {
+                            us.setPassword(txtPassword.getText());
+                        } else {
+                            us.setPassword(txt_Uname.getText());
+                        }
+                        String userid = cuser.saveUser(u, us);
+                        uploadImage(u.getImgurl(), userid);
+                        JOptionPane.showMessageDialog(rootPane, "User saved sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
 
-                    MUsergroup usergrp = (MUsergroup) cmb_UserGrp.getSelectedItem();
-                    u.setMUsergroup(usergrp);
-                    MUsersecurity us = new MUsersecurity();
-                    us.setUsername(txt_Uname.getText());
-                    if (chkpassword.isSelected() == false) {
-                        us.setPassword(txtPassword.getText());
-                    } else {
-                        us.setPassword(txt_Uname.getText());
-                    }
-                    String userid = cuser.saveUser(u, us);
-                    uploadImage(u.getImgurl(), userid);
-                    Refresh();
+                        Refresh();
+                    
                 }
             }
         } catch (Exception e) {
@@ -493,6 +496,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
             txt_FirstName.setText("");
             txt_LastName.setText("");
             txt_Uname.setText("");
+            txtPassword.setText("");
             txt_UserId.setText("");
             txt_imgurl.setText("");
 
@@ -614,7 +618,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         SQL += " INNER JOIN m_usergroup UG  ";
         SQL += " ON U.UGRUID=UG.ID  ";
         String SQLWhere = " U.VISIBLE=1 )A WHERE ";
-        String endq="";
+        String endq = "";
         //  System.out.println(SQL);
         Connection currentCon = null;
         try {
@@ -624,12 +628,12 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         }
         if (ft == null) {
 
-            ft = new Frm_Table(this, true,txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere, endq);
+            ft = new Frm_Table(this, true, txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere, endq);
             ft.setVisible(true);
 
         } else {
             ft = null;
-            ft = new Frm_Table(this, true,txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere, endq);
+            ft = new Frm_Table(this, true, txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere, endq);
             ft.setFocusable(true);
             ft.setVisible(true);
         }
@@ -651,15 +655,18 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         if (txt_FirstName.getText().length() == 0) {
             state = false;
             throw new Exception("Please enter First Name");
-        } else if (txt_Uname.getText().length() == 0) {
+        } else if (txt_LastName.getText().length() == 0) {
             state = false;
             throw new Exception("Please enter Last Name");
         } else if (txt_UserId.getText().length() == 0 && txt_Uname.getText().length() == 0) {
             state = false;
             throw new Exception("Enter valid username");
         } else if (txt_UserId.getText().length() == 0 && chkpassword.isSelected() == false) {
-            state = false;
-            throw new Exception("Enter Password");
+            if (txtPassword.getText().length() == 0) {
+                state = false;
+                throw new Exception("Enter Password");
+            }
+
         }
         return state;
     }

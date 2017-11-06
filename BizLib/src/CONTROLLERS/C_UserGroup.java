@@ -125,6 +125,26 @@ public class C_UserGroup {
 
     }
 
+    public void addBulkPermissions(int ug, ArrayList<MPermissions> ar_p) throws Exception {
+        for (MPermissions p : ar_p) {
+            if (checkUserPermission(ug, p) == false) {
+                if (SearchParentPermission(ug, p)) {
+                    String sql = "INSERT INTO user_permitions(M_USERGROUP_ID,M_PERMISSIONS_ID,M_PERMISSIONS_PARENTID,ACCESSTYPE) VALUES('" + ug + "','" + p.getId() + "','" + p.getParentid() + "','A')  ";
+                    DB.Save(sql);
+                }
+
+            }
+        }
+    }
+
+    public void RemovePermissionFromGroup(int ug, MPermissions p) throws Exception {
+        String deleteper = "DELETE FROM user_permitions WHERE M_USERGROUP_ID='" + ug + "' AND M_PERMISSIONS_PARENTID='" + p.getId() + "' ";
+        DB.Delete(deleteper);
+
+        String deleteper_cur = "DELETE FROM user_permitions WHERE M_USERGROUP_ID='" + ug + "' AND M_PERMISSIONS_ID='" + p.getId() + "' ";
+        DB.Delete(deleteper_cur);
+    }
+
     public ArrayList<MPermissions> getUserGroupPermitions(int UserGroupId, int ReqPer) throws Exception {
         return getUserGroupPermitions(UserGroupId, ReqPer, "");
     }
@@ -189,7 +209,7 @@ public class C_UserGroup {
         }
 
         sql += " ORDER BY p.ID ";
-       // System.out.println(sql);
+        // System.out.println(sql);
         ArrayList<MPermissions> l = new ArrayList<>();
         ResultSet rs = DB.Search(sql);
         while (rs.next()) {

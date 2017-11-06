@@ -5,6 +5,7 @@
  */
 package SUBUI;
 
+import COMMONFUN.ComboColur;
 import CONTROLLERS.C_UserGroup;
 import MAIN.Frm_Main;
 import MODELS.MPermissions;
@@ -48,7 +49,7 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
     Frm_Main mainW = null;
     MyValidator fv = null;
     C_UserGroup cug = null;
-
+    ComboColur com_render=null;
     public Frm_SUserGroupPer(Frm_Main mainw, String ScreenName) {
         initComponents();
         this.setTitle(ScreenName);
@@ -56,6 +57,8 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         this.mainW = mainw;
         this.fv = new MyValidator();
         this.cug = new C_UserGroup();
+       // this.com_render=new ComboColur(cmb_Usergrp);
+       cmb_Usergrp.setRenderer(new ComboColur());
         Refresh();
         setShortCutKeys(this);
     }
@@ -84,6 +87,7 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         jScrollPane2 = new javax.swing.JScrollPane();
         tree_cur_usergrp = new javax.swing.JTree();
         butAddPer = new javax.swing.JButton();
+        lblState = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("caption");
@@ -127,6 +131,11 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
 
         jPanel1.add(cmb_Usergrp_Cur, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 150, 30));
 
+        cmb_Usergrp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_UsergrpActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmb_Usergrp, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 150, 30));
 
         jLabel5.setText("User Group");
@@ -148,6 +157,11 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         });
         jPanel1.add(butEditUsergrp, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 60, 60, 30));
 
+        tree_sel_usergrp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tree_sel_usergrpKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tree_sel_usergrp);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 360, 490));
@@ -163,6 +177,9 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
             }
         });
         jPanel1.add(butAddPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 80, 40));
+
+        lblState.setForeground(new java.awt.Color(204, 0, 0));
+        jPanel1.add(lblState, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, 150, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 620));
 
@@ -203,6 +220,37 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
 
     }//GEN-LAST:event_butAddPerActionPerformed
 
+    private void tree_sel_usergrpKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tree_sel_usergrpKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            MUsergroup ug = (MUsergroup) cmb_Usergrp.getSelectedItem();
+            if (ug != null) {
+                if (ug.getActive()==1) {
+                    int state = JOptionPane.showConfirmDialog(rootPane, "Do you want to remove selected Permission?", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.YES_NO_OPTION);
+                    if (state == JOptionPane.YES_OPTION) {
+                        removeAssignedPer();
+                    }
+                } else {
+                    lblState.setText("[DEACTIVE]");
+                }
+            }
+        }
+
+
+    }//GEN-LAST:event_tree_sel_usergrpKeyPressed
+
+    private void cmb_UsergrpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_UsergrpActionPerformed
+     MUsergroup ug = (MUsergroup) cmb_Usergrp.getSelectedItem();
+            if (ug != null) {
+                if (ug.getActive()==1) {
+                    lblState.setText("");
+                } else {
+                    lblState.setText("[DEACTIVE]");
+                }
+            }
+
+    }//GEN-LAST:event_cmb_UsergrpActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butAddPer;
@@ -218,6 +266,7 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jpanelq;
     private javax.swing.JLabel lblScreenName;
+    private javax.swing.JLabel lblState;
     private javax.swing.JTree tree_cur_usergrp;
     private javax.swing.JTree tree_sel_usergrp;
     // End of variables declaration//GEN-END:variables
@@ -250,8 +299,16 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
             MUsergroup ug = (MUsergroup) cmb_Usergrp.getSelectedItem();
             createUserMenu(ugc.getId(), tree_cur_usergrp);
             if (ug != null) {
+                if(ug.getActive()==0){
+                   lblState.setText("[Deactive]");  
+                }else{
+                     lblState.setText("");
+                }
+               
                 createUserMenu(ug.getId(), tree_sel_usergrp);
             }
+            
+         //   cmb_Usergrp.setRenderer(aRenderer);
 
         } catch (Exception ex) {
             Logger.getLogger(Frm_SUserGroupPer.class.getName()).log(Level.SEVERE, null, ex.getMessage());
@@ -413,14 +470,44 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
 
     private void addPermissions() {
         try {
-            TreePath selectionPath = tree_cur_usergrp.getSelectionPath();
-            System.out.println(selectionPath.getLastPathComponent());
+            MUsergroup ug = (MUsergroup) cmb_Usergrp.getSelectedItem();
+            if (ug.getActive() == 1) {
+                TreePath[] selectionPaths = tree_cur_usergrp.getSelectionPaths();
+                //  System.out.println(selectionPath.getLastPathComponent());
+
+                ArrayList<MPermissions> arper = new ArrayList<>();
+                for (TreePath selectionPath : selectionPaths) {
+
+                    DefaultMutableTreeNode mtn = (DefaultMutableTreeNode) selectionPath.getLastPathComponent();
+                    MPermissions p = (MPermissions) mtn.getUserObject();
+                    if (ug != null) {
+
+                        arper.add(p);
+                    }
+                }
+                cug.addBulkPermissions(ug.getId(), arper);
+                createUserMenu(ug.getId(), tree_sel_usergrp);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "You can`t add or remove Permission from Deactived User group", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+                lblState.setText("[DEACTIVE]");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    private void removeAssignedPer() {
+        try {
+            TreePath selectionPath = tree_sel_usergrp.getSelectionPath();
+            //  System.out.println(selectionPath.getLastPathComponent());
 
             MUsergroup ug = (MUsergroup) cmb_Usergrp.getSelectedItem();
             DefaultMutableTreeNode mtn = (DefaultMutableTreeNode) selectionPath.getLastPathComponent();
             MPermissions p = (MPermissions) mtn.getUserObject();
             if (ug != null) {
-                cug.AddPermissionToGroup(ug.getId(), p);
+                cug.RemovePermissionFromGroup(ug.getId(), p);
                 createUserMenu(ug.getId(), tree_sel_usergrp);
             }
         } catch (Exception e) {
