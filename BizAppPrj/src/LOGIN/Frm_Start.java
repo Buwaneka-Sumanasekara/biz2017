@@ -135,8 +135,6 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         Structure str_20171102_t2 = new Structure(20171102, "u_transactions", ar_20171102_t1, ar_20171102_t1PK);
         arStructures.add(str_20171102_t2);
-        
-        
 
         ArrayList<TblColumn> ar_20171106_t1 = new ArrayList<>();
         ar_20171106_t1.add(new TblColumn("ORD", "INT", "NOT NULL DEFAULT 0"));
@@ -147,9 +145,23 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         Structure str_20171106_t1 = new Structure(20171106, "m_permissions", ar_20171106_t1, ar_20171106_t1PK);
         arStructures.add(str_20171106_t1);
-        
-        
-        
+
+        ArrayList<TblColumn> ar_20171106_t2 = new ArrayList<>();
+        ar_20171106_t2.add(new TblColumn("LOCID", "INT", "NOT NULL "));
+        ar_20171106_t2.add(new TblColumn("PROID", "VARCHAR(50)", "NOT NULL "));
+        ar_20171106_t2.add(new TblColumn("BATCHID", "VARCHAR(50)", "NOT NULL "));
+        ar_20171106_t2.add(new TblColumn("SERIALID", "VARCHAR(100)", "NOT NULL "));
+        ar_20171106_t2.add(new TblColumn("PRONAME", "VARCHAR(100)", "NOT NULL "));
+        ar_20171106_t2.add(new TblColumn("COSTP", "DOUBLE", "NOT NULL "));
+        ar_20171106_t2.add(new TblColumn("SELLP", "DOUBLE", "NOT NULL "));
+
+        ArrayList<String> ar_20171106_t2PK = new ArrayList<>();
+        ar_20171106_t2PK.add("LOCID");
+        ar_20171106_t2PK.add("PROID");
+        ar_20171106_t2PK.add("BATCHID");
+
+        Structure str_20171106_t2 = new Structure(20171106, "R_PRICE_TAGS", ar_20171106_t2, ar_20171106_t2PK);
+        arStructures.add(str_20171106_t2);
 
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults + 2);

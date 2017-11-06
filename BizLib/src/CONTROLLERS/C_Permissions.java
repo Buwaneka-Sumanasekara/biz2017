@@ -40,25 +40,25 @@ public class C_Permissions {
 
     public void addPermission(MPermissions m) throws Exception {
         Map<String, String> map = new TreeMap<>();
-        if (SkipList(m)) {
 
-        } else {
-            map.put("NAME", "'" + m.getName() + "'");
-        }
-        map.put("DESCRIPTION", "'" + m.getDescription() + "'");
         map.put("ISUIMENU", m.getIsuimenu().toString());
         map.put("ORD", "" + m.getOrd());
 
         if (IsPermissionExists(m.getId(), m.getParentid()) == false) {
             map.put("ID", "'" + m.getId() + "'");
             map.put("PARENTID", "'" + m.getParentid() + "'");
-
+            map.put("NAME", "'" + m.getName() + "'");
+            map.put("DESCRIPTION", "'" + m.getDescription() + "'");
             map.put("TYPE", "'" + m.getType() + "'");
             map.put("HASSUB", m.getHassub().toString());
 
             DB.Save(qg.SaveRecord("M_PERMISSIONS", map));
         } else {
+            if (SkipList(m) == false) {
 
+                map.put("NAME", "'" + m.getName() + "'");
+                map.put("DESCRIPTION", "'" + m.getDescription() + "'");
+            }
             DB.Update(qg.UpdateRecord("M_PERMISSIONS", map, " WHERE ID='" + m.getId() + "' "));
         }
     }
@@ -135,6 +135,9 @@ public class C_Permissions {
                 break;
             case "M00006":
                 state = true;
+                break;
+            default:
+                state = false;
                 break;
         }
         return state;

@@ -30,7 +30,7 @@ public class QueryGen {
 
         }
         query += " " + WhereClase;
-        System.out.println(query);
+       // System.out.println(query);
         return query;
     }
 
