@@ -191,6 +191,10 @@ public class C_Units {
          String q="DELETE FROM M_UNITGROUPS_HAS_M_UNITS WHERE M_UNITGROUPS_ID='"+UnitGroup+"'";
          DB.Delete(q);
     }
+        public void removeGroupAssign(String UnitGroup,String unit) throws Exception {
+         String q="DELETE FROM M_UNITGROUPS_HAS_M_UNITS WHERE M_UNITGROUPS_ID='"+UnitGroup+"' AND M_UNITS_ID='"+unit+"'";
+         DB.Delete(q);
+    }
 
     public ArrayList<Vector> getAllAssignUnits(String UnitGroupId) throws Exception{
         String q="SELECT * FROM M_UNITGROUPS_HAS_M_UNITS WHERE M_UNITGROUPS_ID='"+UnitGroupId+"' ";
@@ -217,6 +221,8 @@ public class C_Units {
         }
         return v;
     }
+    
+    
     
     public void UpdateUnitGroup(MUnitGroup ug, ArrayList<MUnitGroupAssign> uga) throws Exception {
         try {

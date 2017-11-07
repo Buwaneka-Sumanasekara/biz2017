@@ -5,9 +5,11 @@
  */
 package WINMNG;
 
+import CONTROLLERS.C_ReportSetup;
 import CONTROLLERS.C_TransactionSetup;
 import MAIN.Frm_Main;
 import MODELS.MPermissions;
+import MODELS.RptCommon;
 import MODELS.UTransactions;
 import SUBUI.Frm_GvCreation;
 import SUBUI.Frm_MCustomer;
@@ -18,6 +20,7 @@ import SUBUI.Frm_MLocation;
 import SUBUI.Frm_MSupplier;
 import SUBUI.Frm_MUnitGroup;
 import SUBUI.Frm_MUnits;
+import SUBUI.Frm_Rpt_Common;
 import SUBUI.Frm_SUserCreation;
 import SUBUI.Frm_SUserGroupPer;
 import SUBUI.Frm_SUserSecurity;
@@ -32,9 +35,10 @@ import javax.swing.JInternalFrame;
 public class MyWindowManager {
 
     C_TransactionSetup cTrnSetup = null;
-
+    C_ReportSetup cRptSetup=null;
     public MyWindowManager() {
         cTrnSetup = new C_TransactionSetup();
+        cRptSetup=new C_ReportSetup();
     }
 
     public JInternalFrame getRequestWindow(MPermissions p, Frm_Main fm) throws Exception {
@@ -103,6 +107,19 @@ public class MyWindowManager {
                     if (transactionConfig != null  ) {
                       
                         jf = new Frm_TCommonTrn(fm, transactionConfig.getTrndesc(), transactionConfig);
+                       
+                    }
+
+                    break;
+            }
+        }else if (p.getType().equals("RPT")) {
+            switch (p.getId()) {
+                default:
+
+                   RptCommon R=cRptSetup.getReportSetup(p.getId());
+                    if (R != null  ) {
+                      
+                        jf = new Frm_Rpt_Common(fm, R.getName(), R);
                        
                     }
 

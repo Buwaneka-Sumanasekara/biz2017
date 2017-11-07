@@ -16,6 +16,11 @@ import java.util.ArrayList;
  */
 public class TableStruCreation {
 
+    public static final String STR_FUN="STR_FUN";
+    public static final String STR_PROC="STR_PROC";
+    
+    
+    
     private boolean IsTableExists(String TableName) {
         boolean state = false;
         try {
@@ -129,8 +134,10 @@ public class TableStruCreation {
     
     
     public void createStoredFunction(String strd_F_Name,String parameters,ArrayList<String> lines,String ReturnType) throws Exception{
-        String q="";
+        String q0="DROP FUNCTION IF EXISTS "+strd_F_Name+" ";
+         DB.Save(q0);
         
+        String q="";
         q+=" CREATE FUNCTION "+strd_F_Name+" ("+parameters+") ";
         q+=" RETURNS "+ReturnType+" ";
         q+=" BEGIN ";

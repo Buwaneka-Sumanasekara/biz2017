@@ -7,6 +7,7 @@ package SUBUI;
 
 import CONTROLLERS.C_Units;
 import DB_ACCESS.DB;
+import GLOBALDATA.GlobalData;
 import MAIN.Frm_Main;
 import MODELS.MUnitGroup;
 import MODELS.MUnitGroupAssign;
@@ -38,14 +39,14 @@ import javax.swing.table.DefaultTableModel;
  * @author HOME
  */
 public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWindowBasicControllers {
-    
+
     Frm_Table ft = null;
-    
+
     Frm_Main mainW = null;
     MyValidator fv = null;
-    
+
     C_Units c_units = null;
-    
+
     public Frm_MUnitGroup(Frm_Main mainw, String ScreenName) {
         initComponents();
         c_units = new C_Units();
@@ -83,13 +84,13 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUAList = new javax.swing.JTable();
-        but_UnitGroup = new javax.swing.JButton();
+        but_AddToUnitGroup = new javax.swing.JButton();
         Chk_Activeuga = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
-        but_LocUpdate = new javax.swing.JButton();
-        but_LocSave = new javax.swing.JButton();
-        but_LocSearch = new javax.swing.JButton();
-        butLocRefresh = new javax.swing.JButton();
+        but_UGUpdate = new javax.swing.JButton();
+        but_UGSave = new javax.swing.JButton();
+        but_UGSearch = new javax.swing.JButton();
+        but_UGRefresh = new javax.swing.JButton();
         lblScreenName = new javax.swing.JLabel();
         jpanelq = new javax.swing.JPanel();
 
@@ -190,6 +191,11 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
                 return canEdit [columnIndex];
             }
         });
+        tblUAList.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblUAListKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblUAList);
         if (tblUAList.getColumnModel().getColumnCount() > 0) {
             tblUAList.getColumnModel().getColumn(0).setResizable(false);
@@ -202,13 +208,13 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
 
         layout_UnitGroupAssign.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 790, 290));
 
-        but_UnitGroup.setText("Add");
-        but_UnitGroup.addActionListener(new java.awt.event.ActionListener() {
+        but_AddToUnitGroup.setText("Add");
+        but_AddToUnitGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_UnitGroupActionPerformed(evt);
+                but_AddToUnitGroupActionPerformed(evt);
             }
         });
-        layout_UnitGroupAssign.add(but_UnitGroup, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 90, 30));
+        layout_UnitGroupAssign.add(but_AddToUnitGroup, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 90, 30));
 
         Chk_Activeuga.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -224,49 +230,49 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        but_LocUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit.png"))); // NOI18N
-        but_LocUpdate.setToolTipText("Save");
-        but_LocUpdate.setContentAreaFilled(false);
-        but_LocUpdate.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit_disable.png"))); // NOI18N
-        but_LocUpdate.addActionListener(new java.awt.event.ActionListener() {
+        but_UGUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit.png"))); // NOI18N
+        but_UGUpdate.setToolTipText("Save");
+        but_UGUpdate.setContentAreaFilled(false);
+        but_UGUpdate.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit_disable.png"))); // NOI18N
+        but_UGUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocUpdateActionPerformed(evt);
+                but_UGUpdateActionPerformed(evt);
             }
         });
-        jPanel2.add(but_LocUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
+        jPanel2.add(but_UGUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
 
-        but_LocSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save.png"))); // NOI18N
-        but_LocSave.setToolTipText("Save");
-        but_LocSave.setContentAreaFilled(false);
-        but_LocSave.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save_disable.png"))); // NOI18N
-        but_LocSave.addActionListener(new java.awt.event.ActionListener() {
+        but_UGSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save.png"))); // NOI18N
+        but_UGSave.setToolTipText("Save");
+        but_UGSave.setContentAreaFilled(false);
+        but_UGSave.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save_disable.png"))); // NOI18N
+        but_UGSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocSaveActionPerformed(evt);
+                but_UGSaveActionPerformed(evt);
             }
         });
-        jPanel2.add(but_LocSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
+        jPanel2.add(but_UGSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
-        but_LocSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search.png"))); // NOI18N
-        but_LocSearch.setToolTipText("Search(F2)");
-        but_LocSearch.setContentAreaFilled(false);
-        but_LocSearch.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search_disable.png"))); // NOI18N
-        but_LocSearch.addActionListener(new java.awt.event.ActionListener() {
+        but_UGSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search.png"))); // NOI18N
+        but_UGSearch.setToolTipText("Search(F2)");
+        but_UGSearch.setContentAreaFilled(false);
+        but_UGSearch.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search_disable.png"))); // NOI18N
+        but_UGSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_LocSearchActionPerformed(evt);
+                but_UGSearchActionPerformed(evt);
             }
         });
-        jPanel2.add(but_LocSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 40, 40));
+        jPanel2.add(but_UGSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 40, 40));
 
-        butLocRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
-        butLocRefresh.setToolTipText("Refresh");
-        butLocRefresh.setContentAreaFilled(false);
-        butLocRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh_disable.png"))); // NOI18N
-        butLocRefresh.addActionListener(new java.awt.event.ActionListener() {
+        but_UGRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
+        but_UGRefresh.setToolTipText("Refresh");
+        but_UGRefresh.setContentAreaFilled(false);
+        but_UGRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh_disable.png"))); // NOI18N
+        but_UGRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butLocRefreshActionPerformed(evt);
+                but_UGRefreshActionPerformed(evt);
             }
         });
-        jPanel2.add(butLocRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, 40));
+        jPanel2.add(but_UGRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, 40));
 
         lblScreenName.setBackground(new java.awt.Color(153, 255, 51));
         lblScreenName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -279,17 +285,17 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
         setBounds(0, 0, 867, 646);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void but_LocSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSearchActionPerformed
+    private void but_UGSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_UGSearchActionPerformed
         SearchMode();
-    }//GEN-LAST:event_but_LocSearchActionPerformed
+    }//GEN-LAST:event_but_UGSearchActionPerformed
 
-    private void butLocRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLocRefreshActionPerformed
+    private void but_UGRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_UGRefreshActionPerformed
         Refresh();
-    }//GEN-LAST:event_butLocRefreshActionPerformed
+    }//GEN-LAST:event_but_UGRefreshActionPerformed
 
-    private void but_LocSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSaveActionPerformed
+    private void but_UGSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_UGSaveActionPerformed
         SaveProcess();
-    }//GEN-LAST:event_but_LocSaveActionPerformed
+    }//GEN-LAST:event_but_UGSaveActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
 
@@ -299,9 +305,9 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
 
     }//GEN-LAST:event_formInternalFrameOpened
 
-    private void but_LocUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocUpdateActionPerformed
-EditMode();
-    }//GEN-LAST:event_but_LocUpdateActionPerformed
+    private void but_UGUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_UGUpdateActionPerformed
+        EditMode();
+    }//GEN-LAST:event_but_UGUpdateActionPerformed
 
     private void txt_UnitGroupIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_UnitGroupIdActionPerformed
         loadUnitGroup();
@@ -319,20 +325,46 @@ EditMode();
         // TODO add your handling code here:
     }//GEN-LAST:event_Chk_ActiveugaMouseClicked
 
-    private void but_UnitGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_UnitGroupActionPerformed
+    private void but_AddToUnitGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_AddToUnitGroupActionPerformed
         addUnit();
-    }//GEN-LAST:event_but_UnitGroupActionPerformed
+    }//GEN-LAST:event_but_AddToUnitGroupActionPerformed
+
+    private void tblUAListKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblUAListKeyPressed
+
+        int selectedRow = tblUAList.getSelectedRow();
+        if (selectedRow >= 0) {
+            if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to remove highlighted unit?", GlobalData.MESSAGEBOX, JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    MUnits ug = (MUnits) tblUAList.getValueAt(selectedRow, 0);
+                    DefaultTableModel dtm=(DefaultTableModel) tblUAList.getModel();
+                    try {
+                        dtm.removeRow(selectedRow);
+                        if (txt_UnitGroupId.getText().length() > 0) {
+                            c_units.removeGroupAssign(txt_UnitGroupId.getText(), ug.getId());
+                        }
+
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+
+                    }
+                }
+            }
+        }
+
+
+    }//GEN-LAST:event_tblUAListKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Chk_Active;
     private javax.swing.JCheckBox Chk_Activeuga;
     private javax.swing.JTabbedPane Layout_Parent;
-    private javax.swing.JButton butLocRefresh;
-    private javax.swing.JButton but_LocSave;
-    private javax.swing.JButton but_LocSearch;
-    private javax.swing.JButton but_LocUpdate;
-    private javax.swing.JButton but_UnitGroup;
+    private javax.swing.JButton but_AddToUnitGroup;
+    private javax.swing.JButton but_UGRefresh;
+    private javax.swing.JButton but_UGSave;
+    private javax.swing.JButton but_UGSearch;
+    private javax.swing.JButton but_UGUpdate;
     private javax.swing.JComboBox cmb_UAUnit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -363,32 +395,33 @@ EditMode();
                     ug.setUnitGroupId(c_units.GenerateNewUnitGroupNo());
                     ug.setUnitGroupName(txt_UnitGroupName.getText());
                     ug.setUnitGroupActive(Chk_Active.isSelected() ? 1 : 0);
-                    
+
                     ArrayList<MUnitGroupAssign> uga = new ArrayList<>();
                     for (int i = 0; i < dtm.getRowCount(); i++) {
                         MUnits u = (MUnits) dtm.getValueAt(i, 0);
                         double volume = Double.parseDouble(dtm.getValueAt(i, 1).toString());
-                        
+
                         boolean IsBase = Boolean.valueOf(dtm.getValueAt(i, 2).toString());
-                        
+
                         uga.add(new MUnitGroupAssign(ug.getUnitGroupId(), u.getId(), volume, IsBase ? 1 : 0, 1));
                     }
                     c_units.SaveUnitGroup(ug, uga);
+                    Refresh();
                     JOptionPane.showMessageDialog(rootPane, "Save Sucessfull", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
-                    
+
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane, "ERROR :" + e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-                    
+
                 }
             } else {
                 String unitId = txt_UnitGroupId.getText();
                 try {
                     MUnitGroup ug = c_units.findUnitGroupExists(unitId);
                     if (ug != null) {
-                        
+
                         ug.setUnitGroupName(txt_UnitGroupName.getText());
                         ug.setUnitGroupActive(Chk_Active.isSelected() ? 1 : 0);
-                        
+
                         ArrayList<MUnitGroupAssign> uga = new ArrayList<>();
                         for (int i = 0; i < dtm.getRowCount(); i++) {
                             MUnits u = (MUnits) dtm.getValueAt(i, 0);
@@ -397,43 +430,46 @@ EditMode();
                             uga.add(new MUnitGroupAssign(ug.getUnitGroupId(), u.getId(), volume, IsBase ? 1 : 0, 1));
                         }
                         c_units.UpdateUnitGroup(ug, uga);
-                        
+                        Refresh();
                         JOptionPane.showMessageDialog(rootPane, "Update Sucessfull", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
-                        
+
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Couldn`t find specific Unit group for :" + unitId, GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-                        
+
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane, "ERROR :" + e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-                    
+
                 }
             }
         }
     }
-    
+
     @Override
     public void EditMode() {
-         JComponent[] DisComlist={but_LocSearch};
-                      JComponent[] EnComlist={but_LocSave,txt_UnitGroupId,txt_UnitGroupName,Chk_Active,tblUAList,txt_UAVolume,Chk_Activeuga};      
-                    setDisableEnableComponents(EnComlist, DisComlist); 
+        JComponent[] DisComlist = {but_UGSearch, txt_UnitGroupId, but_UGUpdate};
+        JComponent[] EnComlist = {but_UGSave, but_UGRefresh, but_AddToUnitGroup, txt_UnitGroupName, cmb_UAUnit, Chk_Active, tblUAList, txt_UAVolume, Chk_Activeuga};
+        setDisableEnableComponents(EnComlist, DisComlist);
     }
-    
+
     @Override
     public void Refresh() {
         txt_UnitGroupId.setText("");
         txt_UnitGroupName.setText("");
         DefaultTableModel dtm = (DefaultTableModel) tblUAList.getModel();
-        
+
         dtm.setRowCount(0);
         txt_UAVolume.setText("");
         Chk_Active.setSelected(true);
         Chk_Activeuga.setSelected(true);
         txt_UnitGroupId.grabFocus();
+        JComponent[] DisComlist = {but_UGUpdate};
+        JComponent[] EnComlist = {but_UGSave, but_UGRefresh, but_AddToUnitGroup, but_UGSearch, txt_UnitGroupId, txt_UnitGroupName, cmb_UAUnit, Chk_Active, tblUAList, txt_UAVolume, Chk_Activeuga};
+        setDisableEnableComponents(EnComlist, DisComlist);
     }
-    
+
     public void setShortCutKeys(JInternalFrame f) {
-        
+
         String exit = "exit";
         InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap0.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), exit);
@@ -457,8 +493,8 @@ EditMode();
 
         }
         );
-        
-          String Save = "Save";
+
+        String Save = "Save";
         InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), Save);
         ActionMap actionMap2 = f.getRootPane().getActionMap();
@@ -469,8 +505,8 @@ EditMode();
 
         }
         );
-        
-           String Edit = "Edit";
+
+        String Edit = "Edit";
         InputMap inputMap3 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap3.put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), Edit);
         ActionMap actionMap3 = f.getRootPane().getActionMap();
@@ -481,8 +517,8 @@ EditMode();
 
         }
         );
-        
-          String Refresh = "Refresh";
+
+        String Refresh = "Refresh";
         InputMap inputMap4 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap4.put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), Refresh);
         ActionMap actionMap4 = f.getRootPane().getActionMap();
@@ -495,19 +531,19 @@ EditMode();
         );
 
     }
-    
+
     private void exit() {
-        
+
         try {
             this.setClosed(true);
             mainW.CurrentFrame = "";
-            
+
         } catch (PropertyVetoException ex) {
             Logger.getLogger(Frm_MUnitGroup.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     @Override
     public void setDisableEnableComponents(JComponent[] EnComlist, JComponent[] DisComlist) {
         for (JComponent c : DisComlist) {
@@ -516,41 +552,41 @@ EditMode();
         for (JComponent c : EnComlist) {
             c.setEnabled(true);
         }
-        
+
     }
-    
+
     @Override
     public void SearchMode() {
         Vector<String> col = new Vector<>();
         col.add("Code");
         col.add("Des");
-        
+
         String[] SQL_Col = {"ID", "NAME"};
         String SQL = "select ID,NAME from M_UNITGROUPS ";
-        
+
         Connection currentCon = null;
         try {
             currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
             Logger.getLogger(Frm_Test.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
         if (ft == null) {
-            
+
             ft = new Frm_Table(txt_UnitGroupId, currentCon, col, SQL_Col, SQL, "");
             ft.setVisible(true);
-            
+
         } else {
             ft = null;
             ft = new Frm_Table(txt_UnitGroupId, currentCon, col, SQL_Col, SQL, "");
             ft.setFocusable(true);
             ft.setVisible(true);
         }
-        
+
     }
-    
+
     private boolean checkValidate() {
         boolean state = true;
-        
+
         if (txt_UnitGroupName.getText().equals("")) {
             state = false;
             JOptionPane.showMessageDialog(rootPane, "Please provide Unit group Name", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
@@ -558,22 +594,22 @@ EditMode();
             state = false;
             Layout_Parent.setSelectedIndex(1);
             JOptionPane.showMessageDialog(rootPane, "Please assign units to this group", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-            
+
         }
         return state;
     }
-    
+
     private void createLayOut() {
         Vector<MUnits> v = c_units.getAllUnits();
         cmb_UAUnit.setModel(new DefaultComboBoxModel(v));
     }
-    
+
     private void addUnit() {
         if (validateUnitAssign()) {
             MUnits u = (MUnits) cmb_UAUnit.getSelectedItem();
-            
+
             DefaultTableModel dtm = (DefaultTableModel) tblUAList.getModel();
-            
+
             String BaseUnit = "";
             for (int i = 0; i < dtm.getRowCount(); i++) {
                 MUnits ug = (MUnits) dtm.getValueAt(i, 0);
@@ -584,10 +620,10 @@ EditMode();
                 }
                 if (u.getId().equals(ug.getId())) {
                     dtm.removeRow(i);
-                    
+
                 }
             }
-            
+
             Vector v = new Vector();
             v.add(u);
             v.add(txt_UAVolume.getText());
@@ -597,27 +633,27 @@ EditMode();
                 v.add(false);
             }
             dtm.addRow(v);
-            
+
         }
     }
-    
+
     private boolean validateUnitAssign() {
         boolean state = true;
-        
+
         if (cmb_UAUnit.getItemCount() == 0) {
             state = false;
             JOptionPane.showMessageDialog(rootPane, "No units found!", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-            
+
         } else if (txt_UAVolume.getText().equals("")) {
             state = false;
             JOptionPane.showMessageDialog(rootPane, "Please add volume", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-            
+
         }
-        
+
         return state;
-        
+
     }
-    
+
     private void loadUnitGroup() {
         String Unitgroup = txt_UnitGroupId.getText();
         if (!Unitgroup.equals("")) {
@@ -626,26 +662,26 @@ EditMode();
                 if (ug != null) {
                     txt_UnitGroupName.setText(ug.getUnitGroupName());
                     Chk_Active.setSelected(ug.getUnitGroupActive() == 1 ? true : false);
-                    
+
                     ArrayList<Vector> ar = c_units.getAllAssignUnits(ug.getUnitGroupId());
                     DefaultTableModel dtm = (DefaultTableModel) tblUAList.getModel();
                     dtm.setRowCount(0);
                     for (Vector v : ar) {
                         dtm.addRow(v);
                     }
-                    JComponent[] EnComlist={txt_UnitGroupId};
-                      JComponent[] DisComlist={but_LocSave,txt_UnitGroupName,Chk_Active,tblUAList,txt_UAVolume,Chk_Activeuga};      
+                    JComponent[] EnComlist = {but_UGUpdate, but_UGRefresh};
+                    JComponent[] DisComlist = {but_UGSave, but_UGSearch, but_AddToUnitGroup, cmb_UAUnit, txt_UnitGroupId, txt_UnitGroupName, Chk_Active, tblUAList, txt_UAVolume, Chk_Activeuga};
                     setDisableEnableComponents(EnComlist, DisComlist);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "This Unit group no is not exists", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-                    
+
                 }
             } catch (Exception e) {
             }
-            
+
         } else {
             txt_UnitGroupName.grabFocus();
         }
     }
-    
+
 }
