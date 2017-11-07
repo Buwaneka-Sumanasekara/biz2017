@@ -54,22 +54,22 @@ import javax.swing.text.MaskFormatter;
  * @author HOME
  */
 public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBasicControllers {
-
+    
     C_GroupCommon CGroup = null;
     C_Units CUnit = null;
     C_Propertise CPropertise = null;
     C_Products CProducts = null;
     C_Suppliers CSuppliers = null;
     CommonFun cf = null;
-
+    
     Frm_Table ft = null;
-
+    
     Frm_Main mainW = null;
     MyValidator fv = null;
-
+    
     public Frm_MItems(Frm_Main mainw, String ScreenName) {
         initComponents();
-
+        
         this.setTitle(ScreenName);
         this.lblScreenName.setText(ScreenName);
         this.mainW = mainw;
@@ -611,6 +611,11 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 List_SupMouseClicked(evt);
             }
         });
+        List_Sup.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                List_SupKeyPressed(evt);
+            }
+        });
         jScrollPane6.setViewportView(List_Sup);
 
         jPanel5.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 300, 420));
@@ -676,11 +681,11 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         ParentLayout.addTab("Batches", jPanel3);
 
-        jPanel1.add(ParentLayout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 850, 560));
+        jPanel1.add(ParentLayout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 850, 580));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 620));
 
-        setBounds(0, 0, 853, 646);
+        setBounds(0, 0, 853, 691);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_SearchActionPerformed
@@ -712,7 +717,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_cmbUnitsActionPerformed
 
     private void tblPropertyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPropertyKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_DELETE){
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
             RemoveProperty();
         }
     }//GEN-LAST:event_tblPropertyKeyPressed
@@ -731,7 +736,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_cmbG5ActionPerformed
 
     private void cmbG3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG3ActionPerformed
-
+        
         loadGroups(3);
         SetProductName();
     }//GEN-LAST:event_cmbG3ActionPerformed
@@ -742,13 +747,13 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_cmbG2ActionPerformed
 
     private void cmbG1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG1ActionPerformed
-
+        
         loadGroups(1);
         SetProductName();
     }//GEN-LAST:event_cmbG1ActionPerformed
 
     private void cmbG4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG4ActionPerformed
-
+        
         loadGroups(4);
         SetProductName();
     }//GEN-LAST:event_cmbG4ActionPerformed
@@ -795,7 +800,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
     private void butSupAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSupAddActionPerformed
         MSupplier sup = (MSupplier) cmb_Suppliers.getSelectedItem();
-
+        
         ListModel dlm = List_Sup.getModel();
         Vector v = new Vector();
         for (int i = 0; i < dlm.getSize(); i++) {
@@ -806,13 +811,13 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         v.add(sup);
         List_Sup.removeAll();
         List_Sup.setListData(v);
-
+        
 
     }//GEN-LAST:event_butSupAddActionPerformed
 
     private void List_SupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_List_SupMouseClicked
         if (List_Sup.getSelectedIndex() >= 0) {
-
+            
             MSupplier m = (MSupplier) List_Sup.getSelectedValue();
             txtSupName.setText(m.getName());
             txtSupContact.setText(m.getContact());
@@ -826,8 +831,16 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_chk_BatchCreateActionPerformed
 
     private void cmbPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPropActionPerformed
-changePropTyp();      
+        changePropTyp();
     }//GEN-LAST:event_cmbPropActionPerformed
+
+    private void List_SupKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_List_SupKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_DELETE) {
+            if (List_Sup.getSelectedIndex() >= 0) {
+                List_Sup.remove(List_Sup.getSelectedIndex());
+            }
+        }
+    }//GEN-LAST:event_List_SupKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -922,7 +935,7 @@ changePropTyp();
             int showConfirmDialog = JOptionPane.showConfirmDialog(rootPane, "Do you want to add/Update Product?", GlobalData.MESSAGEBOX, JOptionPane.YES_NO_OPTION);
             if (showConfirmDialog == JOptionPane.YES_OPTION) {
                 if (validateProduct()) {
-
+                    
                     MProducts p = new MProducts();
                     p.setId(txtProCode.getText());
                     p.setName(txtProName.getText());
@@ -941,7 +954,7 @@ changePropTyp();
                     p.setRef2(txtRef2.getText());
                     p.setMUserByCruser(GlobalData.CurUser.getId());
                     p.setMUserByMduser(GlobalData.CurUser.getId());
-
+                    
                     MUnitGroup ug = (MUnitGroup) cmbUnits.getSelectedItem();
                     if (ug != null) {
                         p.setUnitGroupId(ug.getUnitGroupId());
@@ -953,13 +966,13 @@ changePropTyp();
                         String propval = tblProp.getValueAt(i, 2).toString();
                         VProProp.add(new MProductPropertise(txtProCode.getText(), prop.getPropId().toString(), propval));
                     }
-
+                    
                     ListModel dlm = List_Sup.getModel();
                     Vector vSup = new Vector();
                     for (int i = 0; i < dlm.getSize(); i++) {
-
+                        
                         vSup.add(dlm.getElementAt(i));
-
+                        
                     }
                     try {
                         String saveProduct = CProducts.addProduct(p, VProProp, vSup);
@@ -973,16 +986,16 @@ changePropTyp();
             }
         }
     }
-
+    
     @Override
     public void EditMode() {
         if (but_Update.isEnabled()) {
-            JComponent enablecom[] = {but_Refresh, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
-            JComponent disablecom[] = {but_Search, but_Update};
+            JComponent enablecom[] = {but_Refresh, but_Save, layout_Basic, layoutGroups,txtProName, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+            JComponent disablecom[] = {but_Search, but_Update,txtProCode};
             setDisableEnableComponents(enablecom, disablecom);
         }
     }
-
+    
     @Override
     public void Refresh() {
         try {
@@ -994,9 +1007,9 @@ changePropTyp();
             //Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public void setShortCutKeys(JInternalFrame f) {
-
+        
         String exit = "exit";
         InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap0.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), exit);
@@ -1005,10 +1018,10 @@ changePropTyp();
             public void actionPerformed(ActionEvent e) {
                 exit();
             }
-
+            
         }
         );
-
+        
         String Search = "Search";
         InputMap inputMap1 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap1.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), Search);
@@ -1017,10 +1030,10 @@ changePropTyp();
             public void actionPerformed(ActionEvent e) {
                 SearchMode();
             }
-
+            
         }
         );
-
+        
         String Save = "Save";
         InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), Save);
@@ -1029,10 +1042,10 @@ changePropTyp();
             public void actionPerformed(ActionEvent e) {
                 SaveProcess();
             }
-
+            
         }
         );
-
+        
         String Edit = "Edit";
         InputMap inputMap3 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap3.put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), Edit);
@@ -1041,10 +1054,10 @@ changePropTyp();
             public void actionPerformed(ActionEvent e) {
                 EditMode();
             }
-
+            
         }
         );
-
+        
         String Refresh = "Refresh";
         InputMap inputMap4 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap4.put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), Refresh);
@@ -1053,24 +1066,24 @@ changePropTyp();
             public void actionPerformed(ActionEvent e) {
                 Refresh();
             }
-
+            
         }
         );
-
+        
     }
-
+    
     private void exit() {
-
+        
         try {
             this.setClosed(true);
             mainW.CurrentFrame = "";
-
+            
         } catch (PropertyVetoException ex) {
             Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     @Override
     public void setDisableEnableComponents(JComponent[] EnComlist, JComponent[] DisComlist) {
         for (JComponent c : DisComlist) {
@@ -1093,16 +1106,16 @@ changePropTyp();
                 c.setEnabled(true);
             }
         }
-
+        
     }
-
+    
     @Override
     public void SearchMode() {
         if (but_Search.isEnabled()) {
             Vector<String> col = new Vector<>();
             col.add("Code");
             col.add("Des");
-
+            
             String[] SQL_Col = {"ID", "NAME"};
             String SQL = "select ID,NAME from M_PRODUCTS ";
             String SQLWhere = "";
@@ -1113,10 +1126,10 @@ changePropTyp();
                 Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (ft == null) {
-
+                
                 ft = new Frm_Table(this, true, txtProCode, currentCon, col, SQL_Col, SQL, SQLWhere);
                 ft.setVisible(true);
-
+                
             } else {
                 ft = null;
                 ft = new Frm_Table(this, true, txtProCode, currentCon, col, SQL_Col, SQL, SQLWhere);
@@ -1125,39 +1138,39 @@ changePropTyp();
             }
         }
     }
-
+    
     private void CreateLayOut() throws Exception {
-
+        
         Map<Integer, String> GroupNames = CGroup.getGroupDisplayNames();
         lblG1.setText(GroupNames.get(1));
         lblG2.setText(GroupNames.get(2));
         lblG3.setText(GroupNames.get(3));
         lblG4.setText(GroupNames.get(4));
         lblG5.setText(GroupNames.get(5));
-
+        
         loadGroups(0);
-
+        
         cmbUnits.setModel(new DefaultComboBoxModel(CUnit.findAllUnitGroups()));
         cmbProp.setModel(new DefaultComboBoxModel(CPropertise.getAllPropertise()));
         loadUnitGroupData();
-
+        
         MPropertise selectedItem = (MPropertise) cmbProp.getSelectedItem();
         if (selectedItem != null) {
             lblFormat.setText("[" + selectedItem.getFormat() + "]");
-
+            
             MaskFormatter mfWarranty = new MaskFormatter("##-##-##");
-
+            
             switch (selectedItem.getDataType()) {
                 case 6:
-
+                    
                     txtFproVal.setFormatterFactory(new DefaultFormatterFactory(mfWarranty));
             }
         }
-
+        
         cmb_Suppliers.setModel(new DefaultComboBoxModel(CSuppliers.getAllSuppliers()));
-
+        
     }
-
+    
     private void SetProductName() {
         ArrayList<MGroupCommon> GList = new ArrayList<>();
         GList.add((MGroupCommon) cmbG1.getSelectedItem());
@@ -1165,14 +1178,14 @@ changePropTyp();
         GList.add((MGroupCommon) cmbG3.getSelectedItem());
         GList.add((MGroupCommon) cmbG4.getSelectedItem());
         GList.add((MGroupCommon) cmbG5.getSelectedItem());
-
+        
         String productName = cf.getProductName(GList);
         txtProName.setText(productName);
     }
-
+    
     private void addProperty() {
         if (cmbProp.getSelectedItem() != null && !txtFproVal.getText().equals("") && txtFproVal.isEditValid()) {
-
+            
             MPropertise p = (MPropertise) cmbProp.getSelectedItem();
             removePropIfExists(p);
             DefaultTableModel tmodel = (DefaultTableModel) tblProperty.getModel();
@@ -1181,29 +1194,29 @@ changePropTyp();
             v.add(p.getFormat());
             v.add(txtFproVal.getText());
             tmodel.addRow(v);
-
+            
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please enter valid values!", GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
         }
-
+        
     }
-
+    
     private void RemoveProperty() {
-
+        
         try {
             int selectedRow = tblProperty.getSelectedRow();
             if (selectedRow > -1) {
                 MPropertise p = (MPropertise) tblProperty.getValueAt(selectedRow, 0);
-
+                
                 removePropIfExists(p);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
-
+            
         }
-
+        
     }
-
+    
     private void removePropIfExists(MPropertise NewProp) {
         DefaultTableModel tbl = (DefaultTableModel) tblProperty.getModel();
         for (int i = 0; i < tbl.getRowCount(); i++) {
@@ -1214,14 +1227,14 @@ changePropTyp();
             }
         }
     }
-
+    
     public boolean validateProduct() {
         boolean state = true;
-
+        
         if (txtProName.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Item Name cannot be empty!", GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
             state = false;
-
+            
         } else if (txtProShortName.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Item Short Name cannot be empty!", GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
             state = false;
@@ -1235,23 +1248,23 @@ changePropTyp();
             JOptionPane.showMessageDialog(rootPane, "Select Unit group", GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
             state = false;
         }
-
+        
         return state;
     }
-
+    
     private int getActiveUnitsCount() {
         int count = 0;
-
+        
         DefaultTableModel tbl = (DefaultTableModel) tblUnits.getModel();
         for (int i = 0; i < tbl.getRowCount(); i++) {
-
+            
             count++;
-
+            
         }
         return count;
-
+        
     }
-
+    
     private void Clear() {
         txtProCode.setText("");
         txtProName.setText("");
@@ -1262,31 +1275,31 @@ changePropTyp();
         txtprosellprice.setText("");
         txtpromarkup.setText("");
         txtFproVal.setText("");
-
+        
         Chk_ProActive.setSelected(true);
-
+        
         DefaultTableModel tmodel = (DefaultTableModel) tblProperty.getModel();
         tmodel.setRowCount(0);
         DefaultTableModel tmodel2 = (DefaultTableModel) tblUnits.getModel();
         tmodel2.setRowCount(0);
-
+        
         DefaultTableModel dtm2 = (DefaultTableModel) tblBatches.getModel();
         dtm2.setRowCount(0);
-
+        
         Vector v = new Vector();
         List_Sup.setListData(v);
-
+        
         txtProCode.grabFocus();
         JComponent disablecom[] = {but_Update};
-
+        
         JComponent enablecom[] = {but_Search, List_Sup, butSupAdd, tblProperty, tblUnits, layoutUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
-
+        
         setDisableEnableComponents(enablecom, disablecom);
         ParentLayout.setSelectedIndex(0);
         txtProCode.grabFocus();
-
+        
     }
-
+    
     private void changeSellPrice() {
         if (!txtpromarkup.getText().equals("") && !txtprocost.getText().equals("")) {
             double markup = Double.parseDouble(txtpromarkup.getText());
@@ -1295,16 +1308,16 @@ changePropTyp();
             txtprosellprice.setText("" + sellp);
         }
     }
-
+    
     private void loadProduct() {
         if (!txtProCode.getText().equals("")) {
             try {
                 MProducts product = CProducts.getProduct(txtProCode.getText());
                 if (product != null) {
-                    JComponent disablecom[] = {but_Search, List_Sup, butSupAdd, tblProperty, tblUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+                    JComponent disablecom[] = {but_Search, List_Sup, butSupAdd,txtProCode, tblProperty, tblUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
                     JComponent enablecom[] = {but_Refresh, but_Update};
                     setDisableEnableComponents(enablecom, disablecom);
-
+                    
                     txtProName.setText(product.getName());
                     txtProShortName.setText(product.getPrintdes());
                     Chk_ProActive.setSelected((product.getActive() == 1 ? true : false));
@@ -1318,23 +1331,23 @@ changePropTyp();
                     cmbG3.setSelectedItem(CGroup.IsExists("m_group3", product.getMGroup3()));
                     cmbG4.setSelectedItem(CGroup.IsExists("m_group4", product.getMGroup4()));
                     cmbG5.setSelectedItem(CGroup.IsExists("m_group5", product.getMGroup5()));
-
+                    
                     Vector<MProductPropertise> productPropertise = CProducts.getProductPropertise(product.getId());
                     DefaultTableModel dtm1 = (DefaultTableModel) tblProperty.getModel();
                     dtm1.setRowCount(0);
                     for (MProductPropertise mProductPropertise : productPropertise) {
-
+                        
                         Vector v = new Vector();
                         MPropertise property = CPropertise.getProperty(mProductPropertise.getPropertyId());
                         v.add(property);
                         v.add(property.getFormat());
                         v.add(mProductPropertise.getPropertyValue());
-
+                        
                         dtm1.addRow(v);
                     }
-
+                    
                     List_Sup.setListData(CProducts.getAllSuppliers(product.getId()));
-
+                    
                     DefaultTableModel dtm2 = (DefaultTableModel) tblBatches.getModel();
                     dtm2.setRowCount(0);
                     ArrayList<MStocks> ar = CProducts.getAllBatches(product.getId());
@@ -1348,47 +1361,47 @@ changePropTyp();
                         v.add((mStocks.getActive() == 1 ? true : false));
                         dtm2.addRow(v);
                     }
-
+                    
                 }
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
-
+            
         }
     }
-
+    
     private void loadGroups(int selectedGroup) {
-
+        
         try {
             ArrayList<String> ar = new ArrayList<>();
-
+            
             if (selectedGroup < 1) {
                 cmbG1.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(1, true)));
             }
             MGroupCommon G1 = (MGroupCommon) cmbG1.getSelectedItem();
-
+            
             if (G1 != null) {
                 ar.add(G1.getId());
             }
-
+            
             if (selectedGroup < 2) {
                 cmbG2.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(2, ar)));
             }
             MGroupCommon G2 = (MGroupCommon) cmbG2.getSelectedItem();
-
+            
             if (G2 != null) {
                 ar.add(G2.getId());
             }
-
+            
             if (selectedGroup < 3) {
                 cmbG3.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(3, ar)));
             }
             MGroupCommon G3 = (MGroupCommon) cmbG3.getSelectedItem();
-
+            
             if (G3 != null) {
                 ar.add(G3.getId());
             }
-
+            
             if (selectedGroup < 4) {
                 cmbG4.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(4, ar)));
             }
@@ -1396,16 +1409,16 @@ changePropTyp();
             if (G4 != null) {
                 ar.add(G4.getId());
             }
-
+            
             if (selectedGroup < 5) {
                 cmbG5.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(5, ar)));
             }
-
+            
         } catch (Exception e) {
-
+            
         }
     }
-
+    
     private void loadUnitGroupData() {
         MUnitGroup ug = (MUnitGroup) cmbUnits.getSelectedItem();
         DefaultTableModel dtm = (DefaultTableModel) tblUnits.getModel();
@@ -1419,28 +1432,28 @@ changePropTyp();
             // Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void changePropTyp() {
-
+        
         MPropertise selectedItem = (MPropertise) cmbProp.getSelectedItem();
         if (selectedItem != null) {
-           try {
-               lblFormat.setText("[" + selectedItem.getFormat() + "]");
-               
-               MaskFormatter mfWarranty = new MaskFormatter("##-##-##");
-               txtFproVal.setText("");
-               switch (selectedItem.getDataType()) {
-                   case 5:
-                       
-                       txtFproVal.setFormatterFactory(new DefaultFormatterFactory(mfWarranty));
-                       default:
-                       txtFproVal.setFormatterFactory(new DefaultFormatterFactory());    
-               }
-               
-           } catch (ParseException ex) {
-               Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
-           }
+            try {
+                lblFormat.setText("[" + selectedItem.getFormat() + "]");
+                
+                MaskFormatter mfWarranty = new MaskFormatter("##-##-##");
+                txtFproVal.setText("");
+                switch (selectedItem.getDataType()) {
+                    case 5:
+                        
+                        txtFproVal.setFormatterFactory(new DefaultFormatterFactory(mfWarranty));
+                    default:
+                        txtFproVal.setFormatterFactory(new DefaultFormatterFactory());
+                }
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    
+        
     }
 }

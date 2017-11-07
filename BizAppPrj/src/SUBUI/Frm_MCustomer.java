@@ -470,8 +470,8 @@ fv.NumbersOnly(txt_CusCode, evt);
 
     @Override
     public void EditMode() {
-        JComponent[] DisCom = {but_CusSave,but_CusUpdate, but_CusSearch};
-        JComponent[] EnCom = {but_CusSave, butCusRefresh, txt_CusCode, txt_CusDescription, txt_CusMobile, txt_CusContact, txt_CusAddNo, txt_CusAdd1,txt_CusAdd2,txt_CusAdd3, Chk_Active};
+        JComponent[] DisCom = {but_CusSave,but_CusUpdate, but_CusSearch, txt_CusCode};
+        JComponent[] EnCom = {but_CusSave, butCusRefresh, txt_CusDescription, txt_CusMobile, txt_CusContact, txt_CusAddNo, txt_CusAdd1,txt_CusAdd2,txt_CusAdd3, Chk_Active};
         setDisableEnableComponents(EnCom, DisCom);
     }
 
@@ -481,7 +481,7 @@ fv.NumbersOnly(txt_CusCode, evt);
         txt_CusCode.setText("");
         txt_CusDescription.setText("");
         txt_CusAddNo.setText("");
-        txt_CusAdd3.setText("");
+        txt_CusAdd1.setText("");
         txt_CusAdd2.setText("");
         txt_CusAdd3.setText("");
         txt_CusMobile.setText("");
@@ -620,18 +620,19 @@ private void loadCustomer() {
                     
                     txt_CusDescription.setText(Cus.getName());
                     txt_CusAddNo.setText(Cus.getAddno());
-                    txt_CusAdd3.setText(Cus.getAdd1());
+                    txt_CusAdd1.setText(Cus.getAdd1());
                     txt_CusAdd2.setText(Cus.getAdd2());
                     txt_CusAdd3.setText(Cus.getAdd3());
                     txt_CusMobile.setText(Cus.getMobile());
                     txt_CusContact.setText(Cus.getContact());
+                    
                     if (Cus.getActive() == 1) {
                         Chk_Active.setSelected(true);
                     } else {
                         Chk_Active.setSelected(false);
                     }
                     JComponent[] EnCom = {but_CusSave, but_CusUpdate, butCusRefresh};
-                    JComponent[] DisCom = {but_CusSearch,txt_CusCode, txt_CusDescription, txt_CusMobile, txt_CusContact, txt_CusAddNo, txt_CusAdd3,txt_CusAdd2,txt_CusAdd3, Chk_Active};
+                    JComponent[] DisCom = {but_CusSearch,txt_CusCode, txt_CusDescription, txt_CusMobile, txt_CusContact, txt_CusAddNo, txt_CusAdd1,txt_CusAdd2,txt_CusAdd3, Chk_Active};
                     setDisableEnableComponents(EnCom, DisCom);
 
                 } else {

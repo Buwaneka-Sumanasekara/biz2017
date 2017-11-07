@@ -283,6 +283,8 @@ public class C_Products {
     }
 
     public void saveProductSuppliers(String ProId, Vector<MSupplier> Suppliers) throws Exception {
+        String qd="DELETE FROM M_SUPPLIER_HAS_M_PRODUCTS WHERE M_PRODUCTS_ID='"+ProId+"' ";
+        DB.Delete(qd);
         for (MSupplier S : Suppliers) {
             Map<String, String> mpro = new TreeMap<String, String>();
             mpro.put("M_SUPPLIER_ID", "'" + S.getId() + "'");

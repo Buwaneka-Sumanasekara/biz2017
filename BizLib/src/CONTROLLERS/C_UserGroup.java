@@ -149,7 +149,7 @@ public class C_UserGroup {
         return getUserGroupPermitions(UserGroupId, ReqPer, "");
     }
 
-    public Map<String, MPermissions> getUserGroupPermitions_Map(int UserGroupId, int ReqPer, String ParentID) throws Exception {
+    public TreeMap<String, MPermissions> getUserGroupPermitions_Map(int UserGroupId, int ReqPer, String ParentID) throws Exception {
         String sql = "select p.ID AS ID,p.PARENTid AS PARID,p.Name AS NAME,p.DESCRIPTION AS DES,"
                 + "p.TYPE AS TYP,p.HASSUB AS HASSUB,p.ISUIMENU AS ISUIMENU,up.ACCESSTYPE AS ACCESST,p.ORD AS ORD "
                 + " from m_permissions p inner join user_permitions up "
@@ -168,9 +168,9 @@ public class C_UserGroup {
             sql += " AND p.PARENTid='" + ParentID + "' ";
         }
 
-        sql += " ORDER BY p.ID,p.ORD ";
+        sql += " ORDER BY p.PARENTid,p.ORD ";
         // System.out.println(sql);  
-        Map<String, MPermissions> l = new TreeMap<String, MPermissions>();
+        TreeMap<String, MPermissions> l = new TreeMap<String, MPermissions>();
         ResultSet rs = DB.Search(sql);
         while (rs.next()) {
             MPermissions p = new MPermissions();
@@ -209,8 +209,8 @@ public class C_UserGroup {
             sql += " AND p.PARENTid='" + ParentID + "' ";
         }
 
-       sql += " ORDER BY p.ID,p.ORD ";
-        // System.out.println(sql);
+       sql += " ORDER BY p.PARENTid,p.ORD ";
+       System.out.println(sql);
         ArrayList<MPermissions> l = new ArrayList<>();
         ResultSet rs = DB.Search(sql);
         while (rs.next()) {
@@ -238,7 +238,7 @@ public class C_UserGroup {
         if (!ParentID.equals("")) {
             sql += " WHERE  p.PARENTid='" + ParentID + "' ";
         }
-       sql += " ORDER BY p.ID,p.ORD ";
+       sql += " ORDER BY p.PARENTid,p.ORD ";
         ArrayList<MPermissions> l = new ArrayList<>();
         ResultSet rs = DB.Search(sql);
         while (rs.next()) {

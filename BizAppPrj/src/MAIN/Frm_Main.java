@@ -83,6 +83,7 @@ public class Frm_Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
@@ -197,7 +198,7 @@ public class Frm_Main extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void createUserMenu() {
-        Map<String, DefaultMutableTreeNode> NodesMap = new TreeMap<String, DefaultMutableTreeNode>();
+        TreeMap<String, DefaultMutableTreeNode> NodesMap = new TreeMap<String, DefaultMutableTreeNode>();
         try {
 
             //create the root node
@@ -231,7 +232,7 @@ public class Frm_Main extends javax.swing.JFrame {
             });
 
             for (MPermissions p : menus) {
-              //  System.out.println(p.getId() + "-" + p.getParentid());
+             //  System.out.println(p.getId() + "-" + p.getParentid());
 
                 if (p.getId().equals(p.getParentid())) {
                     if (NodesMap.get(p.getId()) == null) {
@@ -247,6 +248,8 @@ public class Frm_Main extends javax.swing.JFrame {
                         NodesMap.put(p.getId(), node);
                         parent.add(node);
                     }
+                    
+                    
                 }
             }
             TUserMenu.setModel(new DefaultTreeModel(root));
@@ -257,6 +260,9 @@ public class Frm_Main extends javax.swing.JFrame {
 
     }
 
+    
+   
+    
     private void openWindow(MPermissions p) throws Exception {
 
         JInternalFrame jf = myw.getRequestWindow(p, this);

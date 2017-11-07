@@ -394,8 +394,8 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
 
     @Override
     public void EditMode() {
-        JComponent[] DisCom = {but_SupSave,but_SupUpdate, but_SupSearch};
-        JComponent[] EnCom = {but_SupSave, butSupRefresh, txt_SupCode, txt_SupDescription, txt_SupMobile, txt_SupContact, txt_SupContactPerson, txt_SupAddress, Chk_Active};
+        JComponent[] DisCom = {but_SupUpdate,but_SupSearch,txt_SupCode};
+        JComponent[] EnCom = {but_SupSave, butSupRefresh, txt_SupDescription, txt_SupMobile, txt_SupContact, txt_SupContactPerson, txt_SupAddress, Chk_Active};
         setDisableEnableComponents(EnCom, DisCom);
     }
 
@@ -549,8 +549,8 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
                     } else {
                         Chk_Active.setSelected(false);
                     }
-                    JComponent[] EnCom = {but_SupSave, but_SupUpdate, butSupRefresh};
-                    JComponent[] DisCom = {but_SupSearch, txt_SupCode,txt_SupDescription, txt_SupMobile, txt_SupContact, txt_SupContactPerson, txt_SupAddress, Chk_Active};
+                    JComponent[] EnCom = {  but_SupUpdate, butSupRefresh};
+                    JComponent[] DisCom = {but_SupSave,txt_SupCode,but_SupSearch,txt_SupDescription, txt_SupMobile, txt_SupContact, txt_SupContactPerson, txt_SupAddress, Chk_Active};
                     setDisableEnableComponents(EnCom, DisCom);
 
                 } else {

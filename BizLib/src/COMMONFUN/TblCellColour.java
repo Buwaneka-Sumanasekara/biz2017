@@ -13,43 +13,43 @@ import java.awt.Component;
  * @author Buwanaka
  */
 public class TblCellColour extends javax.swing.table.DefaultTableCellRenderer {
-int ColourRow=-1;
-    int colurType=0;
+
+    int ColourRow = -1;
+    int colurType = 0;
 
     //0=default, 1=yellow
-  
-    
-    
-    
-@Override
+    @Override
     public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, java.lang.Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-     
+
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        
-          int status = (int)table.getModel().getValueAt(row, 11);
-        if(status>0){
-        c.setBackground(Color.YELLOW);
-        }else{
+
+        int status = (int) table.getModel().getValueAt(row, 11);
+        if (status > 0) {
+            c.setBackground(Color.YELLOW);
+        } else {
             c.setBackground(Color.WHITE);
         }
-          int gv = (int)table.getModel().getValueAt(row, 12);
-        if(gv==1){
+
+        double qty = (double) table.getModel().getValueAt(row, 4);
+
+        int gv = (int) table.getModel().getValueAt(row, 12);
+        if (qty < 0) {
+            c.setBackground(Color.RED);
+            c.setForeground(Color.BLACK);
+        } else if (gv == 1) {
             c.setBackground(Color.GREEN);
-              c.setForeground(Color.BLACK); 
-        }else{
-            if(isSelected){
-              c.setBackground(Color.LIGHT_GRAY);
-              c.setForeground(Color.BLACK);
-            }else{
-              c.setBackground(Color.WHITE);
-              c.setForeground(Color.BLACK);
-                
-            }
+            c.setForeground(Color.BLACK);
+        } else if (isSelected) {
+            c.setBackground(Color.LIGHT_GRAY);
+            c.setForeground(Color.BLACK);
+        } else {
+            c.setBackground(Color.WHITE);
+            c.setForeground(Color.BLACK);
+
         }
-        
+
         return c;
 
     }
-
 
 }

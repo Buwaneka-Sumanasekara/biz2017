@@ -40,7 +40,7 @@ public class Frm_Login extends javax.swing.JFrame {
         ug = new C_UserGroup();
         txtuname.grabFocus();
         this.frml = this;
-
+this.lbl_ComName.setText(GlobalData.Setup.getComname());
     }
 
     /**
@@ -60,8 +60,10 @@ public class Frm_Login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        lbl_ComName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -106,6 +108,7 @@ public class Frm_Login extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 130, 130));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(153, 153, 153));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Software By :  Buwaneka Tharanga Sumanasekara");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 590, 20));
@@ -114,6 +117,12 @@ public class Frm_Login extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(110, 147, 169));
         jLabel5.setText("Biz");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 100, 50));
+
+        lbl_ComName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbl_ComName.setForeground(new java.awt.Color(89, 143, 179));
+        lbl_ComName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_ComName.setText("COMNAME");
+        getContentPane().add(lbl_ComName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 40));
 
         pack();
         setLocationRelativeTo(null);
@@ -164,6 +173,7 @@ public class Frm_Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lbl_ComName;
     private javax.swing.JPasswordField txtpass;
     private javax.swing.JTextField txtuname;
     // End of variables declaration//GEN-END:variables
@@ -198,6 +208,6 @@ public class Frm_Login extends javax.swing.JFrame {
     }
 
     private void createLayout() {
-        def.createDefaultData();
+      //  def.createDefaultData();
     }
 }

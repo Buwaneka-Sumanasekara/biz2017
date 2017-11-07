@@ -55,6 +55,16 @@ public class MyValidator {
         e.consume();
       }
     }
+     public void NumbersOnly_MinusAllow(JTextField tf, java.awt.event.KeyEvent e) {
+        char c = e.getKeyChar();
+         //System.out.println(tf.getText().length()+" "+c);
+      if (!((c >= '0') && (c <= '9') ||
+         (c == KeyEvent.VK_BACK_SPACE) ||
+         (c == KeyEvent.VK_DELETE)||(tf.getText().length()==0 && c=='-'))) {
+        
+        e.consume();
+      }
+    }
 
     public void NumbersOnly(JTextField tf, int MaximumChars, java.awt.event.KeyEvent evt) {
         if (!Character.isDigit(evt.getKeyChar()) || tf.getText().length() >= MaximumChars) {
@@ -146,18 +156,22 @@ public class MyValidator {
         return mask.substring(0, mask.length() - 1);
     }
 
-    public void validateforFloatingPoints(JTextField tf, KeyEvent evt, int digits_after_Dot) {
+    public void validateforFloatingPoints(JTextField tf, KeyEvent evt, int digits_after_Dot){
+        validateforFloatingPoints(tf, evt, digits_after_Dot, false);
+    }
+    public void validateforFloatingPoints(JTextField tf, KeyEvent evt, int digits_after_Dot,boolean miniusAllow) {
         String text = tf.getText();
         if (text.equals("")) {
-            if (!Character.isDigit(evt.getKeyChar())) {
+            if(evt.getKeyChar() == '-'){
+                
+            }
+            else if (!Character.isDigit(evt.getKeyChar())) {
                 evt.consume();
-            } else if (evt.getKeyChar() == '-') {
-
             }
         } else {
             if (isDotAvailable(text)) {
                 int digitsAfterDot = digitsAfterDot(text);
-                System.out.println("afterDot:" + digitsAfterDot);
+                //System.out.println("afterDot:" + digitsAfterDot);
                 if (digitsAfterDot(text) < digits_after_Dot) {
                     if (!Character.isDigit(evt.getKeyChar())) {
                         evt.consume();
