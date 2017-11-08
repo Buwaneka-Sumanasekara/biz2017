@@ -121,6 +121,8 @@ public class MyWindowManager {
                       
                         jf = new Frm_Rpt_Common(fm, R.getName(), R);
                        
+                    }else{
+                        System.err.println("Report is Null "+p.getId());
                     }
 
                     break;
