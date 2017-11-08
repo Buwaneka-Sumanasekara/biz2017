@@ -115,10 +115,43 @@ public class C_GroupCommon {
         Vector<MGroupCommon> v = new Vector<>();
         try {
             String q = "SELECT * FROM m_group" + Group + " WHERE ACTIVE=1 AND ISHIDDEN=0 ORDER BY NAME ";
-            ResultSet rs =DB.Search(q);
+            ResultSet rs = DB.Search(q);
             if (skipDefault == false) {
                 v.add(new MGroupCommon(getDefaultGroup(Group), "NOT APPLICABLE", (byte) 1));
             }
+            while (rs.next()) {
+                MGroupCommon g = new MGroupCommon();
+                g.setId(rs.getString("ID"));
+                g.setName(rs.getString("NAME"));
+                v.add(g);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(MGroupCommon.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return v;
+    }
+
+    public Vector<MGroupCommon> GetGroupValuesMapped(int parentGrp, Vector<MGroupCommon> parentIds, int ReqGrp) {
+        Vector<MGroupCommon> v = new Vector<>();
+        try {
+            String q = "select * from m_group" + ReqGrp + " G where G.ACTIVE=1 and G.ID IN (select gl.G" + ReqGrp + "_ID from m_grouplink gl where  ";
+
+            int i = 0;
+            for (MGroupCommon GC : parentIds) {
+                if(i==0){
+                    q += " gl.G" + parentGrp + "_ID='" + GC.getId()+ "' ";
+                }else{
+                    q += " OR gl.G" + parentGrp + "_ID='" + GC.getId() + "' ";
+                }
+                
+                i++;
+            }
+
+            q += ")";
+            System.out.println(q);
+            ResultSet rs = DB.Search(q);
+
             while (rs.next()) {
                 MGroupCommon g = new MGroupCommon();
                 g.setId(rs.getString("ID"));
@@ -213,26 +246,25 @@ public class C_GroupCommon {
     public Vector<MGroupCommon> getFilteredGroups(int ReqGroup, ArrayList<String> PreviousSelectGroupIds) throws Exception {
         Vector<MGroupCommon> v = new Vector<>();
         if (PreviousSelectGroupIds.size() > 0) {
-            String q = "SELECT G" + ReqGroup + "_ID FROM M_GROUPLINK  WHERE G" + ReqGroup + "_ID <> '"+getDefaultGroup(ReqGroup)+"' ";
+            String q = "SELECT G" + ReqGroup + "_ID FROM M_GROUPLINK  WHERE G" + ReqGroup + "_ID <> '" + getDefaultGroup(ReqGroup) + "' ";
 
             int GNo = 1;
             for (String SelectedGroupsId : PreviousSelectGroupIds) {
-                 
-                
-                  q+=" AND ";
-             
-                q+=" G" + GNo + "_ID = '"+SelectedGroupsId+"'  ";
+
+                q += " AND ";
+
+                q += " G" + GNo + "_ID = '" + SelectedGroupsId + "'  ";
                 GNo++;
             }
-            q+=" GROUP BY G" + ReqGroup + "_ID" ;
-            
+            q += " GROUP BY G" + ReqGroup + "_ID";
+
             ResultSet rs = DB.Search(q);
-            
-            v.add(IsExists("M_GROUP" + ReqGroup,getDefaultGroup(ReqGroup)));
-            
-            while (rs.next()) {                
-                MGroupCommon Group = IsExists("M_GROUP"+ReqGroup,rs.getString("G" + ReqGroup + "_ID"));
-                if(Group!=null){
+
+            v.add(IsExists("M_GROUP" + ReqGroup, getDefaultGroup(ReqGroup)));
+
+            while (rs.next()) {
+                MGroupCommon Group = IsExists("M_GROUP" + ReqGroup, rs.getString("G" + ReqGroup + "_ID"));
+                if (Group != null) {
                     v.add(Group);
                 }
             }

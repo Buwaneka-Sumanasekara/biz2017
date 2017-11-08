@@ -43,7 +43,7 @@ public class MyWindowManager {
 
     public JInternalFrame getRequestWindow(MPermissions p, Frm_Main fm) throws Exception {
         JInternalFrame jf = null;
-        if (!p.getType().equals("TRN")) {
+        if (!p.getType().equals("TRN")&& ! p.getType().equals("RPT")) {
             switch (p.getId()) {
                 case "M00001":
                     jf = new Frm_MLocation(fm);

@@ -5,22 +5,45 @@
  */
 package SUBUI;
 
+import COMMONFUN.ReportC;
+import CONTROLLERS.C_Customers;
+import CONTROLLERS.C_GroupCommon;
+import CONTROLLERS.C_Locations;
+import CONTROLLERS.C_Suppliers;
 import MAIN.Frm_Main;
+import MODELS.MCustomer;
+import MODELS.MGroupCommon;
+import MODELS.MLocation;
+import MODELS.MSupplier;
 import MODELS.RptCommon;
 import UI.Frm_Table;
 import VALIDATIONS.MyValidator;
 import WINMNG.MyWindowBasicControllers;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTree;
 import javax.swing.KeyStroke;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import net.sf.jasperreports.engine.JasperReport;
 
 /**
  *
@@ -35,12 +58,32 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
     RptCommon mRpt;
 
+    C_Locations cLoc = null;
+    C_Customers cCus = null;
+    C_Suppliers cSup = null;
+    C_GroupCommon cGrp = null;
+    JasperReport jr = null;
+    TreeMap<String, Vector<MGroupCommon>> Grps = null;
+    Map<Integer, String> groupDisplayNames = null;
+    ReportC C_Report = null;
+
+    SimpleDateFormat sdf_From = null;
+    SimpleDateFormat sdf_To = null;
+
     public Frm_Rpt_Common(Frm_Main mainw, String ScreenName, RptCommon mRpt) {
         initComponents();
         this.setTitle(ScreenName);
         this.lblScreenName.setText(ScreenName);
         this.mainW = mainw;
         this.mRpt = mRpt;
+        this.cLoc = new C_Locations();
+        this.cCus = new C_Customers();
+        this.cSup = new C_Suppliers();
+        this.cGrp = new C_GroupCommon();
+        this.C_Report = new ReportC();
+        this.sdf_From = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+        this.sdf_To = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
+        this.jr = GLOBALDATA.GlobalData.CompiledReports.get("RPT_" + mRpt.getId());
         Refresh();
         setShortCutKeys(this);
     }
@@ -58,6 +101,33 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         jPanel2 = new javax.swing.JPanel();
         lblScreenName = new javax.swing.JLabel();
         jpanelq = new javax.swing.JPanel();
+        but_TrnRefresh = new javax.swing.JButton();
+        but_TrnPrint = new javax.swing.JButton();
+        layout_CusSup = new javax.swing.JPanel();
+        txt_Id = new javax.swing.JTextField();
+        lbl_CusSup = new javax.swing.JLabel();
+        lbl_FName = new javax.swing.JLabel();
+        lbl_Name1 = new javax.swing.JLabel();
+        lbl_LNAME = new javax.swing.JLabel();
+        layout_Location = new javax.swing.JPanel();
+        cmb_Loc = new javax.swing.JComboBox<>();
+        layout_Period = new javax.swing.JPanel();
+        txt_DateF = new com.toedter.calendar.JDateChooser();
+        txt_DateT = new com.toedter.calendar.JDateChooser();
+        lb_lTo = new javax.swing.JLabel();
+        cmb_Qut = new javax.swing.JComboBox<>();
+        layout_Period3 = new javax.swing.JPanel();
+        cmb_Loc2 = new javax.swing.JComboBox<>();
+        layout_Group = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_Grp = new javax.swing.JTable();
+        lbl_GrpName = new javax.swing.JLabel();
+        but_Grp_Next = new javax.swing.JButton();
+        but_Grp_Back = new javax.swing.JButton();
+        lbl_GrpCode = new javax.swing.JLabel();
+        chk_GrpAll = new javax.swing.JCheckBox();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tree_Grps = new javax.swing.JTree();
 
         setClosable(true);
         setTitle("caption");
@@ -94,7 +164,172 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         jPanel2.add(lblScreenName, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 180, 40));
         jPanel2.add(jpanelq, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
 
+        but_TrnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
+        but_TrnRefresh.setToolTipText("Refresh");
+        but_TrnRefresh.setContentAreaFilled(false);
+        but_TrnRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh_disable.png"))); // NOI18N
+        but_TrnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_TrnRefreshActionPerformed(evt);
+            }
+        });
+        jPanel2.add(but_TrnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        but_TrnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_print__outline__printer__document__office__computer__networkprinter_2318007 (1).png"))); // NOI18N
+        but_TrnPrint.setToolTipText("Cancel(F7)");
+        but_TrnPrint.setContentAreaFilled(false);
+        but_TrnPrint.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/hold_disable.png"))); // NOI18N
+        but_TrnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_TrnPrintActionPerformed(evt);
+            }
+        });
+        jPanel2.add(but_TrnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
+
+        layout_CusSup.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        layout_CusSup.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        layout_CusSup.add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 150, 30));
+
+        lbl_CusSup.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_CusSup.setText("Id");
+        layout_CusSup.add(lbl_CusSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 150, -1));
+
+        lbl_FName.setText("NAME");
+        layout_CusSup.add(lbl_FName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 270, 20));
+        layout_CusSup.add(lbl_Name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 270, 20));
+
+        lbl_LNAME.setText("CONTACT");
+        layout_CusSup.add(lbl_LNAME, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 270, 30));
+
+        jPanel1.add(layout_CusSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 460, 80));
+
+        layout_Location.setBorder(javax.swing.BorderFactory.createTitledBorder("Location"));
+        layout_Location.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        layout_Location.add(cmb_Loc, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 30));
+
+        jPanel1.add(layout_Location, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 360, 80));
+
+        layout_Period.setBorder(javax.swing.BorderFactory.createTitledBorder("Period"));
+        layout_Period.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txt_DateF.setDateFormatString("yyyy-MM-dd");
+        txt_DateF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_DateFFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_DateFFocusLost(evt);
+            }
+        });
+        layout_Period.add(txt_DateF, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 170, 30));
+
+        txt_DateT.setDateFormatString("yyyy-MM-dd");
+        txt_DateT.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_DateTFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_DateTFocusLost(evt);
+            }
+        });
+        layout_Period.add(txt_DateT, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 170, 30));
+
+        lb_lTo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_lTo.setText("To");
+        layout_Period.add(lb_lTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 30, 30));
+
+        layout_Period.add(cmb_Qut, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 30));
+
+        jPanel1.add(layout_Period, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 830, 80));
+
+        layout_Period3.setBorder(javax.swing.BorderFactory.createTitledBorder("Location"));
+        layout_Period3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        layout_Period3.add(cmb_Loc2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 30));
+
+        jPanel1.add(layout_Period3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 360, 80));
+
+        layout_Group.setBorder(javax.swing.BorderFactory.createTitledBorder("Categories"));
+        layout_Group.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tbl_Grp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "State"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_Grp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_GrpMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_Grp);
+        if (tbl_Grp.getColumnModel().getColumnCount() > 0) {
+            tbl_Grp.getColumnModel().getColumn(0).setResizable(false);
+            tbl_Grp.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tbl_Grp.getColumnModel().getColumn(1).setResizable(false);
+            tbl_Grp.getColumnModel().getColumn(1).setPreferredWidth(80);
+        }
+
+        layout_Group.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 530, 260));
+
+        lbl_GrpName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbl_GrpName.setText("GROUP NAME");
+        layout_Group.add(lbl_GrpName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 320, 30));
+
+        but_Grp_Next.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_icons_share_1564530.png"))); // NOI18N
+        but_Grp_Next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_Grp_NextActionPerformed(evt);
+            }
+        });
+        layout_Group.add(but_Grp_Next, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 70, 30));
+
+        but_Grp_Back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_arrow-back_216437.png"))); // NOI18N
+        but_Grp_Back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_Grp_BackActionPerformed(evt);
+            }
+        });
+        layout_Group.add(but_Grp_Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 70, 30));
+
+        lbl_GrpCode.setText("1");
+        layout_Group.add(lbl_GrpCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 60, 30));
+
+        chk_GrpAll.setText("All");
+        chk_GrpAll.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        chk_GrpAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chk_GrpAllActionPerformed(evt);
+            }
+        });
+        layout_Group.add(chk_GrpAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 60, 30));
+
+        jScrollPane2.setViewportView(tree_Grps);
+
+        layout_Group.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 200, 300));
+
+        jPanel1.add(layout_Group, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 830, 330));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 620));
 
@@ -109,12 +344,80 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
     }//GEN-LAST:event_formInternalFrameOpened
 
+    private void but_TrnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnPrintActionPerformed
+        printRpt();
+    }//GEN-LAST:event_but_TrnPrintActionPerformed
+
+    private void but_TrnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnRefreshActionPerformed
+        Refresh();
+    }//GEN-LAST:event_but_TrnRefreshActionPerformed
+
+    private void txt_DateFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DateFFocusGained
+        txt_DateF.setBackground(Color.YELLOW);
+    }//GEN-LAST:event_txt_DateFFocusGained
+
+    private void txt_DateFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DateFFocusLost
+        txt_DateF.setBackground(Color.white);
+    }//GEN-LAST:event_txt_DateFFocusLost
+
+    private void txt_DateTFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DateTFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_DateTFocusGained
+
+    private void txt_DateTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DateTFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_DateTFocusLost
+
+    private void chk_GrpAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_GrpAllActionPerformed
+        Grp_SelectAll(chk_GrpAll.isSelected());
+    }//GEN-LAST:event_chk_GrpAllActionPerformed
+
+    private void but_Grp_NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_Grp_NextActionPerformed
+        Grp_Next();
+    }//GEN-LAST:event_but_Grp_NextActionPerformed
+
+    private void but_Grp_BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_Grp_BackActionPerformed
+        Grp_Back();
+    }//GEN-LAST:event_but_Grp_BackActionPerformed
+
+    private void tbl_GrpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_GrpMouseClicked
+
+
+    }//GEN-LAST:event_tbl_GrpMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton but_Grp_Back;
+    private javax.swing.JButton but_Grp_Next;
+    private javax.swing.JButton but_TrnPrint;
+    private javax.swing.JButton but_TrnRefresh;
+    private javax.swing.JCheckBox chk_GrpAll;
+    private javax.swing.JComboBox<String> cmb_Loc;
+    private javax.swing.JComboBox<String> cmb_Loc2;
+    private javax.swing.JComboBox<String> cmb_Qut;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jpanelq;
+    private javax.swing.JPanel layout_CusSup;
+    private javax.swing.JPanel layout_Group;
+    private javax.swing.JPanel layout_Location;
+    private javax.swing.JPanel layout_Period;
+    private javax.swing.JPanel layout_Period3;
+    private javax.swing.JLabel lb_lTo;
     private javax.swing.JLabel lblScreenName;
+    private javax.swing.JLabel lbl_CusSup;
+    private javax.swing.JLabel lbl_FName;
+    private javax.swing.JLabel lbl_GrpCode;
+    private javax.swing.JLabel lbl_GrpName;
+    private javax.swing.JLabel lbl_LNAME;
+    private javax.swing.JLabel lbl_Name1;
+    private javax.swing.JTable tbl_Grp;
+    private javax.swing.JTree tree_Grps;
+    private com.toedter.calendar.JDateChooser txt_DateF;
+    private com.toedter.calendar.JDateChooser txt_DateT;
+    private javax.swing.JTextField txt_Id;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -129,6 +432,78 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
     @Override
     public void Refresh() {
+        txt_DateF.setDate(new Date());
+        txt_DateT.setDate(new Date());
+       
+
+        JComponent[] v_f = {txt_DateF, txt_DateT};
+        JComponent[] h_f = {lbl_GrpCode, layout_Group, layout_CusSup, cmb_Qut};
+
+        setVisibleHideComponents(v_f, h_f);
+
+        JComponent[] en_f = {};
+        JComponent[] dis_f = {layout_Period, layout_Location, layout_CusSup, txt_DateF, txt_DateT, cmb_Loc, but_Grp_Back};
+
+        setDisableEnableComponents(en_f, dis_f);
+
+        if (mRpt.getEn_Loc() == 1) {
+            layout_Location.setEnabled(true);
+            cmb_Loc.setEnabled(true);
+            try {
+                cmb_Loc.setModel(new DefaultComboBoxModel(cLoc.getAllLocationsV()));
+            } catch (Exception ex) {
+                //Logger.getLogger(Frm_Rpt_Common.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (mRpt.getEn_DateRange() == 1) {
+            layout_Period.setEnabled(true);
+            cmb_Qut.setVisible(false);
+            txt_DateT.setVisible(true);
+            txt_DateF.setVisible(true);
+            txt_DateF.setEnabled(true);
+            txt_DateT.setEnabled(true);
+
+        }
+        if (mRpt.getEn_DateAsAt() == 1) {
+            layout_Period.setEnabled(true);
+            cmb_Qut.setVisible(false);
+            txt_DateF.setEnabled(true);
+            txt_DateT.setEnabled(false);
+            txt_DateT.setVisible(false);
+
+        }
+        if (mRpt.getEn_DateQut() == 1) {
+            layout_Period.setEnabled(true);
+            cmb_Qut.setVisible(true);
+            txt_DateF.setEnabled(false);
+            txt_DateF.setEnabled(false);
+            txt_DateT.setEnabled(false);
+            txt_DateT.setVisible(false);
+
+        }
+        if (mRpt.getEn_Grp() == 1) {
+            this.groupDisplayNames = cGrp.getGroupDisplayNames();
+
+            Grps = new TreeMap<>();
+            Grp_setGroups(1);
+            layout_Group.setVisible(true);
+        }
+        if (mRpt.getEn_Sup() == 1) {
+            layout_CusSup.setVisible(true);
+            lbl_FName.setText("");
+            lbl_LNAME.setText("");
+            txt_Id.setText("");
+            lbl_CusSup.setText("Supplier Id");
+            layout_CusSup.setBorder(new TitledBorder("Supplier"));
+        }
+        if (mRpt.getEn_Cus() == 1) {
+            layout_CusSup.setVisible(true);
+            lbl_FName.setText("");
+            lbl_LNAME.setText("");
+            txt_Id.setText("");
+            lbl_CusSup.setText("Customer Id");
+            layout_CusSup.setBorder(new TitledBorder("Customer"));
+        }
 
     }
 
@@ -183,9 +558,228 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
     }
 
+    public void setVisibleHideComponents(JComponent[] visibleComlist, JComponent[] hiddenComlist) {
+        for (JComponent c : hiddenComlist) {
+            c.setVisible(false);
+        }
+        for (JComponent c : visibleComlist) {
+            c.setVisible(true);
+        }
+
+    }
+
     @Override
     public void SearchMode() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    private void printRpt() {
+
+        try {
+
+            if (jr != null) {
+                Map<String, Object> para = new TreeMap<>();
+                if (mRpt.getEn_Loc() == 1) {
+                    MLocation Loc = (MLocation) cmb_Loc.getSelectedItem();
+                    if (Loc != null) {
+                        para.put("PARA_LOC", "" + Loc.getId());
+                    }else{
+                         throw new Exception("Invalid Location");
+                    }
+
+                }
+                if (mRpt.getEn_DateRange() == 1) {
+
+                    para.put("PARA_FDATE", sdf_From.format(txt_DateF.getDate()));
+                    para.put("PARA_TDATE", sdf_To.format(txt_DateT.getDate()));
+                }
+                if (mRpt.getEn_DateAsAt() == 1) {
+                    para.put("PARA_FDATE", sdf_From.format(txt_DateF.getDate()));
+                }
+                if (mRpt.getEn_DateQut() == 1) {
+
+                }
+                if (mRpt.getEn_Grp() == 1) {
+
+                }
+                if (mRpt.getEn_Sup() == 1) {
+                    if (txt_Id.getText().length() > 0) {
+                        MSupplier supplier = cSup.getSupplier(txt_Id.getText());
+                        if (supplier != null) {
+                            para.put("PARA_SUP", supplier.getId());
+                        }else{
+                            throw new Exception("Cannot find Supplier");
+                        }
+
+                    }
+                }
+                if (mRpt.getEn_Cus() == 1) {
+                    if (txt_Id.getText().length() > 0) {
+                        MCustomer c=cCus.getCustomer(txt_Id.getText());
+                        if (c != null) {
+                            para.put("PARA_CUS",c.getId());
+                        }else{
+                            throw new Exception("Cannot find Customer");
+                        }
+
+                    }
+                }
+
+                boolean printFromDb_Rpt = C_Report.printFromDb_Rpt(mRpt.getName(), jr, para);
+            } else {
+                throw new Exception("Report not found!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    private void Grp_setGroups(int grpno) {
+        Grp_setTree();
+        if (grpno >= 1 && grpno <= 5) {
+            lbl_GrpCode.setText("" + grpno);
+            lbl_GrpName.setText(groupDisplayNames.get(grpno).toUpperCase());
+            Grp_NxtBackButSet();
+            DefaultTableModel dtm = (DefaultTableModel) tbl_Grp.getModel();
+            dtm.setRowCount(0);
+
+            Vector<MGroupCommon> allGroupValues = null;
+
+            if (grpno == 1) {
+                allGroupValues = cGrp.getAllGroupValues(grpno);
+            } else {
+                allGroupValues = cGrp.GetGroupValuesMapped((grpno - 1), Grps.get("" + (grpno - 1)), grpno);
+            }
+
+            Vector<MGroupCommon> Selected = Grps.get("" + grpno);
+
+            if (allGroupValues != null) {
+                for (MGroupCommon mGroupCommon : allGroupValues) {
+                    Vector row = new Vector();
+                    row.add(mGroupCommon);
+                    if (Selected != null) {
+                        row.add(Grp_CheckAvaiable(mGroupCommon, Selected));
+                    } else {
+                        row.add(false);
+                    }
+
+                    dtm.addRow(row);
+                }
+            }
+
+            if (Selected == null || Selected.size() == 0) {
+
+                Grp_SelectAll(chk_GrpAll.isSelected());
+            }
+        } else if (grpno > 5) {
+            but_Grp_Next.setEnabled(false);
+        } else if (grpno < 1) {
+            but_Grp_Back.setEnabled(false);
+        }
+    }
+
+    private boolean Grp_CheckAvaiable(MGroupCommon g, Vector<MGroupCommon> grps) {
+        boolean state = false;
+        for (MGroupCommon mGroupCommon : grps) {
+            if (mGroupCommon.equals(g)) {
+                state = true;
+                break;
+            }
+        }
+        return state;
+    }
+
+    private void Grp_SelectAll(boolean selected) {
+        DefaultTableModel dtm = (DefaultTableModel) tbl_Grp.getModel();
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            dtm.setValueAt(selected, i, 1);
+        }
+    }
+
+    private void Grp_Next() {
+        Grp_setTree();
+        if (but_Grp_Next.isEnabled()) {
+            int GrpNo = Integer.parseInt(lbl_GrpCode.getText());
+            if (GrpNo <= 5 && GrpNo > 0) {
+
+                DefaultTableModel dtm = (DefaultTableModel) tbl_Grp.getModel();
+
+                Vector<MGroupCommon> SelGrp = new Vector<>();
+                for (int i = 0; i < dtm.getRowCount(); i++) {
+                    if ((boolean) dtm.getValueAt(i, 1)) {
+                        SelGrp.add((MGroupCommon) dtm.getValueAt(i, 0));
+                    }
+                }
+
+                if (SelGrp.size() > 0) {
+                    Grps.put("" + GrpNo, SelGrp);
+
+                    Grp_setGroups(GrpNo + 1);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Need to Select at least One group from the table", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        }
+    }
+
+    private void Grp_Back() {
+
+        if (but_Grp_Back.isEnabled()) {
+
+            int GrpNo = Integer.parseInt(lbl_GrpCode.getText());
+
+            Vector<MGroupCommon> SelGrp = new Vector<>();
+
+            Grps.put("" + GrpNo, SelGrp);
+
+            Grp_setGroups(GrpNo - 1);
+        }
+    }
+
+    private void Grp_NxtBackButSet() {
+        int GrpNo = Integer.parseInt(lbl_GrpCode.getText());
+        if (GrpNo > 1 && GrpNo <= 5) {
+            but_Grp_Back.setEnabled(true);
+            if (GrpNo > 5) {
+                but_Grp_Next.setEnabled(false);
+            }
+        } else if (GrpNo <= 5 && GrpNo > 0) {
+            but_Grp_Next.setEnabled(true);
+
+        } else {
+            but_Grp_Next.setEnabled(false);
+        }
+    }
+
+    private void Grp_setTree() {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("");
+
+        for (int i = 1; i <= 5; i++) {
+            DefaultMutableTreeNode Node_g = new DefaultMutableTreeNode(groupDisplayNames.get(i));
+            Vector<MGroupCommon> get = Grps.get("" + i);
+            if (get != null) {
+                for (MGroupCommon g : get) {
+
+                    DefaultMutableTreeNode Node_g_data = new DefaultMutableTreeNode(g);
+                    Node_g.add(Node_g_data);
+                }
+            }
+            root.add(Node_g);
+        }
+
+        tree_Grps.setModel(new DefaultTreeModel(root));
+
+        expandAllNodes(tree_Grps, 0, tree_Grps.getRowCount());
+    }
+
+    private void expandAllNodes(JTree tree, int startingIndex, int rowCount) {
+        for (int i = startingIndex; i < rowCount; ++i) {
+            tree.expandRow(i);
+        }
+
+        if (tree.getRowCount() != rowCount) {
+            expandAllNodes(tree, rowCount, tree.getRowCount());
+        }
+    }
 }

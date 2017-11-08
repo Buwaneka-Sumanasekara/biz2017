@@ -2,9 +2,11 @@ package LOGIN;
 
 import COMMONFUN.CommonFun;
 import COMMONFUN.DefaultData;
+import CONTROLLERS.C_ReportSetup;
 import CONTROLLERS.C_Setup;
 import CONTROLLERS.C_TransactionSetup;
 import GLOBALDATA.GlobalData;
+import MODELS.RptCommon;
 import MODELS.UTransactions;
 import SETTINGS.Settings;
 import TABLE_STRUCT.TableStruCreation;
@@ -18,44 +20,46 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 
 public final class Frm_Start extends javax.swing.JDialog {
-    
+
     TableStruCreation TblStru = null;
     SETTINGS.Settings settings = null;
     DefaultData DefData = null;
     C_TransactionSetup cTrn = null;
-    
+    C_ReportSetup cRptSetup = null;
+
     public Frm_Start(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         GlobalData.Setup = C_Setup.getSetupRec();
         GlobalData.Settings = SETTINGS.Settings.readFile();
         TblStru = new TableStruCreation();
         settings = new Settings();
         DefData = new DefaultData();
         cTrn = new C_TransactionSetup();
+        cRptSetup = new C_ReportSetup();
     }
-    
+
     public void InitPrgressBar(int MaxRecords) {
-        
+
         jProgressBar1.setMinimum(0);
         jProgressBar1.setMaximum(MaxRecords);
     }
-    
+
     public void setProgressBarVal() {
         //System.out.println(jProgressBar1.getValue());
         //System.out.println("Max:" + jProgressBar1.getMaximum());
         jProgressBar1.setValue(jProgressBar1.getValue() + 1);
         jProgressBar1.update(jProgressBar1.getGraphics());
-        
+
     }
-    
+
     public void startPrograme() {
         txtStatues.setText("");
         super.update(this.getGraphics());
-        
+
         ArrayList<Structure> arStructures = new ArrayList<>();
-        
+
         ArrayList<TblColumn> ar_20161002_t1 = new ArrayList<>();
         ar_20161002_t1.add(new TblColumn("MARKUP", "DOUBLE", "NOT NULL DEFAULT 0"));
         Structure str_20161002_t1 = new Structure(20161002, "M_STOCKS", ar_20161002_t1);
@@ -76,13 +80,13 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20170305_t0.add(new TblColumn("GRP_ENDNO", "VARCHAR(100)", "NOT NULL"));
         ar_20170305_t0.add(new TblColumn("GRP_QTY", "INT", "NOT NULL DEFAULT 0"));
         ar_20170305_t0.add(new TblColumn("GRP_ACTIVE", "INT", "NOT NULL DEFAULT 0"));
-        
+
         ArrayList<String> ar_20170305_t0PK = new ArrayList<>();
         ar_20170305_t0PK.add("GRP_ID");
-        
+
         Structure str_20170305_t0 = new Structure(20170305, "M_GIFTVOUCHER_GROUP", ar_20170305_t0, ar_20170305_t0PK);
         arStructures.add(str_20170305_t0);
-        
+
         ArrayList<TblColumn> ar_20170305_t1 = new ArrayList<>();
         ar_20170305_t1.add(new TblColumn("GRP_ID", "VARCHAR(50)", "NOT NULL"));
         ar_20170305_t1.add(new TblColumn("GV_NO", "VARCHAR(100)", "NOT NULL"));
@@ -97,14 +101,14 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20170305_t1.add(new TblColumn("ACTIVE", "INT", "NOT NULL DEFAULT 0"));
         ar_20170305_t1.add(new TblColumn("ISPUR", "INT", "NOT NULL DEFAULT 0"));
         ar_20170305_t1.add(new TblColumn("GV_DES", "VARCHAR(100)", ""));
-        
+
         ArrayList<String> ar_20170305_t1PK = new ArrayList<>();
         // ar_20170305_t1PK.add("GRP_ID");
         ar_20170305_t1PK.add("GV_NO");
-        
+
         Structure str_20170305_t1 = new Structure(20170305, "M_GIFTVOUCHER", ar_20170305_t1, ar_20170305_t1PK);
         arStructures.add(str_20170305_t1);
-        
+
         ArrayList<TblColumn> ar_20170305_t2 = new ArrayList<>();
         ar_20170305_t2.add(new TblColumn("NO", "INT", "NOT NULL"));
         ar_20170305_t2.add(new TblColumn("GV_NO", "VARCHAR(100)", "NOT NULL"));
@@ -112,40 +116,40 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20170305_t2.add(new TblColumn("RED_LOC", "INT", "NOT NULL"));
         ar_20170305_t2.add(new TblColumn("RED_CRBY", "VARCHAR(50)", "NOT NULL"));
         ar_20170305_t2.add(new TblColumn("RED_REFNO", "VARCHAR(100)", "NOT NULL"));
-        
+
         ArrayList<String> ar_20170305_t2PK = new ArrayList<>();
         ar_20170305_t2PK.add("NO");
         ar_20170305_t2PK.add("GV_NO");
-        
+
         Structure str_20170305_t2 = new Structure(20170305, "T_GVREDEEM", ar_20170305_t2, ar_20170305_t2PK);
         arStructures.add(str_20170305_t2);
-        
+
         String q_20171101_t1 = "ALTER TABLE m_user DROP COLUMN LOCID";
         Structure str_20171101_t1 = new Structure(20171101, q_20171101_t1);
         arStructures.add(str_20171101_t1);
-        
+
         ArrayList<TblColumn> ar_20171102_t1 = new ArrayList<>();
         ar_20171102_t1.add(new TblColumn("PREV_REP", "INT", "NOT NULL DEFAULT 1"));
         ar_20171102_t1.add(new TblColumn("CANCEL_OPT", "INT", "NOT NULL DEFAULT 0"));
         ar_20171102_t1.add(new TblColumn("CANCEL_DAYS_WITH", "INT", "NOT NULL DEFAULT 1"));
-        
+
         ArrayList<String> ar_20171102_t1PK = new ArrayList<>();
         ar_20170305_t2PK.add("TRNNO");
         ar_20170305_t2PK.add("TRNTYPE");
-        
+
         Structure str_20171102_t2 = new Structure(20171102, "u_transactions", ar_20171102_t1, ar_20171102_t1PK);
         arStructures.add(str_20171102_t2);
-        
+
         ArrayList<TblColumn> ar_20171106_t1 = new ArrayList<>();
         ar_20171106_t1.add(new TblColumn("ORD", "INT", "NOT NULL DEFAULT 0"));
-        
+
         ArrayList<String> ar_20171106_t1PK = new ArrayList<>();
         ar_20171106_t1PK.add("ID");
         ar_20171106_t1PK.add("PARENTID");
-        
+
         Structure str_20171106_t1 = new Structure(20171106, "m_permissions", ar_20171106_t1, ar_20171106_t1PK);
         arStructures.add(str_20171106_t1);
-        
+
         ArrayList<TblColumn> ar_20171106_t2 = new ArrayList<>();
         ar_20171106_t2.add(new TblColumn("LOCID", "INT", "NOT NULL "));
         ar_20171106_t2.add(new TblColumn("PROID", "VARCHAR(50)", "NOT NULL "));
@@ -154,12 +158,12 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20171106_t2.add(new TblColumn("PRONAME", "VARCHAR(100)", "NOT NULL "));
         ar_20171106_t2.add(new TblColumn("COSTP", "DOUBLE", "NOT NULL "));
         ar_20171106_t2.add(new TblColumn("SELLP", "DOUBLE", "NOT NULL "));
-        
+
         ArrayList<String> ar_20171106_t2PK = new ArrayList<>();
         ar_20171106_t2PK.add("LOCID");
         ar_20171106_t2PK.add("PROID");
         ar_20171106_t2PK.add("BATCHID");
-        
+
         Structure str_20171106_t2 = new Structure(20171106, "R_PRICE_TAGS", ar_20171106_t2, ar_20171106_t2PK);
         arStructures.add(str_20171106_t2);
 
@@ -175,36 +179,60 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20171107_t1.add(new TblColumn("RPT_EN_DATE_AS_AT", "INT", "NOT NULL DEFAULT 0"));
         ar_20171107_t1.add(new TblColumn("RPT_EN_DATE_QUATER", "INT", "NOT NULL DEFAULT 0"));
         ar_20171107_t1.add(new TblColumn("RPT_EN_GRP", "INT", "NOT NULL DEFAULT 0"));
-        
+
         ArrayList<String> ar_20171107_t1PK = new ArrayList<>();
         ar_20171107_t1PK.add("RPT_ID");
-        
+
         Structure str_20171107_t1 = new Structure(20171107, "U_REPORTS", ar_20171107_t1, ar_20171107_t1PK);
         arStructures.add(str_20171107_t1);
-        
+
         ArrayList<String> q_20171107_t2 = new ArrayList<>();
         q_20171107_t2.add(" DECLARE UNIT_NAME VARCHAR(100) DEFAULT '' ");
         q_20171107_t2.add(" SELECT u.NAME INTO UNIT_NAME FROM m_units u where u.ID=unit_id ");
         q_20171107_t2.add(" RETURN UNIT_NAME  ");
         Structure str_20171107_t2 = new Structure(20171107, TableStruCreation.STR_FUN, " strf_getUnitName ", " unit_id VARCHAR(100) ", q_20171107_t2, " varchar(100) ");
         arStructures.add(str_20171107_t2);
+
+        ArrayList<TblColumn> ar_20171108_t1 = new ArrayList<>();
+        ar_20171108_t1.add(new TblColumn("RPT_ACTIVE", "INT", "NOT NULL DEFAULT 1"));
+
+        ArrayList<String> ar_20171108_t1PK = new ArrayList<>();
+        ar_20171108_t1PK.add("RPT_ID");
+
+        Structure str_20171108_t1 = new Structure(20171108, "U_REPORTS", ar_20171108_t1, ar_20171108_t1PK);
+        arStructures.add(str_20171108_t1);
+
         
+        
+        ArrayList<TblColumn> ar_20171108_t2 = new ArrayList<>();
+        ar_20171108_t2.add(new TblColumn("SUP_PROD_ONLY", "INT", "NOT NULL DEFAULT 0"));
+
+        ArrayList<String> ar_20171108_t2PK = new ArrayList<>();
+        ar_20171108_t1PK.add("TRNNO");
+        ar_20171108_t1PK.add("TRNTYPE");
+
+        Structure str_20171108_t2 = new Structure(20171108, "u_transactions", ar_20171108_t2, ar_20171108_t2PK);
+        arStructures.add(str_20171108_t2);
+        
+        
+        
+
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults + 2);
 
         /* ##################### TABLE STRUCTURE CREATION ###########################*/
         int latestVersion = 20160901;
-        
+
         txtStatues.setText("Creating Structure changes...");
         super.update(this.getGraphics());
-        
+
         for (Structure structure : arStructures) {
             if (structure.version > settings.getVersion()) {
-                
+
                 try {
-                    
+
                     if (structure.getType().equals("") && (structure.getSQL() == null || structure.getSQL().equals(""))) {
-                        
+
                         TblStru.createTable(structure.getTableName(), structure.getColumns(), structure.getPrimaryKeys());
                     } else if (structure.getType().equals(TableStruCreation.STR_FUN)) {
                         TblStru.createStoredFunction(structure.getName(), structure.getParameters(), structure.getLines(), structure.getReturnType());
@@ -214,34 +242,34 @@ public final class Frm_Start extends javax.swing.JDialog {
                 } catch (Exception ex) {
                     System.err.println(ex.getMessage());
                 }
-                
+
             }
-            
+
             latestVersion = structure.getVersion();
-            
+
             setProgressBarVal();
         }
-        
+
         settings.UpdateVersion("" + latestVersion);
-        
+
         txtStatues.setText("Adding Default Data...");
         super.update(this.getGraphics());
-        
+
         DefData.createDefaultData();
         setProgressBarVal();
-        
+
         txtStatues.setText("Compiling Reports...");
-        
+
         super.update(this.getGraphics());
-        
+
         compileReports();
         setProgressBarVal();
-        
+
         this.dispose();
         new LOGIN.Frm_Login().setVisible(true);
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -315,40 +343,40 @@ public final class Frm_Start extends javax.swing.JDialog {
             }
         });
     }
-    
+
     class Structure {
-        
+
         private int version;
         private String TableName;
         private ArrayList<TblColumn> Columns;
         private String SQL;
         private ArrayList<String> PrimaryKeys;
-        
+
         private String Type = "";
         private String Name;
         private String Parameters;
         private ArrayList<String> Lines;
         private String ReturnType;
-        
+
         public Structure(int version, String TableName, ArrayList<TblColumn> Columns, ArrayList<String> PrimaryKeys) {
             this.version = version;
             this.TableName = TableName;
             this.Columns = Columns;
             this.PrimaryKeys = PrimaryKeys;
         }
-        
+
         public Structure(int version, String TableName, ArrayList<TblColumn> Columns) {
             this.version = version;
             this.TableName = TableName;
             this.Columns = Columns;
         }
-        
+
         public Structure(int version, String SQL) {
             this.version = version;
             this.SQL = SQL;
-            
+
         }
-        
+
         public Structure(int version, String Type, String Name, String Parameters, ArrayList<String> Lines, String ReturnType) {
             this.version = version;
             this.Name = Name;
@@ -357,89 +385,89 @@ public final class Frm_Start extends javax.swing.JDialog {
             this.ReturnType = ReturnType;
             this.Type = Type;
         }
-        
+
         public int getVersion() {
             return version;
         }
-        
+
         public void setVersion(int version) {
             this.version = version;
         }
-        
+
         public String getTableName() {
             return TableName;
         }
-        
+
         public void setTableName(String TableName) {
             this.TableName = TableName;
         }
-        
+
         public ArrayList<TblColumn> getColumns() {
             return Columns;
         }
-        
+
         public void setColumns(ArrayList<TblColumn> Columns) {
             this.Columns = Columns;
         }
-        
+
         public String getSQL() {
             return SQL;
         }
-        
+
         public void setSQL(String SQL) {
             this.SQL = SQL;
         }
-        
+
         public ArrayList<String> getPrimaryKeys() {
             return PrimaryKeys;
         }
-        
+
         public void setPrimaryKeys(ArrayList<String> PrimaryKeys) {
             this.PrimaryKeys = PrimaryKeys;
         }
-        
+
         public String getName() {
             return Name;
         }
-        
+
         public void setName(String Name) {
             this.Name = Name;
         }
-        
+
         public String getParameters() {
             return Parameters;
         }
-        
+
         public void setParameters(String Parameters) {
             this.Parameters = Parameters;
         }
-        
+
         public ArrayList<String> getLines() {
             return Lines;
         }
-        
+
         public void setLines(ArrayList<String> Lines) {
             this.Lines = Lines;
         }
-        
+
         public String getReturnType() {
             return ReturnType;
         }
-        
+
         public void setReturnType(String ReturnType) {
             this.ReturnType = ReturnType;
         }
-        
+
         public String getType() {
             return Type;
         }
-        
+
         public void setType(String Type) {
             this.Type = Type;
         }
-        
+
     }
-    
+
     public void compileReports() {
         //Map<String, JasperReport> map_rep = new TreeMap<>();
 
@@ -453,13 +481,31 @@ public final class Frm_Start extends javax.swing.JDialog {
                     // cf.WriteLog("REPORTS["+TrnSetup.getTrndesc()+"]",f.getAbsolutePath() ); 
                     GlobalData.CompiledReports.put("RPT_" + TrnSetup.getTrnno(), JasperCompileManager.compileReport(f.getAbsolutePath()));
                 } catch (JRException ex) {
-                    System.err.println("COMPINLING REPORTS:" + ex.getMessage());
+                    System.err.println("COMPINLING REPORTS[TRANSACTIONS]:" + ex.getMessage());
                 }
             }
-            
+
         }
 
-        // GLOBALDATA.GlobalData.CompiledReports = map_rep;
+        try {
+            ArrayList<RptCommon> allReportSetup = cRptSetup.getAllReportSetup();
+            for (RptCommon rptCommon : allReportSetup) {
+                if (rptCommon.getRptPath() != null && rptCommon.getRptPath().length() > 0) {
+                    String MasterreportPath = "Reports\\" + rptCommon.getRptPath();
+                    File f = new File(MasterreportPath);
+                    if (f.exists()) {
+                        try {
+
+                            GlobalData.CompiledReports.put("RPT_" + rptCommon.getId(), JasperCompileManager.compileReport(f.getAbsolutePath()));
+                        } catch (JRException ex) {
+                            System.err.println("COMPINLING REPORTS[TRANSACTIONS]:" + ex.getMessage());
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            System.err.println("COMPINLING REPORTS[COM_REPORTS]:" + ex.getMessage());
+        }
     }
 
 

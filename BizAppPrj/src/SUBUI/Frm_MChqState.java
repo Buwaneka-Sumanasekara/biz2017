@@ -104,8 +104,8 @@ public class Frm_MChqState extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Choose you Selection, With Disposit Date");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 470, 50));
+        jLabel1.setText("Disposit Date");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 340, 50));
 
         butRealized.setBackground(new java.awt.Color(0, 153, 0));
         butRealized.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

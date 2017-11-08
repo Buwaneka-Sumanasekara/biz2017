@@ -21,11 +21,12 @@ public class RptCommon {
     private int En_DateAsAt;
     private int En_DateQut;
     private int En_Grp;
+    private int Active;
 
     public RptCommon() {
     }
 
-    public RptCommon(String Id, String Name, String RptPath, int En_Loc, int En_Cus, int En_Sup, int En_DateRange, int En_DateAsAt, int En_DateQut, int En_Grp) {
+    public RptCommon(String Id, String Name, String RptPath, int En_Loc, int En_Cus, int En_Sup, int En_DateRange, int En_DateAsAt, int En_DateQut, int En_Grp, int Active) {
         this.Id = Id;
         this.Name = Name;
         this.RptPath = RptPath;
@@ -36,7 +37,10 @@ public class RptCommon {
         this.En_DateAsAt = En_DateAsAt;
         this.En_DateQut = En_DateQut;
         this.En_Grp = En_Grp;
+        this.Active = Active;
     }
+
+
 
    
 
@@ -118,6 +122,14 @@ public class RptCommon {
 
     public void setRptPath(String RptPath) {
         this.RptPath = RptPath;
+    }
+
+    public int getActive() {
+        return Active;
+    }
+
+    public void setActive(int Active) {
+        this.Active = Active;
     }
   
     

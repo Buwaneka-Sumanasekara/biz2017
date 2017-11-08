@@ -111,7 +111,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         Refresh();
         setShortCutKeys(this);
         // createTrnWindow();
-  
+
         tblTrn.setDefaultRenderer(Object.class, new TblCellColour());
 
         tblTrn.addMouseListener(new MouseAdapter() {
@@ -832,7 +832,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }//GEN-LAST:event_cmb_LUnitItemStateChanged
 
     private void txt_LQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_LQtyActionPerformed
-       addToTable();
+        addToTable();
     }//GEN-LAST:event_txt_LQtyActionPerformed
 
     private void txt_LSellKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_LSellKeyPressed
@@ -1059,23 +1059,23 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     @Override
     public void SaveProcess() {
         try {
-           // layout_LoadingPanel.setVisible(true);
+            // layout_LoadingPanel.setVisible(true);
             String trnno = SaveProcess("P");
             if (!trnno.equals("")) {
-                if(jr!=null){
-                     boolean printFromDB_Trn = C_Report.printFromDB_Trn(jr,trnno, TrnSetup, false, "", true);
-                }else{
+                if (jr != null) {
+                    boolean printFromDB_Trn = C_Report.printFromDB_Trn(jr, trnno, TrnSetup, false, "", true);
+                } else {
                     JOptionPane.showMessageDialog(rootPane, "Printout is not avaiable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
 
                 }
-               
-             //   layout_LoadingPanel.setVisible(false);
+
+                //   layout_LoadingPanel.setVisible(false);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, "Faild to Process due to:" + ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
 
         } finally {
-          //  layout_LoadingPanel.setVisible(false);
+            //  layout_LoadingPanel.setVisible(false);
         }
     }
 
@@ -1179,14 +1179,14 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 } else {
                     TrnNo = C_TrnCom.saveTransaction(hed, det, null);
                     Refresh();
-                    if(TrnState.equals("P")){
-                                 JOptionPane.showMessageDialog(rootPane, "" + TrnSetup.getTrndesc() + " Processed Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
-            
-                    }else{
-                                 JOptionPane.showMessageDialog(rootPane, "" + TrnSetup.getTrndesc() + " Hold Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
-            
+                    if (TrnState.equals("P")) {
+                        JOptionPane.showMessageDialog(rootPane, "" + TrnSetup.getTrndesc() + " Processed Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
+
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "" + TrnSetup.getTrndesc() + " Hold Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
+
                     }
-               }
+                }
 
             }
         } else {
@@ -1215,7 +1215,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             }
 
             JComponent[] dis = {but_TrnSearch, but_TrnUpdate, txt_TrnNo};
-            JComponent[] enb = {but_TrnPrint, but_Add, but_TrnRefresh, but_ItemSearch,but_TrnHold, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
+            JComponent[] enb = {but_TrnPrint, but_Add, but_TrnRefresh, but_ItemSearch, but_TrnHold, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
             setDisableEnableComponents(enb, dis);
         }
     }
@@ -1235,9 +1235,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         dtm.setRowCount(0);
 
         but_TrnSearch.setEnabled(true);
-        
+
         but_TrnHold.setVisible(true);
-        
+
         but_TrnSave.setEnabled(true);
         but_TrnUpdate.setEnabled(false);
         but_TrnRefresh.setEnabled(true);
@@ -1250,7 +1250,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         txt_TrnNo.grabFocus();
 
         JComponent[] dis = {but_TrnUpdate};
-        JComponent[] enb = {txt_TrnNo, but_TrnHold,but_TrnSearch, but_Add, but_TrnRefresh, but_ItemSearch, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
+        JComponent[] enb = {txt_TrnNo, but_TrnHold, but_TrnSearch, but_Add, but_TrnRefresh, but_ItemSearch, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
         setDisableEnableComponents(enb, dis);
 
         createTrnWindow();
@@ -1420,6 +1420,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     @Override
     public void SearchMode() {
         if (but_TrnSearch.isEnabled()) {
+
             Vector<String> col = new Vector<>();
             col.add("Code");
             col.add("State");
@@ -1448,35 +1449,69 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 ft.setFocusable(true);
                 ft.setVisible(true);
             }
+
         }
     }
 
     public void SearchModeItem() {
-        Vector<String> col = new Vector<>();
-        col.add("Code");
-        col.add("Des");
 
-        String[] SQL_Col = {"ID", "NAME"};
-        String SQL = "select ID,NAME from M_PRODUCTS ";
-        String SQLWhere = "";
-        Connection currentCon = null;
-        try {
-            currentCon = DB.getCurrentCon();
-        } catch (Exception ex) {
-            Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (ft == null) {
+        MLocation L = (MLocation) cmb_SourceLoc.getSelectedItem();
 
-            ft = new Frm_Table(this, true, txt_LItemCode, currentCon, col, SQL_Col, SQL, SQLWhere);
-            ft.setVisible(true);
+        if (TrnSetup.getSupplier() == 1 && TrnSetup.getSupPrdOnly() == 1) {
 
         } else {
-            ft = null;
-            ft = new Frm_Table(this, true, txt_LItemCode, currentCon, col, SQL_Col, SQL, SQLWhere);
-            ft.setFocusable(true);
-            ft.setVisible(true);
-        }
 
+            Vector<String> col = new Vector<>();
+            col.add("Code");
+            col.add("Description");
+            col.add("Selling Price");
+
+             String SQL="";
+            ArrayList<String> SQL_Col = new ArrayList();
+            if (TrnSetup.getCprice() == 1) {
+                col.add("Cost Price");
+                SQL_Col.add("P.ID");
+                SQL_Col.add("P.NAME");
+                 SQL_Col.add("S.SELLP");
+                SQL_Col.add("S.COSTP");
+                 SQL= "select P.ID,P.NAME,S.SELLP,S.COSTP from M_PRODUCTS P INNER JOIN m_stocks S ON P.ID=S.M_PRODUCTS_ID  ";
+            }else{
+                  SQL_Col.add("P.ID");
+                SQL_Col.add("P.NAME");
+                SQL_Col.add("S.SELLP");
+                 SQL= "select P.ID,P.NAME,S.SELLP from M_PRODUCTS P INNER JOIN m_stocks S ON P.ID=S.M_PRODUCTS_ID  ";
+            }
+
+            
+            String[] SQL_ar=new String[SQL_Col.size()];
+            int i=0;
+            for (String cold : SQL_Col) {
+                
+                SQL_ar[i]=cold;
+                i++;
+            }
+            
+            
+           
+            String SQLWhere = "";
+            Connection currentCon = null;
+            try {
+                currentCon = DB.getCurrentCon();
+            } catch (Exception ex) {
+                Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (ft == null) {
+
+                ft = new Frm_Table(this, true, txt_LItemCode, currentCon, col, SQL_ar, SQL, SQLWhere);
+                ft.setVisible(true);
+
+            } else {
+                ft = null;
+                ft = new Frm_Table(this, true, txt_LItemCode, currentCon, col, SQL_ar, SQL, SQLWhere);
+                ft.setFocusable(true);
+                ft.setVisible(true);
+            }
+        }
     }
 
     private void createTrnWindow() {
@@ -1591,13 +1626,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         tblTrn.getColumnModel().getColumn(GVColindex).setMaxWidth(0);
         tblTrn.getColumnModel().getColumn(GVColindex).setWidth(0);
 
-        
         int IsRetColindex = 13;
         tblTrn.getColumnModel().getColumn(IsRetColindex).setMinWidth(0);
         tblTrn.getColumnModel().getColumn(IsRetColindex).setMaxWidth(0);
         tblTrn.getColumnModel().getColumn(IsRetColindex).setWidth(0);
-        
-        
+
         if (TrnSetup.getCprice() == 0) {
             //tblTrn.removeColumn(tblTrn.getColumnModel().getColumn(2)); 
             int colindex = 2;
@@ -1737,7 +1770,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
                 v.add(Colour);//11
                 v.add(0);//12
-                 v.add(0);//13(Return)
+                v.add(0);//13(Return)
 
                 if (txt_TrnNo.getText().length() > 0) {
                     dtm.addRow(v);
@@ -1894,9 +1927,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 state = false;
                 throw new Exception("Invalid Transaction No");
             }
-        }else if(Double.parseDouble(txt_LQty.getText())==0){
-                state = false;
-                throw new Exception("Quantity Cannot be Zero");
+        } else if (Double.parseDouble(txt_LQty.getText()) == 0) {
+            state = false;
+            throw new Exception("Quantity Cannot be Zero");
         }
 
         return state;
@@ -2269,7 +2302,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 if (stockHed != null) {
                     String txt = stockHed.getTrnstate().equals("C") ? "**CANCELLED**" : (stockHed.getTrnstate().equals("H") ? "**HOLD**" : "");
                     if (jr != null) {
-                        C_Report.printFromDB_Trn(jr,stockHed.getId(), TrnSetup, true, txt, true);
+                        C_Report.printFromDB_Trn(jr, stockHed.getId(), TrnSetup, true, txt, true);
                     } else {
                         JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " Report Not Avialable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
 
@@ -2278,11 +2311,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 }
 
             } catch (Exception e) {
-               // layout_LoadingPanel.setVisible(false);
+                // layout_LoadingPanel.setVisible(false);
                 JOptionPane.showMessageDialog(rootPane, "<p>" + e.getMessage() + "</p>", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
 
             } finally {
-              //  layout_LoadingPanel.setVisible(false);
+                //  layout_LoadingPanel.setVisible(false);
             }
 
         }
@@ -2290,11 +2323,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     private void CompileReport() {
-       
-            
-         
-        
-        jr=GLOBALDATA.GlobalData.CompiledReports.get("RPT_"+TrnSetup.getTrnno());
+
+        jr = GLOBALDATA.GlobalData.CompiledReports.get("RPT_" + TrnSetup.getTrnno());
 
     }
 

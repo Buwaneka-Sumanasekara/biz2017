@@ -131,7 +131,7 @@ public class C_Units {
         String q = "SELECT * FROM M_UNITGROUPS WHERE ACTIVE=1 ";
         ResultSet rs = DB.Search(q);
         Vector<MUnitGroup>  v=new Vector<>();
-        if (rs.next()) {
+        while (rs.next()) {
             MUnitGroup m = new MUnitGroup();
             m.setUnitGroupId(rs.getString("ID"));
             m.setUnitGroupName(rs.getString("NAME"));

@@ -39,6 +39,7 @@ public class UTransactions  implements java.io.Serializable {
      private Byte PreviewRep;
      private Byte CancelOpt;
      private int CancelDaysWithing;
+     private Byte SupPrdOnly;
      
      private Set TStockmsts = new HashSet(0);
 
@@ -259,6 +260,14 @@ public class UTransactions  implements java.io.Serializable {
 
     public void setCancelDaysWithing(int CancelDaysWithing) {
         this.CancelDaysWithing = CancelDaysWithing;
+    }
+
+    public Byte getSupPrdOnly() {
+        return SupPrdOnly;
+    }
+
+    public void setSupPrdOnly(Byte SupPrdOnly) {
+        this.SupPrdOnly = SupPrdOnly;
     }
 
 
