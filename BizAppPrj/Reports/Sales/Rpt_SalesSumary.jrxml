@@ -4,6 +4,16 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="PARA_TITLE" class="java.lang.String"/>
+	<parameter name="PARA_COMNAME" class="java.lang.String"/>
+	<parameter name="PARA_ADD1" class="java.lang.String"/>
+	<parameter name="PARA_ADD2" class="java.lang.String"/>
+	<parameter name="PARA_ADD3" class="java.lang.String"/>
+	<parameter name="PARA_ADD4" class="java.lang.String"/>
+	<parameter name="PARA_LOC" class="java.lang.String"/>
+	
+	
+	<parameter name="PARA_CONTACT" class="java.lang.String"/>
 	<parameter name="PARA_FDATE" class="java.lang.String"/>
 	<parameter name="PARA_EDATE" class="java.lang.String"/>
 	<queryString>
