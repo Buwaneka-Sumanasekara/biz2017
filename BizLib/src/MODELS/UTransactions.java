@@ -40,6 +40,7 @@ public class UTransactions  implements java.io.Serializable {
      private Byte CancelOpt;
      private int CancelDaysWithing;
      private Byte SupPrdOnly;
+     private Byte changeSPrice;
      
      private Set TStockmsts = new HashSet(0);
 
@@ -268,6 +269,14 @@ public class UTransactions  implements java.io.Serializable {
 
     public void setSupPrdOnly(Byte SupPrdOnly) {
         this.SupPrdOnly = SupPrdOnly;
+    }
+
+    public Byte getChangeSPrice() {
+        return changeSPrice;
+    }
+
+    public void setChangeSPrice(Byte changeSPrice) {
+        this.changeSPrice = changeSPrice;
     }
 
 

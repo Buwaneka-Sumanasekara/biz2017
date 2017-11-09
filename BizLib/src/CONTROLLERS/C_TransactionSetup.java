@@ -61,6 +61,7 @@ public class C_TransactionSetup {
             m.setCancelOpt(rs.getByte("CANCEL_OPT"));
             m.setCancelDaysWithing(rs.getInt("CANCEL_DAYS_WITH"));
             m.setSupPrdOnly(rs.getByte("SUP_PROD_ONLY"));
+            m.setChangeSPrice(rs.getByte("CHANGE_SPRICE"));
             arl.add(m);
         }   
         } catch (Exception e) {
@@ -105,6 +106,7 @@ public class C_TransactionSetup {
             m.setCancelOpt(rs.getByte("CANCEL_OPT"));
             m.setCancelDaysWithing(rs.getInt("CANCEL_DAYS_WITH"));
               m.setSupPrdOnly(rs.getByte("SUP_PROD_ONLY"));
+                m.setChangeSPrice(rs.getByte("CHANGE_SPRICE"));
         }else{
             throw new Exception("Can`t Find Specific Trnasaction on setup table");
         }

@@ -683,9 +683,9 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         jPanel1.add(ParentLayout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 850, 580));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 620));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 620));
 
-        setBounds(0, 0, 853, 691);
+        setBounds(0, 0, 877, 691);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_SearchActionPerformed

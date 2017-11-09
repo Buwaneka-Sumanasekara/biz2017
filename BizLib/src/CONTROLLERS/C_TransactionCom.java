@@ -290,7 +290,7 @@ public class C_TransactionCom {
                             MProducts product = C_Pro.getProduct(d.getProId());
 
                             boolean CanBatchCreate = ((product.getCprice().equals(d.getCprice()) == false) || (product.getSprice().equals(d.getSprice()) == false)) ? true : false;
-                            if (CanBatchCreate) {
+                            if (CanBatchCreate && product.getBatch()==1) {
                                 String CreateBatch = C_Pro.CreateBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), Boolean.TRUE, C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
                                 UpdateTransactionBatch(hed.getId(), d.getProId(), CreateBatch);
                             } else {
@@ -300,17 +300,21 @@ public class C_TransactionCom {
                             }
                         } else {
                             MProducts product = C_Pro.getProduct(d.getProId());
-                            C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), d.getBatch(), C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
+                            String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
+                            C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
                             UpdateTransactionBatch(hed.getId(), product.getId(), d.getBatch());
 
                         }
                     } else {
+                        //No need to create batch in HOLD mode
+                        /*
                         if (hed.getUTransactions().getBatchcreate() == 0) {
 
                             String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
                             C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(d.getUnitGroupId()), ConvertedQty);
                             UpdateTransactionBatch(hed.getId(), d.getProId(), LastBatch);
                         }
+                        */
                     }
                 }
             }

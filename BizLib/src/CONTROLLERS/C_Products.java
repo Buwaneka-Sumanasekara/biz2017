@@ -109,7 +109,7 @@ public class C_Products {
             DB.Update(qg.UpdateRecord("M_STOCKS", Mstk, "WHERE M_LOCATION_ID=" + Loc.getId() + " AND M_PRODUCTS_ID='" + ProId + "' AND BATCHNO='" + Batch + "'"));
         }
         BatchNo = Mstk.get("BATCHNO");
-        return BatchNo;
+        return Batch;
     }
 
     public void updateSpecificBatch(String ProId, double Cost, double Sell, MLocation Loc, String BatchNo, String BaseUnitId, Double Qty) throws Exception {
@@ -304,6 +304,16 @@ public class C_Products {
             v.add(CSup.getSupplier(rs.getString("M_SUPPLIER_ID")));
         }
         return v;
+    }
+    
+     public boolean checkSupplierOfProduct(String ProId,String SupId) throws Exception {
+        String q = "SELECT M_SUPPLIER_ID FROM M_SUPPLIER_HAS_M_PRODUCTS WHERE M_PRODUCTS_ID='" + ProId + "' AND  M_SUPPLIER_ID='"+SupId+"' ";
+        ResultSet rs = DB.Search(q);
+      boolean state=false;
+        if (rs.next()) {
+           state=true;
+        }
+        return state;
     }
 
     public MStocks getLastBatch(String ProId) throws Exception {

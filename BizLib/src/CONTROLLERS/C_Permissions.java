@@ -82,6 +82,25 @@ public class C_Permissions {
         }
         return ar;
     }
+    public MPermissions getPermission(String perid) throws Exception {
+        String q = "SELECT * FROM M_PERMISSIONS where ID='"+perid+"' ";
+
+        ResultSet rs = DB.Search(q);
+        MPermissions p=null;
+        if(rs.next()) {
+            p = new MPermissions();
+            p.setId(rs.getString("ID"));
+            p.setParentid(rs.getString("PARENTID"));
+            p.setDescription(rs.getString("DESCRIPTION"));
+            p.setName(rs.getString("NAME"));
+            p.setType(rs.getString("TYPE"));
+            p.setHassub(rs.getByte("HASSUB"));
+            p.setIsuimenu(rs.getByte("ISUIMENU"));
+            p.setOrd(rs.getInt("ORD"));
+           
+        }
+        return p;
+    }
 
     public boolean IsPermissionExists(String SubId, String ParentId) throws Exception {
         boolean state = false;

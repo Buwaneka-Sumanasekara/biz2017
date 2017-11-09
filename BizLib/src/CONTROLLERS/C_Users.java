@@ -109,7 +109,7 @@ public class C_Users {
 
         } else {
             //update
-            String q = "UPDATE m_user SET FIRSTNAME='" + v.replacer(u.getFirstname()) + "',LASTNAME='" + v.replacer(u.getLastname()) + "',IMGURL='" + u.getImgurl() + "',ACTIVE='" + u.getActive() + "' ";
+            String q = "UPDATE m_user SET UGRUID='"+u.getMUsergroup().getId()+"',FIRSTNAME='" + v.replacer(u.getFirstname()) + "',LASTNAME='" + v.replacer(u.getLastname()) + "',IMGURL='" + u.getImgurl() + "',ACTIVE='" + u.getActive() + "' ";
             q += " WHERE ID='" + u.getId() + "' ";
             DB.Update(q);
             userid = u.getId();

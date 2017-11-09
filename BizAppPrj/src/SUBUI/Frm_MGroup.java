@@ -189,7 +189,7 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 820, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 580));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 620));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

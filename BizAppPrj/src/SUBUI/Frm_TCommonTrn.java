@@ -69,6 +69,9 @@ import net.sf.jasperreports.engine.JasperReport;
 public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWindowBasicControllers {
 
     int focusNumber = 0;
+
+    int itemcodeFocusNo = 0;
+
     JComponent[] focusList = null;
     Frm_Table ft = null;
 
@@ -577,7 +580,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 but_AddActionPerformed(evt);
             }
         });
-        jPanel2.add(but_Add, new org.netbeans.lib.awtextra.AbsoluteConstraints(789, 30, -1, 40));
+        jPanel2.add(but_Add, new org.netbeans.lib.awtextra.AbsoluteConstraints(789, 30, 60, 40));
 
         txt_LAmt.setEditable(false);
         txt_LAmt.setText("0.0");
@@ -634,7 +637,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jPanel2.add(txt_LBatch, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 90, 20));
         jPanel2.add(lbl_IsReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 20));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 840, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 850, 70));
 
         tblTrn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -689,7 +692,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(13).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 840, 280));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 850, 280));
 
         lbl_FSubTot.setText("Sub Total");
         jPanel1.add(lbl_FSubTot, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 550, -1, -1));
@@ -698,13 +701,13 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jPanel1.add(lbl_FNetDis, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 580, -1, -1));
 
         lbl_FAmount.setText("Amount");
-        jPanel1.add(lbl_FAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 564, -1, 20));
+        jPanel1.add(lbl_FAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 560, -1, 20));
 
         txt_FAmount.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_FAmount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txt_FAmount.setText("0.0");
         txt_FAmount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(txt_FAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 550, 190, 50));
+        jPanel1.add(txt_FAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 550, 190, 50));
 
         txt_FSubTot.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txt_FSubTot.setText("0.0");
@@ -713,6 +716,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
         txt_FNetDis.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_FNetDis.setText("0.0");
+        txt_FNetDis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_FNetDisActionPerformed(evt);
+            }
+        });
         txt_FNetDis.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txt_FNetDisKeyPressed(evt);
@@ -729,9 +737,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jFormattedTextField1.setText("jFormattedTextField1");
         jPanel1.add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 610));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 610));
 
-        setBounds(0, 0, 857, 633);
+        setBounds(0, 0, 875, 633);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_TrnHoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnHoldActionPerformed
@@ -759,7 +767,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }//GEN-LAST:event_but_TrnUpdateActionPerformed
 
     private void but_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_AddActionPerformed
-        addToTable();
+        addToTable(false);
     }//GEN-LAST:event_but_AddActionPerformed
 
     private void txt_LItemCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_LItemCodeActionPerformed
@@ -832,7 +840,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }//GEN-LAST:event_cmb_LUnitItemStateChanged
 
     private void txt_LQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_LQtyActionPerformed
-        addToTable();
+        addToTable(false);
     }//GEN-LAST:event_txt_LQtyActionPerformed
 
     private void txt_LSellKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_LSellKeyPressed
@@ -852,7 +860,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }//GEN-LAST:event_txt_FNetDisKeyTyped
 
     private void txt_LAmtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_LAmtActionPerformed
-        addToTable();
+        addToTable(false);
     }//GEN-LAST:event_txt_LAmtActionPerformed
 
     private void txt_LItemCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_LItemCodeFocusGained
@@ -988,6 +996,10 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         printTrn();
     }//GEN-LAST:event_but_TrnPrintActionPerformed
 
+    private void txt_FNetDisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_FNetDisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_FNetDisActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton but_Add;
@@ -1059,18 +1071,37 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     @Override
     public void SaveProcess() {
         try {
-            // layout_LoadingPanel.setVisible(true);
-            String trnno = SaveProcess("P");
-            if (!trnno.equals("")) {
-                if (jr != null) {
-                    boolean printFromDB_Trn = C_Report.printFromDB_Trn(jr, trnno, TrnSetup, false, "", true);
+
+            double NetDis = 0.0;
+            if (txt_FNetDis.getText().length() > 0) {
+                NetDis = Double.parseDouble(txt_FNetDis.getText());
+            }
+            boolean state = false;
+            if (NetDis > 0) {
+                MPermissions p = GLOBALDATA.GlobalData.SpecialPer.get("P00025");
+                if (p != null) {
+                    state = true;
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Printout is not avaiable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+                    state = Frm_PermissionsPopup.createPermissionPopUp(mainW, true, "P00025");
+                }
+            } else {
+                state = true;
+            }
+
+            if (state) {
+                String trnno = SaveProcess("P");
+                if (!trnno.equals("")) {
+                    if (jr != null) {
+                        boolean printFromDB_Trn = C_Report.printFromDB_Trn(jr, trnno, TrnSetup, false, "", true);
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Printout is not avaiable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+
+                    }
 
                 }
-
-                //   layout_LoadingPanel.setVisible(false);
             }
+
+            // layout_LoadingPanel.setVisible(true);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, "Faild to Process due to:" + ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
 
@@ -1215,7 +1246,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             }
 
             JComponent[] dis = {but_TrnSearch, but_TrnUpdate, txt_TrnNo};
-            JComponent[] enb = {but_TrnPrint, but_Add, but_TrnRefresh, but_ItemSearch, but_TrnHold, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
+            JComponent[] enb = {but_TrnPrint, but_Add, but_TrnRefresh, but_ItemSearch, but_TrnHold, txt_FNetDis, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
             setDisableEnableComponents(enb, dis);
         }
     }
@@ -1230,6 +1261,10 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         txt_RefNo2.setText("");
         txt_RefTrn.setText("");
         txt_State.setText("");
+        txt_FAmount.setText("0.0");
+        txt_FNetDis.setText("0.0");
+        txt_FSubTot.setText("0.0");
+
 //        layout_LoadingPanel.setVisible(false);
         DefaultTableModel dtm = (DefaultTableModel) tblTrn.getModel();
         dtm.setRowCount(0);
@@ -1454,63 +1489,82 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     public void SearchModeItem() {
+        Vector<String> col = new Vector<>();
 
         MLocation L = (MLocation) cmb_SourceLoc.getSelectedItem();
 
+        col.add("Code");
+        col.add("Description");
+        col.add("Ref1");
+        col.add("Ref2");
+
+        String SQL = " SELECT * FROM ( select p.ID,p.NAME,p.REF1,p.REF2 ";
+
+        ArrayList<String> SQL_Col = new ArrayList();
+        SQL_Col.add("ID");
+        SQL_Col.add("NAME");
+        SQL_Col.add("REF1");
+        SQL_Col.add("REF2");
+
+        if (TrnSetup.getCprice() == 1) {
+            col.add("Cost Price");
+            SQL_Col.add("COSTP");
+            SQL += " ,s.COSTP  ";
+
+        }
+        if (TrnSetup.getSprice() == 1) {
+            col.add("Sell Price");
+            SQL_Col.add("SELLP");
+            SQL += " ,s.SELLP ";
+        }
+
+        String[] SQL_ar = new String[SQL_Col.size()];
+        int i = 0;
+        for (String cold : SQL_Col) {
+
+            SQL_ar[i] = cold;
+            i++;
+        }
+
+        String SQLWhere = "";
         if (TrnSetup.getSupplier() == 1 && TrnSetup.getSupPrdOnly() == 1) {
+            MSupplier sup = (MSupplier) cmb_Sup.getSelectedItem();
+
+            SQL += " from m_products p inner join m_stocks s  ";
+            SQL += " on p.ID=s.M_PRODUCTS_ID   ";
+            SQL += " inner join m_supplier_has_m_products shp ";
+            SQL += " on p.ID=shp.M_PRODUCTS_ID  ";
+
+            SQLWhere += "  s.M_LOCATION_ID='" + L.getId() + "' AND p.ACTIVE=1 AND shp.M_SUPPLIER_ID='" + sup.getId() + "'  ";
+            SQLWhere += " group by p.ID   ";
+            SQLWhere += " having max(s.BATCHNO)  ";
 
         } else {
+            SQL += " from m_products p inner join m_stocks s  ";
+            SQL += " on p.ID=s.M_PRODUCTS_ID   ";
+            SQLWhere += "  s.M_LOCATION_ID='" + L.getId() + "' AND p.ACTIVE=1   ";
+            SQLWhere += " group by p.ID   ";
+            SQLWhere += " having max(s.BATCHNO)  ";
 
-            Vector<String> col = new Vector<>();
-            col.add("Code");
-            col.add("Description");
-            col.add("Selling Price");
+        }
+        SQLWhere += ") A WHERE ";
 
-             String SQL="";
-            ArrayList<String> SQL_Col = new ArrayList();
-            if (TrnSetup.getCprice() == 1) {
-                col.add("Cost Price");
-                SQL_Col.add("P.ID");
-                SQL_Col.add("P.NAME");
-                 SQL_Col.add("S.SELLP");
-                SQL_Col.add("S.COSTP");
-                 SQL= "select P.ID,P.NAME,S.SELLP,S.COSTP from M_PRODUCTS P INNER JOIN m_stocks S ON P.ID=S.M_PRODUCTS_ID  ";
-            }else{
-                  SQL_Col.add("P.ID");
-                SQL_Col.add("P.NAME");
-                SQL_Col.add("S.SELLP");
-                 SQL= "select P.ID,P.NAME,S.SELLP from M_PRODUCTS P INNER JOIN m_stocks S ON P.ID=S.M_PRODUCTS_ID  ";
-            }
+        Connection currentCon = null;
+        try {
+            currentCon = DB.getCurrentCon();
+        } catch (Exception ex) {
+            Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ft == null) {
 
-            
-            String[] SQL_ar=new String[SQL_Col.size()];
-            int i=0;
-            for (String cold : SQL_Col) {
-                
-                SQL_ar[i]=cold;
-                i++;
-            }
-            
-            
-           
-            String SQLWhere = "";
-            Connection currentCon = null;
-            try {
-                currentCon = DB.getCurrentCon();
-            } catch (Exception ex) {
-                Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (ft == null) {
+            ft = new Frm_Table(this, true, txt_LItemCode, currentCon, col, SQL_ar, SQL, SQLWhere);
+            ft.setVisible(true);
 
-                ft = new Frm_Table(this, true, txt_LItemCode, currentCon, col, SQL_ar, SQL, SQLWhere);
-                ft.setVisible(true);
-
-            } else {
-                ft = null;
-                ft = new Frm_Table(this, true, txt_LItemCode, currentCon, col, SQL_ar, SQL, SQLWhere);
-                ft.setFocusable(true);
-                ft.setVisible(true);
-            }
+        } else {
+           // ft = null;
+            ft = new Frm_Table(this, true, txt_LItemCode, currentCon, col, SQL_ar, SQL, SQLWhere);
+            ft.setFocusable(true);
+            ft.setVisible(true);
         }
     }
 
@@ -1587,15 +1641,19 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
             switch (TrnSetup.getDefprice()) {
                 case "C":
-                    txt_LCost.setEditable(TrnSetup.getChgdefprice() == 1 ? true : false);
+                    txt_LCost.setEditable((TrnSetup.getChgdefprice() == 1 ? true : false));
                     break;
                 case "S":
-                    txt_LSell.setEditable(TrnSetup.getChgdefprice() == 1 ? true : false);
+                    txt_LSell.setEditable((TrnSetup.getChgdefprice() == 1 ? true : false));
                     break;
                 default:
                     txt_LCost.setEditable(false);
                     txt_LSell.setEditable(false);
                     break;
+            }
+
+            if (TrnSetup.getChangeSPrice() == 1) {
+                txt_LSell.setEditable(true);
             }
 
         }
@@ -1699,7 +1757,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     /*  TABLE OPERATIONS */
-    private void addToTable() {
+    private void addToTable(boolean isAutoLoad) {
         try {
 
             if (doAddLineValidation()) {
@@ -1772,7 +1830,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 v.add(0);//12
                 v.add(0);//13(Return)
 
-                if (txt_TrnNo.getText().length() > 0) {
+                if (txt_TrnNo.getText().length() > 0 && isAutoLoad) {
                     dtm.addRow(v);
 
                     clearLine();
@@ -1899,7 +1957,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
         lbl_LCost.setText("Cost");
         lbl_LSell.setText("Sell");
-
+        focusNumber = itemcodeFocusNo;
         txt_LItemCode.grabFocus();
     }
 
@@ -1943,33 +2001,58 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 MProducts product = C_Pro.getProduct(ProCode, 1);
                 if (product != null) {
 
-                    String Des = product.getName();
-
-                    double CPrice = product.getCprice();
-
-                    double SPrice = product.getSprice();
-                    String Batch = "";
-                    if (TrnSetup.getBatchcreate() == 0 && product.getBatch() == 1) {
-                        MLocation Loc = (MLocation) cmb_SourceLoc.getSelectedItem();
-                        MStocks stk = Frm_MBatchPopUp.createBatchPopUp(mainW, ProCode, Loc.getId().toString());
-                        if (stk != null) {
-                            CPrice = stk.getCostPrice();
-                            SPrice = stk.getSellPrice();
-                            Batch = stk.getBatchNo();
+                    boolean statee = false;
+                    if (TrnSetup.getSupPrdOnly() == 1) {
+                        MSupplier s=(MSupplier) cmb_Sup.getSelectedItem();
+                        statee = C_Pro.checkSupplierOfProduct(ProCode, s.getId());
+                        if(statee==false){
+                            throw new Exception("Product ["+ProCode+" - "+product.getName()+"] not belongs to the supplier you select["+s.getName()+"] ");
                         }
+                    } else {
+                        statee = true;
                     }
 
-                    txt_LBatch.setText(Batch);
-                    txt_LProDes.setText(Des);
-                    txt_LCost.setText("" + CPrice);
-                    txt_LSell.setText("" + SPrice);
-                    cmb_LUnit.setModel(new DefaultComboBoxModel(C_Units.getAllAssignUnitsVect(product.getUnitGroupId())));
+                    if (statee) {
 
-                    lbl_LCost.setText("Cost[1 " + C_Units.getBaseUnitIdObj(product.getUnitGroupId()).getSymble() + "]");
-                    lbl_LSell.setText("Sell[1 " + C_Units.getBaseUnitIdObj(product.getUnitGroupId()).getSymble() + "]");
+                        String Des = product.getName();
 
-                    txt_LQty.setText("1");
-                    txt_LQty.grabFocus();
+                        double CPrice = product.getCprice();
+
+                        double SPrice = product.getSprice();
+                        String Batch = "";
+                        if (TrnSetup.getBatchcreate() == 0 && product.getBatch() == 1) {
+                            MLocation Loc = (MLocation) cmb_SourceLoc.getSelectedItem();
+                            MStocks stk = Frm_MBatchPopUp.createBatchPopUp(mainW, ProCode, Loc.getId().toString());
+                            if (stk != null) {
+                                CPrice = stk.getCostPrice();
+                                SPrice = stk.getSellPrice();
+                                Batch = stk.getBatchNo();
+                            }
+                        }
+
+                        txt_LBatch.setText(Batch);
+                        txt_LProDes.setText(Des);
+                        txt_LCost.setText("" + CPrice);
+                        txt_LSell.setText("" + SPrice);
+                        cmb_LUnit.setModel(new DefaultComboBoxModel(C_Units.getAllAssignUnitsVect(product.getUnitGroupId())));
+
+                        lbl_LCost.setText("Cost[1 " + C_Units.getBaseUnitIdObj(product.getUnitGroupId()).getSymble() + "]");
+                        lbl_LSell.setText("Sell[1 " + C_Units.getBaseUnitIdObj(product.getUnitGroupId()).getSymble() + "]");
+
+                        txt_LQty.setText("1");
+
+                        if (txt_LCost.isEditable()) {
+                            txt_LCost.grabFocus();
+                        } else if (txt_LSell.isEditable()) {
+                            txt_LSell.grabFocus();
+                        } else {
+                            txt_LQty.grabFocus();
+                        }
+                        
+                    } else {
+                        clearLine();
+                      throw new Exception("Product ["+ProCode+" - "+product.getName()+"] not belongs to the supplier you select ");
+                    }
                 } else {
                     clearLine();
                     throw new Exception("Can`t find active product for  Code " + ProCode + "");
@@ -1988,6 +2071,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     private void CalculateTotal() {
+
         DefaultTableModel dtm = (DefaultTableModel) tblTrn.getModel();
         double Amount = 0;
 
@@ -2077,6 +2161,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     private JComponent[] getFocustOrder() {
+        focusNumber = 0;
         ArrayList<JComponent> ar = new ArrayList<>();
         ar.add(txt_TrnNo);
         if (cmb_Sup.isVisible()) {
@@ -2095,6 +2180,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             ar.add(cmb_DestLoc);
         }
         if (txt_LItemCode.isVisible()) {
+            itemcodeFocusNo = ar.size() - 1;
             ar.add(txt_LItemCode);
         }
         if (txt_LCost.isVisible() && txt_LCost.isEditable()) {
@@ -2229,7 +2315,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         txt_LAmt.setText(tStockline.getAmount().toString());
                         txt_LBatch.setText(tStockline.getBatch());
 
-                        addToTable();
+                        addToTable(true);
 
                     }
 
@@ -2238,7 +2324,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 CalculateTotal();
 
                 JComponent[] enb = {but_TrnRefresh, but_TrnPrint};
-                JComponent[] dis = {txt_TrnNo, but_TrnHold, but_TrnSearch, but_TrnSave, but_Add, but_ItemSearch, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
+                JComponent[] dis = {txt_TrnNo, but_TrnHold, but_TrnSearch, but_TrnSave, but_Add, but_ItemSearch, txt_FNetDis, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
                 setDisableEnableComponents(enb, dis);
 
             } catch (Exception ex) {
@@ -2250,7 +2336,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     private boolean checkPermissions(Vector v) throws Exception {
-        boolean state = true;
+        boolean state = false;
         if (Double.parseDouble(v.get(7).toString()) > 0 || Double.parseDouble(v.get(8).toString()) > 0) {
             if (Double.parseDouble(v.get(7).toString()) > 0) { //Dis Per %
                 MPermissions p = GLOBALDATA.GlobalData.SpecialPer.get("P00023");
@@ -2267,6 +2353,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                     state = Frm_PermissionsPopup.createPermissionPopUp(mainW, true, "P00024");
                 }
             }
+        } else {
+            state = true;
         }
         return state;
     }

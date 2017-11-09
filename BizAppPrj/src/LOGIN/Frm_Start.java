@@ -206,6 +206,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         
         ArrayList<TblColumn> ar_20171108_t2 = new ArrayList<>();
         ar_20171108_t2.add(new TblColumn("SUP_PROD_ONLY", "INT", "NOT NULL DEFAULT 0"));
+        ar_20171108_t2.add(new TblColumn("CHANGE_SPRICE", "INT", "NOT NULL DEFAULT 0"));
 
         ArrayList<String> ar_20171108_t2PK = new ArrayList<>();
         ar_20171108_t1PK.add("TRNNO");
