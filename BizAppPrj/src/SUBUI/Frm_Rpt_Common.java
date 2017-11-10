@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
@@ -70,6 +71,9 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
     SimpleDateFormat sdf_From = null;
     SimpleDateFormat sdf_To = null;
 
+    public Frm_Rpt_Common() {
+    }
+
     public Frm_Rpt_Common(Frm_Main mainw, String ScreenName, RptCommon mRpt) {
         initComponents();
         this.setTitle(ScreenName);
@@ -83,6 +87,8 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         this.C_Report = new ReportC();
         this.sdf_From = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
         this.sdf_To = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
+        
+        System.out.println("Rept Id: "+"RPT_" + mRpt.getId());
         this.jr = GLOBALDATA.GlobalData.CompiledReports.get("RPT_" + mRpt.getId());
         Refresh();
         setShortCutKeys(this);
@@ -434,7 +440,6 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
     public void Refresh() {
         txt_DateF.setDate(new Date());
         txt_DateT.setDate(new Date());
-       
 
         JComponent[] v_f = {txt_DateF, txt_DateT};
         JComponent[] h_f = {lbl_GrpCode, layout_Group, layout_CusSup, cmb_Qut};
@@ -487,6 +492,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
             Grps = new TreeMap<>();
             Grp_setGroups(1);
             layout_Group.setVisible(true);
+
         }
         if (mRpt.getEn_Sup() == 1) {
             layout_CusSup.setVisible(true);
@@ -583,8 +589,8 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                     MLocation Loc = (MLocation) cmb_Loc.getSelectedItem();
                     if (Loc != null) {
                         para.put("PARA_LOC", "" + Loc.getId());
-                    }else{
-                         throw new Exception("Invalid Location");
+                    } else {
+                        throw new Exception("Invalid Location");
                     }
 
                 }
@@ -601,13 +607,45 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                 }
                 if (mRpt.getEn_Grp() == 1) {
 
+                    String whr_g = "";
+
+                   
+                    for (Map.Entry<String, Vector<MGroupCommon>> entry : Grps.entrySet()) {
+                        String key = entry.getKey();
+                        Vector<MGroupCommon> value = entry.getValue();
+
+                        if (value.size() > 0) {
+
+                            if (whr_g.length() > 0) {
+                                whr_g += " AND ";
+                            }
+
+                            int g = 0;
+                            whr_g += "(";
+                            for (MGroupCommon mGroupCommon : value) {
+                                if (g == 0) {
+                                    whr_g += " G" + key + "='" + mGroupCommon.getId()+"' ";
+                                } else {
+                                    whr_g += " OR G" +key + "='" + mGroupCommon.getId()+"' ";
+                                }
+                                g++;
+                            }
+                            whr_g += ")";
+
+                        }
+
+                         para.put("PARA_GRP", whr_g);
+
+                    }
+                    
+
                 }
                 if (mRpt.getEn_Sup() == 1) {
                     if (txt_Id.getText().length() > 0) {
                         MSupplier supplier = cSup.getSupplier(txt_Id.getText());
                         if (supplier != null) {
                             para.put("PARA_SUP", supplier.getId());
-                        }else{
+                        } else {
                             throw new Exception("Cannot find Supplier");
                         }
 
@@ -615,10 +653,10 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                 }
                 if (mRpt.getEn_Cus() == 1) {
                     if (txt_Id.getText().length() > 0) {
-                        MCustomer c=cCus.getCustomer(txt_Id.getText());
+                        MCustomer c = cCus.getCustomer(txt_Id.getText());
                         if (c != null) {
-                            para.put("PARA_CUS",c.getId());
-                        }else{
+                            para.put("PARA_CUS", c.getId());
+                        } else {
                             throw new Exception("Cannot find Customer");
                         }
 

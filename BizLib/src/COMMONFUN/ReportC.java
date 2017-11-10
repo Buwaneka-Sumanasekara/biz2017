@@ -44,20 +44,21 @@ public class ReportC {
         para.put("PARA_ADD4", setup.getAdd3());
         para.put("PARA_CONTACT", "");
 
-        
-        for (Map.Entry<String, Object> entry : para.entrySet()) {
-            String key = entry.getKey();
-            Object value = entry.getValue();
-            System.err.println(key+"-"+value);
-        }
-        
+       
         
         Connection con = DB.getCurrentCon();
 
         JasperPrint print = JasperFillManager.fillReport(jr, para, con);
 
-        JasperViewer.viewReport(print, false);
-        printReport = true;
+        if(print!=null){
+           JasperViewer.viewReport(print, false);
+        printReport = true; 
+        }else{
+            
+            throw new Exception("Print object is notfound");
+        }
+        
+        
 
         return printReport;
     }

@@ -31,7 +31,7 @@ public class DB {
             String user=GlobalData.config.getUsername();
             String pass=GlobalData.config.getPassword();
             
-            System.out.println(GlobalData.config.getPort());
+         //   System.out.println(GlobalData.config.getPort());
             Class.forName("com.mysql.jdbc.Driver");//loading the class to conect with db
             con = DriverManager.getConnection("jdbc:mysql://" + localServer + ":"+port+"/" + localDB,user, pass);//this is a static methord
     }

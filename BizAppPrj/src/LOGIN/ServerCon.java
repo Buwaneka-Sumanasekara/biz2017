@@ -42,10 +42,10 @@ public class ServerCon {
         FileOutputStream fos = null;
         ObjectOutputStream ous = null;
 
-        System.out.println("updateConnection:" + f.getAbsolutePath());
+       // System.out.println("updateConnection:" + f.getAbsolutePath());
         try {
             if (f.exists()) {
-                System.out.println("File Exists");
+              //  System.out.println("File Exists");
                 fos = new FileOutputStream(f);
                 ous = new ObjectOutputStream(fos);
                 ous.writeObject(u);
@@ -53,7 +53,7 @@ public class ServerCon {
                 ous.flush();
 
             } else {
-                System.out.println("File not Exists");
+               // System.out.println("File not Exists");
                 f.createNewFile();
                 fos = new FileOutputStream(f);
                 ous = new ObjectOutputStream(fos);
@@ -109,7 +109,7 @@ public class ServerCon {
                 setUIDesign();
                 new Frm_Start(new javax.swing.JFrame(), true).setVisible(true);
             } else {
-                System.out.println("Connecion invalid");
+               // System.out.println("Connecion invalid");
                 setUIDesign();
                 new Frm_ServerInfo().setVisible(true);
             }
@@ -129,18 +129,18 @@ public class ServerCon {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
 
-        System.out.println("settings path:" + f.getAbsolutePath());
+     //   System.out.println("settings path:" + f.getAbsolutePath());
 
         if (f.exists()) {
             fis = new FileInputStream(f);
             ois = new ObjectInputStream(fis);
-            System.out.println("Settings file exisis");
+          //  System.out.println("Settings file exisis");
 
             UConfig u = (UConfig) ois.readObject();
             GLOBALDATA.GlobalData.config = u;
 
         } else {
-            System.out.println("Settings file not-exisis");
+         //   System.out.println("Settings file not-exisis");
             fos = new FileOutputStream(f);
             UConfig u = new UConfig();
             u.setServer("localhost");

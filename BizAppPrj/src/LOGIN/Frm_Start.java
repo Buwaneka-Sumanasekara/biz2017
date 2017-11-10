@@ -490,18 +490,22 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         try {
             ArrayList<RptCommon> allReportSetup = cRptSetup.getAllReportSetup();
+           
             for (RptCommon rptCommon : allReportSetup) {
                 if (rptCommon.getRptPath() != null && rptCommon.getRptPath().length() > 0) {
                     String MasterreportPath = "Reports\\" + rptCommon.getRptPath();
+                   // System.err.println(MasterreportPath);
                     File f = new File(MasterreportPath);
                     if (f.exists()) {
                         try {
-
+                            // System.err.println(rptCommon.getId()+" - "+ rptCommon.getName()+": "+MasterreportPath);
                             GlobalData.CompiledReports.put("RPT_" + rptCommon.getId(), JasperCompileManager.compileReport(f.getAbsolutePath()));
                         } catch (JRException ex) {
                             System.err.println("COMPINLING REPORTS[TRANSACTIONS]:" + ex.getMessage());
                         }
                     }
+                }else{
+                 //  System.err.println(rptCommon.getId()+" - "+ rptCommon.getName()+": Report path empty ");
                 }
             }
         } catch (Exception ex) {
