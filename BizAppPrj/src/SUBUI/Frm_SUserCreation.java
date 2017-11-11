@@ -628,12 +628,12 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         }
         if (ft == null) {
 
-            ft = new Frm_Table(this, true, txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere, endq);
+            ft = new Frm_Table( txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere,"");
             ft.setVisible(true);
 
         } else {
             ft = null;
-            ft = new Frm_Table(this, true, txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere, endq);
+            ft = new Frm_Table(txt_UserId, currentCon, col, SQL_Col, SQL, SQLWhere,"");
             ft.setFocusable(true);
             ft.setVisible(true);
         }

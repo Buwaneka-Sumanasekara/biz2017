@@ -1466,7 +1466,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             col.add("State");
             col.add("CR Date");
             col.add("MD Date");
-            String[] SQL_Col = {"ID", "STATE", "CRDATE", "MDDATE"};
+            String[] SQL_Col = {"ID", "TRNSTATE", "CRDATE", "MDDATE"};
             String SQL = "select ID,IF (TRNSTATE='H','HOLD', IF(TRNSTATE='P','PROCESSED','CANCELLED')) AS STATE,CRDATE,MDDATE from T_STOCKMST ";
 
             String SQLWhere = "   TRNTYPE='" + TrnSetup.getTrntype() + "' AND ";
@@ -1480,12 +1480,12 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             }
             if (ft == null) {
 
-                ft = new Frm_Table(this, true, txt_TrnNo, currentCon, col, SQL_Col, SQL, SQLWhere, SQLEnd);
+                ft = new Frm_Table( txt_TrnNo, currentCon, col, SQL_Col, SQL, SQLWhere, SQLEnd);
                 ft.setVisible(true);
 
             } else {
                 ft = null;
-                ft = new Frm_Table(this, true, txt_TrnNo, currentCon, col, SQL_Col, SQL, SQLWhere, SQLEnd);
+                ft = new Frm_Table( txt_TrnNo, currentCon, col, SQL_Col, SQL, SQLWhere, SQLEnd);
                 ft.setFocusable(true);
                 ft.setVisible(true);
             }
@@ -1562,12 +1562,12 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         }
         if (ft == null) {
 
-            ft = new Frm_Table(this, true, txt_LItemCode, currentCon, col, SQL_ar, SQL, SQLWhere);
+            ft = new Frm_Table(txt_LItemCode, currentCon, col, SQL_ar, SQL, SQLWhere,"");
             ft.setVisible(true);
 
         } else {
             // ft = null;
-            ft = new Frm_Table(this, true, txt_LItemCode, currentCon, col, SQL_ar, SQL, SQLWhere);
+            ft = new Frm_Table(txt_LItemCode, currentCon, col, SQL_ar, SQL, SQLWhere,"");
             ft.setFocusable(true);
             ft.setVisible(true);
         }

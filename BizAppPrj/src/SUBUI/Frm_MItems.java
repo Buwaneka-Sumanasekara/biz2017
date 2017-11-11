@@ -1142,12 +1142,12 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             }
             if (ft == null) {
                 
-                ft = new Frm_Table(this, true, txtProCode, currentCon, col, SQL_Col, SQL, SQLWhere);
+                ft = new Frm_Table(txtProCode, currentCon, col, SQL_Col, SQL, SQLWhere);
                 ft.setVisible(true);
                 
             } else {
                 ft = null;
-                ft = new Frm_Table(this, true, txtProCode, currentCon, col, SQL_Col, SQL, SQLWhere);
+                ft = new Frm_Table(txtProCode, currentCon, col, SQL_Col, SQL, SQLWhere);
                 ft.setFocusable(true);
                 ft.setVisible(true);
             }
