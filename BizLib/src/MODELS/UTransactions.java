@@ -41,12 +41,16 @@ public class UTransactions  implements java.io.Serializable {
      private int CancelDaysWithing;
      private Byte SupPrdOnly;
      private Byte changeSPrice;
+     private Byte HoldOnly;
      
      private Set TStockmsts = new HashSet(0);
 
     public UTransactions() {
     }
 
+    
+    
+    
 	
     public UTransactions(String trnno) {
         this.trnno = trnno;
@@ -277,6 +281,14 @@ public class UTransactions  implements java.io.Serializable {
 
     public void setChangeSPrice(Byte changeSPrice) {
         this.changeSPrice = changeSPrice;
+    }
+
+    public Byte getHoldOnly() {
+        return HoldOnly;
+    }
+
+    public void setHoldOnly(Byte HoldOnly) {
+        this.HoldOnly = HoldOnly;
     }
 
 

@@ -47,6 +47,7 @@ public class Frm_Sub_UserGrp extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jpanelq = new javax.swing.JPanel();
         lblScreenName = new javax.swing.JLabel();
@@ -59,6 +60,9 @@ public class Frm_Sub_UserGrp extends javax.swing.JDialog {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -70,13 +74,13 @@ public class Frm_Sub_UserGrp extends javax.swing.JDialog {
         lblScreenName.setText("User Group ");
         jpanelq.add(lblScreenName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 160, 40));
 
-        jPanel2.add(jpanelq, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 180, 40));
+        jPanel2.add(jpanelq, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 190, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 40));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 40));
 
         jLabel1.setText("Name");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 70, 30));
-        getContentPane().add(txt_Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 200, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 70, 30));
+        jPanel1.add(txt_Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 200, 30));
 
         butUserGrup.setText("Update");
         butUserGrup.addActionListener(new java.awt.event.ActionListener() {
@@ -84,14 +88,16 @@ public class Frm_Sub_UserGrp extends javax.swing.JDialog {
                 butUserGrupActionPerformed(evt);
             }
         });
-        getContentPane().add(butUserGrup, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 90, 30));
+        jPanel1.add(butUserGrup, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 90, 30));
 
         Chk_Active.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Chk_ActiveMouseClicked(evt);
             }
         });
-        getContentPane().add(Chk_Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 180, -1));
+        jPanel1.add(Chk_Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 180, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 260));
 
         pack();
         setLocationRelativeTo(null);
@@ -153,6 +159,7 @@ public class Frm_Sub_UserGrp extends javax.swing.JDialog {
     private javax.swing.JCheckBox Chk_Active;
     private javax.swing.JButton butUserGrup;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jpanelq;
     private javax.swing.JLabel lblScreenName;

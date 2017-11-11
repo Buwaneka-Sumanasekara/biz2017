@@ -109,7 +109,7 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_SupCode.addActionListener(new java.awt.event.ActionListener() {
@@ -238,7 +238,7 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 650));
 
-        setBounds(0, 0, 849, 677);
+        setBounds(0, 0, 867, 677);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_SupSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_SupSearchActionPerformed

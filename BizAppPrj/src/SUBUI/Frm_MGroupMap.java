@@ -114,7 +114,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -178,7 +178,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
         jPanel1.add(lblG1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 110, 30));
 
         lblG2.setText("Code");
-        jPanel1.add(lblG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 110, 30));
+        jPanel1.add(lblG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 170, 30));
 
         cmbG2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(cmbG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 170, 30));
@@ -187,16 +187,16 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
         jPanel1.add(cmbG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 170, 30));
 
         lblG3.setText("Code");
-        jPanel1.add(lblG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 110, 30));
+        jPanel1.add(lblG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 170, 30));
 
         cmbG4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(cmbG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, 170, 30));
 
         lblG4.setText("Code");
-        jPanel1.add(lblG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 110, 30));
+        jPanel1.add(lblG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 170, 30));
 
         lblG5.setText("Code");
-        jPanel1.add(lblG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, 110, 30));
+        jPanel1.add(lblG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, 170, 30));
 
         cmbG5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(cmbG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 170, 30));
@@ -241,9 +241,9 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 830, 240));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 580));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 650));
 
-        setBounds(0, 0, 867, 646);
+        setBounds(0, 0, 867, 678);
     }// </editor-fold>//GEN-END:initComponents
 
     private void butLocRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLocRefreshActionPerformed

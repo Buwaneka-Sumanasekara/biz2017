@@ -100,7 +100,7 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_LocCode.addActionListener(new java.awt.event.ActionListener() {

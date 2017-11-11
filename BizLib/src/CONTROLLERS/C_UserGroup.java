@@ -210,7 +210,7 @@ public class C_UserGroup {
         }
 
        sql += " ORDER BY p.PARENTid,p.ORD ";
-       System.out.println(sql);
+      // System.out.println(sql);
         ArrayList<MPermissions> l = new ArrayList<>();
         ResultSet rs = DB.Search(sql);
         while (rs.next()) {

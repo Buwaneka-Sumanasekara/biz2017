@@ -182,6 +182,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jPanel3 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblBatches = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -219,10 +220,10 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         but_Update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit.png"))); // NOI18N
@@ -284,10 +285,15 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 810, 20));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 840, 20));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 850, 20));
 
+        ParentLayout.setBackground(new java.awt.Color(255, 255, 255));
+
+        layout_ProductInfo.setBackground(new java.awt.Color(255, 255, 255));
+        layout_ProductInfo.setPreferredSize(new java.awt.Dimension(840, 660));
         layout_ProductInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        layout_Basic.setBackground(new java.awt.Color(255, 255, 255));
         layout_Basic.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
         layout_Basic.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -353,6 +359,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         layout_ProductInfo.add(layout_Basic, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 460, 160));
 
+        layoutGroups.setBackground(new java.awt.Color(255, 255, 255));
         layoutGroups.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Groups", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
         layoutGroups.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -413,6 +420,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         layout_ProductInfo.add(layoutGroups, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 370, 210));
 
+        layoutPrice.setBackground(new java.awt.Color(255, 255, 255));
         layoutPrice.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Price Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
         layoutPrice.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -453,6 +461,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         layout_ProductInfo.add(layoutPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 210, 110));
 
+        layoutPropertise.setBackground(new java.awt.Color(255, 255, 255));
         layoutPropertise.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propertise", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
         layoutPropertise.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -516,6 +525,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         layout_ProductInfo.add(layoutPropertise, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, 370, 320));
 
+        layoutUnits.setBackground(new java.awt.Color(255, 255, 255));
         layoutUnits.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Units", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
         layoutUnits.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -563,8 +573,9 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel1.setText("Unit Group");
         layoutUnits.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 20));
 
-        layout_ProductInfo.add(layoutUnits, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 460, 280));
+        layout_ProductInfo.add(layoutUnits, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 460, 260));
 
+        layoutRef.setBackground(new java.awt.Color(255, 255, 255));
         layoutRef.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "References", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
         layoutRef.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -593,6 +604,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         ParentLayout.addTab("Info", layout_ProductInfo);
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         butSupAdd.setText("Add");
@@ -642,6 +654,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         ParentLayout.addTab("Suppliers", jPanel5);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblBatches.setModel(new javax.swing.table.DefaultTableModel(
@@ -681,9 +694,10 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         ParentLayout.addTab("Batches", jPanel3);
 
-        jPanel1.add(ParentLayout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 850, 580));
+        jPanel1.add(ParentLayout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 850, 600));
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 620));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 660));
 
         setBounds(0, 0, 877, 691);
     }// </editor-fold>//GEN-END:initComponents
@@ -887,6 +901,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

@@ -98,7 +98,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cmb_UserGrp = new javax.swing.JComboBox<>();
+        cmb_UserGrp = new javax.swing.JComboBox<String>();
         lblimg = new javax.swing.JLabel();
         but_ChooseImg = new javax.swing.JButton();
         txt_imgurl = new javax.swing.JLabel();
@@ -135,7 +135,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_UserId.addActionListener(new java.awt.event.ActionListener() {
@@ -281,9 +281,9 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
 
         jPanel1.add(layout_ResetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 420, 380, 180));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 620));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
 
-        setBounds(0, 0, 867, 646);
+        setBounds(0, 0, 867, 670);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_UserSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_UserSearchActionPerformed

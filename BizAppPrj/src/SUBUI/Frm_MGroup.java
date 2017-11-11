@@ -93,7 +93,7 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
         setName(""); // NOI18N
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_GroupCode.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +189,7 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 820, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 620));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 640));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

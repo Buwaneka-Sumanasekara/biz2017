@@ -68,6 +68,7 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         Layout_Parent = new javax.swing.JTabbedPane();
         layout_UnitGroup = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -117,7 +118,12 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        layout_UnitGroup.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Layout_Parent.setBackground(new java.awt.Color(255, 255, 255));
+
+        layout_UnitGroup.setBackground(new java.awt.Color(255, 255, 255));
         layout_UnitGroup.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
@@ -157,6 +163,7 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
 
         Layout_Parent.addTab("Unit Group Create", layout_UnitGroup);
 
+        layout_UnitGroupAssign.setBackground(new java.awt.Color(255, 255, 255));
         layout_UnitGroupAssign.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layout_UnitGroupAssign.add(cmb_UAUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 160, 30));
@@ -225,7 +232,7 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
 
         Layout_Parent.addTab("Assign Units to Group", layout_UnitGroupAssign);
 
-        getContentPane().add(Layout_Parent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 860, 570));
+        jPanel1.add(Layout_Parent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 860, 570));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -280,9 +287,11 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
         jPanel2.add(lblScreenName, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 180, 40));
         jPanel2.add(jpanelq, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, -1));
 
-        setBounds(0, 0, 867, 646);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
+
+        setBounds(0, 0, 867, 671);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_UGSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_UGSearchActionPerformed
@@ -371,6 +380,7 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;

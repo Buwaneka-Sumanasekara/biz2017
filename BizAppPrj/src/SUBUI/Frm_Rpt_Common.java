@@ -116,24 +116,26 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         lbl_Name1 = new javax.swing.JLabel();
         lbl_LNAME = new javax.swing.JLabel();
         layout_Location = new javax.swing.JPanel();
-        cmb_Loc = new javax.swing.JComboBox<>();
+        cmb_Loc = new javax.swing.JComboBox<String>();
         layout_Period = new javax.swing.JPanel();
         txt_DateF = new com.toedter.calendar.JDateChooser();
         txt_DateT = new com.toedter.calendar.JDateChooser();
         lb_lTo = new javax.swing.JLabel();
-        cmb_Qut = new javax.swing.JComboBox<>();
+        cmb_Qut = new javax.swing.JComboBox<String>();
         layout_Period3 = new javax.swing.JPanel();
-        cmb_Loc2 = new javax.swing.JComboBox<>();
+        cmb_Loc2 = new javax.swing.JComboBox<String>();
         layout_Group = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_Grp = new javax.swing.JTable();
-        lbl_GrpName = new javax.swing.JLabel();
-        but_Grp_Next = new javax.swing.JButton();
-        but_Grp_Back = new javax.swing.JButton();
-        lbl_GrpCode = new javax.swing.JLabel();
-        chk_GrpAll = new javax.swing.JCheckBox();
+        jPanel3 = new javax.swing.JPanel();
+        chk_GrpSelectAll = new javax.swing.JCheckBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         tree_Grps = new javax.swing.JTree();
+        lbl_GrpName = new javax.swing.JLabel();
+        lbl_GrpCode = new javax.swing.JLabel();
+        but_Grp_Back = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_Grp = new javax.swing.JTable();
+        but_Grp_Next = new javax.swing.JButton();
+        chkAllGroups = new javax.swing.JCheckBox();
 
         setClosable(true);
         setTitle("caption");
@@ -158,7 +160,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -194,6 +196,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
 
+        layout_CusSup.setBackground(new java.awt.Color(255, 255, 255));
         layout_CusSup.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         layout_CusSup.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         layout_CusSup.add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 150, 30));
@@ -211,6 +214,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
         jPanel1.add(layout_CusSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 460, 80));
 
+        layout_Location.setBackground(new java.awt.Color(255, 255, 255));
         layout_Location.setBorder(javax.swing.BorderFactory.createTitledBorder("Location"));
         layout_Location.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -218,6 +222,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
         jPanel1.add(layout_Location, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 360, 80));
 
+        layout_Period.setBackground(new java.awt.Color(255, 255, 255));
         layout_Period.setBorder(javax.swing.BorderFactory.createTitledBorder("Period"));
         layout_Period.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -251,6 +256,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
         jPanel1.add(layout_Period, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 830, 80));
 
+        layout_Period3.setBackground(new java.awt.Color(255, 255, 255));
         layout_Period3.setBorder(javax.swing.BorderFactory.createTitledBorder("Location"));
         layout_Period3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -258,8 +264,41 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
         jPanel1.add(layout_Period3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 360, 80));
 
+        layout_Group.setBackground(new java.awt.Color(255, 255, 255));
         layout_Group.setBorder(javax.swing.BorderFactory.createTitledBorder("Categories"));
         layout_Group.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        chk_GrpSelectAll.setText("All");
+        chk_GrpSelectAll.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        chk_GrpSelectAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chk_GrpSelectAllActionPerformed(evt);
+            }
+        });
+        jPanel3.add(chk_GrpSelectAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 60, 30));
+
+        jScrollPane2.setViewportView(tree_Grps);
+
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 200, 280));
+
+        lbl_GrpName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbl_GrpName.setForeground(new java.awt.Color(153, 153, 153));
+        lbl_GrpName.setText("GROUP NAME");
+        jPanel3.add(lbl_GrpName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 320, 30));
+
+        lbl_GrpCode.setText("1");
+        jPanel3.add(lbl_GrpCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, 30));
+
+        but_Grp_Back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_arrow-back_216437.png"))); // NOI18N
+        but_Grp_Back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_Grp_BackActionPerformed(evt);
+            }
+        });
+        jPanel3.add(but_Grp_Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 70, 30));
 
         tbl_Grp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -297,11 +336,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
             tbl_Grp.getColumnModel().getColumn(1).setPreferredWidth(80);
         }
 
-        layout_Group.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 530, 260));
-
-        lbl_GrpName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbl_GrpName.setText("GROUP NAME");
-        layout_Group.add(lbl_GrpName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 320, 30));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 530, 240));
 
         but_Grp_Next.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_icons_share_1564530.png"))); // NOI18N
         but_Grp_Next.addActionListener(new java.awt.event.ActionListener() {
@@ -309,37 +344,26 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                 but_Grp_NextActionPerformed(evt);
             }
         });
-        layout_Group.add(but_Grp_Next, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 70, 30));
+        jPanel3.add(but_Grp_Next, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 70, 30));
 
-        but_Grp_Back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_arrow-back_216437.png"))); // NOI18N
-        but_Grp_Back.addActionListener(new java.awt.event.ActionListener() {
+        layout_Group.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 810, 300));
+
+        chkAllGroups.setBackground(new java.awt.Color(255, 255, 255));
+        chkAllGroups.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        chkAllGroups.setSelected(true);
+        chkAllGroups.setText("All Groups");
+        chkAllGroups.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_Grp_BackActionPerformed(evt);
+                chkAllGroupsActionPerformed(evt);
             }
         });
-        layout_Group.add(but_Grp_Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 70, 30));
+        layout_Group.add(chkAllGroups, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 740, 40));
 
-        lbl_GrpCode.setText("1");
-        layout_Group.add(lbl_GrpCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 60, 30));
+        jPanel1.add(layout_Group, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 830, 370));
 
-        chk_GrpAll.setText("All");
-        chk_GrpAll.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        chk_GrpAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chk_GrpAllActionPerformed(evt);
-            }
-        });
-        layout_Group.add(chk_GrpAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 60, 30));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
 
-        jScrollPane2.setViewportView(tree_Grps);
-
-        layout_Group.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 200, 300));
-
-        jPanel1.add(layout_Group, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 830, 330));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 620));
-
-        setBounds(0, 0, 867, 646);
+        setBounds(0, 0, 867, 665);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
@@ -374,9 +398,9 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_DateTFocusLost
 
-    private void chk_GrpAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_GrpAllActionPerformed
-        Grp_SelectAll(chk_GrpAll.isSelected());
-    }//GEN-LAST:event_chk_GrpAllActionPerformed
+    private void chk_GrpSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_GrpSelectAllActionPerformed
+        Grp_SelectAll(chk_GrpSelectAll.isSelected());
+    }//GEN-LAST:event_chk_GrpSelectAllActionPerformed
 
     private void but_Grp_NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_Grp_NextActionPerformed
         Grp_Next();
@@ -391,18 +415,24 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
     }//GEN-LAST:event_tbl_GrpMouseClicked
 
+    private void chkAllGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAllGroupsActionPerformed
+       setGroupPanelEnable(chkAllGroups.isSelected());
+    }//GEN-LAST:event_chkAllGroupsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton but_Grp_Back;
     private javax.swing.JButton but_Grp_Next;
     private javax.swing.JButton but_TrnPrint;
     private javax.swing.JButton but_TrnRefresh;
-    private javax.swing.JCheckBox chk_GrpAll;
+    private javax.swing.JCheckBox chkAllGroups;
+    private javax.swing.JCheckBox chk_GrpSelectAll;
     private javax.swing.JComboBox<String> cmb_Loc;
     private javax.swing.JComboBox<String> cmb_Loc2;
     private javax.swing.JComboBox<String> cmb_Qut;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jpanelq;
@@ -609,7 +639,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
                     String whr_g = "";
 
-                   
+                   if(chkAllGroups.isSelected()==false){
                     for (Map.Entry<String, Vector<MGroupCommon>> entry : Grps.entrySet()) {
                         String key = entry.getKey();
                         Vector<MGroupCommon> value = entry.getValue();
@@ -637,7 +667,9 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                          para.put("PARA_GRP", whr_g);
 
                     }
-                    
+                   }else{
+                       para.put("PARA_GRP", " G1 LIKE '%%'  "); 
+                   }
 
                 }
                 if (mRpt.getEn_Sup() == 1) {
@@ -708,7 +740,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
             if (Selected == null || Selected.size() == 0) {
 
-                Grp_SelectAll(chk_GrpAll.isSelected());
+                Grp_SelectAll(chk_GrpSelectAll.isSelected());
             }
         } else if (grpno > 5) {
             but_Grp_Next.setEnabled(false);
@@ -819,5 +851,23 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         if (tree.getRowCount() != rowCount) {
             expandAllNodes(tree, rowCount, tree.getRowCount());
         }
+    }
+
+    private void setGroupPanelEnable(boolean selected) {
+       if(selected){
+           for (Map.Entry<String, Vector<MGroupCommon>> entry : Grps.entrySet()) {
+               String string = entry.getKey();
+               Vector<MGroupCommon> vector = new Vector<>();
+               Grps.put(string, vector);
+               
+           }
+           
+       }
+       tbl_Grp.setEnabled(selected);
+       but_Grp_Back.setEnabled(selected);
+       but_Grp_Next.setEnabled(selected);
+       chk_GrpSelectAll.setEnabled(selected);
+       tree_Grps.setEnabled(selected);
+    
     }
 }

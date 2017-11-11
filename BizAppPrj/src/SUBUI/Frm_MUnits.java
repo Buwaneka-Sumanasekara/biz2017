@@ -102,7 +102,7 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        layout_Unit.setBackground(new java.awt.Color(226, 226, 226));
+        layout_Unit.setBackground(new java.awt.Color(255, 255, 255));
         layout_Unit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_UnitCode.addActionListener(new java.awt.event.ActionListener() {
@@ -213,9 +213,9 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel6.setText("Description *");
         layout_Unit.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 110, 30));
 
-        getContentPane().add(layout_Unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 620));
+        getContentPane().add(layout_Unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 640));
 
-        setBounds(0, 0, 867, 646);
+        setBounds(0, 0, 867, 668);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated

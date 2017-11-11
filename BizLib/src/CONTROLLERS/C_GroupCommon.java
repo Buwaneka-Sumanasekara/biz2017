@@ -102,6 +102,7 @@ public class C_GroupCommon {
             g = new MGroupCommon();
             g.setId(rs.getString("ID"));
             g.setName(rs.getString("NAME"));
+            g.setActive(rs.getByte("ACTIVE"));
 
         }
         return g;

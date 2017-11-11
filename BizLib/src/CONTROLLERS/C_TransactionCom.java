@@ -194,8 +194,8 @@ public class C_TransactionCom {
                 TStockmst stockHed = getStockHed(hed.getId(), hed.getUTransactions());
                 if (stockHed != null && stockHed.getTrnstate().equals("H")) {
                     removeTransaction(hed.getId(), hed.getUTransactions().getTrntype());
-                    hed.setCrdate(stockHed.getMddate());
-                    hed.setMUserByMUserCr(stockHed.getMUserByMUserMd());
+                    //hed.setCrdate(stockHed.getMddate());
+                   // hed.setMUserByMUserCr(stockHed.getMUserByMUserMd());
 
                 } else {
                     if (stockHed == null) {

@@ -77,8 +77,8 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         lblScreenName = new javax.swing.JLabel();
         jpanelq = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        cmb_Usergrp_Cur = new javax.swing.JComboBox<>();
-        cmb_Usergrp = new javax.swing.JComboBox<>();
+        cmb_Usergrp_Cur = new javax.swing.JComboBox<String>();
+        cmb_Usergrp = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
         butNewUsergrp = new javax.swing.JButton();
         butEditUsergrp = new javax.swing.JButton();
@@ -112,7 +112,7 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -181,9 +181,9 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         lblState.setForeground(new java.awt.Color(204, 0, 0));
         jPanel1.add(lblState, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, 150, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 620));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
 
-        setBounds(0, 0, 867, 646);
+        setBounds(0, 0, 867, 671);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated

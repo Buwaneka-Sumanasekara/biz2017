@@ -108,7 +108,7 @@ public class Frm_GvCreation extends javax.swing.JInternalFrame implements MyWind
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -122,6 +122,7 @@ public class Frm_GvCreation extends javax.swing.JInternalFrame implements MyWind
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -191,13 +192,15 @@ public class Frm_GvCreation extends javax.swing.JInternalFrame implements MyWind
         jPanel3.add(txtStartNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 270, 180, 40));
 
         jTabbedPane1.addTab("Create Vouchers", jPanel3);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.addTab("Voucher Statues", jPanel4);
 
         jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 850, 560));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 610));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
 
-        setBounds(0, 0, 867, 646);
+        setBounds(0, 0, 867, 672);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated

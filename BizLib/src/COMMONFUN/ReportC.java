@@ -51,6 +51,7 @@ public class ReportC {
         JasperPrint print = JasperFillManager.fillReport(jr, para, con);
 
         if(print!=null){
+            
            JasperViewer.viewReport(print, false);
         printReport = true; 
         }else{

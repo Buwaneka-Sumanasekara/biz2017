@@ -16,13 +16,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.TreeMap;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.event.InternalFrameEvent;
@@ -57,6 +57,8 @@ public class Frm_Main extends javax.swing.JFrame {
         this.myw = new MyWindowManager();
         this.lblUsername.setText(GlobalData.CurUser.getFirstname());
         this.lblCompanyName.setText(GlobalData.Setup.getComname());
+        this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+
         RefreshLayOut();
         createUserMenu();
     }
@@ -70,21 +72,26 @@ public class Frm_Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        layout_Outer = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TUserMenu = new javax.swing.JTree();
-        lblUserimg = new javax.swing.JLabel();
-        lblUsername = new javax.swing.JLabel();
-        lblCompanyName = new javax.swing.JLabel();
         JDesktopF = new javax.swing.JDesktopPane();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lbl_Global_Instructions = new javax.swing.JLabel();
         butLogout = new javax.swing.JButton();
+        lblCompanyName = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
+        lblUserimg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        layout_Outer.setBackground(new java.awt.Color(255, 255, 255));
+        layout_Outer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        layout_Outer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         TUserMenu.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -100,19 +107,9 @@ public class Frm_Main extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TUserMenu);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 150, 550));
+        layout_Outer.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 550));
 
-        lblUserimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/1465731972_user-01.png"))); // NOI18N
-        getContentPane().add(lblUserimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 70, 70));
-
-        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblUsername.setText("BUWANEKA");
-        getContentPane().add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 150, 30));
-
-        lblCompanyName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblCompanyName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCompanyName.setText("COMPANY NAME");
-        getContentPane().add(lblCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 760, 30));
+        JDesktopF.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"))); // NOI18N
         JDesktopF.add(jLabel3);
@@ -124,14 +121,15 @@ public class Frm_Main extends javax.swing.JFrame {
         JDesktopF.add(jLabel5);
         jLabel5.setBounds(410, 280, 90, 58);
 
-        getContentPane().add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 870, 640));
+        layout_Outer.add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 870, 640));
 
         lbl_Global_Instructions.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lbl_Global_Instructions.setForeground(new java.awt.Color(204, 0, 0));
         lbl_Global_Instructions.setText("[  F2 : SEARCH   ]   [   F3: EDIT  ]  [  F4: REFRESH  ]   [  F5: SAVE  ]  [F6: HOLD]  [F7: CANCEL]");
-        getContentPane().add(lbl_Global_Instructions, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 670, 750, -1));
+        layout_Outer.add(lbl_Global_Instructions, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 670, 750, -1));
 
-        butLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/if_exit_7989 (2).png"))); // NOI18N
+        butLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/if_icons_exit2_1564506.png"))); // NOI18N
+        butLogout.setText("Logout");
         butLogout.setBorderPainted(false);
         butLogout.setContentAreaFilled(false);
         butLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -139,9 +137,23 @@ public class Frm_Main extends javax.swing.JFrame {
                 butLogoutActionPerformed(evt);
             }
         });
-        getContentPane().add(butLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(963, 0, 60, 30));
+        layout_Outer.add(butLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(903, 0, 120, 30));
 
-        setSize(new java.awt.Dimension(1024, 720));
+        lblCompanyName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblCompanyName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCompanyName.setText("COMPANY NAME");
+        layout_Outer.add(lblCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 760, 30));
+
+        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsername.setText("BUWANEKA");
+        layout_Outer.add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 150, 30));
+
+        lblUserimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/1465731972_user-01.png"))); // NOI18N
+        layout_Outer.add(lblUserimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 70, 70));
+
+        getContentPane().add(layout_Outer, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 0, 1030, 720));
+
+        setSize(new java.awt.Dimension(1035, 720));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -191,6 +203,7 @@ public class Frm_Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel layout_Outer;
     private javax.swing.JLabel lblCompanyName;
     private javax.swing.JLabel lblUserimg;
     private javax.swing.JLabel lblUsername;
@@ -268,6 +281,10 @@ public class Frm_Main extends javax.swing.JFrame {
         JInternalFrame jf = myw.getRequestWindow(p, this);
         if (jf != null) {
             jf.setFocusCycleRoot(true);
+            jf.setMaximizable(false);
+            jf.setClosable(false);
+           ((javax.swing.plaf.basic.BasicInternalFrameUI)jf.getUI()).setNorthPane(null);
+           jf.setBorder(null);
             jf.addInternalFrameListener(new InternalFrameListener() {
 
                 @Override

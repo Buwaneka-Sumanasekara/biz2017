@@ -101,7 +101,7 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtUsername.setEditable(false);
@@ -154,9 +154,9 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
         jPanel1.add(txtCurPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 190, 30));
         jPanel1.add(txtNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 190, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 620));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
 
-        setBounds(0, 0, 867, 646);
+        setBounds(0, 0, 867, 664);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed

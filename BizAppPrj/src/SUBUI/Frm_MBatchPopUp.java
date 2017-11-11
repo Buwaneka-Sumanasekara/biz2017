@@ -133,13 +133,22 @@ public class Frm_MBatchPopUp extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        layout_Outer = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_Batch = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        layout_Outer.setBackground(new java.awt.Color(255, 255, 255));
+        layout_Outer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        layout_Outer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("  Batches");
+        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        layout_Outer.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 40));
 
         tbl_Batch.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -166,11 +175,9 @@ public class Frm_MBatchPopUp extends javax.swing.JDialog {
             tbl_Batch.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 450, 240));
+        layout_Outer.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 450, 240));
 
-        jLabel1.setText("Batches");
-        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 40));
+        getContentPane().add(layout_Outer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 320));
 
         pack();
         setLocationRelativeTo(null);
@@ -221,6 +228,7 @@ public class Frm_MBatchPopUp extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel layout_Outer;
     private javax.swing.JTable tbl_Batch;
     // End of variables declaration//GEN-END:variables
 

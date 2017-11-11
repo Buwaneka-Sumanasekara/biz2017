@@ -84,9 +84,17 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         super.dispose(); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void setVisible(boolean b) {
+        super.setVisible(b); //To change body of generated methods, choose Tools | Templates.
+      txt_Amount.grabFocus();
+    }
+
     public static String getPaymentScreen(Frm_Main parent, Frm_TCommonTrn parent_trn, boolean modal, UTransactions TrnSetup, TStockmst Hed, ArrayList<TStockline> Det) {
         Frm_TCommonTrnPayments frm = new Frm_TCommonTrnPayments(parent, parent_trn, modal, TrnSetup, Hed, Det);
         frm.setVisible(true);
+        frm.setFocusable(true);
+         
         return TrnNo;
     }
 
@@ -99,9 +107,6 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        lbl_ToPay = new javax.swing.JLabel();
         layout_ButPanel = new javax.swing.JPanel();
         but_BillClose = new javax.swing.JButton();
         but_8 = new javax.swing.JButton();
@@ -122,6 +127,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         lbl_Payment = new javax.swing.JLabel();
         lbl_Balance = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        lbl_ToPay = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lbl_due = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPayment = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -130,34 +140,18 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         txt_Amount = new javax.swing.JTextField();
         txt_RefNo = new javax.swing.JTextField();
         txt_DateF = new com.toedter.calendar.JDateChooser();
-        lbl_due = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lbl_ToPay.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lbl_ToPay.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_ToPay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbl_ToPay.setText("0.0");
-        lbl_ToPay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel2.add(lbl_ToPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 210, 30));
-
-        layout_ButPanel.setBackground(new java.awt.Color(153, 153, 153));
+        layout_ButPanel.setBackground(new java.awt.Color(255, 255, 255));
         layout_ButPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         but_BillClose.setBackground(new java.awt.Color(0, 102, 102));
         but_BillClose.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        but_BillClose.setForeground(new java.awt.Color(255, 255, 255));
         but_BillClose.setText("<html><p>Bill Close</p></html>");
-        but_BillClose.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_BillClose.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_BillClose.setContentAreaFilled(false);
         but_BillClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,9 +162,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_8.setBackground(new java.awt.Color(0, 102, 102));
         but_8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        but_8.setForeground(new java.awt.Color(255, 255, 255));
         but_8.setText("8");
-        but_8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_8.setContentAreaFilled(false);
         but_8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,9 +174,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_9.setBackground(new java.awt.Color(0, 102, 102));
         but_9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        but_9.setForeground(new java.awt.Color(255, 255, 255));
         but_9.setText("9");
-        but_9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_9.setContentAreaFilled(false);
         but_9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,9 +186,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_4.setBackground(new java.awt.Color(0, 102, 102));
         but_4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        but_4.setForeground(new java.awt.Color(255, 255, 255));
         but_4.setText("4");
-        but_4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_4.setContentAreaFilled(false);
         but_4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,9 +198,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_5.setBackground(new java.awt.Color(0, 102, 102));
         but_5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        but_5.setForeground(new java.awt.Color(255, 255, 255));
         but_5.setText("5");
-        but_5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_5.setContentAreaFilled(false);
         but_5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,9 +210,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_6.setBackground(new java.awt.Color(0, 102, 102));
         but_6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        but_6.setForeground(new java.awt.Color(255, 255, 255));
         but_6.setText("6");
-        but_6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_6.setContentAreaFilled(false);
         but_6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,9 +222,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_2.setBackground(new java.awt.Color(0, 102, 102));
         but_2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        but_2.setForeground(new java.awt.Color(255, 255, 255));
         but_2.setText("2");
-        but_2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_2.setContentAreaFilled(false);
         but_2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,9 +234,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_3.setBackground(new java.awt.Color(0, 102, 102));
         but_3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        but_3.setForeground(new java.awt.Color(255, 255, 255));
         but_3.setText("3");
-        but_3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_3.setContentAreaFilled(false);
         but_3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,9 +246,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_1.setBackground(new java.awt.Color(0, 102, 102));
         but_1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        but_1.setForeground(new java.awt.Color(255, 255, 255));
         but_1.setText("1");
-        but_1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_1.setContentAreaFilled(false);
         but_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,9 +258,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_0.setBackground(new java.awt.Color(0, 102, 102));
         but_0.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        but_0.setForeground(new java.awt.Color(255, 255, 255));
         but_0.setText("0");
-        but_0.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_0.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_0.setContentAreaFilled(false);
         but_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,9 +270,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_add.setBackground(new java.awt.Color(0, 102, 102));
         but_add.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        but_add.setForeground(new java.awt.Color(255, 255, 255));
         but_add.setText("Add");
-        but_add.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_add.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_add.setContentAreaFilled(false);
         but_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,9 +282,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_7.setBackground(new java.awt.Color(0, 102, 102));
         but_7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        but_7.setForeground(new java.awt.Color(255, 255, 255));
         but_7.setText("7");
-        but_7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_7.setContentAreaFilled(false);
         but_7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,9 +294,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_ClearAmont.setBackground(new java.awt.Color(0, 102, 102));
         but_ClearAmont.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        but_ClearAmont.setForeground(new java.awt.Color(255, 255, 255));
         but_ClearAmont.setText("<html><center><p>Clear Amount</p></center></html>");
-        but_ClearAmont.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_ClearAmont.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_ClearAmont.setContentAreaFilled(false);
         but_ClearAmont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,9 +306,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         but_ClearPayments.setBackground(new java.awt.Color(0, 102, 102));
         but_ClearPayments.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        but_ClearPayments.setForeground(new java.awt.Color(255, 255, 255));
         but_ClearPayments.setText("<html><center><p>Clear Payments</p></center></html>");
-        but_ClearPayments.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        but_ClearPayments.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         but_ClearPayments.setContentAreaFilled(false);
         but_ClearPayments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -335,38 +316,64 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         });
         layout_ButPanel.add(but_ClearPayments, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 80, 80));
 
-        jPanel2.add(layout_ButPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 210, 290, 270));
+        getContentPane().add(layout_ButPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 210, 290, 270));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("To Pay");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 80, 30));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 80, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Due");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 70, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 70, 30));
 
         lbl_Payment.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lbl_Payment.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_Payment.setForeground(new java.awt.Color(51, 51, 51));
         lbl_Payment.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbl_Payment.setText("0.0");
-        lbl_Payment.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel2.add(lbl_Payment, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 210, 30));
+        lbl_Payment.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        getContentPane().add(lbl_Payment, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 210, 30));
 
         lbl_Balance.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lbl_Balance.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_Balance.setForeground(new java.awt.Color(51, 51, 51));
         lbl_Balance.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbl_Balance.setText("0.0");
-        lbl_Balance.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel2.add(lbl_Balance, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 130, 210, 50));
+        lbl_Balance.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        getContentPane().add(lbl_Balance, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 130, 210, 50));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setText("Balance");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, 60, 30));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, 60, 30));
 
-        jScrollPane1.setBackground(new java.awt.Color(153, 153, 153));
+        lbl_ToPay.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbl_ToPay.setForeground(new java.awt.Color(51, 51, 51));
+        lbl_ToPay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_ToPay.setText("0.0");
+        lbl_ToPay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        getContentPane().add(lbl_ToPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 210, 30));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel4.setText("Payment");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 80, 30));
+
+        lbl_due.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbl_due.setForeground(new java.awt.Color(51, 51, 51));
+        lbl_due.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_due.setText("0.0");
+        lbl_due.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        getContentPane().add(lbl_due, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 210, 30));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         tblPayment.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tblPayment.setModel(new javax.swing.table.DefaultTableModel(
@@ -385,6 +392,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblPayment.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tblPayment);
         if (tblPayment.getColumnModel().getColumnCount() > 0) {
             tblPayment.getColumnModel().getColumn(0).setResizable(false);
@@ -397,11 +405,10 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 490, 170));
 
-        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Payment", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Payment", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(153, 153, 153))); // NOI18N
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cmb_PayDet.setBackground(new java.awt.Color(102, 102, 102));
         cmb_PayDet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_PayDetActionPerformed(evt);
@@ -409,7 +416,6 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         });
         jPanel3.add(cmb_PayDet, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 380, 50));
 
-        cmb_PayHed.setBackground(new java.awt.Color(102, 102, 102));
         cmb_PayHed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_PayHedActionPerformed(evt);
@@ -438,23 +444,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 490, 290));
 
-        lbl_due.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lbl_due.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_due.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbl_due.setText("0.0");
-        lbl_due.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel2.add(lbl_due, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 210, 30));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 480));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Payment");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 80, 30));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 550));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 480));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 550));
-
-        setSize(new java.awt.Dimension(825, 517));
+        setSize(new java.awt.Dimension(835, 517));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -689,8 +683,9 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             //  layout_ButPanel.setBackground(new Color(0, 0, 0, 64));
             tblPayment.setDefaultRenderer(Object.class, new TblPayment());
             tblPayment.setTableHeader(null);
-            tblPayment.setBackground(new Color(153, 153, 153));
-            jScrollPane1.getViewport().setBackground(new Color(153, 153, 153));
+          tblPayment.setBackground(new Color(255, 255, 255));
+          jScrollPane1.getViewport().setBackground(new Color(255, 255, 255));
+          txt_Amount.grabFocus();
 
         } catch (Exception ex) {
             Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
@@ -717,6 +712,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             dtm.setRowCount(0);
             cmb_PayHed.setModel(new DefaultComboBoxModel(C_Payment.getPayMst()));
             clearPaymentBox();
+            txt_Amount.grabFocus();
         } catch (Exception ex) {
             //  Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
         }

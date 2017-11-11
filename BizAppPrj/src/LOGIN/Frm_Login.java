@@ -52,6 +52,7 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         butLogin = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -68,6 +69,9 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         butLogin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         butLogin.setText("Login");
         butLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -77,15 +81,15 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
                 butLoginActionPerformed(evt);
             }
         });
-        getContentPane().add(butLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 90, 30));
+        jPanel1.add(butLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 90, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Password");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 60, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 60, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Username");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 70, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 70, 30));
 
         txtuname.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtuname.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +97,7 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
                 txtunameActionPerformed(evt);
             }
         });
-        getContentPane().add(txtuname, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 170, 30));
+        jPanel1.add(txtuname, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 170, 30));
 
         txtpass.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtpass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -102,27 +106,29 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
                 txtpassActionPerformed(evt);
             }
         });
-        getContentPane().add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 170, 30));
+        jPanel1.add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 170, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 130, 130));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 130, 130));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(153, 153, 153));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Software By :  Buwaneka Tharanga Sumanasekara");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 590, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 590, 20));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(110, 147, 169));
         jLabel5.setText("Biz");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 100, 50));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 100, 50));
 
         lbl_ComName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbl_ComName.setForeground(new java.awt.Color(89, 143, 179));
         lbl_ComName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_ComName.setText("COMNAME");
-        getContentPane().add(lbl_ComName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 40));
+        jPanel1.add(lbl_ComName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 40));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 350));
 
         pack();
         setLocationRelativeTo(null);
@@ -173,6 +179,7 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_ComName;
     private javax.swing.JPasswordField txtpass;
     private javax.swing.JTextField txtuname;

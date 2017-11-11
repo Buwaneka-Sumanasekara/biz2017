@@ -98,7 +98,7 @@ public class Frm_MLocation extends javax.swing.JInternalFrame implements MyWindo
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_LocCode.addActionListener(new java.awt.event.ActionListener() {
@@ -195,9 +195,9 @@ public class Frm_MLocation extends javax.swing.JInternalFrame implements MyWindo
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 820, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 580));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 650));
 
-        setBounds(0, 0, 867, 646);
+        setBounds(0, 0, 867, 678);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_LocSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSearchActionPerformed

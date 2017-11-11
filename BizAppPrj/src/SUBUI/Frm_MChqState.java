@@ -81,6 +81,7 @@ public class Frm_MChqState extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         butRealized = new javax.swing.JButton();
         butReturned = new javax.swing.JButton();
@@ -103,9 +104,13 @@ public class Frm_MChqState extends javax.swing.JDialog {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Disposit Date");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 340, 50));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 340, 50));
 
         butRealized.setBackground(new java.awt.Color(0, 153, 0));
         butRealized.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -115,7 +120,7 @@ public class Frm_MChqState extends javax.swing.JDialog {
                 butRealizedActionPerformed(evt);
             }
         });
-        getContentPane().add(butRealized, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 130, 50));
+        jPanel1.add(butRealized, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 130, 50));
 
         butReturned.setBackground(new java.awt.Color(255, 51, 51));
         butReturned.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -125,52 +130,52 @@ public class Frm_MChqState extends javax.swing.JDialog {
                 butReturnedActionPerformed(evt);
             }
         });
-        getContentPane().add(butReturned, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 130, 50));
+        jPanel1.add(butReturned, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 130, 50));
 
         lblChequeSup.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblChequeSup.setText("Supplier");
-        getContentPane().add(lblChequeSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 80, 20));
+        jPanel1.add(lblChequeSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 80, 20));
 
         lblChqTyp.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblChqTyp.setText("Trn Type");
-        getContentPane().add(lblChqTyp, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 60, 20));
+        jPanel1.add(lblChqTyp, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 60, 20));
 
         lblChqPaidDate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblChqPaidDate.setText("Paid Date");
-        getContentPane().add(lblChqPaidDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 80, 20));
+        jPanel1.add(lblChqPaidDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 80, 20));
 
         lblChqCustomer.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblChqCustomer.setText("Customer");
-        getContentPane().add(lblChqCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, 20));
+        jPanel1.add(lblChqCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, 20));
 
         txtDepositdate.setDateFormatString("yyyy-MM-dd");
-        getContentPane().add(txtDepositdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 260, 30));
+        jPanel1.add(txtDepositdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 260, 30));
 
         lblChqNo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblChqNo.setText("Cheque No");
-        getContentPane().add(lblChqNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 80, 20));
+        jPanel1.add(lblChqNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 80, 20));
 
         lblChqTrnNo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblChqTrnNo.setText("Trn No");
-        getContentPane().add(lblChqTrnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 70, 20));
+        jPanel1.add(lblChqTrnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 70, 20));
 
         txtChqSup.setText("jLabel2");
-        getContentPane().add(txtChqSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 190, 20));
+        jPanel1.add(txtChqSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 190, 20));
 
         txtChqNo.setText("jLabel2");
-        getContentPane().add(txtChqNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 190, 20));
+        jPanel1.add(txtChqNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 190, 20));
 
         txtChqPaidDate.setText("jLabel2");
-        getContentPane().add(txtChqPaidDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 190, 20));
+        jPanel1.add(txtChqPaidDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 190, 20));
 
         txtChqCustomer.setText("cus");
-        getContentPane().add(txtChqCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 190, 20));
+        jPanel1.add(txtChqCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 190, 20));
 
         txtChqTrnTyp.setText("jLabel2");
-        getContentPane().add(txtChqTrnTyp, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, 190, 20));
+        jPanel1.add(txtChqTrnTyp, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, 190, 20));
 
         txtChqTrnNo.setText("jLabel2");
-        getContentPane().add(txtChqTrnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 190, 20));
+        jPanel1.add(txtChqTrnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 190, 20));
 
         butUnrealized.setBackground(new java.awt.Color(255, 204, 102));
         butUnrealized.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -180,7 +185,9 @@ public class Frm_MChqState extends javax.swing.JDialog {
                 butUnrealizedActionPerformed(evt);
             }
         });
-        getContentPane().add(butUnrealized, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 130, 50));
+        jPanel1.add(butUnrealized, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 130, 50));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 320));
 
         pack();
         setLocationRelativeTo(null);
@@ -260,6 +267,7 @@ public class Frm_MChqState extends javax.swing.JDialog {
     private javax.swing.JButton butReturned;
     private javax.swing.JButton butUnrealized;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblChequeSup;
     private javax.swing.JLabel lblChqCustomer;
     private javax.swing.JLabel lblChqNo;

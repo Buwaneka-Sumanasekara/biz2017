@@ -230,7 +230,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(226, 226, 226));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layout_TopActionPanel.setBackground(new java.awt.Color(204, 204, 204));
@@ -435,7 +435,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         });
         jPanel1.add(txt_RefNo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, 170, 30));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_LDisAmt.setText("Dis Amount");
@@ -737,9 +738,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jFormattedTextField1.setText("jFormattedTextField1");
         jPanel1.add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 610));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 640));
 
-        setBounds(0, 0, 875, 633);
+        setBounds(0, 0, 869, 666);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_TrnHoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnHoldActionPerformed
@@ -1206,6 +1207,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
                 if (TrnSetup.getPayments() == 1 && TrnState.equals("P")) {
                     TrnNo = Frm_TCommonTrnPayments.getPaymentScreen(mainW, this, true, TrnSetup, hed, det);
+                    
                     //FrmComPay.setVisible(true);
                 } else {
                     TrnNo = C_TrnCom.saveTransaction(hed, det, null);
@@ -1248,6 +1250,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             JComponent[] dis = {but_TrnSearch, but_TrnUpdate, txt_TrnNo};
             JComponent[] enb = {but_TrnPrint, but_Add, but_TrnRefresh, but_ItemSearch, but_TrnHold, txt_FNetDis, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
             setDisableEnableComponents(enb, dis);
+            if (TrnSetup.getHoldOnly() == 1) {
+                but_TrnSave.setEnabled(false);
+            }
         }
     }
 
@@ -1561,7 +1566,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             ft.setVisible(true);
 
         } else {
-           // ft = null;
+            // ft = null;
             ft = new Frm_Table(this, true, txt_LItemCode, currentCon, col, SQL_ar, SQL, SQLWhere);
             ft.setFocusable(true);
             ft.setVisible(true);
@@ -1593,6 +1598,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             if (TrnSetup.getDatechooser() == 1) {
                 lbl_DateSelector.setVisible(true);
                 txt_DateSelector.setVisible(true);
+            }
+            if (TrnSetup.getHoldOnly() == 1) {
+                but_TrnSave.setEnabled(false);
             }
             if (TrnSetup.getReftrntype() != null && !TrnSetup.getReftrntype().equals("")) {
 
@@ -2003,10 +2011,10 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
                     boolean statee = false;
                     if (TrnSetup.getSupPrdOnly() == 1) {
-                        MSupplier s=(MSupplier) cmb_Sup.getSelectedItem();
+                        MSupplier s = (MSupplier) cmb_Sup.getSelectedItem();
                         statee = C_Pro.checkSupplierOfProduct(ProCode, s.getId());
-                        if(statee==false){
-                            throw new Exception("Product ["+ProCode+" - "+product.getName()+"] not belongs to the supplier you select["+s.getName()+"] ");
+                        if (statee == false) {
+                            throw new Exception("Product [" + ProCode + " - " + product.getName() + "] not belongs to the supplier you select[" + s.getName() + "] ");
                         }
                     } else {
                         statee = true;
@@ -2048,10 +2056,10 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         } else {
                             txt_LQty.grabFocus();
                         }
-                        
+
                     } else {
                         clearLine();
-                      throw new Exception("Product ["+ProCode+" - "+product.getName()+"] not belongs to the supplier you select ");
+                        throw new Exception("Product [" + ProCode + " - " + product.getName() + "] not belongs to the supplier you select ");
                     }
                 } else {
                     clearLine();
@@ -2388,12 +2396,17 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
                 TStockmst stockHed = C_TrnCom.getStockHed(txt_TrnNo.getText(), TrnSetup);
                 if (stockHed != null) {
-                    String txt = stockHed.getTrnstate().equals("C") ? "**CANCELLED**" : (stockHed.getTrnstate().equals("H") ? "**HOLD**" : "");
-                    if (jr != null) {
-                        C_Report.printFromDB_Trn(jr, stockHed.getId(), TrnSetup, true, txt, true);
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " Report Not Avialable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
 
+                    int statemsg = JOptionPane.showConfirmDialog(rootPane, "Do want to Reprint this?", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+                    if (statemsg == JOptionPane.YES_OPTION) {
+                        String txt = stockHed.getTrnstate().equals("C") ? "**CANCELLED**" : (stockHed.getTrnstate().equals("H") ? "**HOLD**" : "");
+                        if (jr != null) {
+                            C_Report.printFromDB_Trn(jr, stockHed.getId(), TrnSetup, true, txt, true);
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " Report Not Avialable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+
+                        }
                     }
 
                 }
