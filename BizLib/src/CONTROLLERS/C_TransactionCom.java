@@ -64,7 +64,7 @@ public class C_TransactionCom {
 
     public void UpdateTransactionBatch(String MstId, String ProCode, String Batch) throws Exception {
         String q = "UPDATE T_STOCKLINE SET BATCH_NO='" + Batch + "' WHERE T_STOCKMST_ID='" + MstId + "' AND PROID='" + ProCode + "' ";
-        System.out.println(q);
+       // System.out.println(q);
         DB.Update(q);
     }
 
@@ -113,7 +113,7 @@ public class C_TransactionCom {
 
     public TStockmst getStockHed(String TrnNo, UTransactions TrnTyp) throws Exception {
         String q = "SELECT * FROM T_STOCKMST WHERE ID='" + TrnNo + "' AND TRNTYPE='" + TrnTyp.getTrntype() + "' ";
-        System.out.println(q);
+       // System.out.println(q);
         ResultSet rs = DB.Search(q);
 
         TStockmst sthed = null;
@@ -156,7 +156,7 @@ public class C_TransactionCom {
 
     public ArrayList<TStockline> getStockLine(String TrnNo, UTransactions TrnTyp) throws Exception {
         String q = "SELECT * FROM T_STOCKLINE WHERE T_STOCKMST_ID='" + TrnNo + "' AND TRNTYP='" + TrnTyp.getTrntype() + "' ";
-        System.out.println(q);
+      //  System.out.println(q);
         ResultSet rs = DB.Search(q);
 
         ArrayList<TStockline> ar = new ArrayList<>();

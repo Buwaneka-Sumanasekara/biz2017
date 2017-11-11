@@ -1248,7 +1248,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             }
 
             JComponent[] dis = {but_TrnSearch, but_TrnUpdate, txt_TrnNo};
-            JComponent[] enb = {but_TrnPrint, but_Add, but_TrnRefresh, but_ItemSearch, but_TrnHold, txt_FNetDis, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt, but_Add, tblTrn};
+            JComponent[] enb = {but_TrnPrint, but_Add, but_TrnRefresh, but_ItemSearch, but_TrnHold, txt_FNetDis, txt_DateSelector, cmb_Sup, cmb_Cus, cmb_SourceLoc, cmb_DestLoc, txt_RefTrn, txt_RefNo, txt_RefNo2, txt_LItemCode, txt_LCost, txt_LSell, txt_LQty, cmb_LUnit, txt_LDisPer, txt_LDisAmt, txt_LAmt,txt_FNetDis, but_Add, tblTrn};
             setDisableEnableComponents(enb, dis);
             if (TrnSetup.getHoldOnly() == 1) {
                 but_TrnSave.setEnabled(false);
@@ -1466,7 +1466,18 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             col.add("State");
             col.add("CR Date");
             col.add("MD Date");
-            String[] SQL_Col = {"ID", "TRNSTATE", "CRDATE", "MDDATE"};
+            
+              Vector<String> Sercol = new Vector<>();
+            Sercol.add("Code");
+        
+           Sercol.add("CR Date");
+           Sercol.add("MD Date");
+            
+            String[] SQL_Col = {"ID","STATE", "CRDATE", "MDDATE"};
+             String[] SQL_SerCol = {"ID", "CRDATE", "MDDATE"};
+            
+            
+            
             String SQL = "select ID,IF (TRNSTATE='H','HOLD', IF(TRNSTATE='P','PROCESSED','CANCELLED')) AS STATE,CRDATE,MDDATE from T_STOCKMST ";
 
             String SQLWhere = "   TRNTYPE='" + TrnSetup.getTrntype() + "' AND ";
@@ -1480,12 +1491,12 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             }
             if (ft == null) {
 
-                ft = new Frm_Table( txt_TrnNo, currentCon, col, SQL_Col, SQL, SQLWhere, SQLEnd);
+                ft = new Frm_Table( txt_TrnNo, currentCon, col, SQL_Col,Sercol,SQL_SerCol, SQL, SQLWhere, SQLEnd,true,false);
                 ft.setVisible(true);
 
             } else {
                 ft = null;
-                ft = new Frm_Table( txt_TrnNo, currentCon, col, SQL_Col, SQL, SQLWhere, SQLEnd);
+                ft = new Frm_Table( txt_TrnNo, currentCon, col, SQL_Col,Sercol,SQL_SerCol, SQL, SQLWhere, SQLEnd,true,false);
                 ft.setFocusable(true);
                 ft.setVisible(true);
             }
@@ -1503,13 +1514,13 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         col.add("Ref1");
         col.add("Ref2");
 
-        String SQL = " SELECT * FROM ( select p.ID,p.NAME,p.REF1,p.REF2 ";
+        String SQL = " SELECT * FROM ( select p.ID,p.NAME";
 
         ArrayList<String> SQL_Col = new ArrayList();
         SQL_Col.add("ID");
         SQL_Col.add("NAME");
         SQL_Col.add("REF1");
-        SQL_Col.add("REF2");
+        
 
         if (TrnSetup.getCprice() == 1) {
             col.add("Cost Price");
@@ -1531,6 +1542,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             i++;
         }
 
+        SQL+=",p.REF1 ";
+        
+        
         String SQLWhere = "";
         if (TrnSetup.getSupplier() == 1 && TrnSetup.getSupPrdOnly() == 1) {
             MSupplier sup = (MSupplier) cmb_Sup.getSelectedItem();
