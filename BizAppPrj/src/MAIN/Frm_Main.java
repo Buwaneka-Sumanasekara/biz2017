@@ -121,7 +121,7 @@ public class Frm_Main extends javax.swing.JFrame {
         JDesktopF.add(jLabel5);
         jLabel5.setBounds(410, 280, 90, 58);
 
-        layout_Outer.add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 870, 640));
+        layout_Outer.add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 868, 640));
 
         lbl_Global_Instructions.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lbl_Global_Instructions.setForeground(new java.awt.Color(204, 0, 0));

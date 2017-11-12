@@ -337,7 +337,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jPanel1.add(layout_TopMsgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 840, 20));
 
         lbl_TrnNo.setText("No");
-        jPanel1.add(lbl_TrnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 70, 40, 30));
+        jPanel1.add(lbl_TrnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 40, 30));
 
         txt_TrnNo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -370,7 +370,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jPanel1.add(layout_LocationsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 60, 220, 90));
 
         lbl_DateSelector.setText("Date");
-        jPanel1.add(lbl_DateSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 40, 30));
+        jPanel1.add(lbl_DateSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 40, 30));
 
         txt_DateSelector.setDateFormatString("yyyy-MM-dd");
         txt_DateSelector.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -473,7 +473,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 txt_LItemCodeActionPerformed(evt);
             }
         });
-        jPanel2.add(txt_LItemCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 120, 30));
+        jPanel2.add(txt_LItemCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 110, 30));
 
         txt_LCost.setEditable(false);
         txt_LCost.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -561,7 +561,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jPanel2.add(txt_LSell, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 100, 30));
 
         lbl_LItemCode.setText("Item Code");
-        jPanel2.add(lbl_LItemCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 110, -1));
+        jPanel2.add(lbl_LItemCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 110, -1));
 
         lbl_LCost.setText("Cost");
         jPanel2.add(lbl_LCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 100, -1));
@@ -638,7 +638,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jPanel2.add(txt_LBatch, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 90, 20));
         jPanel2.add(lbl_IsReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 20));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 850, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 860, 70));
 
         tblTrn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -693,7 +693,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(13).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 850, 280));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 850, 280));
 
         lbl_FSubTot.setText("Sub Total");
         jPanel1.add(lbl_FSubTot, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 550, -1, -1));
@@ -738,9 +738,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jFormattedTextField1.setText("jFormattedTextField1");
         jPanel1.add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 640));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 640));
 
-        setBounds(0, 0, 869, 666);
+        setBounds(0, 0, 888, 666);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_TrnHoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnHoldActionPerformed
