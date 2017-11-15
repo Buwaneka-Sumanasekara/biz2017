@@ -504,7 +504,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
 
             txt_imgurl.setVisible(false);
 
-            cmb_UserGrp.setModel(new DefaultComboBoxModel(cug.getUserGroups(true, false)));
+            cmb_UserGrp.setModel(new DefaultComboBoxModel(cug.getUserGroups(true, false,1)));
             ChangeActive();
             layout_ResetPass.setVisible(false);
 

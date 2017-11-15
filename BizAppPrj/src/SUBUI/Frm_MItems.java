@@ -7,6 +7,7 @@ package SUBUI;
 
 import COMMONFUN.CommonFun;
 import CONTROLLERS.C_GroupCommon;
+import CONTROLLERS.C_Locations;
 import CONTROLLERS.C_Products;
 import CONTROLLERS.C_Propertise;
 import CONTROLLERS.C_Suppliers;
@@ -21,13 +22,23 @@ import MODELS.MPropertise;
 import MODELS.MStocks;
 import MODELS.MSupplier;
 import MODELS.MUnitGroup;
+import static SUBUI.Frm_SUserCreation.getExtension;
 import UI.Frm_Table;
 import VALIDATIONS.MyValidator;
 import WINMNG.MyWindowBasicControllers;
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -35,11 +46,14 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -54,22 +68,23 @@ import javax.swing.text.MaskFormatter;
  * @author HOME
  */
 public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBasicControllers {
-    
+
     C_GroupCommon CGroup = null;
     C_Units CUnit = null;
     C_Propertise CPropertise = null;
     C_Products CProducts = null;
     C_Suppliers CSuppliers = null;
+    C_Locations CLoc = null;
     CommonFun cf = null;
-    
+
     Frm_Table ft = null;
-    
+
     Frm_Main mainW = null;
     MyValidator fv = null;
-    
+
     public Frm_MItems(Frm_Main mainw, String ScreenName) {
         initComponents();
-        
+
         this.setTitle(ScreenName);
         this.lblScreenName.setText(ScreenName);
         this.mainW = mainw;
@@ -80,6 +95,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         this.CPropertise = new C_Propertise();
         this.CProducts = new C_Products();
         this.CSuppliers = new C_Suppliers();
+        this.CLoc = new C_Locations();
         try {
             CreateLayOut();
         } catch (Exception ex) {
@@ -101,6 +117,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        img_chooser = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         but_Update = new javax.swing.JButton();
@@ -182,6 +199,10 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jPanel3 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblBatches = new javax.swing.JTable();
+        jPanel7 = new javax.swing.JPanel();
+        txt_imgurl = new javax.swing.JLabel();
+        lblProImg = new javax.swing.JLabel();
+        but_ProImgChoose = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -662,14 +683,14 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
             },
             new String [] {
-                "Batch", "Cost", "Sell", "SIH", "Unit", "Active"
+                "Location", "Batch", "Cost", "Sell", "SIH", "Unit", "Active"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                true, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -682,17 +703,33 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         });
         jScrollPane5.setViewportView(tblBatches);
         if (tblBatches.getColumnModel().getColumnCount() > 0) {
-            tblBatches.getColumnModel().getColumn(0).setResizable(false);
             tblBatches.getColumnModel().getColumn(1).setResizable(false);
             tblBatches.getColumnModel().getColumn(2).setResizable(false);
             tblBatches.getColumnModel().getColumn(3).setResizable(false);
             tblBatches.getColumnModel().getColumn(4).setResizable(false);
             tblBatches.getColumnModel().getColumn(5).setResizable(false);
+            tblBatches.getColumnModel().getColumn(6).setResizable(false);
         }
 
-        jPanel3.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 560, 450));
+        jPanel3.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 720, 450));
 
         ParentLayout.addTab("Batches", jPanel3);
+
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel7.add(txt_imgurl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 320, 20));
+
+        lblProImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel7.add(lblProImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 230, 270));
+
+        but_ProImgChoose.setText("Choose Image");
+        but_ProImgChoose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_ProImgChooseActionPerformed(evt);
+            }
+        });
+        jPanel7.add(but_ProImgChoose, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 350, -1, -1));
+
+        ParentLayout.addTab("Image", jPanel7);
 
         jPanel1.add(ParentLayout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 850, 600));
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
@@ -750,7 +787,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_cmbG5ActionPerformed
 
     private void cmbG3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG3ActionPerformed
-        
+
         loadGroups(3);
         SetProductName();
     }//GEN-LAST:event_cmbG3ActionPerformed
@@ -761,13 +798,13 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_cmbG2ActionPerformed
 
     private void cmbG1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG1ActionPerformed
-        
+
         loadGroups(1);
         SetProductName();
     }//GEN-LAST:event_cmbG1ActionPerformed
 
     private void cmbG4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG4ActionPerformed
-        
+
         loadGroups(4);
         SetProductName();
     }//GEN-LAST:event_cmbG4ActionPerformed
@@ -814,7 +851,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
     private void butSupAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSupAddActionPerformed
         MSupplier sup = (MSupplier) cmb_Suppliers.getSelectedItem();
-        
+
         ListModel dlm = List_Sup.getModel();
         Vector v = new Vector();
         for (int i = 0; i < dlm.getSize(); i++) {
@@ -825,13 +862,13 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         v.add(sup);
         List_Sup.removeAll();
         List_Sup.setListData(v);
-        
+
 
     }//GEN-LAST:event_butSupAddActionPerformed
 
     private void List_SupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_List_SupMouseClicked
         if (List_Sup.getSelectedIndex() >= 0) {
-            
+
             MSupplier m = (MSupplier) List_Sup.getSelectedValue();
             txtSupName.setText(m.getName());
             txtSupContact.setText(m.getContact());
@@ -856,6 +893,16 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         }
     }//GEN-LAST:event_List_SupKeyPressed
 
+    private void but_ProImgChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ProImgChooseActionPerformed
+        int returnval = img_chooser.showOpenDialog(but_ProImgChoose);
+        if (returnval == JFileChooser.APPROVE_OPTION) {
+            File file = img_chooser.getSelectedFile();
+            setLableImage(file);
+
+        }
+
+    }//GEN-LAST:event_but_ProImgChooseActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Chk_ProActive;
@@ -864,6 +911,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JButton butCreateShortName;
     private javax.swing.JButton butPropAdd;
     private javax.swing.JButton butSupAdd;
+    private javax.swing.JButton but_ProImgChoose;
     private javax.swing.JButton but_Refresh;
     private javax.swing.JButton but_Save;
     private javax.swing.JButton but_Search;
@@ -877,6 +925,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JComboBox cmbProp;
     private javax.swing.JComboBox cmbUnits;
     private javax.swing.JComboBox cmb_Suppliers;
+    private javax.swing.JFileChooser img_chooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -902,6 +951,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -923,6 +973,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JLabel lblG3;
     private javax.swing.JLabel lblG4;
     private javax.swing.JLabel lblG5;
+    private javax.swing.JLabel lblProImg;
     private javax.swing.JLabel lblScreenName;
     private javax.swing.JTable tblBatches;
     private javax.swing.JTable tblProperty;
@@ -939,6 +990,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JLabel txtSupContactPer;
     private javax.swing.JLabel txtSupMobile;
     private javax.swing.JLabel txtSupName;
+    private javax.swing.JLabel txt_imgurl;
     private javax.swing.JTextField txtprocost;
     private javax.swing.JTextField txtpromarkup;
     private javax.swing.JTextField txtprosellprice;
@@ -950,8 +1002,9 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             int showConfirmDialog = JOptionPane.showConfirmDialog(rootPane, "Do you want to add/Update Product?", GlobalData.MESSAGEBOX, JOptionPane.YES_NO_OPTION);
             if (showConfirmDialog == JOptionPane.YES_OPTION) {
                 if (validateProduct()) {
-                    
+
                     MProducts p = new MProducts();
+
                     p.setId(txtProCode.getText());
                     p.setName(txtProName.getText());
                     p.setPrintdes(txtProShortName.getText());
@@ -969,7 +1022,18 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     p.setRef2(txtRef2.getText());
                     p.setMUserByCruser(GlobalData.CurUser.getId());
                     p.setMUserByMduser(GlobalData.CurUser.getId());
-                    
+
+                    if (txtProCode.getText().length() == 0) {
+                        if (txt_imgurl.getText().length() > 0) {
+
+                            p.setProImg(getExtension(new File(txt_imgurl.getText())));
+                        } else {
+                            p.setProImg("");
+                        }
+                    } else {
+                        p.setProImg("MyData/Users/USER_" + p.getId() + "." + getExtension(new File(txt_imgurl.getText())));
+                    }
+
                     MUnitGroup ug = (MUnitGroup) cmbUnits.getSelectedItem();
                     if (ug != null) {
                         p.setUnitGroupId(ug.getUnitGroupId());
@@ -981,13 +1045,13 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                         String propval = tblProp.getValueAt(i, 2).toString();
                         VProProp.add(new MProductPropertise(txtProCode.getText(), prop.getPropId().toString(), propval));
                     }
-                    
+
                     ListModel dlm = List_Sup.getModel();
                     Vector vSup = new Vector();
                     for (int i = 0; i < dlm.getSize(); i++) {
-                        
+
                         vSup.add(dlm.getElementAt(i));
-                        
+
                     }
                     try {
                         String saveProduct = CProducts.addProduct(p, VProProp, vSup);
@@ -1001,16 +1065,68 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             }
         }
     }
+
+    public static String getExtension(File f) {
+        String ext = null;
+        String s = f.getName();
+        int i = s.lastIndexOf('.');
+
+        if (i > 0 && i < s.length() - 1) {
+            ext = s.substring(i + 1).toLowerCase();
+        }
+        return ext;
+    }
+
+    private void uploadImage(String imgurl, String proid) throws Exception {
+        if (imgurl.length() > 0) {
+
+            File f = new File(imgurl);
+            if (f.exists()) {
+                Path FROM = Paths.get(f.getAbsolutePath());
+
+                Path TO = Paths.get("MyData\\Products\\PRO_" + proid + "." + getExtension(f));
+                //overwrite existing file, if exists
+                CopyOption[] options = new CopyOption[]{
+                    StandardCopyOption.REPLACE_EXISTING,
+                    StandardCopyOption.COPY_ATTRIBUTES
+                };
+                Files.copy(FROM, TO, options);
+            }
+
+        }
+
+    }
+
+    private void setLableImage(File file) {
+        if (file.exists()) {
+            System.out.println(file.getAbsolutePath());
+            txt_imgurl.setText(file.getAbsolutePath());
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Image dimg = img.getScaledInstance(lblProImg.getWidth(),lblProImg.getHeight(),
+                    Image.SCALE_SMOOTH);
+
+            lblProImg.setIcon(new ImageIcon(dimg));
+        } else {
+            lblProImg.setIcon(null); // NOI18N
+        }
+
+    }
+    
     
     @Override
     public void EditMode() {
         if (but_Update.isEnabled()) {
-            JComponent enablecom[] = {but_Refresh, but_Save, layout_Basic, layoutGroups,txtProName, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
-            JComponent disablecom[] = {but_Search, but_Update,txtProCode};
+            JComponent enablecom[] = {but_Refresh, but_Save, layout_Basic, layoutGroups, txtProName, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+            JComponent disablecom[] = {but_Search, but_Update, txtProCode};
             setDisableEnableComponents(enablecom, disablecom);
         }
     }
-    
+
     @Override
     public void Refresh() {
         try {
@@ -1022,9 +1138,9 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             //Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void setShortCutKeys(JInternalFrame f) {
-        
+
         String exit = "exit";
         InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap0.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), exit);
@@ -1033,10 +1149,10 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             public void actionPerformed(ActionEvent e) {
                 exit();
             }
-            
+
         }
         );
-        
+
         String Search = "Search";
         InputMap inputMap1 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap1.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), Search);
@@ -1045,10 +1161,10 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             public void actionPerformed(ActionEvent e) {
                 SearchMode();
             }
-            
+
         }
         );
-        
+
         String Save = "Save";
         InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), Save);
@@ -1057,10 +1173,10 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             public void actionPerformed(ActionEvent e) {
                 SaveProcess();
             }
-            
+
         }
         );
-        
+
         String Edit = "Edit";
         InputMap inputMap3 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap3.put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), Edit);
@@ -1069,10 +1185,10 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             public void actionPerformed(ActionEvent e) {
                 EditMode();
             }
-            
+
         }
         );
-        
+
         String Refresh = "Refresh";
         InputMap inputMap4 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap4.put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), Refresh);
@@ -1081,24 +1197,24 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             public void actionPerformed(ActionEvent e) {
                 Refresh();
             }
-            
+
         }
         );
-        
+
     }
-    
+
     private void exit() {
-        
+
         try {
             this.setClosed(true);
             mainW.CurrentFrame = "";
-            
+
         } catch (PropertyVetoException ex) {
             Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     @Override
     public void setDisableEnableComponents(JComponent[] EnComlist, JComponent[] DisComlist) {
         for (JComponent c : DisComlist) {
@@ -1121,16 +1237,16 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 c.setEnabled(true);
             }
         }
-        
+
     }
-    
+
     @Override
     public void SearchMode() {
         if (but_Search.isEnabled()) {
             Vector<String> col = new Vector<>();
             col.add("Code");
             col.add("Des");
-            
+
             String[] SQL_Col = {"ID", "NAME"};
             String SQL = "select ID,NAME from M_PRODUCTS ";
             String SQLWhere = "";
@@ -1141,10 +1257,10 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (ft == null) {
-                
+
                 ft = new Frm_Table(txtProCode, currentCon, col, SQL_Col, SQL, SQLWhere);
                 ft.setVisible(true);
-                
+
             } else {
                 ft = null;
                 ft = new Frm_Table(txtProCode, currentCon, col, SQL_Col, SQL, SQLWhere);
@@ -1153,39 +1269,39 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             }
         }
     }
-    
+
     private void CreateLayOut() throws Exception {
-        
+
         Map<Integer, String> GroupNames = CGroup.getGroupDisplayNames();
         lblG1.setText(GroupNames.get(1));
         lblG2.setText(GroupNames.get(2));
         lblG3.setText(GroupNames.get(3));
         lblG4.setText(GroupNames.get(4));
         lblG5.setText(GroupNames.get(5));
-        
+
         loadGroups(0);
-        
+
         cmbUnits.setModel(new DefaultComboBoxModel(CUnit.findAllUnitGroups()));
         cmbProp.setModel(new DefaultComboBoxModel(CPropertise.getAllPropertise()));
         loadUnitGroupData();
-        
+
         MPropertise selectedItem = (MPropertise) cmbProp.getSelectedItem();
         if (selectedItem != null) {
             lblFormat.setText("[" + selectedItem.getFormat() + "]");
-            
+
             MaskFormatter mfWarranty = new MaskFormatter("##-##-##");
-            
+
             switch (selectedItem.getDataType()) {
                 case 6:
-                    
+
                     txtFproVal.setFormatterFactory(new DefaultFormatterFactory(mfWarranty));
             }
         }
-        
+
         cmb_Suppliers.setModel(new DefaultComboBoxModel(CSuppliers.getAllSuppliers()));
-        
+
     }
-    
+
     private void SetProductName() {
         ArrayList<MGroupCommon> GList = new ArrayList<>();
         GList.add((MGroupCommon) cmbG1.getSelectedItem());
@@ -1193,14 +1309,14 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         GList.add((MGroupCommon) cmbG3.getSelectedItem());
         GList.add((MGroupCommon) cmbG4.getSelectedItem());
         GList.add((MGroupCommon) cmbG5.getSelectedItem());
-        
+
         String productName = cf.getProductName(GList);
         txtProName.setText(productName);
     }
-    
+
     private void addProperty() {
         if (cmbProp.getSelectedItem() != null && !txtFproVal.getText().equals("") && txtFproVal.isEditValid()) {
-            
+
             MPropertise p = (MPropertise) cmbProp.getSelectedItem();
             removePropIfExists(p);
             DefaultTableModel tmodel = (DefaultTableModel) tblProperty.getModel();
@@ -1209,29 +1325,29 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             v.add(p.getFormat());
             v.add(txtFproVal.getText());
             tmodel.addRow(v);
-            
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please enter valid values!", GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
         }
-        
+
     }
-    
+
     private void RemoveProperty() {
-        
+
         try {
             int selectedRow = tblProperty.getSelectedRow();
             if (selectedRow > -1) {
                 MPropertise p = (MPropertise) tblProperty.getValueAt(selectedRow, 0);
-                
+
                 removePropIfExists(p);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
-            
+
         }
-        
+
     }
-    
+
     private void removePropIfExists(MPropertise NewProp) {
         DefaultTableModel tbl = (DefaultTableModel) tblProperty.getModel();
         for (int i = 0; i < tbl.getRowCount(); i++) {
@@ -1242,14 +1358,14 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             }
         }
     }
-    
+
     public boolean validateProduct() {
         boolean state = true;
-        
+
         if (txtProName.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Item Name cannot be empty!", GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
             state = false;
-            
+
         } else if (txtProShortName.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Item Short Name cannot be empty!", GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
             state = false;
@@ -1263,23 +1379,23 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             JOptionPane.showMessageDialog(rootPane, "Select Unit group", GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
             state = false;
         }
-        
+
         return state;
     }
-    
+
     private int getActiveUnitsCount() {
         int count = 0;
-        
+
         DefaultTableModel tbl = (DefaultTableModel) tblUnits.getModel();
         for (int i = 0; i < tbl.getRowCount(); i++) {
-            
+
             count++;
-            
+
         }
         return count;
-        
+
     }
-    
+
     private void Clear() {
         txtProCode.setText("");
         txtProName.setText("");
@@ -1290,31 +1406,31 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         txtprosellprice.setText("");
         txtpromarkup.setText("");
         txtFproVal.setText("");
-        
+
         Chk_ProActive.setSelected(true);
-        
+
         DefaultTableModel tmodel = (DefaultTableModel) tblProperty.getModel();
         tmodel.setRowCount(0);
         DefaultTableModel tmodel2 = (DefaultTableModel) tblUnits.getModel();
         tmodel2.setRowCount(0);
-        
+
         DefaultTableModel dtm2 = (DefaultTableModel) tblBatches.getModel();
         dtm2.setRowCount(0);
-        
+
         Vector v = new Vector();
         List_Sup.setListData(v);
-        
+
         txtProCode.grabFocus();
         JComponent disablecom[] = {but_Update};
-        
+
         JComponent enablecom[] = {but_Search, List_Sup, butSupAdd, tblProperty, tblUnits, layoutUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
-        
+
         setDisableEnableComponents(enablecom, disablecom);
         ParentLayout.setSelectedIndex(0);
         txtProCode.grabFocus();
-        
+
     }
-    
+
     private void changeSellPrice() {
         if (!txtpromarkup.getText().equals("") && !txtprocost.getText().equals("")) {
             double markup = Double.parseDouble(txtpromarkup.getText());
@@ -1323,16 +1439,16 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             txtprosellprice.setText("" + sellp);
         }
     }
-    
+
     private void loadProduct() {
         if (!txtProCode.getText().equals("")) {
             try {
                 MProducts product = CProducts.getProduct(txtProCode.getText());
                 if (product != null) {
-                    JComponent disablecom[] = {but_Search, List_Sup, butSupAdd,txtProCode, tblProperty, tblUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+                    JComponent disablecom[] = {but_Search, List_Sup, butSupAdd, txtProCode, tblProperty, tblUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
                     JComponent enablecom[] = {but_Refresh, but_Update};
                     setDisableEnableComponents(enablecom, disablecom);
-                    
+
                     txtProName.setText(product.getName());
                     txtProShortName.setText(product.getPrintdes());
                     Chk_ProActive.setSelected((product.getActive() == 1 ? true : false));
@@ -1346,77 +1462,78 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     cmbG3.setSelectedItem(CGroup.IsExists("m_group3", product.getMGroup3()));
                     cmbG4.setSelectedItem(CGroup.IsExists("m_group4", product.getMGroup4()));
                     cmbG5.setSelectedItem(CGroup.IsExists("m_group5", product.getMGroup5()));
-                    
+
                     Vector<MProductPropertise> productPropertise = CProducts.getProductPropertise(product.getId());
                     DefaultTableModel dtm1 = (DefaultTableModel) tblProperty.getModel();
                     dtm1.setRowCount(0);
                     for (MProductPropertise mProductPropertise : productPropertise) {
-                        
+
                         Vector v = new Vector();
                         MPropertise property = CPropertise.getProperty(mProductPropertise.getPropertyId());
                         v.add(property);
                         v.add(property.getFormat());
                         v.add(mProductPropertise.getPropertyValue());
-                        
+
                         dtm1.addRow(v);
                     }
-                    
+
                     List_Sup.setListData(CProducts.getAllSuppliers(product.getId()));
-                    
+
                     DefaultTableModel dtm2 = (DefaultTableModel) tblBatches.getModel();
                     dtm2.setRowCount(0);
                     ArrayList<MStocks> ar = CProducts.getAllBatches(product.getId());
                     for (MStocks mStocks : ar) {
                         Vector v = new Vector();
+                        v.add(CLoc.getLocation(mStocks.getLocId()));
                         v.add(mStocks.getBatchNo());
                         v.add(mStocks.getCostPrice());
                         v.add(mStocks.getSellPrice());
                         v.add(mStocks.getSIH());
                         v.add(CUnit.getUnit(mStocks.getUnitId()).getSymble());
-                        v.add((mStocks.getActive() == 1 ? true : false));
+                        v.add((mStocks.getActive() == 1));
                         dtm2.addRow(v);
                     }
-                    
+
                 }
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
-            
+
         }
     }
-    
+
     private void loadGroups(int selectedGroup) {
-        
+
         try {
             ArrayList<String> ar = new ArrayList<>();
-            
+
             if (selectedGroup < 1) {
                 cmbG1.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(1, true)));
             }
             MGroupCommon G1 = (MGroupCommon) cmbG1.getSelectedItem();
-            
+
             if (G1 != null) {
                 ar.add(G1.getId());
             }
-            
+
             if (selectedGroup < 2) {
                 cmbG2.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(2, ar)));
             }
             MGroupCommon G2 = (MGroupCommon) cmbG2.getSelectedItem();
-            
+
             if (G2 != null) {
                 ar.add(G2.getId());
             }
-            
+
             if (selectedGroup < 3) {
                 cmbG3.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(3, ar)));
             }
             MGroupCommon G3 = (MGroupCommon) cmbG3.getSelectedItem();
-            
+
             if (G3 != null) {
                 ar.add(G3.getId());
             }
-            
+
             if (selectedGroup < 4) {
                 cmbG4.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(4, ar)));
             }
@@ -1424,16 +1541,16 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             if (G4 != null) {
                 ar.add(G4.getId());
             }
-            
+
             if (selectedGroup < 5) {
                 cmbG5.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(5, ar)));
             }
-            
+
         } catch (Exception e) {
-            
+
         }
     }
-    
+
     private void loadUnitGroupData() {
         MUnitGroup ug = (MUnitGroup) cmbUnits.getSelectedItem();
         DefaultTableModel dtm = (DefaultTableModel) tblUnits.getModel();
@@ -1447,28 +1564,28 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             // Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void changePropTyp() {
-        
+
         MPropertise selectedItem = (MPropertise) cmbProp.getSelectedItem();
         if (selectedItem != null) {
             try {
                 lblFormat.setText("[" + selectedItem.getFormat() + "]");
-                
+
                 MaskFormatter mfWarranty = new MaskFormatter("##-##-##");
                 txtFproVal.setText("");
                 switch (selectedItem.getDataType()) {
                     case 5:
-                        
+
                         txtFproVal.setFormatterFactory(new DefaultFormatterFactory(mfWarranty));
                     default:
                         txtFproVal.setFormatterFactory(new DefaultFormatterFactory());
                 }
-                
+
             } catch (ParseException ex) {
                 Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
 }

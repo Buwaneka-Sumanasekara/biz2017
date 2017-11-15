@@ -31,7 +31,7 @@ public final class Frm_Start extends javax.swing.JDialog {
     public Frm_Start(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
- this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+        this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
         GlobalData.Setup = C_Setup.getSetupRec();
         GlobalData.Settings = SETTINGS.Settings.readFile();
         TblStru = new TableStruCreation();
@@ -203,8 +203,6 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20171108_t1 = new Structure(20171108, "U_REPORTS", ar_20171108_t1, ar_20171108_t1PK);
         arStructures.add(str_20171108_t1);
 
-        
-        
         ArrayList<TblColumn> ar_20171108_t2 = new ArrayList<>();
         ar_20171108_t2.add(new TblColumn("SUP_PROD_ONLY", "INT", "NOT NULL DEFAULT 0"));
         ar_20171108_t2.add(new TblColumn("CHANGE_SPRICE", "INT", "NOT NULL DEFAULT 0"));
@@ -216,8 +214,97 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         Structure str_20171108_t2 = new Structure(20171108, "u_transactions", ar_20171108_t2, ar_20171108_t2PK);
         arStructures.add(str_20171108_t2);
-        
-        
+
+        ArrayList<String> q_20171114_t1 = new ArrayList<>();
+        q_20171114_t1.add(" DECLARE UNIT_VOL DOUBLE DEFAULT '0' ");
+        q_20171114_t1.add(" select ugu.VOLUME INTO UNIT_VOL from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id  ");
+        q_20171114_t1.add(" RETURN UNIT_VOL  ");
+        Structure str_20171114_t1 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_getUnitVol ", " unit_grp VARCHAR(100),unit_id VARCHAR(100) ", q_20171114_t1, " DOUBLE ");
+        arStructures.add(str_20171114_t1);
+
+        ArrayList<String> q_20171114_t2 = new ArrayList<>();
+        q_20171114_t2.add(" DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0' ");
+        q_20171114_t2.add(" DECLARE UNIT_VOL_MAX  DOUBLE DEFAULT '0' ");
+        q_20171114_t2.add(" select ugu.VOLUME INTO UNIT_VOL_CUR from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id   ");
+        q_20171114_t2.add(" select ugu.VOLUME INTO UNIT_VOL_MAX from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME desc limit 1   ");
+        q_20171114_t2.add(" RETURN ((qty*UNIT_VOL_CUR)/UNIT_VOL_MAX) ");
+        Structure str_20171114_t2 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_ConvMaxUnit ", " unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ", q_20171114_t2, " DOUBLE ");
+        arStructures.add(str_20171114_t2);
+
+        ArrayList<String> q_20171114_t3 = new ArrayList<>();
+        q_20171114_t3.add(" DECLARE UNIT_ID VARCHAR(100) DEFAULT '' ");
+        q_20171114_t3.add(" select ugu.M_UNITS_ID  INTO UNIT_ID from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME DESC LIMIT 1   ");
+        q_20171114_t3.add(" RETURN UNIT_ID  ");
+        Structure str_20171114_t3 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_getMaxUnit ", " unit_grp VARCHAR(100) ", q_20171114_t3, " VARCHAR(100) ");
+        arStructures.add(str_20171114_t3);
+
+        ArrayList<String> q_20171114_t4 = new ArrayList<>();
+        q_20171114_t4.add(" DECLARE UNIT_SYM VARCHAR(100) DEFAULT '' ");
+        q_20171114_t4.add(" SELECT SYMBLE INTO UNIT_SYM FROM m_units WHERE ID=unit_id ");
+        q_20171114_t4.add(" RETURN UNIT_SYM  ");
+        Structure str_20171114_t4 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_getUnitSym ", " unit_id VARCHAR(100) ", q_20171114_t4, " VARCHAR(100) ");
+        arStructures.add(str_20171114_t4);
+
+        ArrayList<TblColumn> ar_20171114_t6 = new ArrayList<>();
+
+        ar_20171114_t6.add(new TblColumn("M_PRODUCTS_ID", "VARCHAR(50)", "NOT NULL"));
+        ar_20171114_t6.add(new TblColumn("PRONAME", "VARCHAR(200)", "NOT NULL"));
+        ar_20171114_t6.add(new TblColumn("SIH", "DOUBLE", "NOT NULL"));
+        ar_20171114_t6.add(new TblColumn("UNIT_ID", "VARCHAR(50)", "NOT NULL"));
+        ar_20171114_t6.add(new TblColumn("UNIT_SYM", "VARCHAR(50)", "NOT NULL"));
+        ar_20171114_t6.add(new TblColumn("BATCHNO", "VARCHAR(50)", "NOT NULL"));
+        ar_20171114_t6.add(new TblColumn("M_LOCATION_ID", "INT", "NOT NULL"));
+
+        ArrayList<String> ar_20171114_t6PK = new ArrayList<>();
+        ar_20171114_t6PK.add("M_PRODUCTS_ID");
+        ar_20171114_t6PK.add("BATCHNO");
+        ar_20171114_t6PK.add("M_LOCATION_ID");
+
+        Structure str_20171114_t6 = new Structure(20171114, "M_STOCKS_TEM", ar_20171114_t6, ar_20171114_t6PK);
+        arStructures.add(str_20171114_t6);
+
+        ArrayList<String> q_20171114_t5 = new ArrayList<>();
+        q_20171114_t5.add(" TRUNCATE TABLE  M_STOCKS_TEM ");
+        String q_20171114_t5_str = " INSERT INTO M_STOCKS_TEM (SELECT PROID,NAME,sum(SIH) AS SIH,UNITID,UNIT,BATCH,LOCID FROM ";
+        q_20171114_t5_str += " ( ";
+        q_20171114_t5_str += " (select p.ID as PROID,p.NAME as NAME,0 as SIH,strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID, ";
+        q_20171114_t5_str += " strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,'0001' as BATCH,l.ID as LOCID  ";
+        q_20171114_t5_str += " from m_products p cross join m_location l  ";
+        q_20171114_t5_str += " where p.ACTIVE=1 AND l.ACTIVE=1 ) ";
+        q_20171114_t5_str += " union all ";
+        q_20171114_t5_str += " (SELECT SL.PROID AS PROID,P.NAME AS NAME,SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)) AS SIH, ";
+        q_20171114_t5_str += " strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,SL.BATCH_NO AS BATCH, ";
+        q_20171114_t5_str += " SM.M_LOCATION_SOURCE as LOCID ";
+        q_20171114_t5_str += " FROM t_stockmst SM ";
+        q_20171114_t5_str += " inner join t_stockline SL ";
+        q_20171114_t5_str += " on SM.ID=SL.T_STOCKMST_ID and SM.TRNTYPE=SL.TRNTYP ";
+        q_20171114_t5_str += " inner join u_transactions u ";
+        q_20171114_t5_str += " on SM.TRNTYPE=u.TRNTYPE ";
+        q_20171114_t5_str += " INNER JOIN m_products P ";
+        q_20171114_t5_str += " on SL.PROID=P.ID ";
+        q_20171114_t5_str += " where SM.TRNSTATE='P' ";
+        q_20171114_t5_str += " GROUP BY SL.PROID,P.NAME) ";
+        q_20171114_t5_str += " )A ";
+        q_20171114_t5_str += " WHERE A.LOCID=loc_code ";
+        q_20171114_t5_str += " group by  A.PROID,A.NAME,A.LOCID,A.BATCH,A.UNIT ";
+        q_20171114_t5_str += " order by  A.PROID,A.NAME,A.LOCID )";
+        q_20171114_t5.add(q_20171114_t5_str);
+
+        Structure str_20171114_t5 = new Structure(20171114, TableStruCreation.STR_PROC, " strp_StockBalance ", " loc_code INT ", q_20171114_t5);
+        arStructures.add(str_20171114_t5);
+
+        ArrayList<String> q_20171114_t7 = new ArrayList<>();
+        q_20171114_t7.add(" CALL strp_StockBalance(loc_code) ");
+        q_20171114_t7.add(" UPDATE  M_STOCKS  S INNER JOIN M_STOCKS_TEM TS ON S.M_PRODUCTS_ID=TS.M_PRODUCTS_ID AND S.BATCHNO=TS.BATCHNO AND S.M_LOCATION_ID=TS.M_LOCATION_ID SET S.SIH=TS.SIH  ");
+        Structure str_20171114_t7 = new Structure(20171114, TableStruCreation.STR_PROC, " strp_UpdateStockBalance ", " loc_code INT ", q_20171114_t7);
+        arStructures.add(str_20171114_t7);
+
+        ArrayList<TblColumn> ar_20171114_t8 = new ArrayList<>();
+        ar_20171114_t8.add(new TblColumn("PRO_IMG", "VARCHAR(100)", ""));
+        ArrayList<String> ar_20171114_t8PK = new ArrayList<>();
+        ar_20171114_t8PK.add("ID");
+        Structure str_20171114_t8 = new Structure(20171114, "m_products", ar_20171114_t8, ar_20171114_t8PK);
+        arStructures.add(str_20171114_t8);
         
         
         
@@ -241,6 +328,8 @@ public final class Frm_Start extends javax.swing.JDialog {
                         TblStru.createTable(structure.getTableName(), structure.getColumns(), structure.getPrimaryKeys());
                     } else if (structure.getType().equals(TableStruCreation.STR_FUN)) {
                         TblStru.createStoredFunction(structure.getName(), structure.getParameters(), structure.getLines(), structure.getReturnType());
+                    } else if (structure.getType().equals(TableStruCreation.STR_PROC)) {
+                        TblStru.createStoredProcedure(structure.getName(), structure.getParameters(), structure.getLines());
                     } else {
                         TblStru.executeSql(structure.getSQL());
                     }
@@ -397,6 +486,15 @@ public final class Frm_Start extends javax.swing.JDialog {
             this.Type = Type;
         }
 
+        public Structure(int version, String Type, String Name, String Parameters, ArrayList<String> Lines) {
+            this.version = version;
+            this.Name = Name;
+            this.Parameters = Parameters;
+            this.Lines = Lines;
+
+            this.Type = Type;
+        }
+
         public int getVersion() {
             return version;
         }
@@ -500,11 +598,11 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         try {
             ArrayList<RptCommon> allReportSetup = cRptSetup.getAllReportSetup();
-           
+
             for (RptCommon rptCommon : allReportSetup) {
                 if (rptCommon.getRptPath() != null && rptCommon.getRptPath().length() > 0) {
                     String MasterreportPath = "Reports\\" + rptCommon.getRptPath();
-                   // System.err.println(MasterreportPath);
+                    // System.err.println(MasterreportPath);
                     File f = new File(MasterreportPath);
                     if (f.exists()) {
                         try {
@@ -514,8 +612,8 @@ public final class Frm_Start extends javax.swing.JDialog {
                             System.err.println("COMPINLING REPORTS[TRANSACTIONS]:" + ex.getMessage());
                         }
                     }
-                }else{
-                 //  System.err.println(rptCommon.getId()+" - "+ rptCommon.getName()+": Report path empty ");
+                } else {
+                    //  System.err.println(rptCommon.getId()+" - "+ rptCommon.getName()+": Report path empty ");
                 }
             }
         } catch (Exception ex) {

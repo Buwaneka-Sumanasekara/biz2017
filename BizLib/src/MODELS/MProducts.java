@@ -30,7 +30,11 @@ public class MProducts  implements java.io.Serializable {
      private String ref1;
      private String ref2;
 private String UnitGroupId;
+private String proImg;
      
+
+
+
     public Double getMarkup() {
         return markup;
     }
@@ -193,6 +197,14 @@ private String UnitGroupId;
 
     public void setUnitGroupId(String UnitGroupId) {
         this.UnitGroupId = UnitGroupId;
+    }
+
+    public String getProImg() {
+        return proImg;
+    }
+
+    public void setProImg(String proImg) {
+        this.proImg = proImg;
     }
      
   

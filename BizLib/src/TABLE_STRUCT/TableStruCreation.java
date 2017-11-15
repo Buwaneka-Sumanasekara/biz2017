@@ -26,7 +26,7 @@ public class TableStruCreation {
         try {
             String q = "SELECT * FROM INFORMATION_SCHEMA.TABLES ";
             q += " WHERE table_schema='BIZDB' AND TABLE_NAME='" + TableName + "' ";
-            System.out.println(q);
+          //  System.out.println(q);
             ResultSet rs = DB.Search(q);
             if (rs.next()) {
                 state = true;
@@ -43,7 +43,7 @@ public class TableStruCreation {
         try {
             String q = "SELECT TABLE_CATALOG,TABLE_NAME,COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS ";
             q += " WHERE table_schema='BIZDB' AND TABLE_NAME='" + TableName + "' AND COLUMN_NAME='" + ColumnName + "' ";
-            System.out.println(q);
+          //  System.out.println(q);
             ResultSet rs = DB.Search(q);
             if (rs.next()) {
                 state = true;
@@ -140,6 +140,22 @@ public class TableStruCreation {
         String q="";
         q+=" CREATE FUNCTION "+strd_F_Name+" ("+parameters+") ";
         q+=" RETURNS "+ReturnType+" ";
+        q+=" BEGIN ";
+        for (String q_line : lines) {
+            q+=" "+q_line+" ;";
+        }
+        q+=" END ";
+        
+        DB.Save(q);
+    }
+    
+     public void createStoredProcedure(String strd_P_Name,String parameters,ArrayList<String> lines) throws Exception{
+        String q0="DROP PROCEDURE IF EXISTS "+strd_P_Name+" ";
+         DB.Save(q0);
+        
+        String q="";
+        q+=" CREATE PROCEDURE "+strd_P_Name+" ("+parameters+") ";
+    
         q+=" BEGIN ";
         for (String q_line : lines) {
             q+=" "+q_line+" ;";

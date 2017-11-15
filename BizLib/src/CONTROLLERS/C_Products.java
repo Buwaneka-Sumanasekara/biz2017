@@ -15,6 +15,7 @@ import MODELS.MSupplier;
 import QUERYBUILDER.QueryGen;
 import VALIDATIONS.MyValidator;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -42,11 +43,11 @@ public class C_Products {
         CSup = new C_Suppliers();
     }
 
-    public void createStocksForProduct(MProducts p, Boolean createBatch, String BaseUnitId) throws Exception {
-        createStocksForProduct(p, createBatch, BaseUnitId, 0.0);
+    public void createStocksForProductt(MProducts p, Boolean createBatch, String unitGrp) throws Exception {
+        createStocksForProductt(p, createBatch, unitGrp, 0.0);
     }
 
-    public void createStocksForProduct(MProducts p, Boolean createBatch, String BaseUnitId, Double Qty) throws Exception {
+    public void createStocksForProductt(MProducts p, Boolean createBatch, String unitGrp, Double Qty) throws Exception {
 
         ArrayList<MLocation> allLocations = l.getAllLocations();
         for (MLocation mLocation : allLocations) {
@@ -64,7 +65,7 @@ public class C_Products {
             Mstk.put("COSTP", "" + p.getCprice());
             Mstk.put("SELLP", "" + p.getSprice());
             Mstk.put("CRDATE", "NOW()");
-            Mstk.put("M_UNITS_ID", "'" + BaseUnitId + "'");
+            Mstk.put("M_UNITS_ID", "strf_getMaxUnit('"+unitGrp+"')");
             Mstk.put("SIH", "" + Qty + "");
             Mstk.put("MARKUP", "" + p.getMarkup());
 
@@ -80,7 +81,7 @@ public class C_Products {
 
     }
 
-    public String CreateBatch(String ProId, double Cost, double Sell, MLocation Loc, Boolean createBatch, String BaseUnitId, Double Qty) throws Exception {
+    public String CreateBatch(String ProId, double Cost, double Sell, MLocation Loc, Boolean createBatch, String unitid,String unitgrp, Double Qty,int stkentrytyp) throws Exception {
         String BatchNo = "";
         Map<String, String> Mstk = new TreeMap<String, String>();
         Mstk.put("M_LOCATION_ID", "" + Loc.getId());
@@ -96,8 +97,8 @@ public class C_Products {
         Mstk.put("COSTP", "" + Cost);
         Mstk.put("SELLP", "" + Sell);
         Mstk.put("CRDATE", "NOW()");
-        Mstk.put("M_UNITS_ID", "'" + BaseUnitId + "'");
-        Mstk.put("SIH", "" + Qty + "");
+        Mstk.put("M_UNITS_ID", "strf_getMaxUnit('"+unitgrp+"')");
+        Mstk.put("SIH", "strf_ConvMaxUnit('"+unitgrp+"','"+unitid+"'," + Qty + ")");
         Mstk.put("ACTIVE", "" + 1 + "");
         
 
@@ -105,14 +106,14 @@ public class C_Products {
             Mstk.put("MARKUP", "" + 0.0);
             DB.Save(qg.SaveRecord("M_STOCKS", Mstk));
         } else {
-            Mstk.put("SIH", "SIH+" + Qty + "");
+            Mstk.put("SIH", "SIH+(strf_ConvMaxUnit('"+unitgrp+"','"+unitid+"'," + Qty + ")*"+stkentrytyp+")");
             DB.Update(qg.UpdateRecord("M_STOCKS", Mstk, "WHERE M_LOCATION_ID=" + Loc.getId() + " AND M_PRODUCTS_ID='" + ProId + "' AND BATCHNO='" + Batch + "'"));
         }
         BatchNo = Mstk.get("BATCHNO");
         return Batch;
     }
 
-    public void updateSpecificBatch(String ProId, double Cost, double Sell, MLocation Loc, String BatchNo, String BaseUnitId, Double Qty) throws Exception {
+    public void updateSpecificBatch(String ProId, double Cost, double Sell, MLocation Loc, String BatchNo, String unitid,String unitGrp, Double Qty,int stkentrytyp) throws Exception {
         Map<String, String> Mstk = new TreeMap<String, String>();
         Mstk.put("M_LOCATION_ID", "" + Loc.getId());
         Mstk.put("M_PRODUCTS_ID", "'" + ProId + "'");
@@ -122,12 +123,12 @@ public class C_Products {
         Mstk.put("COSTP", "" + Cost);
         Mstk.put("SELLP", "" + Sell);
         Mstk.put("CRDATE", "NOW()");
-        Mstk.put("M_UNITS_ID", "'" + BaseUnitId + "'");
-        Mstk.put("SIH", "" + Qty + "");
+        Mstk.put("M_UNITS_ID", "strf_getMaxUnit('"+unitGrp+"')");
+        Mstk.put("SIH", "strf_ConvMaxUnit('"+unitGrp+"','"+unitid+"'," + Qty + ")");
         
         if (IsBatchExists(ProId, Loc.getId().toString(), Batch)) {
 
-            Mstk.put("SIH", "SIH+" + Qty + "");
+            Mstk.put("SIH", "SIH+(strf_ConvMaxUnit('"+unitGrp+"','"+unitid+"'," + Qty + ")*"+stkentrytyp+")");
             DB.Update(qg.UpdateRecord("M_STOCKS", Mstk, "WHERE M_LOCATION_ID=" + Loc.getId() + " AND M_PRODUCTS_ID='" + ProId + "' AND BATCHNO='" + Batch + "'"));
         }
 
@@ -246,6 +247,7 @@ public class C_Products {
                 p.setRef1(rs.getString("REF1"));
                 p.setRef2(rs.getString("REF2"));
                 p.setUnitGroupId(rs.getString("M_UNITGROUPS_ID"));
+                p.setProImg(rs.getString("PRO_IMG"));
             }
         }
         return p;
@@ -333,7 +335,15 @@ public class C_Products {
         return s;
     }
     
-   
+   public boolean checkTrnsactionFromThisProd(String Proid) throws Exception{
+       String q="SELECT PROID FROM T_STOCKLINE WHERE PROID='"+Proid+"' ";
+        ResultSet rs = DB.Search(q);
+        boolean avaiable=false;
+        if(rs.next()){
+           avaiable=true; 
+        }
+        return avaiable;
+   }
 
     public String addProduct(MProducts p, Vector<MProductPropertise> proprop, Vector<MSupplier> Suppliers) throws Exception {
         String status = "";
@@ -352,6 +362,7 @@ public class C_Products {
         mpro.put("M_GROUP5_ID", "'" + p.getMGroup5() + "'");
         mpro.put("REF1", "'" + fv.replacer(p.getRef1()) + "'");
         mpro.put("REF2", "'" + fv.replacer(p.getRef2()) + "'");
+        mpro.put("PRO_IMG", p.getProImg());
 
         String GenIdProId = CommFun.generateNextNo(6, "", "m_products", "ID");
         String ProId = GenIdProId;
@@ -361,7 +372,13 @@ public class C_Products {
             if (product == null) {
                 throw new Exception("Product  not found for given Id " + p.getId());
             } else {
-                ProId = p.getId();
+                if( (product.getUnitGroupId().equals(p.getUnitGroupId())==false) && checkTrnsactionFromThisProd(ProId)){
+                   throw new Exception("You can`t change Unit group of this product, because some transactions already done using this product " ); 
+                }else{
+                      ProId = p.getId(); 
+                }
+                    
+             
             }
         }
 
@@ -371,10 +388,15 @@ public class C_Products {
             if (GenIdProId.equals(ProId)) {
                 mpro.put("CRDATE", "NOW()");
                 mpro.put("CRUSER", "'" + p.getMUserByMduser() + "'");
+                 String imgurl = "";
+                if (p.getProImg().length() > 0) {
+                    imgurl = "MyData/Users/PRO_" +p.getId() + p.getProImg();
+                }
+                 mpro.put("PRO_IMG", imgurl );
                 String Q_ProSave = qg.SaveRecord("m_products", mpro);
                 DB.Save(Q_ProSave);
                 p.setId(ProId);
-                createStocksForProduct(p, false, cUnits.getBaseUnitId(p.getUnitGroupId()));
+                createStocksForProductt(p, false, p.getUnitGroupId());
                 AddProductPropertise(ProId, proprop);
 
                 String q1 = "DELETE FROM M_SUPPLIER_HAS_M_PRODUCTS WHERE M_PRODUCTS_ID='" + ProId + "' ";
@@ -383,17 +405,18 @@ public class C_Products {
                 status = "Product Save Success!";
             } else {
                 //Update
+                
                 String Q_ProUpdate = qg.UpdateRecord("m_products", mpro, " WHERE ID='" + ProId + "'");
                 DB.Update(Q_ProUpdate);
                 if (GLOBALDATA.GlobalData.Setup.getBatchenable() == 1) {
                     if (p.getBatch() == 1) {
-                        createStocksForProduct(p, false, cUnits.getBaseUnitId(ProId));
+                        createStocksForProductt(p, false, p.getUnitGroupId());
                     } else {
-                        createStocksForProduct(p, false, cUnits.getBaseUnitId(ProId));
+                        createStocksForProductt(p, false, p.getUnitGroupId());
                     }
 
                 } else {
-                    createStocksForProduct(p, false, cUnits.getBaseUnitId(p.getUnitGroupId()));
+                    createStocksForProductt(p, false,p.getUnitGroupId());
                 }
                 AddProductPropertise(ProId, proprop);
 

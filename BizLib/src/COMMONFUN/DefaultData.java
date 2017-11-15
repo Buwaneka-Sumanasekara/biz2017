@@ -181,6 +181,11 @@ public class DefaultData {
             if (f_UserImg.exists() == false) {
                 f_UserImg.mkdir();
             }
+             File f_ProImg = new File(f_myData, "Products");
+            if (f_ProImg.exists() == false) {
+                f_ProImg.mkdir();
+            }
+            
         } catch (Exception e) {
             System.err.println("FOLDER CREATION ERROR:" + e.getMessage());
         }

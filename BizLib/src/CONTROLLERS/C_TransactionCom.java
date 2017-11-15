@@ -19,6 +19,7 @@ import MODELS.UTransactions;
 import QUERYBUILDER.QueryGen;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,9 +63,9 @@ public class C_TransactionCom {
         return cf.generateNextNo(10, sdf_trnformat.format(new Date()), "T_STOCKMST", "ID", "WHERE TRNTYPE='" + TrnTyp + "'");
     }
 
-    public void UpdateTransactionBatch(String MstId, String ProCode, String Batch) throws Exception {
-        String q = "UPDATE T_STOCKLINE SET BATCH_NO='" + Batch + "' WHERE T_STOCKMST_ID='" + MstId + "' AND PROID='" + ProCode + "' ";
-       // System.out.println(q);
+    public void UpdateTransactionBatch(String MstId, String ProCode, String Batch,String TrnTyp) throws Exception {
+        String q = "UPDATE T_STOCKLINE SET BATCH_NO='" + Batch + "' WHERE T_STOCKMST_ID='" + MstId + "' AND TRNTYP='" + TrnTyp + "' AND PROID='" + ProCode + "' ";
+        System.out.println(q);
         DB.Update(q);
     }
 
@@ -183,6 +184,16 @@ public class C_TransactionCom {
         return ar;
     }
 
+    public String getMostSuitableBatch(String proid,String Locid) throws Exception{
+        String q="SELECT BATCHNO FROM m_stocks WHERE M_LOCATION_ID='"+Locid+"' AND M_PRODUCTS_ID='"+proid+"' AND ACTIVE=1 order by SIH desc limit 1 ";
+        ResultSet rs = DB.Search(q);
+        String batch="";
+        if(rs.next()){
+            batch=rs.getString("BATCHNO");
+        }
+        return batch;
+    }
+    
     public String saveTransaction(TStockmst hedc, ArrayList<TStockline> det, ArrayList<TStockpayments> paydet) throws Exception {
         String TrnNo = "";
         Connection c = null;
@@ -271,38 +282,47 @@ public class C_TransactionCom {
                     }
                 }
                 detMap.put("PRONAME", "'" + d.getProname() + "'");
-                detMap.put("BATCH_NO", "'" + d.getBatch() + "'");
+                
+                String Batch="";
+                if(d.getBatch().length()==0){
+                    Batch=getMostSuitableBatch(d.getProId(),""+(hed.getMLocationByMLocationSource() != null ? hed.getMLocationByMLocationSource().getId() : 0));
+                    d.setBatch(Batch);
+                }else{
+                    Batch=d.getBatch();
+                }
+                
+                detMap.put("BATCH_NO", "'" + Batch + "'");
                 detMap.put("ISGV", "'" + d.getIsGV() + "'");
 
                 String qDet = qg.SaveRecord("T_STOCKLINE", detMap);
                 DB.Save(qDet);
                 if (d.getIsGV() == 0) {
-                    double unitConversion = C_Pro.getUnitConversion(d.getProId(), d.getUnitId());
+                   
 
                     int StockEntryTyp = hed.getUTransactions().getStockentyp();
                     if (hedc.getTrnstate().equals("C")) {
                         StockEntryTyp = hed.getUTransactions().getStockentyp() * (-1);
                     }
 
-                    double ConvertedQty = (d.getQty() / unitConversion) * StockEntryTyp;
+                    
                     if (!hedc.getTrnstate().equals("H")) {
                         if (hed.getUTransactions().getBatchcreate() == 1) {
                             MProducts product = C_Pro.getProduct(d.getProId());
 
                             boolean CanBatchCreate = ((product.getCprice().equals(d.getCprice()) == false) || (product.getSprice().equals(d.getSprice()) == false)) ? true : false;
                             if (CanBatchCreate && product.getBatch()==1) {
-                                String CreateBatch = C_Pro.CreateBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), Boolean.TRUE, C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
-                                UpdateTransactionBatch(hed.getId(), d.getProId(), CreateBatch);
+                                String CreateBatch = C_Pro.CreateBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), Boolean.TRUE,d.getUnitId(),d.getUnitGroupId(),d.getQty(),StockEntryTyp);
+                                UpdateTransactionBatch(hed.getId(), d.getProId(), CreateBatch,hed.getUTransactions().getTrntype());
                             } else {
                                 String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
-                                C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
-                                UpdateTransactionBatch(hed.getId(), product.getId(), LastBatch);
+                                C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, d.getUnitId(),d.getUnitGroupId(),d.getQty(),StockEntryTyp);
+                                UpdateTransactionBatch(hed.getId(), product.getId(), LastBatch,hed.getUTransactions().getTrntype());
                             }
                         } else {
                             MProducts product = C_Pro.getProduct(d.getProId());
                             String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
-                            C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(product.getUnitGroupId()), ConvertedQty);
-                            UpdateTransactionBatch(hed.getId(), product.getId(), d.getBatch());
+                            C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch,d.getUnitId(),d.getUnitGroupId(),d.getQty(),StockEntryTyp);
+                            UpdateTransactionBatch(hed.getId(), product.getId(), d.getBatch(),hed.getUTransactions().getTrntype());
 
                         }
                     } else {

@@ -1,0 +1,24 @@
+SELECT * FROM
+(
+(select p.ID as PROID,p.NAME as NAME,0 as SIH,strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,
+strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,'0001' as BATCH,l.ID as LOCID 
+from m_products p cross join m_location l 
+where p.ACTIVE=1 AND l.ACTIVE=1 )
+union all
+(SELECT SL.PROID AS PROID,P.NAME AS NAME,SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)) AS SIH,
+strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,SL.BATCH_NO AS BATCH,
+SM.M_LOCATION_SOURCE as LOCID
+FROM t_stockmst SM
+inner join t_stockline SL
+on SM.ID=SL.T_STOCKMST_ID and SM.TRNTYPE=SL.TRNTYP
+inner join u_transactions u
+on SM.TRNTYPE=u.TRNTYPE
+INNER JOIN m_products P
+on SL.PROID=P.ID
+where SM.TRNSTATE='P'
+
+GROUP BY SL.PROID,P.NAME)
+
+)A
+group by  A.PROID,A.NAME,A.LOCID,A.BATCH,A.UNIT
+order by  A.PROID,A.NAME,A.LOCID

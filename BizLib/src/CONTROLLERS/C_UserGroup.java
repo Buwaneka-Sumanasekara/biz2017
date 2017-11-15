@@ -50,12 +50,27 @@ public class C_UserGroup {
         }
     }
 
-    public Vector<MUsergroup> getUserGroups(boolean only_visible, boolean skipown) throws Exception {
+    
+     public Vector<MUsergroup> getUserGroups(boolean only_visible, boolean skipown) throws Exception {
+         return getUserGroups(only_visible, skipown,-1);
+    }
+    
+    public Vector<MUsergroup> getUserGroups(boolean only_visible, boolean skipown,int state) throws Exception {
         String sql = "SELECT * FROM m_usergroup ";
         if (only_visible) {
             sql += " where VISIBLE=1 ";
+            if(state>-1){
+               sql+=" AND ACTIVE='"+state+"' ";  
+            }
+           
+        }else{
+              if(state>-1){
+               sql+=" WHERE ACTIVE='"+state+"' ";  
+            }
         }
 
+       
+        
         Vector<MUsergroup> v = new Vector<>();
         ResultSet rs = DB.Search(sql);
         while (rs.next()) {

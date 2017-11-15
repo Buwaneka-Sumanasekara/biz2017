@@ -191,9 +191,9 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
 
         jLabel5.setForeground(new java.awt.Color(153, 51, 0));
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 40));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 800, 40));
 
-        layout_Unit.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 820, 40));
+        layout_Unit.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 800, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Screen/SCR_UNIT.png"))); // NOI18N
         layout_Unit.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 170, 140));

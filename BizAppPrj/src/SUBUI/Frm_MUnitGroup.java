@@ -131,9 +131,9 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
 
         jLabel5.setForeground(new java.awt.Color(153, 51, 0));
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 40));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 800, 40));
 
-        layout_UnitGroup.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 820, 40));
+        layout_UnitGroup.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 810, 40));
 
         txt_UnitGroupId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
