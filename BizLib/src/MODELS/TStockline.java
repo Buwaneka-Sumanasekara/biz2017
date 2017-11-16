@@ -22,7 +22,7 @@ public class TStockline implements java.io.Serializable {
     private String ProId;
     private String Batch;
     private int IsGV;
-    
+   private String  RefTrnNo;
     
     
     public TStockmst getTStockmst() {
@@ -143,6 +143,14 @@ public class TStockline implements java.io.Serializable {
 
     public void setIsGV(int IsGV) {
         this.IsGV = IsGV;
+    }
+
+    public String getRefTrnNo() {
+        return RefTrnNo;
+    }
+
+    public void setRefTrnNo(String RefTrnNo) {
+        this.RefTrnNo = RefTrnNo;
     }
 
 }

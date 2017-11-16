@@ -207,6 +207,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20171108_t2.add(new TblColumn("SUP_PROD_ONLY", "INT", "NOT NULL DEFAULT 0"));
         ar_20171108_t2.add(new TblColumn("CHANGE_SPRICE", "INT", "NOT NULL DEFAULT 0"));
         ar_20171108_t2.add(new TblColumn("HOLD_ONLY", "INT", "NOT NULL DEFAULT 0"));
+        ar_20171108_t2.add(new TblColumn("RETURN_REQ_REF", "INT", "NOT NULL DEFAULT 0"));
 
         ArrayList<String> ar_20171108_t2PK = new ArrayList<>();
         ar_20171108_t1PK.add("TRNNO");
@@ -300,12 +301,30 @@ public final class Frm_Start extends javax.swing.JDialog {
         arStructures.add(str_20171114_t7);
 
         ArrayList<TblColumn> ar_20171114_t8 = new ArrayList<>();
-        ar_20171114_t8.add(new TblColumn("PRO_IMG", "VARCHAR(100)", ""));
+        ar_20171114_t8.add(new TblColumn("PRO_IMG", "VARCHAR(100)", "DEFAULT ''"));
         ArrayList<String> ar_20171114_t8PK = new ArrayList<>();
         ar_20171114_t8PK.add("ID");
         Structure str_20171114_t8 = new Structure(20171114, "m_products", ar_20171114_t8, ar_20171114_t8PK);
         arStructures.add(str_20171114_t8);
         
+        
+        ArrayList<TblColumn> ar_20171114_t9 = new ArrayList<>();
+        ar_20171114_t9.add(new TblColumn("REF_TRN", "VARCHAR(100)", "DEFAULT ''"));
+        ArrayList<String> ar_20171114_t9PK = new ArrayList<>();
+        ar_20171114_t9PK.add("T_STOCKMST_ID");
+        ar_20171114_t9PK.add("LINEID");
+        Structure str_20171114_t9 = new Structure(20171114, "t_stockline", ar_20171114_t9, ar_20171114_t9PK);
+        arStructures.add(str_20171114_t9);
+        
+        
+         ArrayList<String> q_20171114_t10 = new ArrayList<>();
+        q_20171114_t10.add(" DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0' ");
+        q_20171114_t10.add(" DECLARE UNIT_VOL_MIN  DOUBLE DEFAULT '0' ");
+        q_20171114_t10.add(" select ugu.VOLUME INTO UNIT_VOL_CUR from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id   ");
+        q_20171114_t10.add(" select ugu.VOLUME INTO UNIT_VOL_MIN from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME asc limit 1   ");
+        q_20171114_t10.add(" RETURN ((qty*UNIT_VOL_CUR)*UNIT_VOL_MIN) ");
+        Structure str_20171114_t10 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_ConvMinUnit ", " unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ", q_20171114_t10, " DOUBLE ");
+        arStructures.add(str_20171114_t10);
         
         
 

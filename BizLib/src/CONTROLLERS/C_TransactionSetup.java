@@ -63,6 +63,7 @@ public class C_TransactionSetup {
                 m.setSupPrdOnly(rs.getByte("SUP_PROD_ONLY"));
                 m.setChangeSPrice(rs.getByte("CHANGE_SPRICE"));
                 m.setHoldOnly(rs.getByte("HOLD_ONLY"));
+                m.setReturnReqRef(rs.getByte("RETURN_REQ_REF"));
                 arl.add(m);
             }
         } catch (Exception e) {
@@ -109,6 +110,7 @@ public class C_TransactionSetup {
             m.setSupPrdOnly(rs.getByte("SUP_PROD_ONLY"));
             m.setChangeSPrice(rs.getByte("CHANGE_SPRICE"));
             m.setHoldOnly(rs.getByte("HOLD_ONLY"));
+             m.setReturnReqRef(rs.getByte("RETURN_REQ_REF"));
         } else {
             throw new Exception("Can`t Find Specific Trnasaction on setup table");
         }

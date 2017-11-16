@@ -42,6 +42,7 @@ public class UTransactions  implements java.io.Serializable {
      private Byte SupPrdOnly;
      private Byte changeSPrice;
      private Byte HoldOnly;
+     private Byte ReturnReqRef;
      
      private Set TStockmsts = new HashSet(0);
 
@@ -289,6 +290,14 @@ public class UTransactions  implements java.io.Serializable {
 
     public void setHoldOnly(Byte HoldOnly) {
         this.HoldOnly = HoldOnly;
+    }
+
+    public Byte getReturnReqRef() {
+        return ReturnReqRef;
+    }
+
+    public void setReturnReqRef(Byte ReturnReqRef) {
+        this.ReturnReqRef = ReturnReqRef;
     }
 
 

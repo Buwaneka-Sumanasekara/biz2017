@@ -58,12 +58,12 @@ public class C_TransactionCom {
         CVou = new C_Voucher();
     }
 
-    public String getNxtTrnNo(String TrnTyp) throws Exception {
+    public String getNxtTrnNo(String TrnTyp, String LocId) throws Exception {
 
-        return cf.generateNextNo(10, sdf_trnformat.format(new Date()), "T_STOCKMST", "ID", "WHERE TRNTYPE='" + TrnTyp + "'");
+        return cf.generateNextNo(10, (LocId.length() > 1 ? LocId : "0" + LocId) + sdf_trnformat.format(new Date()), "T_STOCKMST", "ID", "WHERE TRNTYPE='" + TrnTyp + "'");
     }
 
-    public void UpdateTransactionBatch(String MstId, String ProCode, String Batch,String TrnTyp) throws Exception {
+    public void UpdateTransactionBatch(String MstId, String ProCode, String Batch, String TrnTyp) throws Exception {
         String q = "UPDATE T_STOCKLINE SET BATCH_NO='" + Batch + "' WHERE T_STOCKMST_ID='" + MstId + "' AND TRNTYP='" + TrnTyp + "' AND PROID='" + ProCode + "' ";
         System.out.println(q);
         DB.Update(q);
@@ -99,7 +99,7 @@ public class C_TransactionCom {
                     calendar.add(Calendar.DATE, (-1 * trnsetup.getCancelDaysWithing()));
                     boolean cancancel = calendar.after(m.getMddate());
 
-                    if (cancancel || trnsetup.getCancelDaysWithing()<0 ) {
+                    if (cancancel || trnsetup.getCancelDaysWithing() < 0) {
                         String q = "UPDATE T_STOCKMST SET TRNSTATE='C',MDDATE=NOW()  WHERE ID='" + m.getId() + "' AND TRNTYPE='" + m.getUTransactions().getTrntype() + "' ";
                         DB.Update(q);
                     } else {
@@ -114,7 +114,7 @@ public class C_TransactionCom {
 
     public TStockmst getStockHed(String TrnNo, UTransactions TrnTyp) throws Exception {
         String q = "SELECT * FROM T_STOCKMST WHERE ID='" + TrnNo + "' AND TRNTYPE='" + TrnTyp.getTrntype() + "' ";
-       // System.out.println(q);
+        // System.out.println(q);
         ResultSet rs = DB.Search(q);
 
         TStockmst sthed = null;
@@ -157,7 +157,7 @@ public class C_TransactionCom {
 
     public ArrayList<TStockline> getStockLine(String TrnNo, UTransactions TrnTyp) throws Exception {
         String q = "SELECT * FROM T_STOCKLINE WHERE T_STOCKMST_ID='" + TrnNo + "' AND TRNTYP='" + TrnTyp.getTrntype() + "' ";
-      //  System.out.println(q);
+        //  System.out.println(q);
         ResultSet rs = DB.Search(q);
 
         ArrayList<TStockline> ar = new ArrayList<>();
@@ -178,22 +178,53 @@ public class C_TransactionCom {
             st.setBatch((rs.getString("BATCH_NO") == null ? "" : rs.getString("BATCH_NO")));
             st.setIsGV(rs.getByte("ISGV"));
             st.setUTransactions(TrnTyp);
+            st.setRefTrnNo(rs.getString("REF_TRN"));
             ar.add(st);
         }
 
         return ar;
     }
 
-    public String getMostSuitableBatch(String proid,String Locid) throws Exception{
-        String q="SELECT BATCHNO FROM m_stocks WHERE M_LOCATION_ID='"+Locid+"' AND M_PRODUCTS_ID='"+proid+"' AND ACTIVE=1 order by SIH desc limit 1 ";
+    public TStockline getStockLineSpecificPositive(String TrnNo, UTransactions TrnTyp, String ProId) throws Exception {
+        String q = "SELECT * FROM T_STOCKLINE WHERE T_STOCKMST_ID='" + TrnNo + "' AND TRNTYP='" + TrnTyp.getTrntype() + "' AND PROID='" + ProId + "' AND QTY>0 ";
+        //  System.out.println(q);
         ResultSet rs = DB.Search(q);
-        String batch="";
-        if(rs.next()){
-            batch=rs.getString("BATCHNO");
+
+        TStockline st = null;
+        if (rs.next()) {
+            st = new TStockline();
+            st.setTStockmst(getStockHed(TrnNo, TrnTyp));
+            st.setLineNo(rs.getInt("LINEID"));
+            st.setProId(rs.getString("PROID"));
+            st.setSprice(rs.getDouble("SPRICE"));
+            st.setCprice(rs.getDouble("CPRICE"));
+            st.setQty(rs.getDouble("QTY"));
+            st.setLdis(rs.getDouble("LDIS"));
+            st.setLdisper(rs.getDouble("LDISPER"));
+            st.setAmount(rs.getDouble("AMOUNT"));
+            st.setUnitId(rs.getString("M_UNITS_ID"));
+            st.setUnitGroupId(rs.getString("M_UNITGROUPS_ID"));
+            st.setProname(rs.getString("PRONAME"));
+            st.setBatch((rs.getString("BATCH_NO") == null ? "" : rs.getString("BATCH_NO")));
+            st.setIsGV(rs.getByte("ISGV"));
+            st.setUTransactions(TrnTyp);
+            st.setRefTrnNo(rs.getString("REF_TRN"));
+
+        }
+
+        return st;
+    }
+
+    public String getMostSuitableBatch(String proid, String Locid) throws Exception {
+        String q = "SELECT BATCHNO FROM m_stocks WHERE M_LOCATION_ID='" + Locid + "' AND M_PRODUCTS_ID='" + proid + "' AND ACTIVE=1 order by SIH desc limit 1 ";
+        ResultSet rs = DB.Search(q);
+        String batch = "";
+        if (rs.next()) {
+            batch = rs.getString("BATCHNO");
         }
         return batch;
     }
-    
+
     public String saveTransaction(TStockmst hedc, ArrayList<TStockline> det, ArrayList<TStockpayments> paydet) throws Exception {
         String TrnNo = "";
         Connection c = null;
@@ -206,18 +237,16 @@ public class C_TransactionCom {
                 if (stockHed != null && stockHed.getTrnstate().equals("H")) {
                     removeTransaction(hed.getId(), hed.getUTransactions().getTrntype());
                     //hed.setCrdate(stockHed.getMddate());
-                   // hed.setMUserByMUserCr(stockHed.getMUserByMUserMd());
+                    // hed.setMUserByMUserCr(stockHed.getMUserByMUserMd());
 
-                } else {
-                    if (stockHed == null) {
-                        throw new Exception("Invalid Transaction no:" + hed.getId() + ",This no is not exists in the system");
-                    } else if (!stockHed.getTrnstate().equals("H")) {
-                        throw new Exception("Invalid Transaction no:" + hed.getId() + ",This is not a Hold Transaction");
+                } else if (stockHed == null) {
+                    throw new Exception("Invalid Transaction no:" + hed.getId() + ",This no is not exists in the system");
+                } else if (!stockHed.getTrnstate().equals("H")) {
+                    throw new Exception("Invalid Transaction no:" + hed.getId() + ",This is not a Hold Transaction");
 
-                    }
                 }
             } else {
-                hed.setId(getNxtTrnNo(hed.getUTransactions().getTrntype()));
+                hed.setId(getNxtTrnNo(hed.getUTransactions().getTrntype(), "" + (hed.getMLocationByMLocationSource() != null ? hed.getMLocationByMLocationSource().getId() : 0)));
             }
 
             c = DB.getCurrentCon();
@@ -262,6 +291,7 @@ public class C_TransactionCom {
                 detMap.put("LDIS", "'" + d.getLdis() + "'");
                 detMap.put("LDISPER", "'" + d.getLdisper() + "'");
                 detMap.put("AMOUNT", "'" + d.getAmount() + "'");
+                detMap.put("REF_TRN", "'" + (d.getRefTrnNo() == null ? "" : d.getRefTrnNo()) + "'");
                 if (d.getIsGV() == 0) {
                     detMap.put("M_UNITS_ID", "'" + d.getUnitId() + "'");
                     detMap.put("M_UNITGROUPS_ID", "'" + d.getUnitGroupId() + "'");
@@ -282,47 +312,45 @@ public class C_TransactionCom {
                     }
                 }
                 detMap.put("PRONAME", "'" + d.getProname() + "'");
-                
-                String Batch="";
-                if(d.getBatch().length()==0){
-                    Batch=getMostSuitableBatch(d.getProId(),""+(hed.getMLocationByMLocationSource() != null ? hed.getMLocationByMLocationSource().getId() : 0));
+
+                String Batch = "";
+                if (d.getBatch().length() == 0) {
+                    Batch = getMostSuitableBatch(d.getProId(), "" + (hed.getMLocationByMLocationSource() != null ? hed.getMLocationByMLocationSource().getId() : 0));
                     d.setBatch(Batch);
-                }else{
-                    Batch=d.getBatch();
+                } else {
+                    Batch = d.getBatch();
                 }
-                
+
                 detMap.put("BATCH_NO", "'" + Batch + "'");
                 detMap.put("ISGV", "'" + d.getIsGV() + "'");
 
                 String qDet = qg.SaveRecord("T_STOCKLINE", detMap);
                 DB.Save(qDet);
                 if (d.getIsGV() == 0) {
-                   
 
                     int StockEntryTyp = hed.getUTransactions().getStockentyp();
                     if (hedc.getTrnstate().equals("C")) {
                         StockEntryTyp = hed.getUTransactions().getStockentyp() * (-1);
                     }
 
-                    
                     if (!hedc.getTrnstate().equals("H")) {
                         if (hed.getUTransactions().getBatchcreate() == 1) {
                             MProducts product = C_Pro.getProduct(d.getProId());
 
                             boolean CanBatchCreate = ((product.getCprice().equals(d.getCprice()) == false) || (product.getSprice().equals(d.getSprice()) == false)) ? true : false;
-                            if (CanBatchCreate && product.getBatch()==1) {
-                                String CreateBatch = C_Pro.CreateBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), Boolean.TRUE,d.getUnitId(),d.getUnitGroupId(),d.getQty(),StockEntryTyp);
-                                UpdateTransactionBatch(hed.getId(), d.getProId(), CreateBatch,hed.getUTransactions().getTrntype());
+                            if (CanBatchCreate && product.getBatch() == 1) {
+                                String CreateBatch = C_Pro.CreateBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), Boolean.TRUE, d.getUnitId(), d.getUnitGroupId(), d.getQty(), StockEntryTyp);
+                                UpdateTransactionBatch(hed.getId(), d.getProId(), CreateBatch, hed.getUTransactions().getTrntype());
                             } else {
                                 String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
-                                C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, d.getUnitId(),d.getUnitGroupId(),d.getQty(),StockEntryTyp);
-                                UpdateTransactionBatch(hed.getId(), product.getId(), LastBatch,hed.getUTransactions().getTrntype());
+                                C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, d.getUnitId(), d.getUnitGroupId(), d.getQty(), StockEntryTyp);
+                                UpdateTransactionBatch(hed.getId(), product.getId(), LastBatch, hed.getUTransactions().getTrntype());
                             }
                         } else {
                             MProducts product = C_Pro.getProduct(d.getProId());
                             String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
-                            C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch,d.getUnitId(),d.getUnitGroupId(),d.getQty(),StockEntryTyp);
-                            UpdateTransactionBatch(hed.getId(), product.getId(), d.getBatch(),hed.getUTransactions().getTrntype());
+                            C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, d.getUnitId(), d.getUnitGroupId(), d.getQty(), StockEntryTyp);
+                            UpdateTransactionBatch(hed.getId(), product.getId(), d.getBatch(), hed.getUTransactions().getTrntype());
 
                         }
                     } else {
@@ -334,7 +362,7 @@ public class C_TransactionCom {
                             C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(d.getUnitGroupId()), ConvertedQty);
                             UpdateTransactionBatch(hed.getId(), d.getProId(), LastBatch);
                         }
-                        */
+                         */
                     }
                 }
             }
@@ -406,4 +434,18 @@ public class C_TransactionCom {
         return TrnNo;
     }
 
+    
+    public boolean CheckReturnQty(String unitg,double ReqQ,String ReqUnit,double AvlQ,String AvlUnit) throws Exception{
+       boolean state=false;
+       String q="SELECT (strf_ConvMinUnit('"+unitg+"', '"+AvlUnit +"', '"+AvlQ +"') -strf_ConvMinUnit('"+unitg+"', '"+ReqUnit +"', '"+ReqQ +"')) as DIF ";
+        ResultSet rs = DB.Search(q);
+       if(rs.next()){
+           double res=rs.getDouble("DIF");
+           if(res>=0){
+               state=true;
+           }
+       }
+       return state;
+    }
+    
 }
