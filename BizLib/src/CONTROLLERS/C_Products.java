@@ -14,6 +14,12 @@ import MODELS.MStocks;
 import MODELS.MSupplier;
 import QUERYBUILDER.QueryGen;
 import VALIDATIONS.MyValidator;
+import java.io.File;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -65,7 +71,7 @@ public class C_Products {
             Mstk.put("COSTP", "" + p.getCprice());
             Mstk.put("SELLP", "" + p.getSprice());
             Mstk.put("CRDATE", "NOW()");
-            Mstk.put("M_UNITS_ID", "strf_getMaxUnit('"+unitGrp+"')");
+            Mstk.put("M_UNITS_ID", "strf_getMaxUnit('" + unitGrp + "')");
             Mstk.put("SIH", "" + Qty + "");
             Mstk.put("MARKUP", "" + p.getMarkup());
 
@@ -81,7 +87,7 @@ public class C_Products {
 
     }
 
-    public String CreateBatch(String ProId, double Cost, double Sell, MLocation Loc, Boolean createBatch, String unitid,String unitgrp, Double Qty,int stkentrytyp) throws Exception {
+    public String CreateBatch(String ProId, double Cost, double Sell, MLocation Loc, Boolean createBatch, String unitid, String unitgrp, Double Qty, int stkentrytyp) throws Exception {
         String BatchNo = "";
         Map<String, String> Mstk = new TreeMap<String, String>();
         Mstk.put("M_LOCATION_ID", "" + Loc.getId());
@@ -97,23 +103,22 @@ public class C_Products {
         Mstk.put("COSTP", "" + Cost);
         Mstk.put("SELLP", "" + Sell);
         Mstk.put("CRDATE", "NOW()");
-        Mstk.put("M_UNITS_ID", "strf_getMaxUnit('"+unitgrp+"')");
-        Mstk.put("SIH", "strf_ConvMaxUnit('"+unitgrp+"','"+unitid+"'," + Qty + ")");
+        Mstk.put("M_UNITS_ID", "strf_getMaxUnit('" + unitgrp + "')");
+        Mstk.put("SIH", "strf_ConvMaxUnit('" + unitgrp + "','" + unitid + "'," + Qty + ")");
         Mstk.put("ACTIVE", "" + 1 + "");
-        
 
         if (IsBatchExists(ProId, Loc.getId().toString(), Batch) == false) {
             Mstk.put("MARKUP", "" + 0.0);
             DB.Save(qg.SaveRecord("M_STOCKS", Mstk));
         } else {
-            Mstk.put("SIH", "SIH+(strf_ConvMaxUnit('"+unitgrp+"','"+unitid+"'," + Qty + ")*"+stkentrytyp+")");
+            Mstk.put("SIH", "SIH+(strf_ConvMaxUnit('" + unitgrp + "','" + unitid + "'," + Qty + ")*" + stkentrytyp + ")");
             DB.Update(qg.UpdateRecord("M_STOCKS", Mstk, "WHERE M_LOCATION_ID=" + Loc.getId() + " AND M_PRODUCTS_ID='" + ProId + "' AND BATCHNO='" + Batch + "'"));
         }
         BatchNo = Mstk.get("BATCHNO");
         return Batch;
     }
 
-    public void updateSpecificBatch(String ProId, double Cost, double Sell, MLocation Loc, String BatchNo, String unitid,String unitGrp, Double Qty,int stkentrytyp) throws Exception {
+    public void updateSpecificBatch(String ProId, double Cost, double Sell, MLocation Loc, String BatchNo, String unitid, String unitGrp, Double Qty, int stkentrytyp) throws Exception {
         Map<String, String> Mstk = new TreeMap<String, String>();
         Mstk.put("M_LOCATION_ID", "" + Loc.getId());
         Mstk.put("M_PRODUCTS_ID", "'" + ProId + "'");
@@ -123,12 +128,12 @@ public class C_Products {
         Mstk.put("COSTP", "" + Cost);
         Mstk.put("SELLP", "" + Sell);
         Mstk.put("CRDATE", "NOW()");
-        Mstk.put("M_UNITS_ID", "strf_getMaxUnit('"+unitGrp+"')");
-        Mstk.put("SIH", "strf_ConvMaxUnit('"+unitGrp+"','"+unitid+"'," + Qty + ")");
-        
+        Mstk.put("M_UNITS_ID", "strf_getMaxUnit('" + unitGrp + "')");
+        Mstk.put("SIH", "strf_ConvMaxUnit('" + unitGrp + "','" + unitid + "'," + Qty + ")");
+
         if (IsBatchExists(ProId, Loc.getId().toString(), Batch)) {
 
-            Mstk.put("SIH", "SIH+(strf_ConvMaxUnit('"+unitGrp+"','"+unitid+"'," + Qty + ")*"+stkentrytyp+")");
+            Mstk.put("SIH", "SIH+(strf_ConvMaxUnit('" + unitGrp + "','" + unitid + "'," + Qty + ")*" + stkentrytyp + ")");
             DB.Update(qg.UpdateRecord("M_STOCKS", Mstk, "WHERE M_LOCATION_ID=" + Loc.getId() + " AND M_PRODUCTS_ID='" + ProId + "' AND BATCHNO='" + Batch + "'"));
         }
 
@@ -154,27 +159,28 @@ public class C_Products {
     }
 
     public ArrayList<MStocks> getAllBatches(String ProId) throws Exception {
-        return getAllBatches(ProId,"",-1);
-     }
-     public ArrayList<MStocks> getAllBatches(String ProId, String LocId) throws Exception {
-        return getAllBatches(ProId,LocId,-1);
-     }
-    
-    public ArrayList<MStocks> getAllBatches(String ProId, String LocId,int StockAvaialbleOnly) throws Exception {
+        return getAllBatches(ProId, "", -1);
+    }
+
+    public ArrayList<MStocks> getAllBatches(String ProId, String LocId) throws Exception {
+        return getAllBatches(ProId, LocId, -1);
+    }
+
+    public ArrayList<MStocks> getAllBatches(String ProId, String LocId, int StockAvaialbleOnly) throws Exception {
         String q = "SELECT * FROM M_STOCKS WHERE M_PRODUCTS_ID='" + ProId + "' AND ACTIVE=1 ";
-        
-        if(!LocId.equals("")){
-            q+=" AND M_LOCATION_ID='" + LocId + "' ";
+
+        if (!LocId.equals("")) {
+            q += " AND M_LOCATION_ID='" + LocId + "' ";
         }
-        if(StockAvaialbleOnly==0 ||  StockAvaialbleOnly==1){
-            if(StockAvaialbleOnly==0){
-                 q+=" AND SIH<=0";
-            }else{
-                q+=" AND SIH>0";
+        if (StockAvaialbleOnly == 0 || StockAvaialbleOnly == 1) {
+            if (StockAvaialbleOnly == 0) {
+                q += " AND SIH<=0";
+            } else {
+                q += " AND SIH>0";
             }
-           
+
         }
-        
+
         System.out.println(q);
         ResultSet rs = DB.Search(q);
 
@@ -285,7 +291,7 @@ public class C_Products {
     }
 
     public void saveProductSuppliers(String ProId, Vector<MSupplier> Suppliers) throws Exception {
-        String qd="DELETE FROM M_SUPPLIER_HAS_M_PRODUCTS WHERE M_PRODUCTS_ID='"+ProId+"' ";
+        String qd = "DELETE FROM M_SUPPLIER_HAS_M_PRODUCTS WHERE M_PRODUCTS_ID='" + ProId + "' ";
         DB.Delete(qd);
         for (MSupplier S : Suppliers) {
             Map<String, String> mpro = new TreeMap<String, String>();
@@ -307,13 +313,13 @@ public class C_Products {
         }
         return v;
     }
-    
-     public boolean checkSupplierOfProduct(String ProId,String SupId) throws Exception {
-        String q = "SELECT M_SUPPLIER_ID FROM M_SUPPLIER_HAS_M_PRODUCTS WHERE M_PRODUCTS_ID='" + ProId + "' AND  M_SUPPLIER_ID='"+SupId+"' ";
+
+    public boolean checkSupplierOfProduct(String ProId, String SupId) throws Exception {
+        String q = "SELECT M_SUPPLIER_ID FROM M_SUPPLIER_HAS_M_PRODUCTS WHERE M_PRODUCTS_ID='" + ProId + "' AND  M_SUPPLIER_ID='" + SupId + "' ";
         ResultSet rs = DB.Search(q);
-      boolean state=false;
+        boolean state = false;
         if (rs.next()) {
-           state=true;
+            state = true;
         }
         return state;
     }
@@ -334,16 +340,16 @@ public class C_Products {
         }
         return s;
     }
-    
-   public boolean checkTrnsactionFromThisProd(String Proid) throws Exception{
-       String q="SELECT PROID FROM T_STOCKLINE WHERE PROID='"+Proid+"' ";
+
+    public boolean checkTrnsactionFromThisProd(String Proid) throws Exception {
+        String q = "SELECT PROID FROM T_STOCKLINE WHERE PROID='" + Proid + "' ";
         ResultSet rs = DB.Search(q);
-        boolean avaiable=false;
-        if(rs.next()){
-           avaiable=true; 
+        boolean avaiable = false;
+        if (rs.next()) {
+            avaiable = true;
         }
         return avaiable;
-   }
+    }
 
     public String addProduct(MProducts p, Vector<MProductPropertise> proprop, Vector<MSupplier> Suppliers) throws Exception {
         String status = "";
@@ -362,7 +368,6 @@ public class C_Products {
         mpro.put("M_GROUP5_ID", "'" + p.getMGroup5() + "'");
         mpro.put("REF1", "'" + fv.replacer(p.getRef1()) + "'");
         mpro.put("REF2", "'" + fv.replacer(p.getRef2()) + "'");
-        mpro.put("PRO_IMG", p.getProImg());
 
         String GenIdProId = CommFun.generateNextNo(6, "", "m_products", "ID");
         String ProId = GenIdProId;
@@ -371,28 +376,29 @@ public class C_Products {
             MProducts product = getProduct(p.getId());
             if (product == null) {
                 throw new Exception("Product  not found for given Id " + p.getId());
+            } else if ((product.getUnitGroupId().equals(p.getUnitGroupId()) == false) && checkTrnsactionFromThisProd(ProId)) {
+                throw new Exception("You can`t change Unit group of this product, because some transactions already done using this product ");
             } else {
-                if( (product.getUnitGroupId().equals(p.getUnitGroupId())==false) && checkTrnsactionFromThisProd(ProId)){
-                   throw new Exception("You can`t change Unit group of this product, because some transactions already done using this product " ); 
-                }else{
-                      ProId = p.getId(); 
-                }
-                    
-             
+                ProId = p.getId();
             }
         }
 
         mpro.put("ID", "'" + ProId + "'");
+
         try {
             DB.getCurrentCon().setAutoCommit(false);
+
+            String imgurl = "";
+            if (p.getProImg().length() > 0) {
+                imgurl = "MyData/Products/PRO_" +ProId +"."+ getExtension(new File(p.getProImg()));
+                 uploadImage(p.getProImg(), ProId);
+            }
+            mpro.put("PRO_IMG", "'"+imgurl+"'");
+
             if (GenIdProId.equals(ProId)) {
                 mpro.put("CRDATE", "NOW()");
                 mpro.put("CRUSER", "'" + p.getMUserByMduser() + "'");
-                 String imgurl = "";
-                if (p.getProImg().length() > 0) {
-                    imgurl = "MyData/Users/PRO_" +p.getId() + p.getProImg();
-                }
-                 mpro.put("PRO_IMG", imgurl );
+
                 String Q_ProSave = qg.SaveRecord("m_products", mpro);
                 DB.Save(Q_ProSave);
                 p.setId(ProId);
@@ -405,7 +411,7 @@ public class C_Products {
                 status = "Product Save Success!";
             } else {
                 //Update
-                
+
                 String Q_ProUpdate = qg.UpdateRecord("m_products", mpro, " WHERE ID='" + ProId + "'");
                 DB.Update(Q_ProUpdate);
                 if (GLOBALDATA.GlobalData.Setup.getBatchenable() == 1) {
@@ -416,7 +422,7 @@ public class C_Products {
                     }
 
                 } else {
-                    createStocksForProductt(p, false,p.getUnitGroupId());
+                    createStocksForProductt(p, false, p.getUnitGroupId());
                 }
                 AddProductPropertise(ProId, proprop);
 
@@ -425,6 +431,8 @@ public class C_Products {
                 saveProductSuppliers(ProId, Suppliers);
                 status = "Product Update Success!";
             }
+
+           
 
             DB.getCurrentCon().commit();
         } catch (Exception e) {
@@ -437,6 +445,37 @@ public class C_Products {
         }
 
         return status;
+    }
+
+    public static String getExtension(File f) {
+        String ext = null;
+        String s = f.getName();
+        int i = s.lastIndexOf('.');
+
+        if (i > 0 && i < s.length() - 1) {
+            ext = s.substring(i + 1).toLowerCase();
+        }
+        return ext;
+    }
+
+    private void uploadImage(String imgurl, String proid) throws Exception {
+        if (imgurl.length() > 0) {
+
+            File f = new File(imgurl);
+            if (f.exists()) {
+                Path FROM = Paths.get(f.getAbsolutePath());
+
+                Path TO = Paths.get("MyData\\Products\\PRO_" + proid + "." + getExtension(f));
+                //overwrite existing file, if exists
+                CopyOption[] options = new CopyOption[]{
+                    StandardCopyOption.REPLACE_EXISTING,
+                    StandardCopyOption.COPY_ATTRIBUTES
+                };
+                Files.copy(FROM, TO, options);
+            }
+
+        }
+
     }
 
     public double getUnitConversion(String ProId, String UnitId) throws Exception {

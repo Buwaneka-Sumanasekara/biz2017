@@ -245,7 +245,7 @@ public class Frm_Main extends javax.swing.JFrame {
             });
 
             for (MPermissions p : menus) {
-             //  System.out.println(p.getId() + "-" + p.getParentid());
+                //  System.out.println(p.getId() + "-" + p.getParentid());
 
                 if (p.getId().equals(p.getParentid())) {
                     if (NodesMap.get(p.getId()) == null) {
@@ -261,8 +261,7 @@ public class Frm_Main extends javax.swing.JFrame {
                         NodesMap.put(p.getId(), node);
                         parent.add(node);
                     }
-                    
-                    
+
                 }
             }
             TUserMenu.setModel(new DefaultTreeModel(root));
@@ -273,9 +272,6 @@ public class Frm_Main extends javax.swing.JFrame {
 
     }
 
-    
-   
-    
     private void openWindow(MPermissions p) throws Exception {
 
         JInternalFrame jf = myw.getRequestWindow(p, this);
@@ -283,8 +279,8 @@ public class Frm_Main extends javax.swing.JFrame {
             jf.setFocusCycleRoot(true);
             jf.setMaximizable(false);
             jf.setClosable(false);
-           ((javax.swing.plaf.basic.BasicInternalFrameUI)jf.getUI()).setNorthPane(null);
-           jf.setBorder(null);
+            ((javax.swing.plaf.basic.BasicInternalFrameUI) jf.getUI()).setNorthPane(null);
+            jf.setBorder(null);
             jf.addInternalFrameListener(new InternalFrameListener() {
 
                 @Override
@@ -354,6 +350,17 @@ public class Frm_Main extends javax.swing.JFrame {
                 lblUserimg.setIcon(new ImageIcon(dimg));
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+
+        } else if (GlobalData.CurUser.getId().equals("U0000")) {
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(getClass().getResource("/SYSIMG/ADMIN.jpg"));
+                Image dimg = img.getScaledInstance(70, 70,
+                        Image.SCALE_SMOOTH);
+                lblUserimg.setIcon(new ImageIcon(dimg)); // NOI18N
+            } catch (Exception e) {
+                    e.printStackTrace();
             }
 
         } else {

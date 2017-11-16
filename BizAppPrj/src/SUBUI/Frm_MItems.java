@@ -1023,15 +1023,11 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     p.setMUserByCruser(GlobalData.CurUser.getId());
                     p.setMUserByMduser(GlobalData.CurUser.getId());
 
-                    if (txtProCode.getText().length() == 0) {
-                        if (txt_imgurl.getText().length() > 0) {
+                    if (txt_imgurl.getText().length() > 0) {
 
-                            p.setProImg(getExtension(new File(txt_imgurl.getText())));
-                        } else {
-                            p.setProImg("");
-                        }
+                        p.setProImg(txt_imgurl.getText());
                     } else {
-                        p.setProImg("MyData/Users/USER_" + p.getId() + "." + getExtension(new File(txt_imgurl.getText())));
+                        p.setProImg("");
                     }
 
                     MUnitGroup ug = (MUnitGroup) cmbUnits.getSelectedItem();
@@ -1066,37 +1062,6 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         }
     }
 
-    public static String getExtension(File f) {
-        String ext = null;
-        String s = f.getName();
-        int i = s.lastIndexOf('.');
-
-        if (i > 0 && i < s.length() - 1) {
-            ext = s.substring(i + 1).toLowerCase();
-        }
-        return ext;
-    }
-
-    private void uploadImage(String imgurl, String proid) throws Exception {
-        if (imgurl.length() > 0) {
-
-            File f = new File(imgurl);
-            if (f.exists()) {
-                Path FROM = Paths.get(f.getAbsolutePath());
-
-                Path TO = Paths.get("MyData\\Products\\PRO_" + proid + "." + getExtension(f));
-                //overwrite existing file, if exists
-                CopyOption[] options = new CopyOption[]{
-                    StandardCopyOption.REPLACE_EXISTING,
-                    StandardCopyOption.COPY_ATTRIBUTES
-                };
-                Files.copy(FROM, TO, options);
-            }
-
-        }
-
-    }
-
     private void setLableImage(File file) {
         if (file.exists()) {
             System.out.println(file.getAbsolutePath());
@@ -1107,7 +1072,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Image dimg = img.getScaledInstance(lblProImg.getWidth(),lblProImg.getHeight(),
+            Image dimg = img.getScaledInstance(lblProImg.getWidth(), lblProImg.getHeight(),
                     Image.SCALE_SMOOTH);
 
             lblProImg.setIcon(new ImageIcon(dimg));
@@ -1116,12 +1081,11 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         }
 
     }
-    
-    
+
     @Override
     public void EditMode() {
         if (but_Update.isEnabled()) {
-            JComponent enablecom[] = {but_Refresh, but_Save, layout_Basic, layoutGroups, txtProName, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+            JComponent enablecom[] = {but_Refresh, but_Save, layout_Basic, layoutGroups, but_ProImgChoose, txtProName, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
             JComponent disablecom[] = {but_Search, but_Update, txtProCode};
             setDisableEnableComponents(enablecom, disablecom);
         }
@@ -1297,7 +1261,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     txtFproVal.setFormatterFactory(new DefaultFormatterFactory(mfWarranty));
             }
         }
-
+lblProImg.setIcon(null);
         cmb_Suppliers.setModel(new DefaultComboBoxModel(CSuppliers.getAllSuppliers()));
 
     }
@@ -1423,7 +1387,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         txtProCode.grabFocus();
         JComponent disablecom[] = {but_Update};
 
-        JComponent enablecom[] = {but_Search, List_Sup, butSupAdd, tblProperty, tblUnits, layoutUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+        JComponent enablecom[] = {but_Search, List_Sup, butSupAdd, tblProperty, tblUnits, layoutUnits, but_ProImgChoose, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
 
         setDisableEnableComponents(enablecom, disablecom);
         ParentLayout.setSelectedIndex(0);
@@ -1445,7 +1409,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             try {
                 MProducts product = CProducts.getProduct(txtProCode.getText());
                 if (product != null) {
-                    JComponent disablecom[] = {but_Search, List_Sup, butSupAdd, txtProCode, tblProperty, tblUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+                    JComponent disablecom[] = {but_Search, List_Sup, butSupAdd, but_ProImgChoose, txtProCode, tblProperty, tblUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
                     JComponent enablecom[] = {but_Refresh, but_Update};
                     setDisableEnableComponents(enablecom, disablecom);
 
@@ -1494,6 +1458,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                         dtm2.addRow(v);
                     }
 
+                    setProductIcon(product.getProImg());
                 }
             } catch (Exception e) {
                 System.err.println(e.getMessage());
@@ -1587,5 +1552,30 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             }
         }
 
+    }
+
+    private void setProductIcon(String path) {
+        if (path != null) {
+            String imgpath = path;
+            File f = new File(imgpath);
+            if (f.exists()) {
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(f);
+                    Image dimg = img.getScaledInstance(230, 270,
+                            Image.SCALE_SMOOTH);
+
+                    lblProImg.setIcon(new ImageIcon(dimg));
+                } catch (IOException e) {
+                    lblProImg.setIcon(null);
+                    e.printStackTrace();
+                }
+
+            } else {
+                lblProImg.setIcon(null); // NOI18N
+            }
+        } else {
+            lblProImg.setIcon(null); // NOI18N 
+        }
     }
 }
