@@ -7,6 +7,7 @@ package SUBUI;
 
 import CONTROLLERS.C_Products;
 import CONTROLLERS.C_TransactionCom;
+import CONTROLLERS.C_Units;
 import MODELS.MProducts;
 import MODELS.MUnits;
 import MODELS.TStockline;
@@ -38,6 +39,7 @@ public class Frm_TRefTrnNo extends javax.swing.JDialog {
     private double ReqQty = 0;
     private MUnits Unit = null;
 
+    private C_Units cunits=null;
     private Frm_TRefTrnNo(java.awt.Frame parent, boolean modal) {
 
     }
@@ -50,6 +52,7 @@ public class Frm_TRefTrnNo extends javax.swing.JDialog {
         this.t = t;
         this.ReqQty = ReqQty;
         this.Unit = Unit;
+        this.cunits=new C_Units();
         this.cTrn = new C_TransactionCom();
         txt_TrnNo.grabFocus();
         LoadData();
@@ -165,7 +168,7 @@ public class Frm_TRefTrnNo extends javax.swing.JDialog {
     }//GEN-LAST:event_but_CheckActionPerformed
 
     private void txt_TrnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TrnNoActionPerformed
-       checkReturn();
+        checkReturn();
     }//GEN-LAST:event_txt_TrnNoActionPerformed
 
     /**
@@ -239,18 +242,21 @@ public class Frm_TRefTrnNo extends javax.swing.JDialog {
             if (txt_TrnNo.getText().length() > 0) {
                 TStockline trn = cTrn.getStockLineSpecificPositive(txt_TrnNo.getText(), t, p.getId());
                 if (trn != null) {
-                   if(trn.getRefTrnNo()!=null && trn.getRefTrnNo().length()>0){
-                       throw new Exception("This item is already returned from No: "+trn.getRefTrnNo());
-                   }else{
-                       boolean CheckReturnQty = cTrn.CheckReturnQty(p.getUnitGroupId(),ReqQty, Unit.getId(), trn.getQty(),trn.getUnitId());
-                       if(CheckReturnQty){
-                           CurrentSelection=trn.getTStockmst().getId();
-                           this.dispose();
-                       }else{
-                      
-                         throw new Exception("Invalid Quantity Request");  
-                       }
-                   }
+                    double returnedQty = cTrn.getStockLineQtyReturned(txt_TrnNo.getText(), t, p.getId());
+                    double aqty = cTrn.getConvertToMaxUnit(trn.getQty(), trn.getUnitGroupId(), trn.getUnitId()) + returnedQty;
+                    System.out.println("A:"+aqty+" R:"+ReqQty+" PRV:"+returnedQty);
+                    if (aqty > 0) {
+                        boolean CheckReturnQty = cTrn.CheckReturnQty(p.getUnitGroupId(), ReqQty, Unit.getId(), aqty, cunits.getMaxUnitOfGroup(trn.getUnitGroupId()));
+                        if (CheckReturnQty) {
+                            CurrentSelection = trn.getTStockmst().getId();
+                            this.dispose();
+                        } else {
+
+                            throw new Exception("Invalid Quantity Request");
+                        }
+                    } else {
+                        throw new Exception("Invalid Quantity Request");
+                    }
                 } else {
                     throw new Exception("Invalid " + t.getTrndesc() + " No");
                 }
@@ -258,7 +264,7 @@ public class Frm_TRefTrnNo extends javax.swing.JDialog {
                 throw new Exception("Please enter " + t.getTrndesc() + " No");
             }
         } catch (Exception e) {
-            CurrentSelection="";
+            CurrentSelection = "";
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
         }
 

@@ -289,9 +289,9 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
-        setBounds(0, 0, 867, 671);
+        setBounds(0, 0, 867, 659);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_UGSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_UGSearchActionPerformed

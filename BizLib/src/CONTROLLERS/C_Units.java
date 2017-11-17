@@ -303,4 +303,17 @@ public class C_Units {
         }
         return m;
     }
+    
+    public String getMaxUnitOfGroup(String ug)throws Exception{
+          String q="SELECT strf_getMaxUnit('"+ug+"') AS U ";
+         ResultSet rs = DB.Search(q);
+
+       String d="";
+        if (rs.next()) {
+           d=rs.getString("U");
+           
+        }
+
+        return d;
+    }
 }

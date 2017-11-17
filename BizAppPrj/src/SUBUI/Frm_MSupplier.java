@@ -236,9 +236,9 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
         jLabel7.setText("Address");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 110, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 650));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
-        setBounds(0, 0, 867, 677);
+        setBounds(0, 0, 867, 659);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_SupSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_SupSearchActionPerformed

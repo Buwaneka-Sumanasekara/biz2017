@@ -116,14 +116,14 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         lbl_Name1 = new javax.swing.JLabel();
         lbl_LNAME = new javax.swing.JLabel();
         layout_Location = new javax.swing.JPanel();
-        cmb_Loc = new javax.swing.JComboBox<String>();
+        cmb_Loc = new javax.swing.JComboBox<>();
         layout_Period = new javax.swing.JPanel();
         txt_DateF = new com.toedter.calendar.JDateChooser();
         txt_DateT = new com.toedter.calendar.JDateChooser();
         lb_lTo = new javax.swing.JLabel();
-        cmb_Qut = new javax.swing.JComboBox<String>();
+        cmb_Qut = new javax.swing.JComboBox<>();
         layout_Period3 = new javax.swing.JPanel();
-        cmb_Loc2 = new javax.swing.JComboBox<String>();
+        cmb_Loc2 = new javax.swing.JComboBox<>();
         layout_Group = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         chk_GrpSelectAll = new javax.swing.JCheckBox();
@@ -361,9 +361,9 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
         jPanel1.add(layout_Group, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 830, 370));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
-        setBounds(0, 0, 867, 665);
+        setBounds(0, 0, 886, 665);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated

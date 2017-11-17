@@ -98,7 +98,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cmb_UserGrp = new javax.swing.JComboBox<String>();
+        cmb_UserGrp = new javax.swing.JComboBox<>();
         lblimg = new javax.swing.JLabel();
         but_ChooseImg = new javax.swing.JButton();
         txt_imgurl = new javax.swing.JLabel();
@@ -281,7 +281,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
 
         jPanel1.add(layout_ResetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 420, 380, 180));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
         setBounds(0, 0, 867, 670);
     }// </editor-fold>//GEN-END:initComponents

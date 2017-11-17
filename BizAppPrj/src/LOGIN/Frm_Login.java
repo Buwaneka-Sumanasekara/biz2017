@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 import javax.swing.UIManager;
 
 /**
@@ -24,23 +25,25 @@ import javax.swing.UIManager;
  * @author HOME
  */
 public class Frm_Login extends javax.swing.JFrame {
-
+    
     C_Users u = null;
     C_UserGroup ug = null;
     DefaultData def = null;
     Frm_Login frml = null;
-
+    
     public Frm_Login() {
         initComponents();
         def = new DefaultData();
-
+        
         createLayout();
-
+        
         u = new C_Users();
         ug = new C_UserGroup();
         txtuname.grabFocus();
         this.frml = this;
-this.lbl_ComName.setText(GlobalData.Setup.getComname());
+        this.lbl_ComName.setText(GlobalData.Setup.getComname());
+        this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+        this.setBounds(this.getX(), this.getY(), 590, 340);
     }
 
     /**
@@ -62,6 +65,7 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lbl_ComName = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -70,51 +74,58 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(89, 143, 179)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         butLogin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        butLogin.setForeground(new java.awt.Color(89, 143, 179));
         butLogin.setText("Login");
-        butLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        butLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(89, 143, 179), 2));
         butLogin.setContentAreaFilled(false);
         butLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(butLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 90, 30));
+        jPanel1.add(butLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 90, 30));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(89, 143, 179));
         jLabel1.setText("Password");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 60, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 60, 30));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(89, 143, 179));
         jLabel2.setText("Username");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 70, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 70, 30));
 
-        txtuname.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtuname.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtuname.setForeground(new java.awt.Color(89, 143, 179));
+        txtuname.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(89, 143, 179)));
         txtuname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtunameActionPerformed(evt);
             }
         });
-        jPanel1.add(txtuname, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 170, 30));
+        jPanel1.add(txtuname, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 170, 30));
 
         txtpass.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtpass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtpass.setForeground(new java.awt.Color(89, 143, 179));
+        txtpass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(89, 143, 179)));
         txtpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtpassActionPerformed(evt);
             }
         });
-        jPanel1.add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 170, 30));
+        jPanel1.add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 170, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 130, 130));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel4.setForeground(new java.awt.Color(180, 198, 209));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Software By :  Buwaneka Tharanga Sumanasekara");
+        jLabel4.setText("Software By :  Buwaneka  Sumanasekara");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 590, 20));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
@@ -126,9 +137,20 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
         lbl_ComName.setForeground(new java.awt.Color(89, 143, 179));
         lbl_ComName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_ComName.setText("COMNAME");
-        jPanel1.add(lbl_ComName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 40));
+        jPanel1.add(lbl_ComName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 350));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(110, 147, 169));
+        jButton1.setText("X");
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 40, 40));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 340));
 
         pack();
         setLocationRelativeTo(null);
@@ -147,12 +169,16 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
         login();
     }//GEN-LAST:event_txtpassActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
     private void clear() {
         txtuname.setText("");
         txtpass.setText("");
         txtuname.grabFocus();
     }
-
+    
     public static void main(String args[]) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -174,6 +200,7 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butLogin;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -186,7 +213,7 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
     // End of variables declaration//GEN-END:variables
 
     private void login() {
-
+        
         if (txtuname.getText().equals("") || txtpass.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Please Fill the fileds", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
         } else {
@@ -194,27 +221,27 @@ this.lbl_ComName.setText(GlobalData.Setup.getComname());
                 MUser user = u.CheckUserLogin(txtuname.getText(), txtpass.getText());
                 if (user != null) {
                     this.dispose();
-
+                    
                     ArrayList<MPermissions> Menus = ug.getUserGroupPermitions(user.getMUsergroup().getId(), 1);
                     Map<String, MPermissions> SpecialPer = ug.getUserGroupPermitions_Map(user.getMUsergroup().getId(), 2, "");
                     GlobalData.SpecialPer = SpecialPer;
                     GlobalData.CurUser = user;
                     final Frm_Main frm = new Frm_Main(this, Menus);
                     frm.setVisible(true);
-
+                    
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Login faild,Please try again", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-
+                    
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
         }
-
+        
     }
-
+    
     private void createLayout() {
-      //  def.createDefaultData();
+        //  def.createDefaultData();
     }
 }

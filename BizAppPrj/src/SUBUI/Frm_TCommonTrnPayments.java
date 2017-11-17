@@ -81,6 +81,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
     @Override
     public void dispose() {
+        
         super.dispose(); //To change body of generated methods, choose Tools | Templates.
     }
 

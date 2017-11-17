@@ -53,8 +53,15 @@ public class Frm_PermissionsPopup extends javax.swing.JDialog {
         }
     }
 
+    @Override
+    public void dispose() {
+       
+        super.dispose(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     private void exit() {
-        CurState = false;
+      
         this.dispose();
     }
 
@@ -165,6 +172,7 @@ public class Frm_PermissionsPopup extends javax.swing.JDialog {
 
             }
         } catch (Exception ex) {
+              CurState = false;
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), GLOBALDATA.GlobalData.APPNAME, JOptionPane.ERROR_MESSAGE);
         }
 

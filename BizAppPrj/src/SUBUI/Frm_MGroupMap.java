@@ -241,7 +241,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 830, 240));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 650));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
         setBounds(0, 0, 867, 678);
     }// </editor-fold>//GEN-END:initComponents

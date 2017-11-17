@@ -213,7 +213,7 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel6.setText("Description *");
         layout_Unit.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 110, 30));
 
-        getContentPane().add(layout_Unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 640));
+        getContentPane().add(layout_Unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 640));
 
         setBounds(0, 0, 867, 668);
     }// </editor-fold>//GEN-END:initComponents

@@ -241,7 +241,7 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 830, 390));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
         setBounds(0, 0, 867, 667);
     }// </editor-fold>//GEN-END:initComponents

@@ -90,7 +90,7 @@ public class Frm_Main extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layout_Outer.setBackground(new java.awt.Color(255, 255, 255));
-        layout_Outer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        layout_Outer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(89, 143, 179)));
         layout_Outer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
@@ -121,13 +121,15 @@ public class Frm_Main extends javax.swing.JFrame {
         JDesktopF.add(jLabel5);
         jLabel5.setBounds(410, 280, 90, 58);
 
-        layout_Outer.add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 868, 640));
+        layout_Outer.add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 868, 630));
 
         lbl_Global_Instructions.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lbl_Global_Instructions.setForeground(new java.awt.Color(204, 0, 0));
         lbl_Global_Instructions.setText("[  F2 : SEARCH   ]   [   F3: EDIT  ]  [  F4: REFRESH  ]   [  F5: SAVE  ]  [F6: HOLD]  [F7: CANCEL]");
         layout_Outer.add(lbl_Global_Instructions, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 670, 750, -1));
 
+        butLogout.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        butLogout.setForeground(new java.awt.Color(89, 143, 179));
         butLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/if_icons_exit2_1564506.png"))); // NOI18N
         butLogout.setText("Logout");
         butLogout.setBorderPainted(false);
@@ -137,13 +139,16 @@ public class Frm_Main extends javax.swing.JFrame {
                 butLogoutActionPerformed(evt);
             }
         });
-        layout_Outer.add(butLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(903, 0, 120, 30));
+        layout_Outer.add(butLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(913, 0, 110, 30));
 
-        lblCompanyName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblCompanyName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblCompanyName.setForeground(new java.awt.Color(89, 143, 179));
         lblCompanyName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCompanyName.setText("COMPANY NAME");
-        layout_Outer.add(lblCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 760, 30));
+        layout_Outer.add(lblCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 770, 30));
 
+        lblUsername.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(89, 143, 179));
         lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUsername.setText("BUWANEKA");
         layout_Outer.add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 150, 30));
@@ -281,8 +286,10 @@ public class Frm_Main extends javax.swing.JFrame {
             jf.setClosable(false);
             ((javax.swing.plaf.basic.BasicInternalFrameUI) jf.getUI()).setNorthPane(null);
             jf.setBorder(null);
+            jf.setBounds(0,0,868, 630);
             jf.addInternalFrameListener(new InternalFrameListener() {
 
+                    //[110,147,169]
                 @Override
                 public void internalFrameOpened(InternalFrameEvent e) {
                 }

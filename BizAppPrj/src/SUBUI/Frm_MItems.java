@@ -715,10 +715,11 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         ParentLayout.addTab("Batches", jPanel3);
 
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel7.add(txt_imgurl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 320, 20));
 
-        lblProImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblProImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel7.add(lblProImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 230, 270));
 
         but_ProImgChoose.setText("Choose Image");
@@ -734,9 +735,9 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jPanel1.add(ParentLayout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 850, 600));
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 660));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
-        setBounds(0, 0, 877, 691);
+        setBounds(0, 0, 877, 659);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_SearchActionPerformed

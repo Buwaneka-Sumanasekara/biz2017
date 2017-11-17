@@ -39,6 +39,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         DefData = new DefaultData();
         cTrn = new C_TransactionSetup();
         cRptSetup = new C_ReportSetup();
+          this.setBounds(this.getX(), this.getY(), 590, 300);
     }
 
     public void InitPrgressBar(int MaxRecords) {
@@ -405,8 +406,11 @@ public final class Frm_Start extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(110, 147, 169)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtStatues.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtStatues.setForeground(new java.awt.Color(110, 147, 169));
         txtStatues.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtStatues.setText("aaa");
         jPanel1.add(txtStatues, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 560, 20));
@@ -418,7 +422,7 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 140, 110));
-        jPanel1.add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 580, -1));
+        jPanel1.add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 570, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 300));
 

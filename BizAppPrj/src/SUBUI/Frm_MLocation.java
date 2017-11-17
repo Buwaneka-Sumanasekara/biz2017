@@ -162,6 +162,7 @@ public class Frm_MLocation extends javax.swing.JInternalFrame implements MyWindo
 
         jLabel3.setBackground(new java.awt.Color(153, 255, 51));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(110, 147, 169));
         jLabel3.setText("LOCATIONS");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 180, 40));
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
@@ -195,9 +196,9 @@ public class Frm_MLocation extends javax.swing.JInternalFrame implements MyWindo
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 820, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 650));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
-        setBounds(0, 0, 867, 678);
+        setBounds(0, 0, 868, 678);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_LocSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSearchActionPerformed

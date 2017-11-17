@@ -154,7 +154,7 @@ public class Frm_SUserSecurity extends javax.swing.JInternalFrame implements MyW
         jPanel1.add(txtCurPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 190, 30));
         jPanel1.add(txtNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 190, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
         setBounds(0, 0, 867, 664);
     }// </editor-fold>//GEN-END:initComponents

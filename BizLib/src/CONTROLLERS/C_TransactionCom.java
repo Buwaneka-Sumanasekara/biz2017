@@ -185,6 +185,32 @@ public class C_TransactionCom {
         return ar;
     }
 
+    public double getStockLineQtyReturned(String TrnNo, UTransactions TrnTyp, String ProId) throws Exception {
+        String q = "SELECT strf_ConvMaxUnit(M_UNITGROUPS_ID, M_UNITS_ID, SUM(QTY)) AS QTY_UNIT_MAX  FROM T_STOCKLINE WHERE REF_TRN='" + TrnNo + "' AND TRNTYP='" + TrnTyp.getTrntype() + "' AND PROID='" + ProId + "' AND QTY<0   ";
+         System.out.println(q);
+        ResultSet rs = DB.Search(q);
+
+        double d=0;
+        if (rs.next()) {
+           d=rs.getDouble("QTY_UNIT_MAX");
+           
+        }
+
+        return d;
+    }
+    public double getConvertToMaxUnit(double qty,String unitGrp,String unit)throws Exception {
+        String q="SELECT strf_ConvMaxUnit('"+unitGrp+"', '"+unit+"', "+qty+") AS Q";
+         ResultSet rs = DB.Search(q);
+
+        double d=0;
+        if (rs.next()) {
+           d=rs.getDouble("Q");
+           
+        }
+
+        return d;
+    }
+    
     public TStockline getStockLineSpecificPositive(String TrnNo, UTransactions TrnTyp, String ProId) throws Exception {
         String q = "SELECT * FROM T_STOCKLINE WHERE T_STOCKMST_ID='" + TrnNo + "' AND TRNTYP='" + TrnTyp.getTrntype() + "' AND PROID='" + ProId + "' AND QTY>0 ";
         //  System.out.println(q);

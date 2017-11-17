@@ -270,7 +270,7 @@ public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindo
         });
         jPanel1.add(txt_CusAdd3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 280, 130, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 650));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
         setBounds(0, 0, 867, 674);
     }// </editor-fold>//GEN-END:initComponents
