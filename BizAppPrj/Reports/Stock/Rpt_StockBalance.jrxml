@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SalesSumary" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="d6eb293a-b621-4818-b20f-7cf5fe9cd248">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="PARA_TITLE" class="java.lang.String"/>
+	<parameter name="PARA_COMNAME" class="java.lang.String"/>
+	<parameter name="PARA_ADD1" class="java.lang.String"/>
+	<parameter name="PARA_ADD2" class="java.lang.String"/>
+	<parameter name="PARA_ADD3" class="java.lang.String"/>
+	<parameter name="PARA_ADD4" class="java.lang.String"/>
+	<parameter name="PARA_LOC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_CONTACT" class="java.lang.String"/>
+	<parameter name="PARA_GRP" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select p.ID,p.NAME,s.BATCHNO,s.COSTP,s.SELLP,s.SIH,u.SYMBLE,l.NAME from m_stocks s
+inner join m_products p
+on s.M_PRODUCTS_ID=p.ID
+inner join m_units u
+on s.M_UNITS_ID=u.ID
+inner join m_location l
+on s.M_LOCATION_ID=l.ID
+
+where p.ACTIVE=1 AND s.M_LOCATION_ID=$P{PARA_LOC} $P!{PARA_GRP}]]>
+	</queryString>
+	<field name="ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BATCHNO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COSTP" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SELLP" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SIH" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SYMBLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="127" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="551" height="20" uuid="bbb9fe42-f431-4c39-a360-e73526a967aa"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_COMNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="19" width="551" height="20" uuid="e6b6fb05-28d4-418b-9fe4-7a9e781e1478"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="40" width="551" height="20" uuid="139ffe72-1299-48eb-8491-079b360012e2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_ADD2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="60" width="551" height="20" uuid="1725ffa4-a690-4f0c-93d3-75630caf10fe"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="80" width="551" height="20" uuid="c0d89006-fbca-49d0-87d6-e724e8c5b6ca"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="100" width="551" height="20" uuid="ffe00db2-2346-4837-a9c6-eab5dab22783"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_CONTACT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="552" height="33" backcolor="#CCCCCC" uuid="4a519603-82b6-49cd-9cf3-8e39f18bf9bd"/>
+				<graphicElement>
+					<pen lineColor="#CCCCCC"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="552" height="20" uuid="c79de36c-9a2b-4a2b-993f-20374b62a3a7"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_TITLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="0" width="100" height="20" uuid="353f6999-d0e6-4cbc-9b3d-31656979cb64"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="0" width="59" height="20" uuid="dac31382-b30a-4420-a7f6-7c9ba164e743"/>
+				<text><![CDATA[BATCHNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="0" width="100" height="20" uuid="2238af21-b686-4dd4-97a1-3bac59fa4ea8"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SIH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="0" width="276" height="20" uuid="363153e6-ded9-4cb5-a688-775e6c97363e"/>
+				<text><![CDATA[NAME]]></text>
+			</staticText>
+			<line>
+				<reportElement x="6" y="21" width="546" height="1" uuid="b52cbb42-2284-41a4-97a5-c387f435f738"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="-1" width="100" height="20" uuid="812f250f-8eb2-42ba-9f07-c050f3db24a4"/>
+				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="0" width="60" height="20" uuid="c93c0e5a-6822-4745-8b78-a46186937128"/>
+				<textFieldExpression><![CDATA[$F{BATCHNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="1" width="64" height="20" uuid="2fbe4669-6c09-4ec8-9007-a28f6eed6572"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{SIH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="0" width="276" height="20" uuid="3c49d586-ea4b-490e-8efb-18124ff32009"/>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="504" y="1" width="48" height="20" uuid="93c74b1e-7a65-4fa5-99a1-98589448117d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{SYMBLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="46" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="23" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

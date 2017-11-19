@@ -1159,6 +1159,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 TStockmst hed = new TStockmst();
                 hed.setId(txt_TrnNo.getText());
                 hed.setUTransactions(TrnSetup);
+                hed.setTerminalId(GlobalData.Settings.get("TERMINAL").toString());
                 hed.setFullutilize((byte) 1);
                 hed.setCrdate(new Date());
                 hed.setMUserByMUserCr(GLOBALDATA.GlobalData.CurUser);
@@ -1539,28 +1540,31 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
         col.add("Code");
         col.add("Description");
-        col.add("Ref1");
-        col.add("Ref2");
+       
 
         String SQL = " SELECT * FROM ( select p.ID,p.NAME";
 
         ArrayList<String> SQL_Col = new ArrayList();
         SQL_Col.add("ID");
         SQL_Col.add("NAME");
-        SQL_Col.add("REF1");
+        
 
         if (TrnSetup.getCprice() == 1) {
-            col.add("Cost Price");
+            col.add("Cost");
             SQL_Col.add("COSTP");
             SQL += " ,s.COSTP  ";
 
         }
         if (TrnSetup.getSprice() == 1) {
-            col.add("Sell Price");
+            col.add("Sell");
             SQL_Col.add("SELLP");
             SQL += " ,s.SELLP ";
         }
 
+         SQL_Col.add("REF1");
+         col.add("Ref1");
+          SQL += ",p.REF1 ";
+        
         String[] SQL_ar = new String[SQL_Col.size()];
         int i = 0;
         for (String cold : SQL_Col) {
@@ -1568,8 +1572,10 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             SQL_ar[i] = cold;
             i++;
         }
-
-        SQL += ",p.REF1 ";
+        
+        
+     
+      
 
         String SQLWhere = "";
         if (TrnSetup.getSupplier() == 1 && TrnSetup.getSupPrdOnly() == 1) {

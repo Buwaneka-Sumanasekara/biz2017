@@ -64,9 +64,13 @@ public class C_GroupCommon {
     }
 
     public int saveGroup(String tbl, MGroupCommon g) throws Exception {
-        String q = "INSERT INTO " + tbl + "(ID,NAME,ACTIVE,ISHIDDEN) VALUES('" + g.getId() + "','" + g.getName() + "'," + g.getActive() + ",0) ";
+        if (IsExists_Name(tbl, g.getName()) == null) {
+            String q = "INSERT INTO " + tbl + "(ID,NAME,ACTIVE,ISHIDDEN) VALUES('" + g.getId() + "','" + g.getName() + "'," + g.getActive() + ",0) ";
 
-        return DB.Save(q);
+            return DB.Save(q);
+        } else {
+            throw new Exception("This Group is already existing");
+        }
     }
 
     public int updateGroup(String tbl, MGroupCommon g) throws Exception {
@@ -96,6 +100,20 @@ public class C_GroupCommon {
 
     public MGroupCommon IsExists(String tbl, String ID) throws Exception {
         String q = "SELECT * FROM " + tbl + " WHERE ID='" + ID + "'";
+        ResultSet rs = DB.Search(q);
+        MGroupCommon g = null;
+        if (rs.next()) {
+            g = new MGroupCommon();
+            g.setId(rs.getString("ID"));
+            g.setName(rs.getString("NAME"));
+            g.setActive(rs.getByte("ACTIVE"));
+
+        }
+        return g;
+    }
+
+    public MGroupCommon IsExists_Name(String tbl, String Name) throws Exception {
+        String q = "SELECT * FROM " + tbl + " WHERE NAME='" + Name.toUpperCase() + "'";
         ResultSet rs = DB.Search(q);
         MGroupCommon g = null;
         if (rs.next()) {
@@ -140,12 +158,12 @@ public class C_GroupCommon {
 
             int i = 0;
             for (MGroupCommon GC : parentIds) {
-                if(i==0){
-                    q += " gl.G" + parentGrp + "_ID='" + GC.getId()+ "' ";
-                }else{
+                if (i == 0) {
+                    q += " gl.G" + parentGrp + "_ID='" + GC.getId() + "' ";
+                } else {
                     q += " OR gl.G" + parentGrp + "_ID='" + GC.getId() + "' ";
                 }
-                
+
                 i++;
             }
 

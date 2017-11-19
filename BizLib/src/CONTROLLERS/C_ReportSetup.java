@@ -8,7 +8,7 @@ package CONTROLLERS;
 import DB_ACCESS.DB;
 import MODELS.RptCommon;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 
 /**
@@ -63,4 +63,11 @@ public class C_ReportSetup {
         return ar_rpt;
     }
 
+    
+    public void rpt_RunStockBalance(int locid)throws Exception{
+        String q="CALL strp_UpdateStockBalance('"+locid+"')";
+        DB.Save(q);
+    }
+    
+    
 }

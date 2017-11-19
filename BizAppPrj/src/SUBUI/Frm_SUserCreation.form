@@ -195,6 +195,9 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JCheckBox" name="Chk_Active">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Active"/>
+          </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Chk_ActiveMouseClicked"/>
           </Events>

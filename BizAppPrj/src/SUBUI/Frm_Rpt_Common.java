@@ -9,6 +9,7 @@ import COMMONFUN.ReportC;
 import CONTROLLERS.C_Customers;
 import CONTROLLERS.C_GroupCommon;
 import CONTROLLERS.C_Locations;
+import CONTROLLERS.C_ReportSetup;
 import CONTROLLERS.C_Suppliers;
 import MAIN.Frm_Main;
 import MODELS.MCustomer;
@@ -67,6 +68,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
     TreeMap<String, Vector<MGroupCommon>> Grps = null;
     Map<Integer, String> groupDisplayNames = null;
     ReportC C_Report = null;
+    C_ReportSetup c_rptSet = null;
 
     SimpleDateFormat sdf_From = null;
     SimpleDateFormat sdf_To = null;
@@ -85,10 +87,11 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         this.cSup = new C_Suppliers();
         this.cGrp = new C_GroupCommon();
         this.C_Report = new ReportC();
+        this.c_rptSet = new C_ReportSetup();
         this.sdf_From = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
         this.sdf_To = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
-        
-        System.out.println("Rept Id: "+"RPT_" + mRpt.getId());
+
+        System.out.println("Rept Id: " + "RPT_" + mRpt.getId());
         this.jr = GLOBALDATA.GlobalData.CompiledReports.get("RPT_" + mRpt.getId());
         Refresh();
         setShortCutKeys(this);
@@ -116,14 +119,14 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         lbl_Name1 = new javax.swing.JLabel();
         lbl_LNAME = new javax.swing.JLabel();
         layout_Location = new javax.swing.JPanel();
-        cmb_Loc = new javax.swing.JComboBox<>();
+        cmb_Loc = new javax.swing.JComboBox<String>();
         layout_Period = new javax.swing.JPanel();
         txt_DateF = new com.toedter.calendar.JDateChooser();
         txt_DateT = new com.toedter.calendar.JDateChooser();
         lb_lTo = new javax.swing.JLabel();
-        cmb_Qut = new javax.swing.JComboBox<>();
+        cmb_Qut = new javax.swing.JComboBox<String>();
         layout_Period3 = new javax.swing.JPanel();
-        cmb_Loc2 = new javax.swing.JComboBox<>();
+        cmb_Loc2 = new javax.swing.JComboBox<String>();
         layout_Group = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         chk_GrpSelectAll = new javax.swing.JCheckBox();
@@ -352,6 +355,19 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         chkAllGroups.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         chkAllGroups.setSelected(true);
         chkAllGroups.setText("All Groups");
+        chkAllGroups.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkAllGroupsItemStateChanged(evt);
+            }
+        });
+        chkAllGroups.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                chkAllGroupsMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                chkAllGroupsMouseReleased(evt);
+            }
+        });
         chkAllGroups.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkAllGroupsActionPerformed(evt);
@@ -399,7 +415,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
     }//GEN-LAST:event_txt_DateTFocusLost
 
     private void chk_GrpSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_GrpSelectAllActionPerformed
-        Grp_SelectAll(chk_GrpSelectAll.isSelected());
+        Grp_SelectAll();
     }//GEN-LAST:event_chk_GrpSelectAllActionPerformed
 
     private void but_Grp_NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_Grp_NextActionPerformed
@@ -416,8 +432,20 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
     }//GEN-LAST:event_tbl_GrpMouseClicked
 
     private void chkAllGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAllGroupsActionPerformed
-       setGroupPanelEnable(chkAllGroups.isSelected());
+       
     }//GEN-LAST:event_chkAllGroupsActionPerformed
+
+    private void chkAllGroupsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkAllGroupsItemStateChanged
+              
+    }//GEN-LAST:event_chkAllGroupsItemStateChanged
+
+    private void chkAllGroupsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chkAllGroupsMouseClicked
+       
+    }//GEN-LAST:event_chkAllGroupsMouseClicked
+
+    private void chkAllGroupsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chkAllGroupsMouseReleased
+       setGroupPanelEnable();
+    }//GEN-LAST:event_chkAllGroupsMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -540,7 +568,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
             lbl_CusSup.setText("Customer Id");
             layout_CusSup.setBorder(new TitledBorder("Customer"));
         }
-
+        setGroupPanelEnable();
     }
 
     public void setShortCutKeys(JInternalFrame f) {
@@ -614,10 +642,16 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         try {
 
             if (jr != null) {
+
                 Map<String, Object> para = new TreeMap<>();
                 if (mRpt.getEn_Loc() == 1) {
                     MLocation Loc = (MLocation) cmb_Loc.getSelectedItem();
                     if (Loc != null) {
+
+                        if (mRpt.getId().equals("R00102")) {
+                            c_rptSet.rpt_RunStockBalance(Loc.getId());
+                        }
+
                         para.put("PARA_LOC", "" + Loc.getId());
                     } else {
                         throw new Exception("Invalid Location");
@@ -639,38 +673,42 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
                     String whr_g = "";
 
-                   if(chkAllGroups.isSelected()==false){
-                    for (Map.Entry<String, Vector<MGroupCommon>> entry : Grps.entrySet()) {
-                        String key = entry.getKey();
-                        Vector<MGroupCommon> value = entry.getValue();
+                    if (chkAllGroups.isSelected() == false) {
+                        if(Grps.size()>0){
+                        for (Map.Entry<String, Vector<MGroupCommon>> entry : Grps.entrySet()) {
+                            String key = entry.getKey();
+                            Vector<MGroupCommon> value = entry.getValue();
 
-                        if (value.size() > 0) {
+                            if (value.size() > 0) {
 
-                            if (whr_g.length() > 0) {
-                                whr_g += " AND ";
-                            }
-
-                            int g = 0;
-                            whr_g += "(";
-                            for (MGroupCommon mGroupCommon : value) {
-                                if (g == 0) {
-                                    whr_g += " G" + key + "='" + mGroupCommon.getId()+"' ";
-                                } else {
-                                    whr_g += " OR G" +key + "='" + mGroupCommon.getId()+"' ";
+                                if (whr_g.length() > 0) {
+                                    whr_g += " AND ";
                                 }
-                                g++;
+
+                                int g = 0;
+                                whr_g += "(";
+                                for (MGroupCommon mGroupCommon : value) {
+                                    if (g == 0) {
+                                        whr_g += " p.M_GROUP" + key + "_ID='" + mGroupCommon.getId() + "' ";
+                                    } else {
+                                        whr_g += " OR p.M_GROUP" + key + "_ID='" + mGroupCommon.getId() + "' ";
+                                    }
+                                    g++;
+                                }
+                                whr_g += ")";
+
                             }
-                            whr_g += ")";
 
                         }
-
-                         para.put("PARA_GRP", whr_g);
-
+                        }else{
+                            throw new Exception("Select at least one From group table");
+                        }
+                      
+                    } else {
+                       whr_g="  p.M_GROUP1_ID LIKE '%%'  ";
                     }
-                   }else{
-                       para.put("PARA_GRP", " G1 LIKE '%%'  "); 
-                   }
-
+                    System.out.println(whr_g);
+                      para.put("PARA_GRP", " AND "+ whr_g);
                 }
                 if (mRpt.getEn_Sup() == 1) {
                     if (txt_Id.getText().length() > 0) {
@@ -740,7 +778,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
             if (Selected == null || Selected.size() == 0) {
 
-                Grp_SelectAll(chk_GrpSelectAll.isSelected());
+                Grp_SelectAll(false);
             }
         } else if (grpno > 5) {
             but_Grp_Next.setEnabled(false);
@@ -760,7 +798,15 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         return state;
     }
 
-    private void Grp_SelectAll(boolean selected) {
+    private void Grp_SelectAll() {
+        boolean selected=chk_GrpSelectAll.isSelected();
+        DefaultTableModel dtm = (DefaultTableModel) tbl_Grp.getModel();
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            dtm.setValueAt(selected, i, 1);
+        }
+    }
+       private void Grp_SelectAll(boolean selected) {
+        
         DefaultTableModel dtm = (DefaultTableModel) tbl_Grp.getModel();
         for (int i = 0; i < dtm.getRowCount(); i++) {
             dtm.setValueAt(selected, i, 1);
@@ -853,21 +899,27 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         }
     }
 
-    private void setGroupPanelEnable(boolean selected) {
-       if(selected){
-           for (Map.Entry<String, Vector<MGroupCommon>> entry : Grps.entrySet()) {
-               String string = entry.getKey();
-               Vector<MGroupCommon> vector = new Vector<>();
-               Grps.put(string, vector);
-               
-           }
-           
-       }
-       tbl_Grp.setEnabled(selected);
-       but_Grp_Back.setEnabled(selected);
-       but_Grp_Next.setEnabled(selected);
-       chk_GrpSelectAll.setEnabled(selected);
-       tree_Grps.setEnabled(selected);
-    
+    private void setGroupPanelEnable() {
+     
+        boolean itemstate=!chkAllGroups.isSelected();
+        
+        if (itemstate) {
+            for (Map.Entry<String, Vector<MGroupCommon>> entry : Grps.entrySet()) {
+                String string = entry.getKey();
+                Vector<MGroupCommon> vector = new Vector<>();
+                Grps.put(string, vector);
+
+            }
+
+        }
+        tbl_Grp.setEnabled(itemstate);
+        but_Grp_Back.setEnabled(itemstate);
+        but_Grp_Next.setEnabled(itemstate);
+        chk_GrpSelectAll.setEnabled(itemstate);
+        tree_Grps.setEnabled(itemstate);
+        if(!itemstate){
+            Grp_SelectAll(false);
+        }
+
     }
 }

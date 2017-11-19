@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SalesSumary" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="d6eb293a-b621-4818-b20f-7cf5fe9cd248">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="PARA_TITLE" class="java.lang.String"/>
+	<parameter name="PARA_COMNAME" class="java.lang.String"/>
+	<parameter name="PARA_ADD1" class="java.lang.String"/>
+	<parameter name="PARA_ADD2" class="java.lang.String"/>
+	<parameter name="PARA_ADD3" class="java.lang.String"/>
+	<parameter name="PARA_ADD4" class="java.lang.String"/>
+	<parameter name="PARA_LOC" class="java.lang.String"/>
+	<parameter name="PARA_CONTACT" class="java.lang.String"/>
+	<parameter name="PARA_FDATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TDATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="127" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="551" height="20" uuid="bbb9fe42-f431-4c39-a360-e73526a967aa"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_COMNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="19" width="551" height="20" uuid="e6b6fb05-28d4-418b-9fe4-7a9e781e1478"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="40" width="551" height="20" uuid="139ffe72-1299-48eb-8491-079b360012e2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_ADD2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="60" width="551" height="20" uuid="1725ffa4-a690-4f0c-93d3-75630caf10fe"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="80" width="551" height="20" uuid="c0d89006-fbca-49d0-87d6-e724e8c5b6ca"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="100" width="551" height="20" uuid="ffe00db2-2346-4837-a9c6-eab5dab22783"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_CONTACT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="552" height="31" backcolor="#CCCCCC" uuid="4a519603-82b6-49cd-9cf3-8e39f18bf9bd"/>
+				<graphicElement>
+					<pen lineColor="#CCCCCC"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="552" height="20" uuid="c79de36c-9a2b-4a2b-993f-20374b62a3a7"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_TITLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="23" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

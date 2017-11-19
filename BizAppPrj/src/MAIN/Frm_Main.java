@@ -59,6 +59,8 @@ public class Frm_Main extends javax.swing.JFrame {
         this.lblCompanyName.setText(GlobalData.Setup.getComname());
         this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
+        this.txt_DB_HOST.setText("Server:  "+GlobalData.config.getServer());
+        this.txt_DB_Name.setText("DB:  "+GlobalData.config.getDb());
         RefreshLayOut();
         createUserMenu();
     }
@@ -83,6 +85,8 @@ public class Frm_Main extends javax.swing.JFrame {
         lblCompanyName = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
         lblUserimg = new javax.swing.JLabel();
+        txt_DB_Name = new javax.swing.JLabel();
+        txt_DB_HOST = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -156,6 +160,16 @@ public class Frm_Main extends javax.swing.JFrame {
         lblUserimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/1465731972_user-01.png"))); // NOI18N
         layout_Outer.add(lblUserimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 70, 70));
 
+        txt_DB_Name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txt_DB_Name.setForeground(new java.awt.Color(153, 153, 255));
+        txt_DB_Name.setText("jLabel1");
+        layout_Outer.add(txt_DB_Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 700, 260, -1));
+
+        txt_DB_HOST.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txt_DB_HOST.setForeground(new java.awt.Color(153, 153, 255));
+        txt_DB_HOST.setText("jLabel1");
+        layout_Outer.add(txt_DB_HOST, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 700, 280, -1));
+
         getContentPane().add(layout_Outer, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 0, 1030, 720));
 
         setSize(new java.awt.Dimension(1035, 720));
@@ -213,6 +227,8 @@ public class Frm_Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblUserimg;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lbl_Global_Instructions;
+    private javax.swing.JLabel txt_DB_HOST;
+    private javax.swing.JLabel txt_DB_Name;
     // End of variables declaration//GEN-END:variables
 
     private void createUserMenu() {

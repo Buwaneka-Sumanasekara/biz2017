@@ -11,6 +11,7 @@ public class TStockmst  implements java.io.Serializable {
 
 
      private String id;
+     private String TerminalId;
      private UTransactions UTransactions;
      private MCustomer MCustomer;
      private MLocation MLocationByMLocationSource;
@@ -189,6 +190,14 @@ public class TStockmst  implements java.io.Serializable {
 
     public void setChange(Double change) {
         this.change = change;
+    }
+
+    public String getTerminalId() {
+        return TerminalId;
+    }
+
+    public void setTerminalId(String TerminalId) {
+        this.TerminalId = TerminalId;
     }
  
     

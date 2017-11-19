@@ -19,7 +19,6 @@ import MODELS.UTransactions;
 import QUERYBUILDER.QueryGen;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -58,9 +57,9 @@ public class C_TransactionCom {
         CVou = new C_Voucher();
     }
 
-    public String getNxtTrnNo(String TrnTyp, String LocId) throws Exception {
+    public String getNxtTrnNo(String TrnTyp, String LocId,String TermId) throws Exception {
 
-        return cf.generateNextNo(10, (LocId.length() > 1 ? LocId : "0" + LocId) + sdf_trnformat.format(new Date()), "T_STOCKMST", "ID", "WHERE TRNTYPE='" + TrnTyp + "'");
+        return cf.generateNextNo(12, (LocId.length() > 1 ? LocId : "0" + LocId)+(TermId.length() > 1 ? TermId : "0" + TermId) + sdf_trnformat.format(new Date()), "T_STOCKMST", "ID", "WHERE TRNTYPE='" + TrnTyp + "'");
     }
 
     public void UpdateTransactionBatch(String MstId, String ProCode, String Batch, String TrnTyp) throws Exception {
@@ -121,6 +120,7 @@ public class C_TransactionCom {
         if (rs.next()) {
             sthed = new TStockmst();
             sthed.setId(rs.getString("ID"));
+            sthed.setTerminalId(rs.getString("TERMINAL"));
             sthed.setUTransactions(TrnTyp);
             sthed.setFullutilize(rs.getByte("FULLUTILIZE"));
             sthed.setCrdate(rs.getDate("CRDATE"));
@@ -163,7 +163,9 @@ public class C_TransactionCom {
         ArrayList<TStockline> ar = new ArrayList<>();
         while (rs.next()) {
             TStockline st = new TStockline();
+
             st.setTStockmst(getStockHed(TrnNo, TrnTyp));
+
             st.setLineNo(rs.getInt("LINEID"));
             st.setProId(rs.getString("PROID"));
             st.setSprice(rs.getDouble("SPRICE"));
@@ -187,30 +189,31 @@ public class C_TransactionCom {
 
     public double getStockLineQtyReturned(String TrnNo, UTransactions TrnTyp, String ProId) throws Exception {
         String q = "SELECT strf_ConvMaxUnit(M_UNITGROUPS_ID, M_UNITS_ID, SUM(QTY)) AS QTY_UNIT_MAX  FROM T_STOCKLINE WHERE REF_TRN='" + TrnNo + "' AND TRNTYP='" + TrnTyp.getTrntype() + "' AND PROID='" + ProId + "' AND QTY<0   ";
-         System.out.println(q);
+        System.out.println(q);
         ResultSet rs = DB.Search(q);
 
-        double d=0;
+        double d = 0;
         if (rs.next()) {
-           d=rs.getDouble("QTY_UNIT_MAX");
-           
+            d = rs.getDouble("QTY_UNIT_MAX");
+
         }
 
         return d;
     }
-    public double getConvertToMaxUnit(double qty,String unitGrp,String unit)throws Exception {
-        String q="SELECT strf_ConvMaxUnit('"+unitGrp+"', '"+unit+"', "+qty+") AS Q";
-         ResultSet rs = DB.Search(q);
 
-        double d=0;
+    public double getConvertToMaxUnit(double qty, String unitGrp, String unit) throws Exception {
+        String q = "SELECT strf_ConvMaxUnit('" + unitGrp + "', '" + unit + "', " + qty + ") AS Q";
+        ResultSet rs = DB.Search(q);
+
+        double d = 0;
         if (rs.next()) {
-           d=rs.getDouble("Q");
-           
+            d = rs.getDouble("Q");
+
         }
 
         return d;
     }
-    
+
     public TStockline getStockLineSpecificPositive(String TrnNo, UTransactions TrnTyp, String ProId) throws Exception {
         String q = "SELECT * FROM T_STOCKLINE WHERE T_STOCKMST_ID='" + TrnNo + "' AND TRNTYP='" + TrnTyp.getTrntype() + "' AND PROID='" + ProId + "' AND QTY>0 ";
         //  System.out.println(q);
@@ -220,6 +223,7 @@ public class C_TransactionCom {
         if (rs.next()) {
             st = new TStockline();
             st.setTStockmst(getStockHed(TrnNo, TrnTyp));
+
             st.setLineNo(rs.getInt("LINEID"));
             st.setProId(rs.getString("PROID"));
             st.setSprice(rs.getDouble("SPRICE"));
@@ -272,7 +276,7 @@ public class C_TransactionCom {
 
                 }
             } else {
-                hed.setId(getNxtTrnNo(hed.getUTransactions().getTrntype(), "" + (hed.getMLocationByMLocationSource() != null ? hed.getMLocationByMLocationSource().getId() : 0)));
+                hed.setId(getNxtTrnNo(hed.getUTransactions().getTrntype(), "" + (hed.getMLocationByMLocationSource() != null ? hed.getMLocationByMLocationSource().getId() : 0),hed.getTerminalId()));
             }
 
             c = DB.getCurrentCon();
@@ -282,6 +286,7 @@ public class C_TransactionCom {
 
             hedMap.put("ID", "'" + hed.getId() + "'");
             hedMap.put("TRNTYPE", "'" + hed.getUTransactions().getTrntype() + "'");
+            hedMap.put("TERMINAL", "'"+hed.getTerminalId()+"'");
             hedMap.put("FULLUTILIZE", "'" + hed.getFullutilize() + "'");
             hedMap.put("CRDATE", "'" + sdf.format(hed.getCrdate()) + "'");
             hedMap.put("M_USER_CR", "'" + hed.getMUserByMUserCr().getId() + "'");
@@ -308,6 +313,7 @@ public class C_TransactionCom {
             for (TStockline d : det) {
                 Map<String, String> detMap = new TreeMap<>();
                 detMap.put("T_STOCKMST_ID", "'" + hed.getId() + "'");
+                detMap.put("TERMINAL", "'"+hed.getTerminalId()+"'");
                 detMap.put("LINEID", "'" + d.getLineNo() + "'");
                 detMap.put("PROID", "'" + d.getProId() + "'");
                 detMap.put("TRNTYP", "'" + d.getUTransactions().getTrntype() + "'");
@@ -382,12 +388,12 @@ public class C_TransactionCom {
                     } else {
                         //No need to create batch in HOLD mode
                         /*
-                        if (hed.getUTransactions().getBatchcreate() == 0) {
+                         if (hed.getUTransactions().getBatchcreate() == 0) {
 
-                            String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
-                            C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(d.getUnitGroupId()), ConvertedQty);
-                            UpdateTransactionBatch(hed.getId(), d.getProId(), LastBatch);
-                        }
+                         String LastBatch = C_Pro.getLastBatch(d.getProId(), hed.getMLocationByMLocationSource().getId().toString());
+                         C_Pro.updateSpecificBatch(d.getProId(), d.getCprice(), d.getSprice(), hed.getMLocationByMLocationSource(), LastBatch, C_units.getBaseUnitId(d.getUnitGroupId()), ConvertedQty);
+                         UpdateTransactionBatch(hed.getId(), d.getProId(), LastBatch);
+                         }
                          */
                     }
                 }
@@ -398,6 +404,7 @@ public class C_TransactionCom {
                     Map<String, String> payMap = new TreeMap<>();
                     payMap.put("ID", "" + pay.getId());
                     payMap.put("T_STOCKMST_ID", "'" + pay.getTStockmst().getId() + "'");
+                    payMap.put("TERMINAL", "'"+hed.getTerminalId()+"'");
                     payMap.put("REFNO", "'" + pay.getRefno() + "'");
                     payMap.put("FRMAMOUNT", "'" + pay.getFrmamount() + "'");
                     payMap.put("AMOUNT", "'" + pay.getAmount() + "'");
@@ -460,18 +467,17 @@ public class C_TransactionCom {
         return TrnNo;
     }
 
-    
-    public boolean CheckReturnQty(String unitg,double ReqQ,String ReqUnit,double AvlQ,String AvlUnit) throws Exception{
-       boolean state=false;
-       String q="SELECT (strf_ConvMinUnit('"+unitg+"', '"+AvlUnit +"', '"+AvlQ +"') -strf_ConvMinUnit('"+unitg+"', '"+ReqUnit +"', '"+ReqQ +"')) as DIF ";
+    public boolean CheckReturnQty(String unitg, double ReqQ, String ReqUnit, double AvlQ, String AvlUnit) throws Exception {
+        boolean state = false;
+        String q = "SELECT (strf_ConvMinUnit('" + unitg + "', '" + AvlUnit + "', '" + AvlQ + "') -strf_ConvMinUnit('" + unitg + "', '" + ReqUnit + "', '" + ReqQ + "')) as DIF ";
         ResultSet rs = DB.Search(q);
-       if(rs.next()){
-           double res=rs.getDouble("DIF");
-           if(res>=0){
-               state=true;
-           }
-       }
-       return state;
+        if (rs.next()) {
+            double res = rs.getDouble("DIF");
+            if (res >= 0) {
+                state = true;
+            }
+        }
+        return state;
     }
-    
+
 }

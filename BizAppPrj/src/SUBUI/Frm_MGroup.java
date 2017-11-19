@@ -110,6 +110,12 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
             }
         });
         jPanel1.add(txt_GroupCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 150, 30));
+
+        txt_GroupDescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_GroupDescriptionActionPerformed(evt);
+            }
+        });
         jPanel1.add(txt_GroupDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 260, 30));
 
         Chk_Active.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -251,6 +257,10 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
 
     }//GEN-LAST:event_txt_GroupCodeKeyPressed
 
+    private void txt_GroupDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_GroupDescriptionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_GroupDescriptionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Chk_Active;
@@ -316,7 +326,7 @@ public class Frm_MGroup extends javax.swing.JInternalFrame implements MyWindowBa
                 }
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(rootPane, "Couldn`t find item:" + ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
             }
         }
 

@@ -143,8 +143,9 @@ public class ServerCon {
          //   System.out.println("Settings file not-exisis");
             fos = new FileOutputStream(f);
             UConfig u = new UConfig();
+            u.setDb("biz");
             u.setServer("localhost");
-            u.setUsername("root");
+            u.setUsername("bizdb");
             u.setPassword("123");
             u.setPort("3306");
             ous = new ObjectOutputStream(fos);

@@ -26,7 +26,7 @@ public class DB {
     
     private static void getConnection() throws SQLException, ClassNotFoundException {         
             String localServer = GlobalData.config.getServer();//this is my localip address
-            String localDB ="bizdb";// name of the db
+            String localDB =GlobalData.config.getDb();// name of the db
             String port=GlobalData.config.getPort();
             String user=GlobalData.config.getUsername();
             String pass=GlobalData.config.getPassword();
@@ -80,5 +80,9 @@ public class DB {
             //System.out.println(query);
             return con.createStatement().executeUpdate(query);
    
+    }
+
+    public static void Save() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

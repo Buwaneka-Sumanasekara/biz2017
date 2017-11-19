@@ -36,6 +36,7 @@ public class ReportC {
         boolean printReport = false;
         USetup setup = GlobalData.Setup;
 
+   
         para.put("PARA_TITLE", RptName);
         para.put("PARA_COMNAME", setup.getComname());
         para.put("PARA_ADD1", setup.getAddno());

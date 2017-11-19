@@ -111,8 +111,7 @@ CREATE TABLE `m_customer` (
 
 /*!40000 ALTER TABLE `m_customer` DISABLE KEYS */;
 INSERT INTO `m_customer` (`ID`,`NAME`,`ADDNO`,`ADD1`,`ADD2`,`ADD3`,`CONTACT`,`MOBILE`,`ACTIVE`) VALUES 
- ('00001','DEFAULT','-','-','-','-','-','-',1),
- ('C0002','BUWANEKA SUMANASEKARA','88/10/E','PILIYANDALA','MAVITHARA','PILIYANDALA','776161689','776161689',1);
+ ('00001','CASH','-','-','-','-','-','-',1);
 /*!40000 ALTER TABLE `m_customer` ENABLE KEYS */;
 
 
@@ -143,9 +142,6 @@ CREATE TABLE `m_giftvoucher` (
 --
 
 /*!40000 ALTER TABLE `m_giftvoucher` DISABLE KEYS */;
-INSERT INTO `m_giftvoucher` (`GV_NO`,`GRP_ID`,`VALUE`,`CR_LOC`,`CR_BY`,`CR_DATE`,`PUR_LOC`,`PUR_DATE`,`PUR_CRBY`,`PUR_REFNO`,`ACTIVE`,`ISPUR`,`GV_DES`) VALUES 
- ('170000000001','B0001',1000,1,'U0000','2017-03-11 21:47:47',1,'2017-03-12 19:15:55','U0000','1703000005',1,1,'gift'),
- ('170000000002','B0001',1000,1,'U0000','2017-03-11 21:47:47',NULL,NULL,NULL,NULL,1,0,'gift');
 /*!40000 ALTER TABLE `m_giftvoucher` ENABLE KEYS */;
 
 
@@ -169,8 +165,6 @@ CREATE TABLE `m_giftvoucher_group` (
 --
 
 /*!40000 ALTER TABLE `m_giftvoucher_group` DISABLE KEYS */;
-INSERT INTO `m_giftvoucher_group` (`GRP_ID`,`GRP_NAME`,`GRP_STARTNO`,`GRP_ENDNO`,`GRP_QTY`,`GRP_ACTIVE`) VALUES 
- ('B0001','gift','170000000001','170000000003',2,1);
 /*!40000 ALTER TABLE `m_giftvoucher_group` ENABLE KEYS */;
 
 
@@ -323,7 +317,7 @@ CREATE TABLE `m_grouplink` (
   `G4_ID` varchar(50) NOT NULL,
   `G5_ID` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `m_grouplink`
@@ -331,11 +325,13 @@ CREATE TABLE `m_grouplink` (
 
 /*!40000 ALTER TABLE `m_grouplink` DISABLE KEYS */;
 INSERT INTO `m_grouplink` (`ID`,`G1_ID`,`G2_ID`,`G3_ID`,`G4_ID`,`G5_ID`) VALUES 
- (3,'G1001','G2002','G3001','G4001','G5002'),
- (4,'G1001','G2002','G3001','G4001','G5001'),
- (5,'G1001','G2001','G3005','G4007','G5004'),
- (6,'G1002','G2001','G3002','G4006','G5004'),
- (7,'G1002','G2001','G3002','G4006','G5003');
+ (1,'G1002','G2001','G3002','G4005','G5004'),
+ (2,'G1002','G2001','G3002','G4005','G5003'),
+ (3,'G1002','G2001','G3002','G4005','G5005'),
+ (4,'G1002','G2001','G3004','G4006','G5000'),
+ (7,'G1001','G2002','G3001','G4001','G5002'),
+ (8,'G1001','G2002','G3001','G4001','G5001'),
+ (9,'G1001','G2001','G3003','G4007','G5000');
 /*!40000 ALTER TABLE `m_grouplink` ENABLE KEYS */;
 
 
@@ -417,8 +413,8 @@ CREATE TABLE `m_paymst` (
 INSERT INTO `m_paymst` (`ID`,`NAME`,`HASDET`,`REFREQ`,`SEQ_ORDER`,`SHORT_NAME`,`ACTIVE`,`OVER_PAY`,`DATE_F`) VALUES 
  ('CSH','CASH',0,0,0,'CASH',1,1,0),
  ('CRC','CREDIT CARD',1,0,1,'CRD CARD',1,0,0),
- ('CHQ','CHEQUE',0,1,2,'CHEQUE',1,0,1),
- ('VOU','VOUCHER',0,1,3,'VOUCHER',1,0,0);
+ ('CHQ','CHEQUE',0,1,2,'CHEQUE',0,0,1),
+ ('VOU','VOUCHER',0,1,3,'VOUCHER',0,0,0);
 /*!40000 ALTER TABLE `m_paymst` ENABLE KEYS */;
 
 
@@ -435,6 +431,7 @@ CREATE TABLE `m_permissions` (
   `TYPE` varchar(10) DEFAULT NULL,
   `HASSUB` smallint(6) DEFAULT NULL,
   `ISUIMENU` smallint(6) DEFAULT NULL,
+  `ORD` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`,`PARENTID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -443,54 +440,64 @@ CREATE TABLE `m_permissions` (
 --
 
 /*!40000 ALTER TABLE `m_permissions` DISABLE KEYS */;
-INSERT INTO `m_permissions` (`ID`,`PARENTID`,`NAME`,`DESCRIPTION`,`TYPE`,`HASSUB`,`ISUIMENU`) VALUES 
- ('A00000','A00000','ACCOUNTS','Accounts/Payments','ACC',1,1),
- ('A00001','A00000','ACHQ','Cheque Payments','ACHQ',1,1),
- ('M00000','M00000','MASTER','Master Files','MAST',1,1),
- ('M00001','M00000','LOCATIONS','Locations','LOC',0,1),
- ('M00002','M00000','GROUP1','Category','GROUP',0,1),
- ('M00003','M00000','GROUP2','Sub Category','GROUP',0,1),
- ('M00004','M00000','GROUP3','Type','GROUP',0,1),
- ('M00005','M00000','GROUP4','Brand','GROUP',0,1),
- ('M00006','M00000','GROUP5','Model','GROUP',0,1),
- ('M00007','M00000','UNITS','Unit Master','UNITS',0,1),
- ('M00008','M00000','ITEMS','Item Maser','ITEMS',0,1),
- ('M00009','M00000','SUP','Supplier','SUP',0,1),
- ('M00010','M00000','CUS','Customer','CUS',0,1),
- ('M00011','M00000','GROUPMAP','Group Map','GRPM',0,1),
- ('M00012','M00000','UGRP','Unit Group','UGRP',0,1),
- ('M00013','M00000','GVCRE','Gift Voucher Creation','GVCRE',0,1),
- ('M00014','M00000','GVSTA','Gift Voucher Status','GVSTA',0,1),
- ('P00000','P00000','GEN_PER','General Permissions','GEN_PER',1,0),
- ('P00001','P00000','P1','Login','GEN_PER',0,0),
- ('P00002','P00000','P2','Logout','GEN_PER',0,0),
- ('P00003','P00000','P3','Location Create','GEN_PER',0,0),
- ('P00004','P00000','P4','Location Update','GEN_PER',0,0),
- ('P00005','P00000','P5','Group Creation','GEN_PER',0,0),
- ('P00006','P00000','P6','Group Update','GEN_PER',0,0),
- ('P00007','P00000','P7','Unit Creation','GEN_PER',0,0),
- ('P00008','P00000','P8','Unit Update','GEN_PER',0,0),
- ('P00009','P00000','P9','Item Creation','GEN_PER',0,0),
- ('P00010','P00000','P10','Item Update','GEN_PER',0,0),
- ('P00011','P00000','P11','Supplier Create','GEN_PER',0,0),
- ('P00012','P00000','P12','Supplier Update','GEN_PER',0,0),
- ('P00013','P00000','P13','Customer Create','GEN_PER',0,0),
- ('P00014','P00000','P14','Customer Update','GEN_PER',0,0),
- ('P00015','P00000','P15','Group Map Create','GEN_PER',0,0),
- ('P00016','P00000','P16','Group Map Update','GEN_PER',0,0),
- ('P00017','P00000','P17','Unit Map Create','GEN_PER',0,0),
- ('P00018','P00000','P18','Unit Map Update','GEN_PER',0,0),
- ('P00019','P00000','P19','Cheque Payment Update State','GEN_PER',0,0),
- ('P00020','P00000','P20','Cheque Payment Special Update(Re-Assign)','GEN_PER',0,0),
- ('P00021','P00000','P21','Gift voucher purchase','GEN_PER',0,0),
- ('P00022','P00000','P22','Gift voucher redeem','GEN_PER',0,0),
- ('S00000','S00000','SECURITY','Security','SECUR',1,1),
- ('S00001','S00000','SEC_UC','User Creation','SUC',0,1),
- ('S00002','S00000','SEC_GP','Group Permission','SGP',0,1),
- ('S00003','S00000','SEC_US','User Security','SUS',0,1),
- ('T00000','T00000','TRANSACTIONS','Transactions','TRN',1,1),
- ('T00001','T00000','T_GRN','Goods Receive Note','TRN',0,1),
- ('T00002','T00000','T_INV','Invoice','TRN',0,1);
+INSERT INTO `m_permissions` (`ID`,`PARENTID`,`NAME`,`DESCRIPTION`,`TYPE`,`HASSUB`,`ISUIMENU`,`ORD`) VALUES 
+ ('A00000','A00000','ACCOUNTS','Accounts/Payments','ACC',1,1,601),
+ ('A00001','A00000','ACHQ','Cheque Payments','ACHQ',1,1,602),
+ ('M00000','M00000','MASTER','Master Files','MAST',1,1,0),
+ ('M00001','M00000','LOCATIONS','Locations','LOC',0,1,1),
+ ('M00002','M00000','GROUP1','Category','GROUP',0,1,2),
+ ('M00003','M00000','GROUP2','Sub Category','GROUP',0,1,3),
+ ('M00004','M00000','GROUP3','Type','GROUP',0,1,4),
+ ('M00005','M00000','GROUP4','Brand','GROUP',0,1,5),
+ ('M00006','M00000','GROUP5','Model','GROUP',0,1,6),
+ ('M00007','M00000','UNITS','Unit Master','UNITS',0,1,8),
+ ('M00008','M00000','ITEMS','Item Maser','ITEMS',0,1,10),
+ ('M00009','M00000','SUP','Supplier','SUP',0,1,11),
+ ('M00010','M00000','CUS','Customer','CUS',0,1,12),
+ ('M00011','M00000','GROUPMAP','Group Map','GRPM',0,1,7),
+ ('M00012','M00000','UGRP','Unit Group','UGRP',0,1,9),
+ ('M00013','M00000','GVCRE','Gift Voucher Creation','GVCRE',0,1,13),
+ ('M00014','M00000','GVSTA','Gift Voucher Status','GVSTA',0,1,14),
+ ('P00000','P00000','GEN_PER','General Permissions','GEN_PER',1,0,801),
+ ('P00001','P00000','P1','Login','GEN_PER',0,0,802),
+ ('P00002','P00000','P2','Logout','GEN_PER',0,0,803),
+ ('P00003','P00000','P3','Location Create','GEN_PER',0,0,804),
+ ('P00004','P00000','P4','Location Update','GEN_PER',0,0,805),
+ ('P00005','P00000','P5','Group Creation','GEN_PER',0,0,805),
+ ('P00006','P00000','P6','Group Update','GEN_PER',0,0,807),
+ ('P00007','P00000','P7','Unit Creation','GEN_PER',0,0,808),
+ ('P00008','P00000','P8','Unit Update','GEN_PER',0,0,809),
+ ('P00009','P00000','P9','Item Creation','GEN_PER',0,0,810),
+ ('P00010','P00000','P10','Item Update','GEN_PER',0,0,811),
+ ('P00011','P00000','P11','Supplier Create','GEN_PER',0,0,812),
+ ('P00012','P00000','P12','Supplier Update','GEN_PER',0,0,813),
+ ('P00013','P00000','P13','Customer Create','GEN_PER',0,0,814),
+ ('P00014','P00000','P14','Customer Update','GEN_PER',0,0,815),
+ ('P00015','P00000','P15','Group Map Create','GEN_PER',0,0,816),
+ ('P00016','P00000','P16','Group Map Update','GEN_PER',0,0,817),
+ ('P00017','P00000','P17','Unit Map Create','GEN_PER',0,0,818),
+ ('P00018','P00000','P18','Unit Map Update','GEN_PER',0,0,819),
+ ('P00019','P00000','P19','Cheque Payment Update State','GEN_PER',0,0,820),
+ ('P00020','P00000','P20','Cheque Payment Special Update(Re-Assign)','GEN_PER',0,0,821),
+ ('P00021','P00000','P21','Gift voucher purchase','GEN_PER',0,0,822),
+ ('P00022','P00000','P22','Gift voucher redeem','GEN_PER',0,0,823),
+ ('P00023','P00000','P23','Give Discount Percentage','GEN_PER',0,0,824),
+ ('P00024','P00000','P24','Give Discount Amount','GEN_PER',0,0,825),
+ ('P00025','P00000','P25','Give Total Discount','GEN_PER',0,0,826),
+ ('R00000','R00000','RPT','Reports','RPT',1,1,201),
+ ('R00001','R00000','R_SALES','Sales Reports','RPT',0,1,202),
+ ('R00002','R00001','R_SALES_1','Sales Summary','RPT',0,1,203),
+ ('R00101','R00000','R_STOCK','Stock Reports','RPT',0,1,301),
+ ('R00102','R00101','R_STOCK_1','Stock Balance Summary','RPT',0,1,302),
+ ('S00000','S00000','SECURITY','Security','SECUR',1,1,701),
+ ('S00001','S00000','SEC_UC','User Creation','SUC',0,1,702),
+ ('S00002','S00000','SEC_GP','Group Permission','SGP',0,1,703),
+ ('S00003','S00000','SEC_US','User Security','SUS',0,1,704),
+ ('S00004','S00000','SEC_UUD','User Details Update','SUUDU',0,0,705),
+ ('S00005','S00000','SEC_UUS','User State Update only','SUSU',0,0,706),
+ ('T00000','T00000','TRANSACTIONS','Transactions','TRN',1,1,101),
+ ('T00001','T00000','T_GRN','Goods Received Note','TRN',0,1,102),
+ ('T00002','T00000','T_INV','Invoice','TRN',0,1,103);
 /*!40000 ALTER TABLE `m_permissions` ENABLE KEYS */;
 
 
@@ -517,6 +524,7 @@ CREATE TABLE `m_products` (
   `REF1` varchar(45) DEFAULT NULL,
   `REF2` varchar(45) DEFAULT NULL,
   `M_UNITGROUPS_ID` varchar(50) NOT NULL,
+  `PRO_IMG` varchar(100) DEFAULT '',
   KEY `FK_M_PRODUCTS_M_GROUP11_IDX` (`M_GROUP1_ID`),
   KEY `FK_M_PRODUCTS_M_GROUP21_IDX` (`M_GROUP2_ID`),
   KEY `FK_M_PRODUCTS_M_GROUP31_IDX` (`M_GROUP3_ID`),
@@ -532,10 +540,10 @@ CREATE TABLE `m_products` (
 --
 
 /*!40000 ALTER TABLE `m_products` DISABLE KEYS */;
-INSERT INTO `m_products` (`ID`,`NAME`,`PRINTDES`,`ACTIVE`,`BATCH`,`CRDATE`,`CRUSER`,`MDDATE`,`MDUSER`,`M_GROUP1_ID`,`M_GROUP2_ID`,`M_GROUP3_ID`,`M_GROUP4_ID`,`M_GROUP5_ID`,`REF1`,`REF2`,`M_UNITGROUPS_ID`) VALUES 
- ('000001','MENS CASUAL SHORT RONALD M','MENS CASUAL SHORT RONALD M',1,0,'2017-02-26 19:48:37','U0000','2017-02-26 19:48:37','U0000','G1001','G2001','G3005','G4007','G5004','','','UG001'),
- ('000002','LADIES CASUAL BLOUSE H&S M','LADIES CASUAL BLOUSE H&S M',1,0,'2017-02-26 19:49:22','U0000','2017-02-26 19:49:22','U0000','G1002','G2001','G3002','G4006','G5004','','','UG001'),
- ('000003','MENS FORMAL SHIRT EMERAL L/S [15]','MENS FORMAL SHIRT EMERAL L/S [15]',1,0,'2017-02-26 19:49:49','U0000','2017-02-26 19:49:49','U0000','G1001','G2002','G3001','G4001','G5001','','','UG001');
+INSERT INTO `m_products` (`ID`,`NAME`,`PRINTDES`,`ACTIVE`,`BATCH`,`CRDATE`,`CRUSER`,`MDDATE`,`MDUSER`,`M_GROUP1_ID`,`M_GROUP2_ID`,`M_GROUP3_ID`,`M_GROUP4_ID`,`M_GROUP5_ID`,`REF1`,`REF2`,`M_UNITGROUPS_ID`,`PRO_IMG`) VALUES 
+ ('000001','MENS CASUAL TROUSER RONALD','MENS CASUAL TROUSER RONALD',1,0,'2017-11-19 19:37:28','U0000','2017-11-19 19:37:28','U0000','G1001','G2001','G3003','G4007','G5000','','','UG001','MyData/Products/PRO_000001.jpg'),
+ ('000002','MENS FORMAL SHIRT EMERAL L/S [15]','MENS FORMAL SHIRT EMERAL L/S [15]',1,0,'2017-11-19 19:39:05','U0000','2017-11-19 19:39:05','U0000','G1001','G2002','G3001','G4001','G5001','','','UG001','MyData/Products/PRO_000002.jpg'),
+ ('000003','LADIES CASUAL BLOUSE JEZZA S','LADIES CASUAL BLOUSE JEZZA S',1,0,'2017-11-19 19:40:46','U0000','2017-11-19 19:40:46','U0000','G1002','G2001','G3002','G4005','G5003','','','UG001','MyData/Products/PRO_000003.jpg');
 /*!40000 ALTER TABLE `m_products` ENABLE KEYS */;
 
 
@@ -603,9 +611,6 @@ CREATE TABLE `m_propertise` (
 --
 
 /*!40000 ALTER TABLE `m_propertise` DISABLE KEYS */;
-INSERT INTO `m_propertise` (`ID`,`NAME`,`ACTIVE`,`M_PROPDATATYPE_ID`) VALUES 
- (1,'COLOUR',1,2),
- (2,'WARRENTY',1,5);
 /*!40000 ALTER TABLE `m_propertise` ENABLE KEYS */;
 
 
@@ -636,10 +641,34 @@ CREATE TABLE `m_stocks` (
 
 /*!40000 ALTER TABLE `m_stocks` DISABLE KEYS */;
 INSERT INTO `m_stocks` (`M_LOCATION_ID`,`M_PRODUCTS_ID`,`BATCHNO`,`COSTP`,`SELLP`,`CRDATE`,`M_UNITS_ID`,`SIH`,`MARKUP`,`ACTIVE`) VALUES 
- (1,'000001','0001',600,1200,'2017-02-26 19:50:23','U0001',-1,0,1),
- (1,'000002','0001',650,1200,'2017-02-26 19:49:22','U0001',0,0,1),
- (1,'000003','0001',500,1200,'2017-02-26 20:28:18','U0001',-1,0,1);
+ (1,'000001','0001',1500,2000,'2017-11-19 19:49:19','U0001',25,0,1),
+ (1,'000002','0001',550,1100,'2017-11-19 19:49:19','U0001',41,0,1),
+ (1,'000003','0001',450,850,'2017-11-19 19:40:46','U0001',0,0,1);
 /*!40000 ALTER TABLE `m_stocks` ENABLE KEYS */;
+
+
+--
+-- Definition of table `m_stocks_tem`
+--
+
+DROP TABLE IF EXISTS `m_stocks_tem`;
+CREATE TABLE `m_stocks_tem` (
+  `M_PRODUCTS_ID` varchar(50) NOT NULL,
+  `PRONAME` varchar(200) NOT NULL,
+  `SIH` double NOT NULL,
+  `UNIT_ID` varchar(50) NOT NULL,
+  `UNIT_SYM` varchar(50) NOT NULL,
+  `BATCHNO` varchar(50) NOT NULL,
+  `M_LOCATION_ID` int(11) NOT NULL,
+  PRIMARY KEY (`M_PRODUCTS_ID`,`BATCHNO`,`M_LOCATION_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `m_stocks_tem`
+--
+
+/*!40000 ALTER TABLE `m_stocks_tem` DISABLE KEYS */;
+/*!40000 ALTER TABLE `m_stocks_tem` ENABLE KEYS */;
 
 
 --
@@ -663,8 +692,7 @@ CREATE TABLE `m_supplier` (
 
 /*!40000 ALTER TABLE `m_supplier` DISABLE KEYS */;
 INSERT INTO `m_supplier` (`ID`,`NAME`,`CONTACTPERSON`,`CONTACT`,`MOBILE`,`ACTIVE`,`ADDRESS`) VALUES 
- ('S0001','DEFAUL','A','0112618884','0776161689',1,'-'),
- ('S0002','TEST','BUWA','1233','111',1,'SSS');
+ ('S0001','DEFAULT','A','-','-',1,'-');
 /*!40000 ALTER TABLE `m_supplier` ENABLE KEYS */;
 
 
@@ -687,10 +715,7 @@ CREATE TABLE `m_supplier_has_m_products` (
 
 /*!40000 ALTER TABLE `m_supplier_has_m_products` DISABLE KEYS */;
 INSERT INTO `m_supplier_has_m_products` (`M_SUPPLIER_ID`,`M_PRODUCTS_ID`,`ACTIVE`) VALUES 
- ('S0001','P00001',1),
- ('S0001','P00002',1),
- ('S0001','P00003',1),
- ('S0001','P00004',1),
+ ('S0001','000001',1),
  ('S0001','000002',1);
 /*!40000 ALTER TABLE `m_supplier_has_m_products` ENABLE KEYS */;
 
@@ -758,7 +783,7 @@ CREATE TABLE `m_units` (
 
 /*!40000 ALTER TABLE `m_units` DISABLE KEYS */;
 INSERT INTO `m_units` (`ID`,`NAME`,`ACTIVE`,`SYMBLE`) VALUES 
- ('U0001','NO',1,'NO');
+ ('U0001','NO',1,'');
 /*!40000 ALTER TABLE `m_units` ENABLE KEYS */;
 
 
@@ -774,9 +799,7 @@ CREATE TABLE `m_user` (
   `IMGURL` varchar(100) DEFAULT NULL,
   `UGRUID` int(11) NOT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL,
-  `LOCID` int(11) NOT NULL,
   `VISIBLE` smallint(6) DEFAULT NULL,
-  KEY `FK_M_USER_M_LOCATION1_IDX` (`LOCID`),
   KEY `FK_M_USER_M_USERGROUP1_IDX` (`UGRUID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -785,8 +808,8 @@ CREATE TABLE `m_user` (
 --
 
 /*!40000 ALTER TABLE `m_user` DISABLE KEYS */;
-INSERT INTO `m_user` (`ID`,`FIRSTNAME`,`LASTNAME`,`IMGURL`,`UGRUID`,`ACTIVE`,`LOCID`,`VISIBLE`) VALUES 
- ('U0000','SUPER','ADMIN','-',1,1,1,0);
+INSERT INTO `m_user` (`ID`,`FIRSTNAME`,`LASTNAME`,`IMGURL`,`UGRUID`,`ACTIVE`,`VISIBLE`) VALUES 
+ ('U0000','SUPER','ADMIN','-',1,1,0);
 /*!40000 ALTER TABLE `m_user` ENABLE KEYS */;
 
 
@@ -837,6 +860,30 @@ INSERT INTO `m_usersecurity` (`ID`,`USERNAME`,`PASSWORD`,`UID`) VALUES
 
 
 --
+-- Definition of table `r_price_tags`
+--
+
+DROP TABLE IF EXISTS `r_price_tags`;
+CREATE TABLE `r_price_tags` (
+  `LOCID` int(11) NOT NULL,
+  `PROID` varchar(50) NOT NULL,
+  `BATCHID` varchar(50) NOT NULL,
+  `SERIALID` varchar(100) NOT NULL,
+  `PRONAME` varchar(100) NOT NULL,
+  `COSTP` double NOT NULL,
+  `SELLP` double NOT NULL,
+  PRIMARY KEY (`LOCID`,`PROID`,`BATCHID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `r_price_tags`
+--
+
+/*!40000 ALTER TABLE `r_price_tags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `r_price_tags` ENABLE KEYS */;
+
+
+--
 -- Definition of table `t_chqpayments`
 --
 
@@ -862,8 +909,6 @@ CREATE TABLE `t_chqpayments` (
 --
 
 /*!40000 ALTER TABLE `t_chqpayments` DISABLE KEYS */;
-INSERT INTO `t_chqpayments` (`CHQ_NO`,`CHQ_DATE`,`STATE`,`REFNO`,`REFTRNTYP`,`CUS_ID`,`SUP_ID`,`AMOUNT`,`M_USER_CR`,`CRDATE`,`M_USER_MD`,`MDDATE`) VALUES 
- ('4567','2017-02-20 00:00:00','U','1702000015','INV','C0002',NULL,1000,'U0000','2017-02-10 11:32:03','U0000','2017-02-13 00:00:00');
 /*!40000 ALTER TABLE `t_chqpayments` ENABLE KEYS */;
 
 
@@ -887,8 +932,6 @@ CREATE TABLE `t_gvredeem` (
 --
 
 /*!40000 ALTER TABLE `t_gvredeem` DISABLE KEYS */;
-INSERT INTO `t_gvredeem` (`NO`,`GV_NO`,`RED_VAL`,`RED_LOC`,`RED_CRBY`,`RED_REFNO`) VALUES 
- (1,'170000000001',1000,1,'U0000','1703000006');
 /*!40000 ALTER TABLE `t_gvredeem` ENABLE KEYS */;
 
 
@@ -954,6 +997,8 @@ CREATE TABLE `t_phystkmst` (
 DROP TABLE IF EXISTS `t_stockline`;
 CREATE TABLE `t_stockline` (
   `T_STOCKMST_ID` varchar(50) NOT NULL,
+  `TERMINAL` varchar(5) NOT NULL,
+  `TRNTYP` varchar(5) DEFAULT NULL,
   `LINEID` int(11) NOT NULL,
   `PROID` varchar(100) NOT NULL,
   `SPRICE` double DEFAULT NULL,
@@ -966,8 +1011,8 @@ CREATE TABLE `t_stockline` (
   `M_UNITGROUPS_ID` varchar(50) DEFAULT NULL,
   `PRONAME` longtext NOT NULL,
   `BATCH_NO` varchar(50) DEFAULT NULL,
-  `TRNTYP` varchar(5) DEFAULT NULL,
   `ISGV` tinyint(4) DEFAULT '0',
+  `REF_TRN` varchar(100) DEFAULT '',
   KEY `FK_T_STOCKLINE_M_UNITGROUPS1_IDX` (`M_UNITGROUPS_ID`),
   KEY `FK_T_STOCKLINE_M_UNITS1_IDX` (`M_UNITS_ID`),
   KEY `FK_T_STOCKLINE_T_STOCKMST1_IDX` (`T_STOCKMST_ID`)
@@ -978,12 +1023,9 @@ CREATE TABLE `t_stockline` (
 --
 
 /*!40000 ALTER TABLE `t_stockline` DISABLE KEYS */;
-INSERT INTO `t_stockline` (`T_STOCKMST_ID`,`LINEID`,`PROID`,`SPRICE`,`CPRICE`,`QTY`,`LDIS`,`LDISPER`,`AMOUNT`,`M_UNITS_ID`,`M_UNITGROUPS_ID`,`PRONAME`,`BATCH_NO`,`TRNTYP`,`ISGV`) VALUES 
- ('1702000001',1,'000001',1200,600,1,0,0,1200,'U0001','UG001','MENS CASUAL SHORT RONALD M','0001','INV',0),
- ('1702000002',1,'000003',1200,500,1,0,0,1200,'U0001','UG001','MENS FORMAL SHIRT EMERAL L/S [15]','0001','INV',0),
- ('1703000005',1,'170000000001',1000,0,1,0,0,1000,'U0001','UG001','gift','null','INV',1),
- ('1703000005',2,'000002',1200,650,1,0,0,1200,'U0001','UG001','LADIES CASUAL BLOUSE H&S M','','INV',0),
- ('1703000006',1,'000003',1200,500,1,0,0,1200,'U0001','UG001','MENS FORMAL SHIRT EMERAL L/S [15]','','INV',0);
+INSERT INTO `t_stockline` (`T_STOCKMST_ID`,`TERMINAL`,`TRNTYP`,`LINEID`,`PROID`,`SPRICE`,`CPRICE`,`QTY`,`LDIS`,`LDISPER`,`AMOUNT`,`M_UNITS_ID`,`M_UNITGROUPS_ID`,`PRONAME`,`BATCH_NO`,`ISGV`,`REF_TRN`) VALUES 
+ ('010117110001','01','GRN',1,'000001',2000,1500,15,0,0,22500,'U0001','UG001','<html><p>MENS CASUAL TROUSER RONALD</p></html>','0001',0,''),
+ ('010117110001','01','GRN',2,'000002',1100,550,20,0,0,11000,'U0001','UG001','<html><p>MENS FORMAL SHIRT EMERAL L/S [15]</p></html>','0001',0,'');
 /*!40000 ALTER TABLE `t_stockline` ENABLE KEYS */;
 
 
@@ -994,6 +1036,7 @@ INSERT INTO `t_stockline` (`T_STOCKMST_ID`,`LINEID`,`PROID`,`SPRICE`,`CPRICE`,`Q
 DROP TABLE IF EXISTS `t_stockmst`;
 CREATE TABLE `t_stockmst` (
   `ID` varchar(50) NOT NULL,
+  `TERMINAL` varchar(5) NOT NULL,
   `TRNTYPE` varchar(50) NOT NULL,
   `FULLUTILIZE` smallint(6) DEFAULT NULL,
   `CRDATE` datetime DEFAULT NULL,
@@ -1015,7 +1058,7 @@ CREATE TABLE `t_stockmst` (
   `EFT_DATE` datetime DEFAULT NULL,
   `REF_TRNNO` varchar(100) DEFAULT NULL,
   `CHANGE_AMT` double DEFAULT '0',
-  PRIMARY KEY (`ID`,`TRNTYPE`),
+  PRIMARY KEY (`ID`,`TRNTYPE`,`TERMINAL`),
   KEY `FK_T_STOCKMST_M_CUSTOMER1_IDX` (`M_CUSTOMER_ID`),
   KEY `FK_T_STOCKMST_M_LOCATION1_IDX` (`M_LOCATION_SOURCE`),
   KEY `FK_T_STOCKMST_M_LOCATION2_IDX` (`M_LOCATION_DEST`),
@@ -1030,12 +1073,8 @@ CREATE TABLE `t_stockmst` (
 --
 
 /*!40000 ALTER TABLE `t_stockmst` DISABLE KEYS */;
-INSERT INTO `t_stockmst` (`ID`,`TRNTYPE`,`FULLUTILIZE`,`CRDATE`,`M_USER_CR`,`M_USER_MD`,`MDDATE`,`REFNO`,`REFNO2`,`REFNOTE`,`ISACTIVE`,`TRNSTATE`,`GRAMOUNT`,`NETDIS`,`NETAMOUNT`,`M_CUSTOMER_ID`,`M_SUPPLIER_ID`,`M_LOCATION_SOURCE`,`M_LOCATION_DEST`,`EFT_DATE`,`REF_TRNNO`,`CHANGE_AMT`) VALUES 
- ('1702000001','INV',1,'2017-02-26 19:50:23','U0000','U0000','2017-02-26 19:50:23','','','',1,'H',1200,0,1200,'00001','',1,0,'2017-02-26 19:50:23','',NULL),
- ('1702000002','INV',1,'2017-02-26 20:28:18','U0000','U0000','2017-02-26 20:28:18','','','',1,'H',1200,0,1200,'00001','',1,0,'2017-02-26 20:28:18','',NULL),
- ('1703000003','INV',1,'2017-03-12 18:05:40','U0000','U0000','2017-03-12 18:05:40','','','',1,'P',3400,0,3400,'00001','',1,0,'2017-03-12 18:05:40','',0),
- ('1703000005','INV',1,'2017-03-12 19:15:55','U0000','U0000','2017-03-12 19:15:55','','','',1,'P',2200,0,2200,'00001','',1,0,'2017-03-12 19:15:55','',0),
- ('1703000006','INV',1,'2017-03-12 21:13:58','U0000','U0000','2017-03-12 21:13:58','','','',1,'P',1200,0,1200,'00001','',1,0,'2017-03-12 21:13:58','',0);
+INSERT INTO `t_stockmst` (`ID`,`TERMINAL`,`TRNTYPE`,`FULLUTILIZE`,`CRDATE`,`M_USER_CR`,`M_USER_MD`,`MDDATE`,`REFNO`,`REFNO2`,`REFNOTE`,`ISACTIVE`,`TRNSTATE`,`GRAMOUNT`,`NETDIS`,`NETAMOUNT`,`M_CUSTOMER_ID`,`M_SUPPLIER_ID`,`M_LOCATION_SOURCE`,`M_LOCATION_DEST`,`EFT_DATE`,`REF_TRNNO`,`CHANGE_AMT`) VALUES 
+ ('010117110001','01','GRN',1,'2017-11-19 19:49:19','U0000','U0000','2017-11-19 19:49:19','','','',1,'P',33500,0,33500,'','S0001',1,0,'2017-11-19 19:49:01','',NULL);
 /*!40000 ALTER TABLE `t_stockmst` ENABLE KEYS */;
 
 
@@ -1047,6 +1086,8 @@ DROP TABLE IF EXISTS `t_stockpayments`;
 CREATE TABLE `t_stockpayments` (
   `ID` int(11) NOT NULL,
   `T_STOCKMST_ID` varchar(50) NOT NULL,
+  `TERMINAL` varchar(5) NOT NULL,
+  `TRNTYP` varchar(5) DEFAULT NULL,
   `REFNO` varchar(45) DEFAULT NULL,
   `FRMAMOUNT` double DEFAULT NULL,
   `AMOUNT` double DEFAULT NULL,
@@ -1054,7 +1095,6 @@ CREATE TABLE `t_stockpayments` (
   `PAYDETID` varchar(5) NOT NULL,
   `PAYHEDID` varchar(5) NOT NULL,
   `EFT_DATE` datetime DEFAULT NULL,
-  `TRNTYP` varchar(5) DEFAULT NULL,
   `UTILIZED` int(11) DEFAULT '1',
   KEY `FK_T_STOCKPAYMENTS_M_PAYDET1_IDX` (`PAYDETID`,`PAYHEDID`),
   KEY `FK_T_STOCKPAYMENTS_T_STOCKMST1_IDX` (`T_STOCKMST_ID`)
@@ -1065,11 +1105,37 @@ CREATE TABLE `t_stockpayments` (
 --
 
 /*!40000 ALTER TABLE `t_stockpayments` DISABLE KEYS */;
-INSERT INTO `t_stockpayments` (`ID`,`T_STOCKMST_ID`,`REFNO`,`FRMAMOUNT`,`AMOUNT`,`CHANGE_AMT`,`PAYDETID`,`PAYHEDID`,`EFT_DATE`,`TRNTYP`,`UTILIZED`) VALUES 
- (0,'1703000005','',2200,2200,0,'','CSH','2017-03-12 00:00:00','INV',1),
- (0,'1703000006','170000000001',1000,1000,0,'','VOU','2017-03-12 00:00:00','INV',1),
- (1,'1703000006','',200,200,0,'','CSH','2017-03-12 00:00:00','INV',1);
 /*!40000 ALTER TABLE `t_stockpayments` ENABLE KEYS */;
+
+
+--
+-- Definition of table `u_reports`
+--
+
+DROP TABLE IF EXISTS `u_reports`;
+CREATE TABLE `u_reports` (
+  `RPT_ID` varchar(50) NOT NULL,
+  `RPT_NAME` varchar(100) NOT NULL,
+  `RPT_PATH` varchar(200) NOT NULL,
+  `RPT_EN_LOC` int(11) NOT NULL DEFAULT '0',
+  `RPT_EN_CUS` int(11) NOT NULL DEFAULT '0',
+  `RPT_EN_SUP` int(11) NOT NULL DEFAULT '0',
+  `RPT_EN_DATE_RANGE` int(11) NOT NULL DEFAULT '0',
+  `RPT_EN_DATE_AS_AT` int(11) NOT NULL DEFAULT '0',
+  `RPT_EN_DATE_QUATER` int(11) NOT NULL DEFAULT '0',
+  `RPT_EN_GRP` int(11) NOT NULL DEFAULT '0',
+  `RPT_ACTIVE` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`RPT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `u_reports`
+--
+
+/*!40000 ALTER TABLE `u_reports` DISABLE KEYS */;
+INSERT INTO `u_reports` (`RPT_ID`,`RPT_NAME`,`RPT_PATH`,`RPT_EN_LOC`,`RPT_EN_CUS`,`RPT_EN_SUP`,`RPT_EN_DATE_RANGE`,`RPT_EN_DATE_AS_AT`,`RPT_EN_DATE_QUATER`,`RPT_EN_GRP`,`RPT_ACTIVE`) VALUES 
+ ('R00102','Stock Balance','Stock\\\\Rpt_StockBalance.jrxml',1,0,0,0,0,0,1,1);
+/*!40000 ALTER TABLE `u_reports` ENABLE KEYS */;
 
 
 --
@@ -1098,7 +1164,7 @@ CREATE TABLE `u_setup` (
 
 /*!40000 ALTER TABLE `u_setup` DISABLE KEYS */;
 INSERT INTO `u_setup` (`ID`,`COMSERIAL`,`COMNAME`,`CURLOC`,`ADDNO`,`ADD1`,`ADD2`,`ADD3`,`STKMIN`,`UITHEME`,`UPDATE_VER`,`BATCH_ENABLE`) VALUES 
- (1,'00','TEST',1,'-','-','-','-',1,0,NULL,0);
+ (1,'00','FASHION SHOP',1,'-','-','-','-',1,0,NULL,0);
 /*!40000 ALTER TABLE `u_setup` ENABLE KEYS */;
 
 
@@ -1173,7 +1239,14 @@ CREATE TABLE `u_transactions` (
   `PAYMENTS` smallint(6) DEFAULT NULL,
   `REPORT_PATH` varchar(100) DEFAULT NULL,
   `IS_POSTRN` int(11) NOT NULL DEFAULT '0',
-  `DISPLAY_UNIT` int(11) NOT NULL DEFAULT '1'
+  `DISPLAY_UNIT` int(11) NOT NULL DEFAULT '1',
+  `PREV_REP` int(11) NOT NULL DEFAULT '1',
+  `CANCEL_OPT` int(11) NOT NULL DEFAULT '0',
+  `CANCEL_DAYS_WITH` int(11) NOT NULL DEFAULT '1',
+  `SUP_PROD_ONLY` int(11) NOT NULL DEFAULT '0',
+  `CHANGE_SPRICE` int(11) NOT NULL DEFAULT '0',
+  `HOLD_ONLY` int(11) NOT NULL DEFAULT '0',
+  `RETURN_REQ_REF` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1181,9 +1254,9 @@ CREATE TABLE `u_transactions` (
 --
 
 /*!40000 ALTER TABLE `u_transactions` DISABLE KEYS */;
-INSERT INTO `u_transactions` (`TRNNO`,`TRNTYPE`,`REFTRNTYPE`,`REFNO`,`REFNO2`,`TRNDESC`,`ACTIVE`,`STOCKENTYP`,`DEFPRICE`,`LINEDIS`,`LINEDISPER`,`CUSTOMER`,`SUPPLIER`,`CPRICE`,`SPRICE`,`BATCHCREATE`,`DATECHOOSER`,`FUTUREDATE`,`CHGDEFPRICE`,`SOURCELOC`,`DESTLOC`,`PAYMENTS`,`REPORT_PATH`,`IS_POSTRN`,`DISPLAY_UNIT`) VALUES 
- ('T00001','GRN','','','','Goods Recive Note',1,1,'C',0,0,0,1,1,1,1,1,0,1,1,0,0,'',0,1),
- ('T00002','INV','','','','Invoice',1,-1,'S',1,1,1,0,0,1,0,0,0,0,1,0,1,'INV//TRpt_Default.jrxml',1,0);
+INSERT INTO `u_transactions` (`TRNNO`,`TRNTYPE`,`REFTRNTYPE`,`REFNO`,`REFNO2`,`TRNDESC`,`ACTIVE`,`STOCKENTYP`,`DEFPRICE`,`LINEDIS`,`LINEDISPER`,`CUSTOMER`,`SUPPLIER`,`CPRICE`,`SPRICE`,`BATCHCREATE`,`DATECHOOSER`,`FUTUREDATE`,`CHGDEFPRICE`,`SOURCELOC`,`DESTLOC`,`PAYMENTS`,`REPORT_PATH`,`IS_POSTRN`,`DISPLAY_UNIT`,`PREV_REP`,`CANCEL_OPT`,`CANCEL_DAYS_WITH`,`SUP_PROD_ONLY`,`CHANGE_SPRICE`,`HOLD_ONLY`,`RETURN_REQ_REF`) VALUES 
+ ('T00001','GRN','','','','Goods Recive Note',1,1,'C',0,0,0,1,1,1,1,1,0,1,1,0,0,'',0,1,1,1,1,0,1,0,0),
+ ('T00002','INV','','','','Invoice',1,-1,'S',1,1,1,0,0,1,0,0,0,0,1,0,1,'INV//TRpt_Default.jrxml',1,0,1,1,1,0,0,0,1);
 /*!40000 ALTER TABLE `u_transactions` ENABLE KEYS */;
 
 
@@ -1253,9 +1326,139 @@ INSERT INTO `user_permitions` (`M_USERGROUP_ID`,`M_PERMISSIONS_ID`,`M_PERMISSION
  (1,'M00013','M00000','null'),
  (1,'M00014','M00000','null'),
  (1,'P00021','P00000','null'),
- (1,'P00022','P00000','null');
+ (1,'P00022','P00000','null'),
+ (1,'P00023','P00000','null'),
+ (1,'P00024','P00000','null'),
+ (1,'P00025','P00000','null'),
+ (1,'R00000','R00000','null'),
+ (1,'R00001','R00000','null'),
+ (1,'R00002','R00001','null'),
+ (1,'R00101','R00000','null'),
+ (1,'R00102','R00101','null'),
+ (1,'S00004','S00000','null'),
+ (1,'S00005','S00000','null');
 /*!40000 ALTER TABLE `user_permitions` ENABLE KEYS */;
 
+
+--
+-- Definition of function `strf_ConvMaxUnit`
+--
+
+DROP FUNCTION IF EXISTS `strf_ConvMaxUnit`;
+
+DELIMITER $$
+
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_ConvMaxUnit`( unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ) RETURNS double
+BEGIN   DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0'  ;  DECLARE UNIT_VOL_MAX  DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL_CUR from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id    ;  select ugu.VOLUME INTO UNIT_VOL_MAX from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME desc limit 1    ;  RETURN ((qty*UNIT_VOL_CUR)/UNIT_VOL_MAX)  ; END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+
+--
+-- Definition of function `strf_ConvMinUnit`
+--
+
+DROP FUNCTION IF EXISTS `strf_ConvMinUnit`;
+
+DELIMITER $$
+
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_ConvMinUnit`( unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ) RETURNS double
+BEGIN   DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0'  ;  DECLARE UNIT_VOL_MIN  DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL_CUR from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id    ;  select ugu.VOLUME INTO UNIT_VOL_MIN from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME asc limit 1    ;  RETURN ((qty*UNIT_VOL_CUR)*UNIT_VOL_MIN)  ; END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+
+--
+-- Definition of function `strf_getMaxUnit`
+--
+
+DROP FUNCTION IF EXISTS `strf_getMaxUnit`;
+
+DELIMITER $$
+
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getMaxUnit`( unit_grp VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
+BEGIN   DECLARE UNIT_ID VARCHAR(100) DEFAULT ''  ;  select ugu.M_UNITS_ID  INTO UNIT_ID from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME DESC LIMIT 1    ;  RETURN UNIT_ID   ; END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+
+--
+-- Definition of function `strf_getUnitName`
+--
+
+DROP FUNCTION IF EXISTS `strf_getUnitName`;
+
+DELIMITER $$
+
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitName`( unit_id VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
+BEGIN   DECLARE UNIT_NAME VARCHAR(100) DEFAULT ''  ;  SELECT u.NAME INTO UNIT_NAME FROM m_units u where u.ID=unit_id  ;  RETURN UNIT_NAME   ; END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+
+--
+-- Definition of function `strf_getUnitSym`
+--
+
+DROP FUNCTION IF EXISTS `strf_getUnitSym`;
+
+DELIMITER $$
+
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitSym`( unit_id VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
+BEGIN   DECLARE UNIT_SYM VARCHAR(100) DEFAULT ''  ;  SELECT SYMBLE INTO UNIT_SYM FROM m_units WHERE ID=unit_id  ;  RETURN UNIT_SYM   ; END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+
+--
+-- Definition of function `strf_getUnitVol`
+--
+
+DROP FUNCTION IF EXISTS `strf_getUnitVol`;
+
+DELIMITER $$
+
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitVol`( unit_grp VARCHAR(100),unit_id VARCHAR(100) ) RETURNS double
+BEGIN   DECLARE UNIT_VOL DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id   ;  RETURN UNIT_VOL   ; END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+
+--
+-- Definition of procedure `strp_StockBalance`
+--
+
+DROP PROCEDURE IF EXISTS `strp_StockBalance`;
+
+DELIMITER $$
+
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `strp_StockBalance`( loc_code INT )
+BEGIN   TRUNCATE TABLE  M_STOCKS_TEM  ;  INSERT INTO M_STOCKS_TEM (SELECT PROID,NAME,sum(SIH) AS SIH,UNITID,UNIT,BATCH,LOCID FROM  (  (select p.ID as PROID,p.NAME as NAME,0 as SIH,strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,  strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,'0001' as BATCH,l.ID as LOCID   from m_products p cross join m_location l   where p.ACTIVE=1 AND l.ACTIVE=1 )  union all  (SELECT SL.PROID AS PROID,P.NAME AS NAME,SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)) AS SIH,  strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,SL.BATCH_NO AS BATCH,  SM.M_LOCATION_SOURCE as LOCID  FROM t_stockmst SM  inner join t_stockline SL  on SM.ID=SL.T_STOCKMST_ID and SM.TRNTYPE=SL.TRNTYP  inner join u_transactions u  on SM.TRNTYPE=u.TRNTYPE  INNER JOIN m_products P  on SL.PROID=P.ID  where SM.TRNSTATE='P'  GROUP BY SL.PROID,P.NAME)  )A  WHERE A.LOCID=loc_code  group by  A.PROID,A.NAME,A.LOCID,A.BATCH,A.UNIT  order by  A.PROID,A.NAME,A.LOCID ) ; END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+
+--
+-- Definition of procedure `strp_UpdateStockBalance`
+--
+
+DROP PROCEDURE IF EXISTS `strp_UpdateStockBalance`;
+
+DELIMITER $$
+
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `strp_UpdateStockBalance`( loc_code INT )
+BEGIN   CALL strp_StockBalance(loc_code)  ;  UPDATE  M_STOCKS  S INNER JOIN M_STOCKS_TEM TS ON S.M_PRODUCTS_ID=TS.M_PRODUCTS_ID AND S.BATCHNO=TS.BATCHNO AND S.M_LOCATION_ID=TS.M_LOCATION_ID SET S.SIH=TS.SIH   ; END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
 
 --
 -- Definition of view `view_propropertise`

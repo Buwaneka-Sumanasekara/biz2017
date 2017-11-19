@@ -17,7 +17,7 @@ public class UConfig implements Serializable{
     private String Username;
     private String Password;
     private String Port;
-    
+    private String Db;
     
     
 
@@ -51,6 +51,15 @@ public class UConfig implements Serializable{
 
     public void setPort(String Port) {
         this.Port = Port;
+    }
+
+    public String getDb() {
+       
+        return Db;
+    }
+
+    public void setDb(String Db) {
+        this.Db = Db;
     }
     
     

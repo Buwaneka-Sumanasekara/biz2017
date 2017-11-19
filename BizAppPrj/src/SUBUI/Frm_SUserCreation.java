@@ -98,7 +98,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cmb_UserGrp = new javax.swing.JComboBox<>();
+        cmb_UserGrp = new javax.swing.JComboBox<String>();
         lblimg = new javax.swing.JLabel();
         but_ChooseImg = new javax.swing.JButton();
         txt_imgurl = new javax.swing.JLabel();
@@ -206,6 +206,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
         jPanel1.add(txt_FirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 260, 30));
 
+        Chk_Active.setText("Active");
         Chk_Active.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Chk_ActiveMouseClicked(evt);
@@ -641,11 +642,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
     }
 
     private void ChangeActive() {
-        if (Chk_Active.isSelected()) {
-            Chk_Active.setText("Active");
-        } else {
-            Chk_Active.setText("Deactive");
-        }
+       
 
     }
 
