@@ -18,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +34,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -90,6 +93,8 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
         butGroupComAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGroupCom = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTree_Groups = new javax.swing.JTree();
 
         setClosable(true);
         setTitle("caption");
@@ -172,34 +177,34 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
                 cmbG1KeyReleased(evt);
             }
         });
-        jPanel1.add(cmbG1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 170, 30));
+        jPanel1.add(cmbG1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 170, 30));
 
         lblG1.setText("Code");
-        jPanel1.add(lblG1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 110, 30));
+        jPanel1.add(lblG1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 110, 30));
 
         lblG2.setText("Code");
-        jPanel1.add(lblG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 170, 30));
+        jPanel1.add(lblG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 170, 30));
 
         cmbG2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cmbG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 170, 30));
+        jPanel1.add(cmbG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 170, 30));
 
         cmbG3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cmbG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 170, 30));
+        jPanel1.add(cmbG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 170, 30));
 
         lblG3.setText("Code");
-        jPanel1.add(lblG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 170, 30));
+        jPanel1.add(lblG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 170, 30));
 
         cmbG4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cmbG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, 170, 30));
+        jPanel1.add(cmbG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 170, 30));
 
         lblG4.setText("Code");
-        jPanel1.add(lblG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 170, 30));
+        jPanel1.add(lblG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 170, 30));
 
         lblG5.setText("Code");
-        jPanel1.add(lblG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, 170, 30));
+        jPanel1.add(lblG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 170, 30));
 
         cmbG5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cmbG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 170, 30));
+        jPanel1.add(cmbG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 170, 30));
 
         butGroupComAdd.setText("Add Combination");
         butGroupComAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +212,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
                 butGroupComAddActionPerformed(evt);
             }
         });
-        jPanel1.add(butGroupComAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, -1, -1));
+        jPanel1.add(butGroupComAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 263, -1, 30));
 
         tblGroupCom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -239,7 +244,11 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
             tblGroupCom.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 830, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 510, 310));
+
+        jScrollPane2.setViewportView(jTree_Groups);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 300, 560));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
@@ -317,11 +326,11 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
     }//GEN-LAST:event_tblGroupComKeyPressed
 
     private void but_LocSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSaveActionPerformed
-SaveProcess();
+        SaveProcess();
     }//GEN-LAST:event_but_LocSaveActionPerformed
 
     private void but_LocUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocUpdateActionPerformed
-EditMode();
+        EditMode();
     }//GEN-LAST:event_but_LocUpdateActionPerformed
 
 
@@ -338,6 +347,8 @@ EditMode();
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTree jTree_Groups;
     private javax.swing.JPanel jpanelq;
     private javax.swing.JLabel lblG1;
     private javax.swing.JLabel lblG2;
@@ -383,8 +394,8 @@ EditMode();
 
     @Override
     public void Refresh() {
-JComponent enablecom[] = {};
-        JComponent disablecom[] = { but_LocSave,but_LocUpdate};
+        JComponent enablecom[] = {};
+        JComponent disablecom[] = {but_LocSave, but_LocUpdate};
         setDisableEnableComponents(enablecom, disablecom);
         cmbG1.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(1, true)));
 
@@ -394,11 +405,12 @@ JComponent enablecom[] = {};
         cmbG5.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(5)));
 
         loadGroup1Links();
+          Tree_loadGroupTree();
     }
 
     public void setShortCutKeys(JInternalFrame f) {
 
-       String exit = "exit";
+        String exit = "exit";
         InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap0.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), exit);
         ActionMap actionMap0 = f.getRootPane().getActionMap();
@@ -421,8 +433,8 @@ JComponent enablecom[] = {};
 
         }
         );
-        
-          String Save = "Save";
+
+        String Save = "Save";
         InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), Save);
         ActionMap actionMap2 = f.getRootPane().getActionMap();
@@ -433,8 +445,8 @@ JComponent enablecom[] = {};
 
         }
         );
-        
-           String Edit = "Edit";
+
+        String Edit = "Edit";
         InputMap inputMap3 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap3.put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), Edit);
         ActionMap actionMap3 = f.getRootPane().getActionMap();
@@ -445,8 +457,8 @@ JComponent enablecom[] = {};
 
         }
         );
-        
-          String Refresh = "Refresh";
+
+        String Refresh = "Refresh";
         InputMap inputMap4 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap4.put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), Refresh);
         ActionMap actionMap4 = f.getRootPane().getActionMap();
@@ -457,7 +469,6 @@ JComponent enablecom[] = {};
 
         }
         );
-
 
     }
 
@@ -502,10 +513,24 @@ JComponent enablecom[] = {};
             for (Vector<MGroupCommon> v : ar) {
                 dtm.addRow(v);
             }
-
+          
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
 
+        }
+    }
+
+    private void Tree_loadGroupTree() {
+        try {
+
+            DefaultMutableTreeNode root = new DefaultMutableTreeNode("");
+
+            Map<Integer, String> m = new TreeMap<>();
+          
+            jTree_Groups.setModel(new DefaultTreeModel(CGroup.getTreeNodes(m, 1, root)));
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
         }
     }
 

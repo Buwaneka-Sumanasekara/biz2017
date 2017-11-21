@@ -16,6 +16,7 @@ import java.util.TreeMap;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  *
@@ -260,6 +261,76 @@ public class C_GroupCommon {
 
         }
         return ar;
+    }
+
+    public ArrayList<MGroupCommon> getGroupMappedList(Map<Integer, String> parents, int Lvl) throws Exception {
+        ArrayList<MGroupCommon> ar = new ArrayList<>();
+        String q = "SELECT * FROM m_group" + Lvl + " G where  G.ID IN (SELECT DISTINCT  G" + Lvl + "_ID  FROM M_GROUPLINK  ";
+        if (parents != null && parents.size() > 0) {
+            q += " WHERE (";
+            int i = 0;
+            for (Map.Entry<Integer, String> entry : parents.entrySet()) {
+                Integer key = entry.getKey();
+                String value = entry.getValue();
+
+                if (i > 0) {
+                    q += " AND ";
+                }
+                q += " G" + key + "_ID='" + value + "' ";
+
+                i++;
+            }
+            q += ")";
+        }
+        q += ")";
+        System.out.println(q);
+
+        ResultSet rs = DB.Search(q);
+        while (rs.next()) {
+            MGroupCommon g = new MGroupCommon();
+            g.setId(rs.getString("ID"));
+            g.setName(rs.getString("NAME"));
+            g.setActive(rs.getByte("ACTIVE"));
+            ar.add(g);
+        }
+
+        return ar;
+    }
+
+    public DefaultMutableTreeNode getTreeNodes(Map<Integer, String> map_parents, int lvl, DefaultMutableTreeNode root) throws Exception {
+
+        if (lvl < 6) {
+            
+            
+            if (lvl == 5) {
+                ArrayList<MGroupCommon> ar = getGroupMappedList(map_parents, lvl);
+               
+                for (MGroupCommon g : ar) {
+                    root.add(new DefaultMutableTreeNode(g));
+                }
+                map_parents.clear();
+            } else {
+                
+                if(lvl==1){
+                    map_parents.clear();
+                }
+                
+                ArrayList<MGroupCommon> ar = getGroupMappedList(map_parents, lvl);
+
+             
+                    for (MGroupCommon parents : ar) {
+                        Map<Integer, String> Map_tem = map_parents;
+                        Map_tem.put(lvl, parents.getId());
+                        DefaultMutableTreeNode dtm = new DefaultMutableTreeNode(parents);
+                       
+                        root.add(getTreeNodes(Map_tem, lvl + 1, dtm));
+                        
+                    }
+                
+
+            }
+        }
+        return root;
     }
 
     public Vector<MGroupCommon> getFilteredGroups(int ReqGroup, ArrayList<String> PreviousSelectGroupIds) throws Exception {

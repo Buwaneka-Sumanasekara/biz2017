@@ -258,6 +258,39 @@ public class C_Products {
         }
         return p;
     }
+     public MProducts getProductTrn(String ProId, int Active) throws Exception {
+        MProducts p = null;
+        if (ProId != null && !ProId.equals("")) {
+            String q = "SELECT * FROM m_products WHERE ID='" + fv.replacer(ProId) + "' OR REF1='"+fv.replacer(ProId)+"' ";
+            if (Active == 0 || Active == 1) {
+                q += " AND  ACTIVE=" + Active;
+            }
+            ResultSet rs = DB.Search(q);
+
+            if (rs.next()) {
+                p = new MProducts();
+                p.setId(rs.getString("ID"));
+                p.setName(rs.getString("NAME"));
+                p.setPrintdes(rs.getString("PRINTDES"));
+                p.setBatch(rs.getByte("BATCH"));
+                p.setActive(rs.getByte("ACTIVE"));
+                MStocks lastBatch = getLastBatch(p.getId());
+                p.setSprice(lastBatch.getSellPrice());
+                p.setMarkup(lastBatch.getMarkup());
+                p.setCprice(lastBatch.getCostPrice());
+                p.setMGroup1(rs.getString("M_GROUP1_ID"));
+                p.setMGroup2(rs.getString("M_GROUP2_ID"));
+                p.setMGroup3(rs.getString("M_GROUP3_ID"));
+                p.setMGroup4(rs.getString("M_GROUP4_ID"));
+                p.setMGroup5(rs.getString("M_GROUP5_ID"));
+                p.setRef1(rs.getString("REF1"));
+                p.setRef2(rs.getString("REF2"));
+                p.setUnitGroupId(rs.getString("M_UNITGROUPS_ID"));
+                p.setProImg(rs.getString("PRO_IMG"));
+            }
+        }
+        return p;
+    }
 
     public Vector<MProductPropertise> getProductPropertise(String ProId) throws Exception {
         String Q = "SELECT * FROM m_products_has_m_propertise WHERE M_PRODUCTS_ID='" + fv.replacer(ProId) + "'";

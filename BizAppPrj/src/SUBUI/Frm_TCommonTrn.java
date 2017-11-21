@@ -2092,15 +2092,15 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             if (!txt_LItemCode.getText().equals("")) {
                 String ProCode = txt_LItemCode.getText();
 
-                MProducts product = C_Pro.getProduct(ProCode, 1);
+                MProducts product = C_Pro.getProductTrn(ProCode, 1);
                 if (product != null) {
 
                     boolean statee = false;
                     if (TrnSetup.getSupPrdOnly() == 1) {
                         MSupplier s = (MSupplier) cmb_Sup.getSelectedItem();
-                        statee = C_Pro.checkSupplierOfProduct(ProCode, s.getId());
+                        statee = C_Pro.checkSupplierOfProduct(product.getId(), s.getId());
                         if (statee == false) {
-                            throw new Exception("Product [" + ProCode + " - " + product.getName() + "] not belongs to the supplier you select[" + s.getName() + "] ");
+                            throw new Exception("Product [" + product.getId() + " - " + product.getName() + "] not belongs to the supplier you select[" + s.getName() + "] ");
                         }
                     } else {
                         statee = true;
@@ -2116,7 +2116,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         String Batch = "";
                         if (TrnSetup.getBatchcreate() == 0 && product.getBatch() == 1) {
                             MLocation Loc = (MLocation) cmb_SourceLoc.getSelectedItem();
-                            MStocks stk = Frm_MBatchPopUp.createBatchPopUp(mainW, ProCode, Loc.getId().toString());
+                            MStocks stk = Frm_MBatchPopUp.createBatchPopUp(mainW, product.getId(), Loc.getId().toString());
                             if (stk != null) {
                                 CPrice = stk.getCostPrice();
                                 SPrice = stk.getSellPrice();
