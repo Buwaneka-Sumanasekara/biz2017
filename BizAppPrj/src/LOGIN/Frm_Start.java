@@ -181,7 +181,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20171107_t1.add(new TblColumn("RPT_EN_DATE_AS_AT", "INT", "NOT NULL DEFAULT 0"));
         ar_20171107_t1.add(new TblColumn("RPT_EN_DATE_QUATER", "INT", "NOT NULL DEFAULT 0"));
         ar_20171107_t1.add(new TblColumn("RPT_EN_GRP", "INT", "NOT NULL DEFAULT 0"));
-
+       ar_20171107_t1.add(new TblColumn("RPT_SUBREPORT_PATH", "VARCHAR(200)", "NOT NULL DEFAULT ''"));
+       
         ArrayList<String> ar_20171107_t1PK = new ArrayList<>();
         ar_20171107_t1PK.add("RPT_ID");
 

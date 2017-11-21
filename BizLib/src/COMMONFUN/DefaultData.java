@@ -79,7 +79,7 @@ public class DefaultData {
 
         //Sales Reports(202-300)
         ar.add(new MPermissions("R00001", "R00000", "R_SALES", "Sales Reports", "RPT", (byte) 0, (byte) 1, 202));
-        ar.add(new MPermissions("R00002", "R00001", "R_SALES_1", "Sales Summary", "RPT", (byte) 0, (byte) 1, 203));
+        ar.add(new MPermissions("R00002", "R00001", "R_SALES_1", "Invoice Listing", "RPT", (byte) 0, (byte) 1, 203));
 
         //Stock Reports(301-400)
         ar.add(new MPermissions("R00101", "R00000", "R_STOCK", "Stock Reports", "RPT", (byte) 0, (byte) 1, 301));

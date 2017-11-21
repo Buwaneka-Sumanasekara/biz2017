@@ -6,7 +6,6 @@
 package SUBUI;
 
 import COMMONFUN.CommonFun;
-import COMMONFUN.MyTableModel;
 import COMMONFUN.ReportC;
 import COMMONFUN.TblCellColour;
 import CONTROLLERS.C_Customers;
@@ -65,8 +64,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 
 /**
@@ -1715,6 +1714,27 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     private void ArrangeTable() {
+        
+        
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
+        
+        int colindex_cprice=2;
+        tblTrn.getColumnModel().getColumn(colindex_cprice).setCellRenderer(rightRenderer);
+        
+        int colindex_sprice=3;
+        tblTrn.getColumnModel().getColumn(colindex_sprice).setCellRenderer(rightRenderer);
+        
+        int colindex_linedisamt=7;
+        tblTrn.getColumnModel().getColumn(colindex_linedisamt).setCellRenderer(rightRenderer);
+        
+        int colindex_linedis=8;
+        tblTrn.getColumnModel().getColumn(colindex_linedis).setCellRenderer(rightRenderer);
+        
+         int colindex_q=4;
+        tblTrn.getColumnModel().getColumn(colindex_q).setCellRenderer(rightRenderer);
+        
+        
         //Hide Unit 
         int unitindex = 6;
         tblTrn.getColumnModel().getColumn(unitindex).setMinWidth(0);
@@ -1754,6 +1774,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(colindex).setMinWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setMaxWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setWidth(0);
+            tblTrn.getColumnModel().getColumn(colindex).setCellRenderer(rightRenderer);
         }
         if (TrnSetup.getSprice() == 0) {
             //   tblTrn.removeColumn(tblTrn.getColumnModel().getColumn(3)); 
@@ -1761,6 +1782,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(colindex).setMinWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setMaxWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setWidth(0);
+            tblTrn.getColumnModel().getColumn(colindex).setCellRenderer(rightRenderer);
         }
         if (TrnSetup.getLinedisper() == 0) {
             // tblTrn.removeColumn(tblTrn.getColumnModel().getColumn(5)); 
@@ -1768,6 +1790,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(colindex).setMinWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setMaxWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setWidth(0);
+             
         }
         if (TrnSetup.getLinedis() == 0) {
             // tblTrn.removeColumn(tblTrn.getColumnModel().getColumn(6)); 
@@ -1775,6 +1798,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(colindex).setMinWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setMaxWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setWidth(0);
+             tblTrn.getColumnModel().getColumn(colindex).setCellRenderer(rightRenderer);
         }
 
         if (TrnSetup.getDisplayunit() == 0) {
@@ -1784,6 +1808,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(colindex).setMaxWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setWidth(0);
         }
+        
+        int colindex_amt=9;
+        tblTrn.getColumnModel().getColumn(colindex_amt ).setCellRenderer(rightRenderer);
     }
 
     private void hideAllComponents() {
@@ -1827,7 +1854,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
                 MProducts product = C_Pro.getProduct(ProCode);
 
-                String Des = txt_LProDes.getText();
+                String Des = product.getName();
                 double CPrice = Double.parseDouble(txt_LCost.getText());
                 double SPrice = Double.parseDouble(txt_LSell.getText());
                 double Qty = Double.parseDouble(txt_LQty.getText());

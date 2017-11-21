@@ -22,7 +22,7 @@ public class RptCommon {
     private int En_DateQut;
     private int En_Grp;
     private int Active;
-
+private String SubReportPath;
     public RptCommon() {
     }
 
@@ -130,6 +130,14 @@ public class RptCommon {
 
     public void setActive(int Active) {
         this.Active = Active;
+    }
+
+    public String getSubReportPath() {
+        return SubReportPath;
+    }
+
+    public void setSubReportPath(String SubReportPath) {
+        this.SubReportPath = SubReportPath;
     }
   
     

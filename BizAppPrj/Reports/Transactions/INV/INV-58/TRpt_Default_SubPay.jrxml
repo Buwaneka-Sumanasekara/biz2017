@@ -34,22 +34,22 @@
 		<band height="12" splitType="Stretch">
 			<textField>
 				<reportElement x="3" y="0" width="58" height="11" uuid="afe19bdc-7dd4-468b-bb8b-3f31376ce75f"/>
-				<textElement>
-					<font size="8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[(($F{PAYDET}==null||$F{PAYDET}.equals(""))? $F{PAYHED}:$F{PAYHED}+" ["+$F{PAYDET}+"]")]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;(#,##0.00)">
 				<reportElement x="54" y="1" width="81" height="11" uuid="65e273f6-5e9b-4e55-a92f-6fec1e46211b"/>
 				<textElement textAlignment="Right">
-					<font size="8"/>
+					<font size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FRMAMOUNT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="48" y="0" width="61" height="11" isRemoveLineWhenBlank="true" uuid="d06d8c99-f8bc-4b21-a433-68bcc1a4b142"/>
-				<textElement>
-					<font size="8"/>
+				<reportElement x="49" y="0" width="61" height="11" isRemoveLineWhenBlank="true" uuid="d06d8c99-f8bc-4b21-a433-68bcc1a4b142"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[(($F{REFNO}==null||$F{REFNO}.equals(""))?"":$F{REFNO})]]></textFieldExpression>
 			</textField>
@@ -66,7 +66,7 @@
 			<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
 				<reportElement x="34" y="13" width="101" height="19" uuid="7059e178-59a9-4146-b473-d89c88315bab"/>
 				<textElement textAlignment="Right">
-					<font size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARA_CHANGE}]]></textFieldExpression>
 			</textField>
@@ -76,12 +76,12 @@
 			<textField pattern="#,##0.00;(#,##0.00)">
 				<reportElement x="35" y="0" width="100" height="12" uuid="14867126-dceb-454f-8160-2ac367da7f63"/>
 				<textElement textAlignment="Right">
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Total_Frm}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="3" y="13" width="58" height="20" uuid="90b9f5ec-8660-49b3-bfbc-7282832ae43b"/>
+				<reportElement x="3" y="13" width="58" height="19" uuid="90b9f5ec-8660-49b3-bfbc-7282832ae43b"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
@@ -90,7 +90,7 @@
 			<staticText>
 				<reportElement x="3" y="0" width="58" height="13" uuid="99aecee6-d036-4b28-8590-4f416703f142"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Paid]]></text>
 			</staticText>

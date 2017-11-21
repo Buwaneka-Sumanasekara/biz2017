@@ -24,6 +24,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -432,19 +433,19 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
     }//GEN-LAST:event_tbl_GrpMouseClicked
 
     private void chkAllGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAllGroupsActionPerformed
-       
+
     }//GEN-LAST:event_chkAllGroupsActionPerformed
 
     private void chkAllGroupsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkAllGroupsItemStateChanged
-              
+
     }//GEN-LAST:event_chkAllGroupsItemStateChanged
 
     private void chkAllGroupsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chkAllGroupsMouseClicked
-       
+
     }//GEN-LAST:event_chkAllGroupsMouseClicked
 
     private void chkAllGroupsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chkAllGroupsMouseReleased
-       setGroupPanelEnable();
+        setGroupPanelEnable();
     }//GEN-LAST:event_chkAllGroupsMouseReleased
 
 
@@ -674,41 +675,41 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                     String whr_g = "";
 
                     if (chkAllGroups.isSelected() == false) {
-                        if(Grps.size()>0){
-                        for (Map.Entry<String, Vector<MGroupCommon>> entry : Grps.entrySet()) {
-                            String key = entry.getKey();
-                            Vector<MGroupCommon> value = entry.getValue();
+                        if (Grps.size() > 0) {
+                            for (Map.Entry<String, Vector<MGroupCommon>> entry : Grps.entrySet()) {
+                                String key = entry.getKey();
+                                Vector<MGroupCommon> value = entry.getValue();
 
-                            if (value.size() > 0) {
+                                if (value.size() > 0) {
 
-                                if (whr_g.length() > 0) {
-                                    whr_g += " AND ";
-                                }
-
-                                int g = 0;
-                                whr_g += "(";
-                                for (MGroupCommon mGroupCommon : value) {
-                                    if (g == 0) {
-                                        whr_g += " p.M_GROUP" + key + "_ID='" + mGroupCommon.getId() + "' ";
-                                    } else {
-                                        whr_g += " OR p.M_GROUP" + key + "_ID='" + mGroupCommon.getId() + "' ";
+                                    if (whr_g.length() > 0) {
+                                        whr_g += " AND ";
                                     }
-                                    g++;
+
+                                    int g = 0;
+                                    whr_g += "(";
+                                    for (MGroupCommon mGroupCommon : value) {
+                                        if (g == 0) {
+                                            whr_g += " p.M_GROUP" + key + "_ID='" + mGroupCommon.getId() + "' ";
+                                        } else {
+                                            whr_g += " OR p.M_GROUP" + key + "_ID='" + mGroupCommon.getId() + "' ";
+                                        }
+                                        g++;
+                                    }
+                                    whr_g += ")";
+
                                 }
-                                whr_g += ")";
 
                             }
-
-                        }
-                        }else{
+                        } else {
                             throw new Exception("Select at least one From group table");
                         }
-                      
+
                     } else {
-                       whr_g="  p.M_GROUP1_ID LIKE '%%'  ";
+                        whr_g = "  p.M_GROUP1_ID LIKE '%%'  ";
                     }
                     System.out.println(whr_g);
-                      para.put("PARA_GRP", " AND "+ whr_g);
+                    para.put("PARA_GRP", " AND " + whr_g);
                 }
                 if (mRpt.getEn_Sup() == 1) {
                     if (txt_Id.getText().length() > 0) {
@@ -731,6 +732,12 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                         }
 
                     }
+                }
+
+                if (mRpt.getSubReportPath().length() > 0) {
+                    String subreport = new File("").getAbsolutePath() + "\\" + mRpt.getSubReportPath();
+                    System.out.println(subreport);
+                    para.put("SUBREPORT_DIR", subreport);
                 }
 
                 boolean printFromDb_Rpt = C_Report.printFromDb_Rpt(mRpt.getName(), jr, para);
@@ -799,14 +806,15 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
     }
 
     private void Grp_SelectAll() {
-        boolean selected=chk_GrpSelectAll.isSelected();
+        boolean selected = chk_GrpSelectAll.isSelected();
         DefaultTableModel dtm = (DefaultTableModel) tbl_Grp.getModel();
         for (int i = 0; i < dtm.getRowCount(); i++) {
             dtm.setValueAt(selected, i, 1);
         }
     }
-       private void Grp_SelectAll(boolean selected) {
-        
+
+    private void Grp_SelectAll(boolean selected) {
+
         DefaultTableModel dtm = (DefaultTableModel) tbl_Grp.getModel();
         for (int i = 0; i < dtm.getRowCount(); i++) {
             dtm.setValueAt(selected, i, 1);
@@ -900,9 +908,9 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
     }
 
     private void setGroupPanelEnable() {
-     
-        boolean itemstate=!chkAllGroups.isSelected();
-        
+
+        boolean itemstate = !chkAllGroups.isSelected();
+
         if (itemstate) {
             for (Map.Entry<String, Vector<MGroupCommon>> entry : Grps.entrySet()) {
                 String string = entry.getKey();
@@ -917,7 +925,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         but_Grp_Next.setEnabled(itemstate);
         chk_GrpSelectAll.setEnabled(itemstate);
         tree_Grps.setEnabled(itemstate);
-        if(!itemstate){
+        if (!itemstate) {
             Grp_SelectAll(false);
         }
 

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TRpt_Default" pageWidth="164" pageHeight="842" columnWidth="148" leftMargin="8" rightMargin="8" topMargin="11" bottomMargin="11" uuid="229b3f73-f52d-4084-bbef-b137b9918283">
 	<property name="ireport.zoom" value="1.9487171000000019"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="PARA_TITLE" class="java.lang.String"/>
 	<parameter name="PARA_COMNAME" class="java.lang.String"/>
 	<parameter name="PARA_ADD1" class="java.lang.String"/>
@@ -243,14 +243,14 @@ WHERE VIEW_TRNFULL.ID=$P{PARA_TRNNO} AND VIEW_TRNFULL.TRNTYPE=$P{PARA_TRNTYP}]]>
 	<detail>
 		<band height="12" splitType="Stretch">
 			<textField>
-				<reportElement x="9" y="0" width="46" height="12" uuid="c98db4b5-fbb4-49e2-ab3d-093343e6800f"/>
+				<reportElement x="8" y="0" width="46" height="12" uuid="c98db4b5-fbb4-49e2-ab3d-093343e6800f"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PROID}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="46" y="0" width="97" height="11" uuid="7c5e5fd4-62ee-4fc3-8624-195fb57ecf80"/>
+				<reportElement positionType="Float" x="45" y="0" width="97" height="11" uuid="7c5e5fd4-62ee-4fc3-8624-195fb57ecf80"/>
 				<textElement markup="html">
 					<font size="8" isBold="true"/>
 					<paragraph lineSpacing="Proportional" firstLineIndent="1"/>

@@ -35,6 +35,7 @@ public class C_ReportSetup {
             r.setEn_DateQut(rs.getByte("RPT_EN_DATE_QUATER"));
             r.setEn_Grp(rs.getInt("RPT_EN_GRP"));
             r.setActive(rs.getByte("RPT_ACTIVE"));
+            r.setSubReportPath(rs.getString("RPT_SUBREPORT_PATH"));
         }
         return r;
     }
@@ -58,6 +59,7 @@ public class C_ReportSetup {
             r.setEn_DateQut(rs.getByte("RPT_EN_DATE_QUATER"));
             r.setEn_Grp(rs.getInt("RPT_EN_GRP"));
             r.setActive(rs.getByte("RPT_ACTIVE"));
+             r.setSubReportPath(rs.getString("RPT_SUBREPORT_PATH"));
             ar_rpt.add(r);
         }
         return ar_rpt;
