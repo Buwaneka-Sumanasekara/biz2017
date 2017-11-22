@@ -144,6 +144,7 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         ArrayList<TblColumn> ar_20171106_t1 = new ArrayList<>();
         ar_20171106_t1.add(new TblColumn("ORD", "INT", "NOT NULL DEFAULT 0"));
+        ar_20171106_t1.add(new TblColumn("TREE_ICON", "VARCHAR(100)", "NOT NULL DEFAULT ''"));
 
         ArrayList<String> ar_20171106_t1PK = new ArrayList<>();
         ar_20171106_t1PK.add("ID");

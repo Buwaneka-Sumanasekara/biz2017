@@ -5,6 +5,7 @@
  */
 package MAIN;
 
+import COMMONFUN.JTreeMenuCellRender;
 import GLOBALDATA.GlobalData;
 import LOGIN.Frm_Login;
 import MODELS.MPermissions;
@@ -59,8 +60,8 @@ public class Frm_Main extends javax.swing.JFrame {
         this.lblCompanyName.setText(GlobalData.Setup.getComname());
         this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
-        this.txt_DB_HOST.setText("Server:  "+GlobalData.config.getServer());
-        this.txt_DB_Name.setText("DB:  "+GlobalData.config.getDb());
+        this.txt_DB_HOST.setText("Server:  " + GlobalData.config.getServer());
+        this.txt_DB_Name.setText("DB:  " + GlobalData.config.getDb());
         RefreshLayOut();
         createUserMenu();
     }
@@ -236,34 +237,7 @@ public class Frm_Main extends javax.swing.JFrame {
         try {
 
             //create the root node
-            DefaultMutableTreeNode root = new DefaultMutableTreeNode("Home");
-
-            TUserMenu.setCellRenderer(new DefaultTreeCellRenderer() {
-                private Icon loadIcon = UIManager.getIcon("OptionPane.errorIcon");
-                private Icon homeIcon = new ImageIcon(getClass().getResource("/SYSIMG/TreeIcons/home.png"));
-                private Icon saveIcon = UIManager.getIcon("OptionPane.informationIcon");
-
-                //private Icon loadIcon = new ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"));
-                //private Icon saveIcon = new ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"));
-                @Override
-                public Component getTreeCellRendererComponent(JTree tree,
-                        Object value, boolean selected, boolean expanded,
-                        boolean isLeaf, int row, boolean focused) {
-                    Component c = super.getTreeCellRendererComponent(tree, value,
-                            selected, expanded, isLeaf, row, focused);
-
-                    if (selected) {
-                        if (value.toString().equals("Home")) {
-                            setIcon(homeIcon);
-                        }
-                    } else if (value.toString().equals("Home")) {
-                        setIcon(homeIcon);
-                    }
-
-                    return c;
-
-                }
-            });
+            DefaultMutableTreeNode root = new DefaultMutableTreeNode("");
 
             for (MPermissions p : menus) {
                 //  System.out.println(p.getId() + "-" + p.getParentid());
@@ -286,7 +260,7 @@ public class Frm_Main extends javax.swing.JFrame {
                 }
             }
             TUserMenu.setModel(new DefaultTreeModel(root));
-
+            TUserMenu.setCellRenderer(new JTreeMenuCellRender());
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -302,10 +276,10 @@ public class Frm_Main extends javax.swing.JFrame {
             jf.setClosable(false);
             ((javax.swing.plaf.basic.BasicInternalFrameUI) jf.getUI()).setNorthPane(null);
             jf.setBorder(null);
-            jf.setBounds(0,0,868, 630);
+            jf.setBounds(0, 0, 868, 630);
             jf.addInternalFrameListener(new InternalFrameListener() {
 
-                    //[110,147,169]
+                //[110,147,169]
                 @Override
                 public void internalFrameOpened(InternalFrameEvent e) {
                 }
@@ -383,7 +357,7 @@ public class Frm_Main extends javax.swing.JFrame {
                         Image.SCALE_SMOOTH);
                 lblUserimg.setIcon(new ImageIcon(dimg)); // NOI18N
             } catch (Exception e) {
-                    e.printStackTrace();
+                e.printStackTrace();
             }
 
         } else {

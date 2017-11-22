@@ -166,7 +166,7 @@ public class C_UserGroup {
 
     public TreeMap<String, MPermissions> getUserGroupPermitions_Map(int UserGroupId, int ReqPer, String ParentID) throws Exception {
         String sql = "select p.ID AS ID,p.PARENTid AS PARID,p.Name AS NAME,p.DESCRIPTION AS DES,"
-                + "p.TYPE AS TYP,p.HASSUB AS HASSUB,p.ISUIMENU AS ISUIMENU,up.ACCESSTYPE AS ACCESST,p.ORD AS ORD "
+                + "p.TYPE AS TYP,p.HASSUB AS HASSUB,p.ISUIMENU AS ISUIMENU,up.ACCESSTYPE AS ACCESST,p.ORD AS ORD,p.TREE_ICON as TREE_ICON "
                 + " from m_permissions p inner join user_permitions up "
                 + "on p.ID=up.M_PERMISSIONS_ID "
                 + "where up.M_USERGROUP_ID IN (select ID from m_usergroup where ID='" + UserGroupId + "')";
@@ -198,7 +198,7 @@ public class C_UserGroup {
             p.setIsuimenu(rs.getByte("ISUIMENU"));
             p.setAcesst(rs.getString("ACCESST"));
             p.setOrd(rs.getInt("ORD"));
-            //l.add(p);
+             p.setIcon(rs.getString("TREE_ICON"));
             l.put(rs.getString("ID"), p);
         }
 
@@ -207,7 +207,7 @@ public class C_UserGroup {
 
     public ArrayList<MPermissions> getUserGroupPermitions(int UserGroupId, int ReqPer, String ParentID) throws Exception {
         String sql = "select p.ID AS ID,p.PARENTid AS PARID,p.Name AS NAME,p.DESCRIPTION AS DES,"
-                + "p.TYPE AS TYP,p.HASSUB AS HASSUB,p.ISUIMENU AS ISUIMENU,up.ACCESSTYPE AS ACCESST,p.ORD AS ORD "
+                + "p.TYPE AS TYP,p.HASSUB AS HASSUB,p.ISUIMENU AS ISUIMENU,up.ACCESSTYPE AS ACCESST,p.ORD AS ORD,p.TREE_ICON as TREE_ICON "
                 + " from m_permissions p inner join user_permitions up "
                 + "on p.ID=up.M_PERMISSIONS_ID "
                 + "where up.M_USERGROUP_ID IN (select ID from m_usergroup where ID='" + UserGroupId + "')";
@@ -238,6 +238,7 @@ public class C_UserGroup {
             p.setHassub(rs.getByte("HASSUB"));
             p.setIsuimenu(rs.getByte("ISUIMENU"));
             p.setAcesst(rs.getString("ACCESST"));
+            p.setIcon(rs.getString("TREE_ICON"));
             l.add(p);
         }
 
@@ -246,7 +247,7 @@ public class C_UserGroup {
 
     public ArrayList<MPermissions> getUserGroupPermitions(String ParentID) throws Exception {
         String sql = "select p.ID AS ID,p.PARENTid AS PARID,p.Name AS NAME,p.DESCRIPTION AS DES,"
-                + "p.TYPE AS TYP,p.HASSUB AS HASSUB,p.ISUIMENU AS ISUIMENU,up.ACCESSTYPE AS ACCESST,p.ORD AS ORD "
+                + "p.TYPE AS TYP,p.HASSUB AS HASSUB,p.ISUIMENU AS ISUIMENU,up.ACCESSTYPE AS ACCESST,p.ORD AS ORD,p.TREE_ICON as TREE_ICON "
                 + " from m_permissions p inner join user_permitions up "
                 + "on p.ID=up.M_PERMISSIONS_ID ";
 
@@ -266,6 +267,7 @@ public class C_UserGroup {
             p.setHassub(rs.getByte("HASSUB"));
             p.setIsuimenu(rs.getByte("ISUIMENU"));
             p.setAcesst(rs.getString("ACCESST"));
+            p.setIcon(rs.getString("TREE_ICON"));
             l.add(p);
         }
 

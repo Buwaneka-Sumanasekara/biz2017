@@ -43,6 +43,7 @@ public class C_Permissions {
 
         map.put("ISUIMENU", m.getIsuimenu().toString());
         map.put("ORD", "" + m.getOrd());
+        map.put("TREE_ICON", m.getIcon());
 
         if (IsPermissionExists(m.getId(), m.getParentid()) == false) {
             map.put("ID", "'" + m.getId() + "'");
@@ -51,13 +52,14 @@ public class C_Permissions {
             map.put("DESCRIPTION", "'" + m.getDescription() + "'");
             map.put("TYPE", "'" + m.getType() + "'");
             map.put("HASSUB", m.getHassub().toString());
-
+            
             DB.Save(qg.SaveRecord("M_PERMISSIONS", map));
         } else {
             if (SkipList(m) == false) {
 
                 map.put("NAME", "'" + m.getName() + "'");
                 map.put("DESCRIPTION", "'" + m.getDescription() + "'");
+              
             }
             DB.Update(qg.UpdateRecord("M_PERMISSIONS", map, " WHERE ID='" + m.getId() + "' "));
         }
@@ -78,6 +80,7 @@ public class C_Permissions {
             p.setHassub(rs.getByte("HASSUB"));
             p.setIsuimenu(rs.getByte("ISUIMENU"));
             p.setOrd(rs.getInt("ORD"));
+            p.setIcon(rs.getString("TREE_ICON"));
             ar.add(p);
         }
         return ar;
@@ -97,6 +100,7 @@ public class C_Permissions {
             p.setHassub(rs.getByte("HASSUB"));
             p.setIsuimenu(rs.getByte("ISUIMENU"));
             p.setOrd(rs.getInt("ORD"));
+             p.setIcon(rs.getString("TREE_ICON"));
            
         }
         return p;
