@@ -283,7 +283,7 @@ public class C_GroupCommon {
             q += ")";
         }
         q += ")";
-        System.out.println(q);
+        //    System.out.println(q);
 
         ResultSet rs = DB.Search(q);
         while (rs.next()) {
@@ -297,39 +297,48 @@ public class C_GroupCommon {
         return ar;
     }
 
-    public DefaultMutableTreeNode getTreeNodes(Map<Integer, String> map_parents, int lvl, DefaultMutableTreeNode root) throws Exception {
+    public DefaultMutableTreeNode getTreeNodes(Map<Integer, String> map_parents, String parent, int lvl, DefaultMutableTreeNode root) throws Exception {
 
-        if (lvl < 6) {
-            
-            
-            if (lvl == 5) {
-                ArrayList<MGroupCommon> ar = getGroupMappedList(map_parents, lvl);
-               
-                for (MGroupCommon g : ar) {
-                    root.add(new DefaultMutableTreeNode(g));
-                }
-                map_parents.clear();
-            } else {
-                
-                if(lvl==1){
-                    map_parents.clear();
-                }
-                
-                ArrayList<MGroupCommon> ar = getGroupMappedList(map_parents, lvl);
+        ArrayList<MGroupCommon> g1ar = getGroupMappedList(map_parents, lvl);
 
-             
-                    for (MGroupCommon parents : ar) {
-                        Map<Integer, String> Map_tem = map_parents;
-                        Map_tem.put(lvl, parents.getId());
-                        DefaultMutableTreeNode dtm = new DefaultMutableTreeNode(parents);
-                       
-                        root.add(getTreeNodes(Map_tem, lvl + 1, dtm));
+        for (MGroupCommon g1 : g1ar) {
+            //  System.out.println(g1);
+            DefaultMutableTreeNode dtm_g1 = new DefaultMutableTreeNode(g1);
+            root.add(dtm_g1);
+            map_parents.put(lvl, g1.getId());
+
+            ArrayList<MGroupCommon> g2ar = getGroupMappedList(map_parents, lvl + 1);
+            for (MGroupCommon g2 : g2ar) {
+                // System.out.println("- "+g2);
+                DefaultMutableTreeNode dtm_g2 = new DefaultMutableTreeNode(g2);
+                dtm_g1.add(dtm_g2);
+                map_parents.put(lvl + 1, g2.getId());
+
+                ArrayList<MGroupCommon> g3ar = getGroupMappedList(map_parents, lvl + 2);
+                for (MGroupCommon g3 : g3ar) {
+                    // System.out.println("-- "+g3);
+                    DefaultMutableTreeNode dtm_g3 = new DefaultMutableTreeNode(g3);
+                    dtm_g2.add(dtm_g3);
+                    map_parents.put(lvl + 2, g3.getId());
+
+                    ArrayList<MGroupCommon> g4ar = getGroupMappedList(map_parents, lvl + 3);
+                    for (MGroupCommon g4 : g4ar) {
+                        //  System.out.println("--- "+g4);
+                        DefaultMutableTreeNode dtm_g4 = new DefaultMutableTreeNode(g4);
+                        dtm_g3.add(dtm_g4);
+
                         
+
                     }
-                
+
+                    map_parents.clear();
+                    map_parents.put(1, parent);
+                }
 
             }
+
         }
+
         return root;
     }
 

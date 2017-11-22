@@ -29,6 +29,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTree;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -405,7 +406,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
         cmbG5.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(5)));
 
         loadGroup1Links();
-          Tree_loadGroupTree();
+
     }
 
     public void setShortCutKeys(JInternalFrame f) {
@@ -513,7 +514,8 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
             for (Vector<MGroupCommon> v : ar) {
                 dtm.addRow(v);
             }
-          
+
+            Tree_loadGroupTree();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
 
@@ -523,15 +525,26 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
     private void Tree_loadGroupTree() {
         try {
 
-            DefaultMutableTreeNode root = new DefaultMutableTreeNode("");
+            MGroupCommon g = (MGroupCommon) cmbG1.getSelectedItem();
+            DefaultMutableTreeNode root = new DefaultMutableTreeNode(g);
 
             Map<Integer, String> m = new TreeMap<>();
-          
-            jTree_Groups.setModel(new DefaultTreeModel(CGroup.getTreeNodes(m, 1, root)));
+            m.put(1, g.getId());
+            jTree_Groups.setModel(new DefaultTreeModel(CGroup.getTreeNodes(m, g.getId(), 2, root)));
 
+            expandAllNodes(jTree_Groups, 0,jTree_Groups.getRowCount());
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
     }
 
+    private void expandAllNodes(JTree tree, int startingIndex, int rowCount) {
+        for (int i = startingIndex; i < rowCount; ++i) {
+            tree.expandRow(i);
+        }
+
+        if (tree.getRowCount() != rowCount) {
+            expandAllNodes(tree, rowCount, tree.getRowCount());
+        }
+    }
 }
