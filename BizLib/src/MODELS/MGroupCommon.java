@@ -13,7 +13,10 @@ public class MGroupCommon  {
 
     public MGroupCommon() {
     }
-
+   public MGroupCommon(String id) {
+        this.id = id;
+      
+    }
     public MGroupCommon(String id, String name, byte active) {
         this.id = id;
         this.name = name;

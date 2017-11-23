@@ -26,6 +26,7 @@ import SUBUI.Frm_SUserGroupPer;
 import SUBUI.Frm_SUserSecurity;
 import SUBUI.Frm_TChequePayments;
 import SUBUI.Frm_TCommonTrn;
+import SUBUI.Frm_UExcelUploader;
 import javax.swing.JInternalFrame;
 
 /**
@@ -35,15 +36,16 @@ import javax.swing.JInternalFrame;
 public class MyWindowManager {
 
     C_TransactionSetup cTrnSetup = null;
-    C_ReportSetup cRptSetup=null;
+    C_ReportSetup cRptSetup = null;
+
     public MyWindowManager() {
         cTrnSetup = new C_TransactionSetup();
-        cRptSetup=new C_ReportSetup();
+        cRptSetup = new C_ReportSetup();
     }
 
     public JInternalFrame getRequestWindow(MPermissions p, Frm_Main fm) throws Exception {
         JInternalFrame jf = null;
-        if (!p.getType().equals("TRN")&& ! p.getType().equals("RPT")) {
+        if (!p.getType().equals("TRN") && !p.getType().equals("RPT")) {
             switch (p.getId()) {
                 case "M00001":
                     jf = new Frm_MLocation(fm);
@@ -81,7 +83,7 @@ public class MyWindowManager {
                 case "M00012":
                     jf = new Frm_MUnitGroup(fm, p.getDescription());
                     break;
-                       case "M00013":
+                case "M00013":
                     jf = new Frm_GvCreation(fm, p.getDescription());
                     break;
                 case "S00001":
@@ -93,36 +95,38 @@ public class MyWindowManager {
                 case "S00003":
                     jf = new Frm_SUserSecurity(fm, p.getDescription());
                     break;
-                     case "A00001":
+                case "A00001":
                     jf = new Frm_TChequePayments(fm, p.getDescription());
                     break;
-                         
-                         
+                case "U00002":
+                    jf = new Frm_UExcelUploader(fm, p.getDescription());
+                    break;
+
             }
         } else if (p.getType().equals("TRN")) {
             switch (p.getId()) {
                 default:
 
                     UTransactions transactionConfig = cTrnSetup.getTransactionConfig(p.getId());
-                    if (transactionConfig != null  ) {
-                      
+                    if (transactionConfig != null) {
+
                         jf = new Frm_TCommonTrn(fm, transactionConfig.getTrndesc(), transactionConfig);
-                       
+
                     }
 
                     break;
             }
-        }else if (p.getType().equals("RPT")) {
+        } else if (p.getType().equals("RPT")) {
             switch (p.getId()) {
                 default:
 
-                   RptCommon R=cRptSetup.getReportSetup(p.getId());
-                    if (R != null  ) {
-                      
+                    RptCommon R = cRptSetup.getReportSetup(p.getId());
+                    if (R != null) {
+
                         jf = new Frm_Rpt_Common(fm, R.getName(), R);
-                       
-                    }else{
-                        System.err.println("Report is Null "+p.getId());
+
+                    } else {
+                        System.err.println("Report is Null " + p.getId());
                     }
 
                     break;

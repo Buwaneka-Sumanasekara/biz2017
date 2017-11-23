@@ -422,7 +422,7 @@ public class C_Products {
             DB.getCurrentCon().setAutoCommit(false);
 
             String imgurl = "";
-            if (p.getProImg().length() > 0) {
+            if (p.getProImg()!=null && p.getProImg().length() > 0) {
                 imgurl = "MyData/Products/PRO_" +ProId +"."+ getExtension(new File(p.getProImg()));
                  uploadImage(p.getProImg(), ProId);
             }

@@ -16,6 +16,15 @@ public class MUser implements java.io.Serializable {
     private Byte active;
     private Byte visible;
 
+    public MUser() {
+    }
+
+    
+    public MUser(String id) {
+        this.id = id;
+
+    }
+
     
     
     

@@ -202,6 +202,24 @@ public class C_GroupCommon {
 
     }
 
+     public void saveGroupMaping_Excel(ArrayList<MGroupCommon> arl) throws Exception {
+
+        Map<String, String> MQuery = new TreeMap<>();
+        int id = 1;
+        for (MGroupCommon mGroupCommon : arl) {
+            MQuery.put("G" + id + "_ID", "'" + mGroupCommon.getId() + "'");
+            id++;
+        }
+
+        if (CheckGroupMappingExists(arl) == false) {
+            DB.Save(qg.SaveRecord("M_GROUPLINK", MQuery));
+        } else {
+           // throw new Exception("Group combination is already Exists!");
+        }
+
+    }
+    
+    
     public void RemoveGroupMaping(ArrayList<MGroupCommon> arl) throws Exception {
         String q = "DELETE FROM M_GROUPLINK WHERE ";
 
