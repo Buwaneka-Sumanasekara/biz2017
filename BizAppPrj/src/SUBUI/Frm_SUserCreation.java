@@ -98,7 +98,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cmb_UserGrp = new javax.swing.JComboBox<String>();
+        cmb_UserGrp = new javax.swing.JComboBox<>();
         lblimg = new javax.swing.JLabel();
         but_ChooseImg = new javax.swing.JButton();
         txt_imgurl = new javax.swing.JLabel();
@@ -229,9 +229,9 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
 
         jLabel5.setForeground(new java.awt.Color(153, 51, 0));
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 810, 40));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 790, 40));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 820, 40));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 850, 40));
 
         jLabel3.setText("Last Name");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 110, 30));

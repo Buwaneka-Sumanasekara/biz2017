@@ -43,7 +43,7 @@ public class C_Permissions {
 
         map.put("ISUIMENU", m.getIsuimenu().toString());
         map.put("ORD", "" + m.getOrd());
-        map.put("TREE_ICON", m.getIcon());
+        map.put("TREE_ICON", "'"+ m.getIcon()+ "'");
 
         if (IsPermissionExists(m.getId(), m.getParentid()) == false) {
             map.put("ID", "'" + m.getId() + "'");

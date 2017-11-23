@@ -52,38 +52,38 @@ public class DefaultData {
 
         //Master files(0-100)
         ar.add(new MPermissions("M00000", "M00000", "MASTER", "Master Files", "MSTF", (byte) 1, (byte) 1, "A", 0,"materfiles.png"));//1
-        ar.add(new MPermissions("M00001", "M00000", "LOCATIONS", "Locations", "LOC", (byte) 0, (byte) 1, "A", 1,""));
-        ar.add(new MPermissions("M00002", "M00000", "GROUP1", "Group1", "GROUP", (byte) 0, (byte) 1, "A", 2,""));
-        ar.add(new MPermissions("M00003", "M00000", "GROUP2", "Group2", "GROUP", (byte) 0, (byte) 1, "A", 3,""));
-        ar.add(new MPermissions("M00004", "M00000", "GROUP3", "Group3", "GROUP", (byte) 0, (byte) 1, "A", 4,""));
-        ar.add(new MPermissions("M00005", "M00000", "GROUP4", "Group4", "GROUP", (byte) 0, (byte) 1, "A", 5,""));
-        ar.add(new MPermissions("M00006", "M00000", "GROUP5", "Group5", "GROUP", (byte) 0, (byte) 1, "A", 6,""));
-        ar.add(new MPermissions("M00011", "M00000", "GROUPMAP", "Group Map", "GRPM", (byte) 0, (byte) 1, "A", 7,""));
-        ar.add(new MPermissions("M00007", "M00000", "UNITS", "Unit Master", "UNITS", (byte) 0, (byte) 1, "A", 8,""));
-        ar.add(new MPermissions("M00012", "M00000", "UGRP", "Unit Group", "UGRP", (byte) 0, (byte) 1, "A", 9,""));
-        ar.add(new MPermissions("M00008", "M00000", "ITEMS", "Item Maser", "ITEMS", (byte) 0, (byte) 1, "A", 10,""));
-        ar.add(new MPermissions("M00009", "M00000", "SUP", "Supplier", "SUP", (byte) 0, (byte) 1, "A", 11,""));
-        ar.add(new MPermissions("M00010", "M00000", "CUS", "Customer", "CUS", (byte) 0, (byte) 1, "A", 12,""));
-        ar.add(new MPermissions("M00013", "M00000", "GVCRE", "Gift Voucher Creation", "GVCRE", (byte) 0, (byte) 1, "A", 13,""));
-        ar.add(new MPermissions("M00014", "M00000", "GVSTA", "Gift Voucher Status", "GVSTA", (byte) 0, (byte) 1, "A", 14,""));
+        ar.add(new MPermissions("M00001", "M00000", "LOCATIONS", "Locations", "LOC", (byte) 0, (byte) 1, "A", 1,"location.png"));
+        ar.add(new MPermissions("M00002", "M00000", "GROUP1", "Group1", "GROUP", (byte) 0, (byte) 1, "A", 2,"group.png"));
+        ar.add(new MPermissions("M00003", "M00000", "GROUP2", "Group2", "GROUP", (byte) 0, (byte) 1, "A", 3,"group.png"));
+        ar.add(new MPermissions("M00004", "M00000", "GROUP3", "Group3", "GROUP", (byte) 0, (byte) 1, "A", 4,"group.png"));
+        ar.add(new MPermissions("M00005", "M00000", "GROUP4", "Group4", "GROUP", (byte) 0, (byte) 1, "A", 5,"group.png"));
+        ar.add(new MPermissions("M00006", "M00000", "GROUP5", "Group5", "GROUP", (byte) 0, (byte) 1, "A", 6,"group.png"));
+        ar.add(new MPermissions("M00011", "M00000", "GROUPMAP", "Group Map", "GRPM", (byte) 0, (byte) 1, "A", 7,"groupmap.png"));
+        ar.add(new MPermissions("M00007", "M00000", "UNITS", "Unit Master", "UNITS", (byte) 0, (byte) 1, "A", 8,"units.png"));
+        ar.add(new MPermissions("M00012", "M00000", "UGRP", "Unit Group", "UGRP", (byte) 0, (byte) 1, "A", 9,"unitgrp.png"));
+        ar.add(new MPermissions("M00008", "M00000", "ITEMS", "Item Maser", "ITEMS", (byte) 0, (byte) 1, "A", 10,"item_cloth.png"));
+        ar.add(new MPermissions("M00009", "M00000", "SUP", "Supplier", "SUP", (byte) 0, (byte) 1, "A", 11,"supplier.png"));
+        ar.add(new MPermissions("M00010", "M00000", "CUS", "Customer", "CUS", (byte) 0, (byte) 1, "A", 12,"customer.png"));
+        ar.add(new MPermissions("M00013", "M00000", "GVCRE", "Gift Voucher Creation", "GVCRE", (byte) 0, (byte) 1, "A", 13,"gv.png"));
+        ar.add(new MPermissions("M00014", "M00000", "GVSTA", "Gift Voucher Status", "GVSTA", (byte) 0, (byte) 1, "A", 14,"gv_status.png"));
 
         
         //Transactions(101-200)
-        ar.add(new MPermissions("T00000", "T00000", "TRANSACTIONS", "Transactions", "TRN", (byte) 1, (byte) 1, 101,""));//4
-        ar.add(new MPermissions("T00001", "T00000", "T_GRN", "Goods Received Note", "TRN", (byte) 0, (byte) 1, 102,""));
-        ar.add(new MPermissions("T00002", "T00000", "T_INV", "Invoice", "TRN", (byte) 0, (byte) 1, 103,""));
+        ar.add(new MPermissions("T00000", "T00000", "TRANSACTIONS", "Transactions", "TRN", (byte) 1, (byte) 1, 101,"transaction.png"));//4
+        ar.add(new MPermissions("T00001", "T00000", "T_GRN", "Goods Received Note", "TRN", (byte) 0, (byte) 1, 102,"grn.png"));
+        ar.add(new MPermissions("T00002", "T00000", "T_INV", "Invoice", "TRN", (byte) 0, (byte) 1, 103,"Invoice.png"));
         
         
         //Reports(201-600)
-        ar.add(new MPermissions("R00000", "R00000", "RPT", "Reports", "RPT", (byte) 1, (byte) 1, 201,""));//5
+        ar.add(new MPermissions("R00000", "R00000", "RPT", "Reports", "RPT", (byte) 1, (byte) 1, 201,"report.png"));//5
 
         //Sales Reports(202-300)
-        ar.add(new MPermissions("R00001", "R00000", "R_SALES", "Sales Reports", "RPT", (byte) 0, (byte) 1, 202,""));
-        ar.add(new MPermissions("R00002", "R00001", "R_SALES_1", "Invoice Listing", "RPT", (byte) 0, (byte) 1, 203,""));
+        ar.add(new MPermissions("R00001", "R00000", "R_SALES", "Sales Reports", "RPT", (byte) 0, (byte) 1, 202,"Sales_Folder.png"));
+        ar.add(new MPermissions("R00002", "R00001", "R_SALES_1", "Invoice Listing", "RPT", (byte) 0, (byte) 1, 203,"Report_sub.png"));
 
         //Stock Reports(301-400)
-        ar.add(new MPermissions("R00101", "R00000", "R_STOCK", "Stock Reports", "RPT", (byte) 0, (byte) 1, 301,""));
-        ar.add(new MPermissions("R00102", "R00101", "R_STOCK_1", "Stock Balance Summary", "RPT", (byte) 0, (byte) 1, 302,""));
+        ar.add(new MPermissions("R00101", "R00000", "R_STOCK", "Stock Reports", "RPT", (byte) 0, (byte) 1, 301,"Stock_Folder.png"));
+        ar.add(new MPermissions("R00102", "R00101", "R_STOCK_1", "Stock Balance Summary", "RPT", (byte) 0, (byte) 1, 302,"Report_sub.png"));
         
         //Custom Reports(401-500)
         
@@ -92,15 +92,15 @@ public class DefaultData {
         
         
         //Accounts(601-700) 
-        ar.add(new MPermissions("A00000", "A00000", "ACCOUNTS", "Accounts/Payments", "ACC", (byte) 1, (byte) 1, "A", 601,""));//3
-        ar.add(new MPermissions("A00001", "A00000", "ACHQ", "Cheque Payments", "ACHQ", (byte) 0, (byte) 1, "A", 602,""));
+        ar.add(new MPermissions("A00000", "A00000", "ACCOUNTS", "Accounts/Payments", "ACC", (byte) 1, (byte) 1, "A", 601,"accounts.png"));//3
+        ar.add(new MPermissions("A00001", "A00000", "ACHQ", "Cheque Payments", "ACHQ", (byte) 0, (byte) 1, "A", 602,"Cheque.png"));
         
         
         //Security(701-800)
-        ar.add(new MPermissions("S00000", "S00000", "SECURITY", "Security", "SECUR", (byte) 1, (byte) 1, "A", 701,""));//2
-        ar.add(new MPermissions("S00001", "S00000", "SEC_UC", "User Creation", "SUC", (byte) 0, (byte) 1, "A", 702,""));
+        ar.add(new MPermissions("S00000", "S00000", "SECURITY", "Security", "SECUR", (byte) 1, (byte) 1, "A", 701,"security.png"));//2
+        ar.add(new MPermissions("S00001", "S00000", "SEC_UC", "User Creation", "SUC", (byte) 0, (byte) 1, "A", 702,"user_create.png"));
         ar.add(new MPermissions("S00002", "S00000", "SEC_GP", "Group Permission", "SGP", (byte) 0, (byte) 1, "A", 703,""));
-        ar.add(new MPermissions("S00003", "S00000", "SEC_US", "User Security", "SUS", (byte) 0, (byte) 1, "A", 704,""));
+        ar.add(new MPermissions("S00003", "S00000", "SEC_US", "User Security", "SUS", (byte) 0, (byte) 1, "A", 704,"user_security.png"));
 
         ar.add(new MPermissions("S00004", "S00000", "SEC_UUD", "User Details Update", "SUUDU", (byte) 0, (byte) 0, "A", 705,""));
         ar.add(new MPermissions("S00005", "S00000", "SEC_UUS", "User State Update only", "SUSU", (byte) 0, (byte) 0, "A", 706,""));

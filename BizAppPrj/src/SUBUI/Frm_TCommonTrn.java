@@ -344,9 +344,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
         jLabel5.setForeground(new java.awt.Color(153, 51, 0));
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
-        layout_TopMsgPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 830, 20));
+        layout_TopMsgPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 790, 20));
 
-        jPanel1.add(layout_TopMsgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 840, 20));
+        jPanel1.add(layout_TopMsgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 870, 20));
 
         lbl_TrnNo.setText("No");
         jPanel1.add(lbl_TrnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 40, 30));

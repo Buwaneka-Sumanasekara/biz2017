@@ -5,6 +5,7 @@
  */
 package SUBUI;
 
+import COMMONFUN.JTreeMenuCellRender;
 import CONTROLLERS.C_GroupCommon;
 
 import GLOBALDATA.GlobalData;
@@ -213,7 +214,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
                 butGroupComAddActionPerformed(evt);
             }
         });
-        jPanel1.add(butGroupComAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 263, -1, 30));
+        jPanel1.add(butGroupComAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, -1, 30));
 
         tblGroupCom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -533,6 +534,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
             jTree_Groups.setModel(new DefaultTreeModel(CGroup.getTreeNodes(m, g.getId(), 2, root)));
 
             expandAllNodes(jTree_Groups, 0,jTree_Groups.getRowCount());
+              jTree_Groups.setCellRenderer(new JTreeMenuCellRender());
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }

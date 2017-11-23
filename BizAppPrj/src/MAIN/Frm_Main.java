@@ -112,7 +112,7 @@ public class Frm_Main extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TUserMenu);
 
-        layout_Outer.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 550));
+        layout_Outer.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 160, 550));
 
         JDesktopF.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -162,14 +162,14 @@ public class Frm_Main extends javax.swing.JFrame {
         layout_Outer.add(lblUserimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 70, 70));
 
         txt_DB_Name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        txt_DB_Name.setForeground(new java.awt.Color(153, 153, 255));
+        txt_DB_Name.setForeground(new java.awt.Color(102, 153, 255));
         txt_DB_Name.setText("jLabel1");
-        layout_Outer.add(txt_DB_Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 700, 260, -1));
+        layout_Outer.add(txt_DB_Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 700, 200, -1));
 
         txt_DB_HOST.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        txt_DB_HOST.setForeground(new java.awt.Color(153, 153, 255));
+        txt_DB_HOST.setForeground(new java.awt.Color(102, 153, 255));
         txt_DB_HOST.setText("jLabel1");
-        layout_Outer.add(txt_DB_HOST, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 700, 280, -1));
+        layout_Outer.add(txt_DB_HOST, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 700, 190, -1));
 
         getContentPane().add(layout_Outer, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 0, 1030, 720));
 

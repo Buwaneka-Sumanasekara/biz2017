@@ -306,7 +306,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 810, 20));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 850, 20));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 860, 20));
 
         ParentLayout.setBackground(new java.awt.Color(255, 255, 255));
 

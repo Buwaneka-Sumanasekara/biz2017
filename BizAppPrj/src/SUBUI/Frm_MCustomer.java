@@ -207,9 +207,9 @@ public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindo
 
         jLabel5.setForeground(new java.awt.Color(153, 51, 0));
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 810, 40));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 840, 40));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 820, 40));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 850, 40));
 
         jLabel7.setText("State");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 260, 110, 30));

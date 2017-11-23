@@ -75,7 +75,6 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         txt_UnitSymble = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
@@ -191,12 +190,9 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
 
         jLabel5.setForeground(new java.awt.Color(153, 51, 0));
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 800, 40));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 770, 40));
 
-        layout_Unit.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 800, 40));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Screen/SCR_UNIT.png"))); // NOI18N
-        layout_Unit.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 170, 140));
+        layout_Unit.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 860, 40));
 
         txt_UnitSymble.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,7 +288,6 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JButton but_UnitSave;
     private javax.swing.JButton but_UnitSearch;
     private javax.swing.JButton but_UnitUpdate;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

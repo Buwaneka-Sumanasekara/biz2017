@@ -5,7 +5,9 @@
  */
 package COMMONFUN;
 
+import MODELS.MGroupCommon;
 import MODELS.MPermissions;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -37,20 +39,48 @@ public class JTreeMenuCellRender implements TreeCellRenderer {
 
         if (o.toString().equals("")) {
             label.setIcon(homeIcon);
+            label.setText("");
+            label.setBackground(Color.WHITE);
+             label.setForeground(Color.DARK_GRAY);
         } else if (o instanceof MPermissions) {
 
             MPermissions p = (MPermissions) o;
             if (p != null) {
+               // System.out.println(p.getIcon());
                 if (p.getIcon().length() > 0) {
-                    label.setIcon(homeIcon);
+                    label.setIcon(new ImageIcon(getClass().getResource("/SYSIMG/TreeIcons/"+p.getIcon())));
                 } else {
                     label.setIcon(permIcon);
                 }
-                label.setText(p.getName());
+                label.setText(p.getDescription());
             }
 
+            if(selected){
+                label.setForeground(Color.RED);
+                label.setBackground(Color.LIGHT_GRAY);
+            }else{
+                label.setForeground(Color.DARK_GRAY);
+                label.setBackground(Color.WHITE);
+            }
+            
+        }else if(o instanceof MGroupCommon){
+            MGroupCommon g=(MGroupCommon) o;
+            
+            if (g != null) {
+               // System.out.println(p.getIcon());
+                if (leaf) {
+                    label.setIcon(new ImageIcon(getClass().getResource("/SYSIMG/TreeIcons/file.png")));
+                } else {
+                      label.setIcon(new ImageIcon(getClass().getResource("/SYSIMG/TreeIcons/folder.png")));
+                }
+                label.setText(g.getName());
+            }
+            
         }
 
+        
+        
+        
         return label;
     }
 
