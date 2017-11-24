@@ -92,7 +92,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         this.sdf_From = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
         this.sdf_To = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
 
-        System.out.println("Rept Id: " + "RPT_" + mRpt.getId());
+        //System.out.println("Rept Id: " + "RPT_" + mRpt.getId());
         this.jr = GLOBALDATA.GlobalData.CompiledReports.get("RPT_" + mRpt.getId());
         Refresh();
         setShortCutKeys(this);

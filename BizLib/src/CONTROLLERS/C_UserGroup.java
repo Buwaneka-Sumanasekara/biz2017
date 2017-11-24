@@ -9,6 +9,8 @@ import COMMONFUN.CommonFun;
 import DB_ACCESS.DB;
 import MODELS.MPermissions;
 import MODELS.MUsergroup;
+import MODELS.RptCommon;
+import MODELS.UTransactions;
 import QUERYBUILDER.QueryGen;
 import VALIDATIONS.MyValidator;
 import java.sql.ResultSet;
@@ -27,11 +29,15 @@ public class C_UserGroup {
     QueryGen qg = null;
     CommonFun CommFun = null;
     VALIDATIONS.MyValidator v = null;
+    C_TransactionSetup cTrnSetup = null;
+    C_ReportSetup cRpt = null;
 
     public C_UserGroup() {
         CommFun = new CommonFun();
         qg = new QueryGen();
         v = new MyValidator();
+        cTrnSetup = new C_TransactionSetup();
+        cRpt = new C_ReportSetup();
     }
 
     ////////////////////////METHODS////////////////////////////////////
@@ -50,27 +56,22 @@ public class C_UserGroup {
         }
     }
 
-    
-     public Vector<MUsergroup> getUserGroups(boolean only_visible, boolean skipown) throws Exception {
-         return getUserGroups(only_visible, skipown,-1);
+    public Vector<MUsergroup> getUserGroups(boolean only_visible, boolean skipown) throws Exception {
+        return getUserGroups(only_visible, skipown, -1);
     }
-    
-    public Vector<MUsergroup> getUserGroups(boolean only_visible, boolean skipown,int state) throws Exception {
+
+    public Vector<MUsergroup> getUserGroups(boolean only_visible, boolean skipown, int state) throws Exception {
         String sql = "SELECT * FROM m_usergroup ";
         if (only_visible) {
             sql += " where VISIBLE=1 ";
-            if(state>-1){
-               sql+=" AND ACTIVE='"+state+"' ";  
+            if (state > -1) {
+                sql += " AND ACTIVE='" + state + "' ";
             }
-           
-        }else{
-              if(state>-1){
-               sql+=" WHERE ACTIVE='"+state+"' ";  
-            }
+
+        } else if (state > -1) {
+            sql += " WHERE ACTIVE='" + state + "' ";
         }
 
-       
-        
         Vector<MUsergroup> v = new Vector<>();
         ResultSet rs = DB.Search(sql);
         while (rs.next()) {
@@ -191,14 +192,15 @@ public class C_UserGroup {
             MPermissions p = new MPermissions();
             p.setId(rs.getString("ID"));
             p.setParentid(rs.getString("PARID"));
-            p.setName(rs.getString("NAME"));
-            p.setDescription(rs.getString("DES"));
             p.setType(rs.getString("TYP"));
+                p.setName(rs.getString("NAME"));
+            p.setDescription(getPermissionName(p.getId(), p.getType(), rs.getString("DES")));
+
             p.setHassub(rs.getByte("HASSUB"));
             p.setIsuimenu(rs.getByte("ISUIMENU"));
             p.setAcesst(rs.getString("ACCESST"));
             p.setOrd(rs.getInt("ORD"));
-             p.setIcon(rs.getString("TREE_ICON"));
+            p.setIcon(rs.getString("TREE_ICON"));
             l.put(rs.getString("ID"), p);
         }
 
@@ -224,17 +226,18 @@ public class C_UserGroup {
             sql += " AND p.PARENTid='" + ParentID + "' ";
         }
 
-       sql += " ORDER BY p.PARENTid,p.ORD ";
-      // System.out.println(sql);
+        sql += " ORDER BY p.PARENTid,p.ORD ";
+        // System.out.println(sql);
         ArrayList<MPermissions> l = new ArrayList<>();
         ResultSet rs = DB.Search(sql);
         while (rs.next()) {
             MPermissions p = new MPermissions();
             p.setId(rs.getString("ID"));
             p.setParentid(rs.getString("PARID"));
-            p.setName(rs.getString("NAME"));
-            p.setDescription(rs.getString("DES"));
             p.setType(rs.getString("TYP"));
+            p.setName(rs.getString("NAME"));
+            p.setDescription(getPermissionName(p.getId(), p.getType(), rs.getString("DES")));
+
             p.setHassub(rs.getByte("HASSUB"));
             p.setIsuimenu(rs.getByte("ISUIMENU"));
             p.setAcesst(rs.getString("ACCESST"));
@@ -254,7 +257,7 @@ public class C_UserGroup {
         if (!ParentID.equals("")) {
             sql += " WHERE  p.PARENTid='" + ParentID + "' ";
         }
-       sql += " ORDER BY p.PARENTid,p.ORD ";
+        sql += " ORDER BY p.PARENTid,p.ORD ";
         ArrayList<MPermissions> l = new ArrayList<>();
         ResultSet rs = DB.Search(sql);
         while (rs.next()) {
@@ -272,5 +275,43 @@ public class C_UserGroup {
         }
 
         return l;
+    }
+
+    private String getPermissionName(String id, String type, String txt) {
+        String name = null;
+        try {
+            switch (type) {
+                case "TRN":
+
+                    UTransactions transactionConfig = cTrnSetup.getTransactionConfig(id);
+                    if (transactionConfig != null) {
+                        name = transactionConfig.getTrndesc();
+                    } else {
+                        name = txt;
+                    }
+                    break;
+
+                case "RPT":
+                    RptCommon R = cRpt.getReportSetup(id);
+                    if (R != null) {
+
+                        name = R.getName();
+
+                    } else {
+                        name = txt;
+                    }
+                    break;
+
+                default:
+                    name = txt;
+            }
+
+        } catch (Exception e) {
+            //System.err.println(e.getMessage());
+            name = txt;
+        }
+
+        return name;
+
     }
 }

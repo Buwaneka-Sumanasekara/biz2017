@@ -22,3 +22,30 @@ GROUP BY SL.PROID,P.NAME)
 )A
 group by  A.PROID,A.NAME,A.LOCID,A.BATCH,A.UNIT
 order by  A.PROID,A.NAME,A.LOCID
+
+----------------------------
+
+select p.ID as PROID,p.REF1 AS SUPCODE,p.NAME as PRONAME,s.COSTP as COST,s.MARKUP AS MARKUP,s.SELLP AS SELL,sp.M_SUPPLIER_ID as SUPID,s.BATCHNO,g1.ID as G1CODE,g1.NAME AS G1NAME
+,g2.ID as G2CODE,g2.NAME AS G2NAME,g3.ID as G3CODE,g3.NAME AS G3NAME,g4.ID as G4CODE,g4.NAME AS G4NAME,g5.ID as G5CODE,g5.NAME AS G5NAME
+
+
+from m_products p
+inner join m_group1 g1
+on p.M_GROUP1_ID=g1.ID
+inner join m_group2 g2
+on p.M_GROUP2_ID=g2.ID
+inner join m_group3 g3
+on p.M_GROUP3_ID=g3.ID
+inner join m_group4 g4
+on p.M_GROUP4_ID=g4.ID
+inner join m_group5 g5
+on p.M_GROUP5_ID=g5.ID
+inner join m_stocks s
+on p.ID=s.M_PRODUCTS_ID
+inner join m_supplier_has_m_products sp
+on p.ID=sp.M_PRODUCTS_ID 
+order by p.ID
+
+
+
+   
