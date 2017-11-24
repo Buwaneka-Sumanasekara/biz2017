@@ -66,9 +66,11 @@ public class ExcelUploader {
                     String G3_Code = row.getCell(4).getStringCellValue();
                     String G4_Code = row.getCell(6).getStringCellValue();
 
-                    String G4_size = row.getCell(7).getStringCellValue();
 
                     String G5_Code = row.getCell(8).getStringCellValue();
+                    
+                    String G5_size = row.getCell(9).getStringCellValue();
+                    
 
                     String ItemName = row.getCell(10).getStringCellValue();
 
@@ -93,14 +95,14 @@ public class ExcelUploader {
                     p.setMGroup3(G3_Code);
                     p.setMGroup4(G4_Code);
                     p.setMGroup5(G5_Code);
-                    p.setRef1("");
-                    p.setRef2(G4_size + "-" + Ref2);
+                    p.setRef2("");
+                    p.setRef1(G5_size + "-" + Ref2);
 
                     p.setCprice(Cost);
                     p.setMarkup(margine);
                     p.setSprice(Sell);
 
-                    String SupCode = row.getCell(13).getStringCellValue();
+                    String SupCode = "S"+row.getCell(13).getStringCellValue();
                     Vector<MSupplier> V_Sup = new Vector<>();
                     V_Sup.add(new MSupplier(SupCode));
 

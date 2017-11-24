@@ -58,7 +58,7 @@ public class MGroupCommon  {
     @Override
     public boolean equals(Object obj) {
         MGroupCommon gc=(MGroupCommon) obj;
-        if(gc.id.equals(this.id)){
+        if(gc!=null && gc.id.equals(this.id)){
             return true;
         }else{
             return false;

@@ -783,30 +783,30 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_txtFproValActionPerformed
 
     private void cmbG5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG5ActionPerformed
-        loadGroups(5);
+   
         SetProductName();
     }//GEN-LAST:event_cmbG5ActionPerformed
 
     private void cmbG3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG3ActionPerformed
 
-        loadGroups(3);
+        loadGroups_g4();
         SetProductName();
     }//GEN-LAST:event_cmbG3ActionPerformed
 
     private void cmbG2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG2ActionPerformed
-        loadGroups(2);
+        loadGroups_g3();
         SetProductName();
     }//GEN-LAST:event_cmbG2ActionPerformed
 
     private void cmbG1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG1ActionPerformed
 
-        loadGroups(1);
+        loadGroups_g2();
         SetProductName();
     }//GEN-LAST:event_cmbG1ActionPerformed
 
     private void cmbG4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG4ActionPerformed
 
-        loadGroups(4);
+        loadGroups_g5();
         SetProductName();
     }//GEN-LAST:event_cmbG4ActionPerformed
 
@@ -1244,7 +1244,11 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         lblG4.setText(GroupNames.get(4));
         lblG5.setText(GroupNames.get(5));
 
-        loadGroups(0);
+        loadGroups_g1();
+        loadGroups_g2();
+        loadGroups_g3();
+        loadGroups_g4();
+        loadGroups_g5();
 
         cmbUnits.setModel(new DefaultComboBoxModel(CUnit.findAllUnitGroups()));
         cmbProp.setModel(new DefaultComboBoxModel(CPropertise.getAllPropertise()));
@@ -1262,7 +1266,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     txtFproVal.setFormatterFactory(new DefaultFormatterFactory(mfWarranty));
             }
         }
-lblProImg.setIcon(null);
+        lblProImg.setIcon(null);
         cmb_Suppliers.setModel(new DefaultComboBoxModel(CSuppliers.getAllSuppliers()));
 
     }
@@ -1468,52 +1472,112 @@ lblProImg.setIcon(null);
         }
     }
 
-    private void loadGroups(int selectedGroup) {
+    private void loadGroups_g1() {
+
+        try {
+            cmbG1.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(1, true)));
+        } catch (Exception e) {
+  System.err.println(e.getMessage());
+        }
+    }
+
+    private void loadGroups_g2() {
 
         try {
             ArrayList<String> ar = new ArrayList<>();
-
-            if (selectedGroup < 1) {
-                cmbG1.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(1, true)));
-            }
             MGroupCommon G1 = (MGroupCommon) cmbG1.getSelectedItem();
 
             if (G1 != null) {
                 ar.add(G1.getId());
             }
 
-            if (selectedGroup < 2) {
-                cmbG2.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(2, ar)));
+            cmbG2.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(2, ar)));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void loadGroups_g3() {
+
+        try {
+            ArrayList<String> ar = new ArrayList<>();
+            MGroupCommon G1 = (MGroupCommon) cmbG1.getSelectedItem();
+
+            if (G1 != null) {
+                ar.add(G1.getId());
             }
+
             MGroupCommon G2 = (MGroupCommon) cmbG2.getSelectedItem();
 
             if (G2 != null) {
                 ar.add(G2.getId());
             }
 
-            if (selectedGroup < 3) {
-                cmbG3.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(3, ar)));
+            cmbG3.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(3, ar)));
+        } catch (Exception e) {
+  System.err.println(e.getMessage());
+        }
+    }
+
+    private void loadGroups_g4() {
+
+        try {
+            ArrayList<String> ar = new ArrayList<>();
+            MGroupCommon G1 = (MGroupCommon) cmbG1.getSelectedItem();
+
+            if (G1 != null) {
+                ar.add(G1.getId());
             }
+
+            MGroupCommon G2 = (MGroupCommon) cmbG2.getSelectedItem();
+
+            if (G2 != null) {
+                ar.add(G2.getId());
+            }
+
             MGroupCommon G3 = (MGroupCommon) cmbG3.getSelectedItem();
 
             if (G3 != null) {
                 ar.add(G3.getId());
             }
 
-            if (selectedGroup < 4) {
-                cmbG4.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(4, ar)));
+            cmbG4.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(4, ar)));
+        } catch (Exception e) {
+  System.err.println(e.getMessage());
+        }
+    }
+
+    private void loadGroups_g5() {
+
+        try {
+            ArrayList<String> ar = new ArrayList<>();
+            MGroupCommon G1 = (MGroupCommon) cmbG1.getSelectedItem();
+
+            if (G1 != null) {
+                ar.add(G1.getId());
             }
+
+            MGroupCommon G2 = (MGroupCommon) cmbG2.getSelectedItem();
+
+            if (G2 != null) {
+                ar.add(G2.getId());
+            }
+
+            MGroupCommon G3 = (MGroupCommon) cmbG3.getSelectedItem();
+
+            if (G3 != null) {
+                ar.add(G3.getId());
+            }
+
             MGroupCommon G4 = (MGroupCommon) cmbG4.getSelectedItem();
+
             if (G4 != null) {
                 ar.add(G4.getId());
             }
 
-            if (selectedGroup < 5) {
-                cmbG5.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(5, ar)));
-            }
-
+            cmbG5.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(5, ar)));
         } catch (Exception e) {
-
+  System.err.println(e.getMessage());
         }
     }
 

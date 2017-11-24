@@ -363,21 +363,27 @@ public class C_GroupCommon {
     public Vector<MGroupCommon> getFilteredGroups(int ReqGroup, ArrayList<String> PreviousSelectGroupIds) throws Exception {
         Vector<MGroupCommon> v = new Vector<>();
         if (PreviousSelectGroupIds.size() > 0) {
-            String q = "SELECT G" + ReqGroup + "_ID FROM M_GROUPLINK  WHERE G" + ReqGroup + "_ID <> '" + getDefaultGroup(ReqGroup) + "' ";
+            String q = "SELECT DISTINCT G" + ReqGroup + "_ID FROM M_GROUPLINK  WHERE G" + ReqGroup + "_ID <> '" + getDefaultGroup(ReqGroup) + "' ";
 
             int GNo = 1;
+            q+=" OR (";
             for (String SelectedGroupsId : PreviousSelectGroupIds) {
 
+                if(GNo>1){
                 q += " AND ";
-
+                }
                 q += " G" + GNo + "_ID = '" + SelectedGroupsId + "'  ";
                 GNo++;
             }
+            q+=")";
+            
             q += " GROUP BY G" + ReqGroup + "_ID";
 
+          //  System.out.println(q);
+            
             ResultSet rs = DB.Search(q);
 
-            v.add(IsExists("M_GROUP" + ReqGroup, getDefaultGroup(ReqGroup)));
+        
 
             while (rs.next()) {
                 MGroupCommon Group = IsExists("M_GROUP" + ReqGroup, rs.getString("G" + ReqGroup + "_ID"));
@@ -385,7 +391,11 @@ public class C_GroupCommon {
                     v.add(Group);
                 }
             }
+            
+                v.add(IsExists("M_GROUP" + ReqGroup, getDefaultGroup(ReqGroup)));
         }
+        
+       // System.out.println("V:"+v.size());
         return v;
     }
 
