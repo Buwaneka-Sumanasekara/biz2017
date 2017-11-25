@@ -66,7 +66,7 @@ public class DB {
             if (con == null || con.isClosed()) {
                 getConnection();
             }
-          //  System.out.println(query);
+         // System.out.println(query);
             return con.createStatement().executeUpdate(query);
            
      

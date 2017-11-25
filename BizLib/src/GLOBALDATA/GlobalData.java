@@ -9,6 +9,7 @@ import MODEL.CONFIG.UConfig;
 import MODELS.MPermissions;
 import MODELS.MUser;
 import MODELS.USetup;
+import java.awt.image.BufferedImage;
 import java.util.Map;
 import java.util.TreeMap;
 import net.sf.jasperreports.engine.JasperReport;
@@ -28,6 +29,7 @@ public class GlobalData {
 
     public static Map<String, JasperReport> CompiledReports = new TreeMap<String, JasperReport>();
 
+   
     public static MUser CurUser = null;
 
     public static final String MESSAGEBOX = "Biz Message";

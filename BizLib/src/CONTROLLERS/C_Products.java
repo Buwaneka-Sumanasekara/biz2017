@@ -7,6 +7,7 @@ package CONTROLLERS;
 
 import COMMONFUN.CommonFun;
 import DB_ACCESS.DB;
+import GLOBALDATA.GlobalData;
 import MODELS.MLocation;
 import MODELS.MProductPropertise;
 import MODELS.MProducts;
@@ -14,7 +15,9 @@ import MODELS.MStocks;
 import MODELS.MSupplier;
 import QUERYBUILDER.QueryGen;
 import VALIDATIONS.MyValidator;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Vector;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -258,10 +262,46 @@ public class C_Products {
         }
         return p;
     }
-     public MProducts getProductTrn(String ProId, int Active) throws Exception {
+
+    public ArrayList<MProducts> getAllProducts(int Active) throws Exception {
+
+        ArrayList<MProducts> ar = new ArrayList<>();
+        String q = "SELECT * FROM m_products   ";
+        if (Active == 0 || Active == 1) {
+            q += " WHERE  ACTIVE=" + Active;
+        }
+        ResultSet rs = DB.Search(q);
+
+        while (rs.next()) {
+            MProducts p = new MProducts();
+            p.setId(rs.getString("ID"));
+            p.setName(rs.getString("NAME"));
+            p.setPrintdes(rs.getString("PRINTDES"));
+            p.setBatch(rs.getByte("BATCH"));
+            p.setActive(rs.getByte("ACTIVE"));
+            MStocks lastBatch = getLastBatch(p.getId());
+            p.setSprice(lastBatch.getSellPrice());
+            p.setMarkup(lastBatch.getMarkup());
+            p.setCprice(lastBatch.getCostPrice());
+            p.setMGroup1(rs.getString("M_GROUP1_ID"));
+            p.setMGroup2(rs.getString("M_GROUP2_ID"));
+            p.setMGroup3(rs.getString("M_GROUP3_ID"));
+            p.setMGroup4(rs.getString("M_GROUP4_ID"));
+            p.setMGroup5(rs.getString("M_GROUP5_ID"));
+            p.setRef1(rs.getString("REF1"));
+            p.setRef2(rs.getString("REF2"));
+            p.setUnitGroupId(rs.getString("M_UNITGROUPS_ID"));
+            p.setProImg(rs.getString("PRO_IMG"));
+            ar.add(p);
+        }
+
+        return ar;
+    }
+
+    public MProducts getProductTrn(String ProId, int Active) throws Exception {
         MProducts p = null;
         if (ProId != null && !ProId.equals("")) {
-            String q = "SELECT * FROM m_products WHERE ID='" + fv.replacer(ProId) + "' OR REF1='"+fv.replacer(ProId)+"' ";
+            String q = "SELECT * FROM m_products WHERE ID='" + fv.replacer(ProId) + "' OR REF1='" + fv.replacer(ProId) + "' ";
             if (Active == 0 || Active == 1) {
                 q += " AND  ACTIVE=" + Active;
             }
@@ -422,11 +462,11 @@ public class C_Products {
             DB.getCurrentCon().setAutoCommit(false);
 
             String imgurl = "";
-            if (p.getProImg()!=null && p.getProImg().length() > 0) {
-                imgurl = "MyData/Products/PRO_" +ProId +"."+ getExtension(new File(p.getProImg()));
-                 uploadImage(p.getProImg(), ProId);
+            if (p.getProImg() != null && p.getProImg().length() > 0) {
+                imgurl = "MyData/Products/PRO_" + ProId + "." + getExtension(new File(p.getProImg()));
+                uploadImage(p.getProImg(), ProId);
             }
-            mpro.put("PRO_IMG", "'"+imgurl+"'");
+            mpro.put("PRO_IMG", "'" + imgurl + "'");
 
             if (GenIdProId.equals(ProId)) {
                 mpro.put("CRDATE", "NOW()");
@@ -465,8 +505,6 @@ public class C_Products {
                 status = "Product Update Success!";
             }
 
-           
-
             DB.getCurrentCon().commit();
         } catch (Exception e) {
             DB.getCurrentCon().rollback();
@@ -498,13 +536,17 @@ public class C_Products {
             if (f.exists()) {
                 Path FROM = Paths.get(f.getAbsolutePath());
 
-                Path TO = Paths.get("MyData\\Products\\PRO_" + proid + "." + getExtension(f));
+                String newpath = "MyData\\Products\\PRO_" + proid + "." + getExtension(f);
+                Path TO = Paths.get(newpath);
                 //overwrite existing file, if exists
                 CopyOption[] options = new CopyOption[]{
                     StandardCopyOption.REPLACE_EXISTING,
                     StandardCopyOption.COPY_ATTRIBUTES
                 };
                 Files.copy(FROM, TO, options);
+
+               
+
             }
 
         }

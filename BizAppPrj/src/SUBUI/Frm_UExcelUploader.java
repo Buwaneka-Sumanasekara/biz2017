@@ -7,11 +7,14 @@ package SUBUI;
 
 import CONTROLLERS.C_GroupCommon;
 import CONTROLLERS.C_Products;
+import DB_ACCESS.DB;
 import EXCEL_UPLOADER.ExcelUploader;
 import EXCEL_UPLOADER.Test;
 import MAIN.Frm_Main;
 import MODELS.MGroupCommon;
 import MODELS.MProductExcel;
+import MODELS.MProducts;
+import static SUBUI.Frm_SUserCreation.getExtension;
 import UI.Frm_Table;
 import VALIDATIONS.MyValidator;
 import WINMNG.MyWindowBasicControllers;
@@ -19,6 +22,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.io.File;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -60,10 +68,6 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
         setShortCutKeys(this);
     }
 
-  
-    
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -71,16 +75,13 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
         jFileChooser1 = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        but_ExcelUpdate = new javax.swing.JButton();
         but_ExcelSave = new javax.swing.JButton();
-        but_ExcelSearch = new javax.swing.JButton();
-        but_ExcelRefresh = new javax.swing.JButton();
         lblScreenName = new javax.swing.JLabel();
         jpanelq = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         but_Choose = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        cmb_Type = new javax.swing.JComboBox<>();
+        cmb_Type = new javax.swing.JComboBox<String>();
         lbl_Path = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
 
@@ -113,17 +114,6 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        but_ExcelUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit.png"))); // NOI18N
-        but_ExcelUpdate.setToolTipText("Save");
-        but_ExcelUpdate.setContentAreaFilled(false);
-        but_ExcelUpdate.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit_disable.png"))); // NOI18N
-        but_ExcelUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_ExcelUpdateActionPerformed(evt);
-            }
-        });
-        jPanel2.add(but_ExcelUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
-
         but_ExcelSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save.png"))); // NOI18N
         but_ExcelSave.setToolTipText("Save");
         but_ExcelSave.setContentAreaFilled(false);
@@ -134,28 +124,6 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
             }
         });
         jPanel2.add(but_ExcelSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
-
-        but_ExcelSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search.png"))); // NOI18N
-        but_ExcelSearch.setToolTipText("Search(F2)");
-        but_ExcelSearch.setContentAreaFilled(false);
-        but_ExcelSearch.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search_disable.png"))); // NOI18N
-        but_ExcelSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_ExcelSearchActionPerformed(evt);
-            }
-        });
-        jPanel2.add(but_ExcelSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 40, 40));
-
-        but_ExcelRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
-        but_ExcelRefresh.setToolTipText("Refresh");
-        but_ExcelRefresh.setContentAreaFilled(false);
-        but_ExcelRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh_disable.png"))); // NOI18N
-        but_ExcelRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_ExcelRefreshActionPerformed(evt);
-            }
-        });
-        jPanel2.add(but_ExcelRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, 40));
 
         lblScreenName.setBackground(new java.awt.Color(153, 255, 51));
         lblScreenName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -193,14 +161,6 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
         setBounds(0, 0, 867, 646);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void but_ExcelSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ExcelSearchActionPerformed
-
-    }//GEN-LAST:event_but_ExcelSearchActionPerformed
-
-    private void but_ExcelRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ExcelRefreshActionPerformed
-        Refresh();
-    }//GEN-LAST:event_but_ExcelRefreshActionPerformed
-
     private void but_ExcelSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ExcelSaveActionPerformed
         SaveProcess();
     }//GEN-LAST:event_but_ExcelSaveActionPerformed
@@ -212,10 +172,6 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
 
     }//GEN-LAST:event_formInternalFrameOpened
-
-    private void but_ExcelUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ExcelUpdateActionPerformed
-
-    }//GEN-LAST:event_but_ExcelUpdateActionPerformed
 
     private void but_ChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ChooseActionPerformed
         FileNameExtensionFilter filter = new FileNameExtensionFilter("XLS files", "xls");
@@ -231,10 +187,7 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton but_Choose;
-    private javax.swing.JButton but_ExcelRefresh;
     private javax.swing.JButton but_ExcelSave;
-    private javax.swing.JButton but_ExcelSearch;
-    private javax.swing.JButton but_ExcelUpdate;
     private javax.swing.JComboBox<String> cmb_Type;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
@@ -259,7 +212,7 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
 
                     ArrayList<MProductExcel> arrayList = (ArrayList<MProductExcel>) excelAsList;
                   //  System.out.println("Count:" + arrayList.size());
-                  //  System.out.println("");
+                    //  System.out.println("");
                     for (MProductExcel p : arrayList) {
                         //System.out.println(p);
 
@@ -391,6 +344,42 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
 
     }
 
+    private void ReplaceProImg() {
+        try {
+            ArrayList<MProducts> allProducts = cpro.getAllProducts(1);
+            for (MProducts p : allProducts) {
+                String[] split = p.getRef1().split("-");
+                String FrmPath="C:\\Users\\HOME\\Downloads\\PRODUCTS\\"+split[1]+".jpg";
+                File f = new File(FrmPath);
+                if (f.exists()) {
+                    Path FROM = Paths.get(f.getAbsolutePath());
+
+                    String RepPath="MyData/Products/PRO_" + p.getId() + "." + getExtension(f);
+                    
+                    System.out.println(RepPath);
+                    
+                    Path TO = Paths.get(RepPath);
+                    
+
+//overwrite existing file, if exists
+                    CopyOption[] options = new CopyOption[]{
+                        StandardCopyOption.REPLACE_EXISTING,
+                        StandardCopyOption.COPY_ATTRIBUTES
+                    };
+                    Files.copy(FROM, TO, options);
+                    
+                    DB.Update("UPDATE m_products SET PRO_IMG='"+RepPath+"' where ID='"+p.getId()+"' ");
+                    
+                    System.out.println(p.getId());
+                }
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+
 }
 
 class ExcelType {
@@ -424,6 +413,4 @@ class ExcelType {
         return getName();
     }
 
-    
-    
 }

@@ -2,19 +2,26 @@ package LOGIN;
 
 import COMMONFUN.CommonFun;
 import COMMONFUN.DefaultData;
+import CONTROLLERS.C_Products;
 import CONTROLLERS.C_ReportSetup;
 import CONTROLLERS.C_Setup;
 import CONTROLLERS.C_TransactionSetup;
 import GLOBALDATA.GlobalData;
+import MODELS.MProducts;
 import MODELS.RptCommon;
 import MODELS.UTransactions;
 import SETTINGS.Settings;
 import TABLE_STRUCT.TableStruCreation;
 import TABLE_STRUCT.TblColumn;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JRootPane;
 import javax.swing.UIManager;
 import net.sf.jasperreports.engine.JRException;
@@ -27,6 +34,7 @@ public final class Frm_Start extends javax.swing.JDialog {
     DefaultData DefData = null;
     C_TransactionSetup cTrn = null;
     C_ReportSetup cRptSetup = null;
+    C_Products cPro = null;
 
     public Frm_Start(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -39,7 +47,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         DefData = new DefaultData();
         cTrn = new C_TransactionSetup();
         cRptSetup = new C_ReportSetup();
-          this.setBounds(this.getX(), this.getY(), 590, 300);
+        cPro = new C_Products();
+        this.setBounds(this.getX(), this.getY(), 590, 300);
     }
 
     public void InitPrgressBar(int MaxRecords) {
@@ -182,8 +191,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20171107_t1.add(new TblColumn("RPT_EN_DATE_AS_AT", "INT", "NOT NULL DEFAULT 0"));
         ar_20171107_t1.add(new TblColumn("RPT_EN_DATE_QUATER", "INT", "NOT NULL DEFAULT 0"));
         ar_20171107_t1.add(new TblColumn("RPT_EN_GRP", "INT", "NOT NULL DEFAULT 0"));
-       ar_20171107_t1.add(new TblColumn("RPT_SUBREPORT_PATH", "VARCHAR(200)", "NOT NULL DEFAULT ''"));
-       
+        ar_20171107_t1.add(new TblColumn("RPT_SUBREPORT_PATH", "VARCHAR(200)", "NOT NULL DEFAULT ''"));
+
         ArrayList<String> ar_20171107_t1PK = new ArrayList<>();
         ar_20171107_t1PK.add("RPT_ID");
 
@@ -309,8 +318,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20171114_t8PK.add("ID");
         Structure str_20171114_t8 = new Structure(20171114, "m_products", ar_20171114_t8, ar_20171114_t8PK);
         arStructures.add(str_20171114_t8);
-        
-        
+
         ArrayList<TblColumn> ar_20171114_t9 = new ArrayList<>();
         ar_20171114_t9.add(new TblColumn("REF_TRN", "VARCHAR(100)", "DEFAULT ''"));
         ArrayList<String> ar_20171114_t9PK = new ArrayList<>();
@@ -318,9 +326,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20171114_t9PK.add("LINEID");
         Structure str_20171114_t9 = new Structure(20171114, "t_stockline", ar_20171114_t9, ar_20171114_t9PK);
         arStructures.add(str_20171114_t9);
-        
-        
-         ArrayList<String> q_20171114_t10 = new ArrayList<>();
+
+        ArrayList<String> q_20171114_t10 = new ArrayList<>();
         q_20171114_t10.add(" DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0' ");
         q_20171114_t10.add(" DECLARE UNIT_VOL_MIN  DOUBLE DEFAULT '0' ");
         q_20171114_t10.add(" select ugu.VOLUME INTO UNIT_VOL_CUR from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id   ");
@@ -328,11 +335,9 @@ public final class Frm_Start extends javax.swing.JDialog {
         q_20171114_t10.add(" RETURN ((qty*UNIT_VOL_CUR)*UNIT_VOL_MIN) ");
         Structure str_20171114_t10 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_ConvMinUnit ", " unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ", q_20171114_t10, " DOUBLE ");
         arStructures.add(str_20171114_t10);
-        
-        
 
         int TotalResults = arStructures.size() + 1;
-        InitPrgressBar(TotalResults + 2);
+        InitPrgressBar(TotalResults + 3);
 
         /* ##################### TABLE STRUCTURE CREATION ###########################*/
         int latestVersion = 20160901;
@@ -379,6 +384,12 @@ public final class Frm_Start extends javax.swing.JDialog {
         super.update(this.getGraphics());
 
         compileReports();
+        setProgressBarVal();
+
+        txtStatues.setText("Loading Product Images...");
+
+        super.update(this.getGraphics());
+        LoadImages();
         setProgressBarVal();
 
         this.dispose();
@@ -644,6 +655,33 @@ public final class Frm_Start extends javax.swing.JDialog {
         } catch (Exception ex) {
             System.err.println("COMPINLING REPORTS[COM_REPORTS]:" + ex.getMessage());
         }
+    }
+
+    public void LoadImages() {
+       /*
+        try {
+
+            ArrayList<MProducts> allProducts = cPro.getAllProducts(2);
+            for (MProducts mProducts : allProducts) {
+                String imgpath = mProducts.getProImg();
+                File f = new File(imgpath);
+                if (f.exists()) {
+                    BufferedImage img = null;
+                    try {
+                        img = ImageIO.read(f);
+                        GlobalData.ProImg.put(mProducts.getId(), img);
+
+                    } catch (IOException e) {
+
+                        System.out.println("Pro img Load[Loading]" + e.getMessage());
+                    }
+
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Pro img [Loading]" + e.getMessage());
+        }
+               */
     }
 
 

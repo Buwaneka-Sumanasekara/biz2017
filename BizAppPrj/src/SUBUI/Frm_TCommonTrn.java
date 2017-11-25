@@ -1539,14 +1539,12 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
         col.add("Code");
         col.add("Description");
-       
 
         String SQL = " SELECT * FROM ( select p.ID,p.NAME";
 
         ArrayList<String> SQL_Col = new ArrayList();
         SQL_Col.add("ID");
         SQL_Col.add("NAME");
-        
 
         if (TrnSetup.getCprice() == 1) {
             col.add("Cost");
@@ -1560,10 +1558,10 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             SQL += " ,s.SELLP ";
         }
 
-         SQL_Col.add("REF1");
-         col.add("Ref1");
-          SQL += ",p.REF1 ";
-        
+        SQL_Col.add("REF1");
+        col.add("Ref1");
+        SQL += ",p.REF1 ";
+
         String[] SQL_ar = new String[SQL_Col.size()];
         int i = 0;
         for (String cold : SQL_Col) {
@@ -1571,10 +1569,6 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             SQL_ar[i] = cold;
             i++;
         }
-        
-        
-     
-      
 
         String SQLWhere = "";
         if (TrnSetup.getSupplier() == 1 && TrnSetup.getSupPrdOnly() == 1) {
@@ -1714,27 +1708,25 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     private void ArrangeTable() {
-        
-        
+
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
-        
-        int colindex_cprice=2;
+
+        int colindex_cprice = 2;
         tblTrn.getColumnModel().getColumn(colindex_cprice).setCellRenderer(rightRenderer);
-        
-        int colindex_sprice=3;
+
+        int colindex_sprice = 3;
         tblTrn.getColumnModel().getColumn(colindex_sprice).setCellRenderer(rightRenderer);
-        
-        int colindex_linedisamt=7;
+
+        int colindex_linedisamt = 7;
         tblTrn.getColumnModel().getColumn(colindex_linedisamt).setCellRenderer(rightRenderer);
-        
-        int colindex_linedis=8;
+
+        int colindex_linedis = 8;
         tblTrn.getColumnModel().getColumn(colindex_linedis).setCellRenderer(rightRenderer);
-        
-         int colindex_q=4;
+
+        int colindex_q = 4;
         tblTrn.getColumnModel().getColumn(colindex_q).setCellRenderer(rightRenderer);
-        
-        
+
         //Hide Unit 
         int unitindex = 6;
         tblTrn.getColumnModel().getColumn(unitindex).setMinWidth(0);
@@ -1790,7 +1782,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(colindex).setMinWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setMaxWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setWidth(0);
-             
+
         }
         if (TrnSetup.getLinedis() == 0) {
             // tblTrn.removeColumn(tblTrn.getColumnModel().getColumn(6)); 
@@ -1798,7 +1790,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(colindex).setMinWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setMaxWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setWidth(0);
-             tblTrn.getColumnModel().getColumn(colindex).setCellRenderer(rightRenderer);
+            tblTrn.getColumnModel().getColumn(colindex).setCellRenderer(rightRenderer);
         }
 
         if (TrnSetup.getDisplayunit() == 0) {
@@ -1808,9 +1800,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(colindex).setMaxWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setWidth(0);
         }
-        
-        int colindex_amt=9;
-        tblTrn.getColumnModel().getColumn(colindex_amt ).setCellRenderer(rightRenderer);
+
+        int colindex_amt = 9;
+        tblTrn.getColumnModel().getColumn(colindex_amt).setCellRenderer(rightRenderer);
     }
 
     private void hideAllComponents() {
@@ -2171,6 +2163,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         }
 
                         setProductIcon(product.getProImg());
+                        //setProductIcon(product.getId());
 
                     } else {
                         clearLine();
@@ -2544,6 +2537,24 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
     }
 
+    /*
+    private void setProductIcon_old(String id) {
+        BufferedImage img = GlobalData.ProImg.get(id);
+        if (img!= null) {
+            try {
+               
+                Image dimg = img.getScaledInstance(70, 70,
+                        Image.SCALE_SMOOTH);
+
+                lbl_Line_ProImg.setIcon(new ImageIcon(dimg));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else{
+             lbl_Line_ProImg.setIcon(null); // NOI18N
+        }
+    }
+*/
     private void setProductIcon(String path) {
         if (path != null) {
             String imgpath = path;

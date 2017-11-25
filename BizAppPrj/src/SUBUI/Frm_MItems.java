@@ -1619,6 +1619,24 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
     }
 
+    /*
+    private void setProductIcon_old(String id){
+         BufferedImage img = GlobalData.ProImg.get(id);
+        if (img!= null) {
+            try {
+               
+                Image dimg = img.getScaledInstance(70, 70,
+                        Image.SCALE_SMOOTH);
+
+                lblProImg.setIcon(new ImageIcon(dimg));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else{
+            lblProImg.setIcon(null); // NOI18N
+        }
+    }
+    */
     private void setProductIcon(String path) {
         if (path != null) {
             String imgpath = path;
