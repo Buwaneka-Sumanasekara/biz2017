@@ -653,7 +653,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                             c_rptSet.rpt_RunStockBalance(Loc.getId());
                         }
 
-                        para.put("PARA_LOC", "" + Loc.getId());
+                       para.put("PARA_LOC", "" + Loc.getId());
                     } else {
                         throw new Exception("Invalid Location");
                     }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SalesSumary" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="d6eb293a-b621-4818-b20f-7cf5fe9cd248">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="181"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="516"/>
+	<property name="ireport.y" value="240"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<parameter name="PARA_TITLE" class="java.lang.String"/>
 	<parameter name="PARA_COMNAME" class="java.lang.String"/>
@@ -10,7 +10,6 @@
 	<parameter name="PARA_ADD2" class="java.lang.String"/>
 	<parameter name="PARA_ADD3" class="java.lang.String"/>
 	<parameter name="PARA_ADD4" class="java.lang.String"/>
-	<parameter name="PARA_LOC" class="java.lang.String"/>
 	<parameter name="PARA_CONTACT" class="java.lang.String"/>
 	<parameter name="PARA_FDATE" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
@@ -21,6 +20,7 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="PARA_LOC" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select s.TRNTYPE,s.ID,s.EFT_DATE,c.NAME as CUS,u.FIRSTNAME as CASHIER,s.NETDIS,s.NETAMOUNT,L.Name
 from t_stockmst s
@@ -30,7 +30,7 @@ inner join m_user u
 on s.M_USER_MD=u.ID
 inner join m_location L
 on s.M_LOCATION_SOURCE=L.Id
-WHERE s.ISACTIVE=1 AND s.TRNSTATE='P' AND s.TRNTYPE='INV' AND s.M_LOCATION_SOURCE=$P{PARA_LOC} AND (s.EFT_DATE between $P{PARA_FDATE} AND $P{PARA_TDATE} )]]>
+WHERE s.ISACTIVE=1 AND s.TRNSTATE='P' AND s.TRNTYPE='INV'  AND s.M_LOCATION_SOURCE=$P{PARA_LOC} AND (s.EFT_DATE between $P{PARA_FDATE} AND $P{PARA_TDATE} )]]>
 	</queryString>
 	<field name="TRNTYPE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -113,84 +113,97 @@ WHERE s.ISACTIVE=1 AND s.TRNSTATE='P' AND s.TRNTYPE='INV' AND s.M_LOCATION_SOURC
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="24" splitType="Stretch">
-			<textField>
-				<reportElement x="148" y="4" width="100" height="20" uuid="b049bf41-e656-4a7a-9cc6-42aad48c602c"/>
-				<textFieldExpression><![CDATA[$P{PARA_FDATE}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="278" y="4" width="100" height="20" uuid="cc25023f-8f87-4a0e-9640-807e45d72225"/>
-				<textFieldExpression><![CDATA[$P{PARA_TDATE}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="452" y="4" width="100" height="20" uuid="257d0660-945f-439d-bdd4-94455a9b82c6"/>
-				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="24" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
+		<band height="76" splitType="Stretch">
 			<textField>
-				<reportElement x="35" y="0" width="100" height="20" uuid="99142e17-ac91-4d4e-8747-9eb05a4fae91"/>
+				<reportElement x="18" y="0" width="74" height="18" uuid="99142e17-ac91-4d4e-8747-9eb05a4fae91"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1" y="1" width="44" height="18" uuid="ddbca9b6-bc05-4212-98dd-aa4d46cf977b"/>
+				<reportElement x="0" y="0" width="44" height="18" uuid="ddbca9b6-bc05-4212-98dd-aa4d46cf977b"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TRNTYPE}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="138" y="1" width="89" height="20" uuid="b17af1a1-7869-4daa-9353-3243d2286a40"/>
+			<textField pattern="yyyy-MM-dd HH:mm:ss">
+				<reportElement x="117" y="0" width="103" height="17" uuid="b17af1a1-7869-4daa-9353-3243d2286a40"/>
 				<textElement>
-					<font size="8"/>
+					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["DATE:"+$F{EFT_DATE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{EFT_DATE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="244" y="1" width="100" height="20" uuid="9a2b11be-314f-4323-b220-3662a23caac5"/>
+				<reportElement x="268" y="0" width="69" height="17" uuid="9a2b11be-314f-4323-b220-3662a23caac5"/>
 				<textElement>
-					<font size="8"/>
+					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["CUSTOMER:"+$F{CUS}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CUS}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="351" y="2" width="84" height="20" uuid="d5f01a67-bad8-4505-b239-3f20672383a0"/>
+				<reportElement x="374" y="0" width="58" height="17" uuid="d5f01a67-bad8-4505-b239-3f20672383a0"/>
 				<textElement>
-					<font size="8"/>
+					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["CASHIER:"+$F{CASHIER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CASHIER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;(#,##0.00)">
-				<reportElement x="452" y="1" width="100" height="20" uuid="c607c924-06aa-43e3-bd98-6a77db36dde7"/>
+				<reportElement x="489" y="0" width="66" height="17" uuid="c607c924-06aa-43e3-bd98-6a77db36dde7"/>
 				<textElement textAlignment="Right">
-					<font size="8" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NETAMOUNT}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="417" y="3" width="35" height="20" isRemoveLineWhenBlank="true" uuid="2f82909b-7a14-4aee-a00b-da34f295c0ea"/>
+				<reportElement x="474" y="0" width="17" height="17" isRemoveLineWhenBlank="true" uuid="2f82909b-7a14-4aee-a00b-da34f295c0ea"/>
 				<textElement textAlignment="Right">
-					<font size="8"/>
+					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NETDIS}.toString().length()>0?$F{NETDIS}+"%":""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NETDIS}>0.0?$F{NETDIS}+"%":""]]></textFieldExpression>
 			</textField>
-		</band>
-		<band height="56">
+			<staticText>
+				<reportElement x="219" y="0" width="61" height="17" uuid="758e505b-b865-4314-a644-5fa42be055ac"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Customer :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="0" width="42" height="17" uuid="c2d43e23-8ec2-48fa-ab2a-693aadd38d62"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Cashier :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="0" width="45" height="17" uuid="745addf3-c3bf-4691-a3f4-587ee7378adc"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Net Dis :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="0" width="26" height="18" uuid="2266cd27-8ca0-40da-87e9-ab5dd4413af3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
 			<subreport>
-				<reportElement x="1" y="0" width="551" height="51" uuid="a094f5fc-eefa-4beb-8a0b-7ac0c562b9e3"/>
+				<reportElement x="1" y="20" width="555" height="51" uuid="a094f5fc-eefa-4beb-8a0b-7ac0c562b9e3"/>
 				<subreportParameter name="PARA_INVNO">
-					<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[""+$F{ID}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Rpt_InvoiceListing_sub.jasper"]]></subreportExpression>
 			</subreport>
 			<line>
-				<reportElement x="1" y="53" width="551" height="1" forecolor="#999999" uuid="d73ee0f7-7f44-41a6-a54f-4598f7d3ff7c"/>
+				<reportElement x="1" y="73" width="551" height="1" forecolor="#999999" uuid="d73ee0f7-7f44-41a6-a54f-4598f7d3ff7c"/>
 			</line>
 		</band>
 	</detail>

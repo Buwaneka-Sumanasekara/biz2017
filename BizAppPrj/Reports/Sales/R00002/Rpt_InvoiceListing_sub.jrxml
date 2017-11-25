@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_InvoiceListing_sub" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2ebc9e17-9e6d-4792-9f8f-9e5294cb180f">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_InvoiceListing_sub" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2ebc9e17-9e6d-4792-9f8f-9e5294cb180f">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="526"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="PARA_INVNO" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -71,7 +71,7 @@ where sl.TRNTYP='INV'  AND sl.T_STOCKMST_ID=$P{PARA_INVNO}]]>
 				<textFieldExpression><![CDATA[$F{QTY}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="283" y="0" width="10" height="20" uuid="9c0c4578-db9a-4ebe-936a-b927656e561c"/>
+				<reportElement x="283" y="-2" width="10" height="17" uuid="9c0c4578-db9a-4ebe-936a-b927656e561c"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[x]]></text>
 			</staticText>
@@ -83,7 +83,7 @@ where sl.TRNTYP='INV'  AND sl.T_STOCKMST_ID=$P{PARA_INVNO}]]>
 				<textFieldExpression><![CDATA[$F{LDISPER}>0.0?$F{LDISPER}+"%":""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="422" y="0" width="39" height="20" uuid="e29a9e58-aead-45ea-ae64-8cc59e869321"/>
+				<reportElement x="418" y="0" width="39" height="20" uuid="e29a9e58-aead-45ea-ae64-8cc59e869321"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
