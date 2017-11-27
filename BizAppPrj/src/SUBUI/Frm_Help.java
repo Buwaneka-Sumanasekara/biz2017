@@ -30,7 +30,7 @@ public class Frm_Help extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-         this.setBounds(this.getX(), this.getY(),400, 300);
+        this.setBounds(this.getX(), this.getY(), 400, 300);
     }
 
     /**
@@ -132,7 +132,7 @@ public class Frm_Help extends javax.swing.JDialog {
     }//GEN-LAST:event_butLogoutActionPerformed
 
     private void but_UTubeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_UTubeActionPerformed
-       showWebpage();
+        showWebpage();
     }//GEN-LAST:event_but_UTubeActionPerformed
 
     /**
@@ -193,40 +193,47 @@ public class Frm_Help extends javax.swing.JDialog {
 
         if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
+
             InputStream resource = Thread.currentThread().getContextClassLoader().getResourceAsStream("SYS_DOC/BIZ.pdf");
             try {
-                File file = File.createTempFile("User_Guide", ".pdf");
-                file.deleteOnExit();
-                FileOutputStream out = new FileOutputStream(file);
-                try {
-                    // copy contents from resource to out
-                    IOUtils.copy(resource, out);
-                } finally {
-                    out.close();
+                if (desktop != null) {
+                    File file = File.createTempFile("User_Guide", ".pdf");
+                    file.deleteOnExit();
+                    FileOutputStream out = new FileOutputStream(file);
+                    try {
+                        // copy contents from resource to out
+                        IOUtils.copy(resource, out);
+                    } catch (Exception e) {
+                        Logger.getLogger(Frm_Main.class.getName()).log(Level.SEVERE, null, e.getMessage());
+                    } finally {
+                        out.close();
 
+                    }
+                    
+                    if(file!=null && file.exists()){
+                    desktop.open(file);
+                    }
                 }
-                desktop.open(file);
             } catch (Exception ex) {
-                Logger.getLogger(Frm_Main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Frm_Main.class.getName()).log(Level.SEVERE, null, ex.getMessage());
             } finally {
                 try {
                     resource.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(Frm_Main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Frm_Main.class.getName()).log(Level.SEVERE, null, ex.getMessage());
                 }
             }
         }
     }
-    
-    
-    public  void showWebpage() {
-    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-        try {
-            desktop.browse(new URL("https://www.youtube.com/channel/UCJ2Vpt1nQ_k20lZWTc0PmHQ").toURI());
-        } catch (Exception e) {
-            e.printStackTrace();
+
+    public void showWebpage() {
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.browse(new URL("https://www.youtube.com/channel/UCJ2Vpt1nQ_k20lZWTc0PmHQ").toURI());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-}
 }
