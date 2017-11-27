@@ -10,27 +10,29 @@ import GLOBALDATA.GlobalData;
 import LOGIN.Frm_Login;
 import MODELS.MPermissions;
 import MODELS.MUsergroup;
+import SUBUI.Frm_Help;
 import WINMNG.MyWindowManager;
-import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
-import javax.swing.JTree;
-import javax.swing.UIManager;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import org.apache.poi.util.IOUtils;
 
 /**
  *
@@ -44,6 +46,7 @@ public class Frm_Main extends javax.swing.JFrame {
     MUsergroup ug = null;
     ArrayList<MPermissions> menus = null;
     MyWindowManager myw = null;
+    Frm_Help frm_Help = null;
 
     public Frm_Main() {
         initComponents();
@@ -59,7 +62,7 @@ public class Frm_Main extends javax.swing.JFrame {
         this.lblUsername.setText(GlobalData.CurUser.getFirstname());
         this.lblCompanyName.setText(GlobalData.Setup.getComname());
         this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-
+        this.frm_Help = new Frm_Help(this, true);
         this.txt_DB_HOST.setText("Server:  " + GlobalData.config.getServer());
         this.txt_DB_Name.setText("DB:  " + GlobalData.config.getDb());
         RefreshLayOut();
@@ -88,6 +91,7 @@ public class Frm_Main extends javax.swing.JFrame {
         lblUserimg = new javax.swing.JLabel();
         txt_DB_Name = new javax.swing.JLabel();
         txt_DB_HOST = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -135,8 +139,8 @@ public class Frm_Main extends javax.swing.JFrame {
 
         butLogout.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         butLogout.setForeground(new java.awt.Color(89, 143, 179));
-        butLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/if_icons_exit2_1564506.png"))); // NOI18N
-        butLogout.setText("Logout");
+        butLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/if_free-09_463017.png"))); // NOI18N
+        butLogout.setToolTipText("Exit [Esc]");
         butLogout.setBorderPainted(false);
         butLogout.setContentAreaFilled(false);
         butLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -144,13 +148,13 @@ public class Frm_Main extends javax.swing.JFrame {
                 butLogoutActionPerformed(evt);
             }
         });
-        layout_Outer.add(butLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(913, 0, 110, 30));
+        layout_Outer.add(butLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(973, 0, 50, 30));
 
         lblCompanyName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblCompanyName.setForeground(new java.awt.Color(89, 143, 179));
         lblCompanyName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCompanyName.setText("COMPANY NAME");
-        layout_Outer.add(lblCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 770, 30));
+        layout_Outer.add(lblCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 760, 30));
 
         lblUsername.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(89, 143, 179));
@@ -170,6 +174,16 @@ public class Frm_Main extends javax.swing.JFrame {
         txt_DB_HOST.setForeground(new java.awt.Color(102, 153, 255));
         txt_DB_HOST.setText("jLabel1");
         layout_Outer.add(txt_DB_HOST, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 700, 190, -1));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/if_question_2625632.png"))); // NOI18N
+        jButton1.setToolTipText("Help [F1] ");
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        layout_Outer.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(933, 0, 40, 30));
 
         getContentPane().add(layout_Outer, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 0, 1030, 720));
 
@@ -198,6 +212,10 @@ public class Frm_Main extends javax.swing.JFrame {
         Logout();
     }//GEN-LAST:event_butLogoutActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ShowHelp();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
 
         /* try {
@@ -220,6 +238,7 @@ public class Frm_Main extends javax.swing.JFrame {
     public javax.swing.JDesktopPane JDesktopF;
     private javax.swing.JTree TUserMenu;
     private javax.swing.JButton butLogout;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
@@ -374,6 +393,11 @@ public class Frm_Main extends javax.swing.JFrame {
             l.setVisible(true);
         }
 
+    }
+
+    private void ShowHelp() {
+
+        frm_Help.setVisible(true);
     }
 
 }
