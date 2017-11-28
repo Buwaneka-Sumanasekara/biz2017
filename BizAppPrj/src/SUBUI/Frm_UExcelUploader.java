@@ -224,7 +224,7 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
                         GList.add(new MGroupCommon(p.getProduct().getMGroup5()));
                         Grp.saveGroupMaping_Excel(GList);
 
-                        cpro.addProduct(p.getProduct(), p.getProprop(), p.getSuppliers());
+                       cpro.addProduct(p.getProduct(), p.getProprop(), p.getSuppliers());
                     }
                 }
             }

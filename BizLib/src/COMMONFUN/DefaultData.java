@@ -178,6 +178,10 @@ public class DefaultData {
             if (f_ProImg.exists() == false) {
                 f_ProImg.mkdir();
             }
+            File f_ProCom = new File(f_myData, "Company");
+            if (f_ProCom.exists() == false) {
+                f_ProCom.mkdir();
+            }
 
         } catch (Exception e) {
             System.err.println("FOLDER CREATION ERROR:" + e.getMessage());

@@ -140,7 +140,9 @@ public class CommonFun {
     }
     
     public static String getSystemTheme() {
-        String theme = "mint.MintLookAndFeel";
+        //String theme = "mint.MintLookAndFeel";
+        String theme = "aero.AeroLookAndFeel";
+        
         try {
             
             ResultSet rs = DB.Search("SELECT * FROM u_systhemes WHERE ID=" + GlobalData.Setup.getUitheme() + "");

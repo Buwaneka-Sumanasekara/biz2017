@@ -20,6 +20,7 @@ public class USetup  implements java.io.Serializable {
      private int stkmin;
      private int uitheme;
    private int batchenable;
+   private String comimg;
     public USetup() {
     }
 
@@ -111,6 +112,14 @@ public class USetup  implements java.io.Serializable {
 
     public void setCurLoc(int curLoc) {
         this.curLoc = curLoc;
+    }
+
+    public String getComimg() {
+        return comimg;
+    }
+
+    public void setComimg(String comimg) {
+        this.comimg = comimg;
     }
 
 

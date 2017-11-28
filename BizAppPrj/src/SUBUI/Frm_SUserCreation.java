@@ -409,9 +409,11 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
                                 u.setLastname(txt_LastName.getText());
                                 u.setActive((byte) (Chk_Active.isSelected() ? 1 : 0));
 
+                                String imgurl="";
                                 if (txt_imgurl.getText().length() > 0) {
 
                                     u.setImgurl("MyData/Users/USER_" + u.getId() + "." + getExtension(new File(txt_imgurl.getText())));
+                                    imgurl=txt_imgurl.getText();
                                 } else {
                                     u.setImgurl("");
                                 }
@@ -419,7 +421,7 @@ public class Frm_SUserCreation extends javax.swing.JInternalFrame implements MyW
                                 MUsergroup usergrp = (MUsergroup) cmb_UserGrp.getSelectedItem();
                                 u.setMUsergroup(usergrp);
                                 cuser.saveUser(u, null);
-                                uploadImage(u.getImgurl(), u.getId());
+                                uploadImage(imgurl, u.getId());
                                 JOptionPane.showMessageDialog(rootPane, "User details updated sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
                                 Refresh();
                             } else {

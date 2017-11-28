@@ -94,7 +94,7 @@ public class ServerCon {
             UIManager.put("List.focusCellHighlightBorder", BorderFactory.createEmptyBorder());
             UIManager.put("Synthetica.internalFrame.titlePane.dropShadow", true);
 
-            UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
+            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
 
         } catch (Exception ex) {
             System.err.println(ex.getMessage());

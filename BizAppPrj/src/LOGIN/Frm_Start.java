@@ -423,18 +423,19 @@ public final class Frm_Start extends javax.swing.JDialog {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtStatues.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        txtStatues.setForeground(new java.awt.Color(110, 147, 169));
+        txtStatues.setForeground(new java.awt.Color(102, 102, 102));
         txtStatues.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtStatues.setText("aaa");
         jPanel1.add(txtStatues, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 560, 20));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(110, 147, 169));
+        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
         jLabel5.setText("Biz");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 100, 50));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 100, 50));
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 140, 110));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 270, 180));
         jPanel1.add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 570, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 300));

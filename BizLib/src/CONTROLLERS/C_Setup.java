@@ -34,7 +34,7 @@ public class C_Setup {
                u.setUitheme(rs.getInt("UITHEME"));
                u.setBatchenable(rs.getInt("BATCH_ENABLE"));
                 u.setCurLoc(rs.getInt("CURLOC"));
-                
+                u.setComimg(rs.getString("COM_IMG"));
             }
             
         } catch (Exception ex) {

@@ -99,7 +99,7 @@ public class Frm_Main extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layout_Outer.setBackground(new java.awt.Color(255, 255, 255));
-        layout_Outer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(89, 143, 179)));
+        layout_Outer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         layout_Outer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
@@ -120,12 +120,13 @@ public class Frm_Main extends javax.swing.JFrame {
 
         JDesktopF.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"))); // NOI18N
         JDesktopF.add(jLabel3);
-        jLabel3.setBounds(380, 190, 150, 110);
+        jLabel3.setBounds(330, 180, 220, 110);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(110, 147, 169));
+        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
         jLabel5.setText("Biz");
         JDesktopF.add(jLabel5);
         jLabel5.setBounds(410, 280, 90, 58);
@@ -148,42 +149,44 @@ public class Frm_Main extends javax.swing.JFrame {
                 butLogoutActionPerformed(evt);
             }
         });
-        layout_Outer.add(butLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(973, 0, 50, 30));
+        layout_Outer.add(butLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(983, 0, 40, 30));
 
         lblCompanyName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblCompanyName.setForeground(new java.awt.Color(89, 143, 179));
+        lblCompanyName.setForeground(new java.awt.Color(102, 102, 102));
         lblCompanyName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCompanyName.setText("COMPANY NAME");
         layout_Outer.add(lblCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 760, 30));
 
         lblUsername.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblUsername.setForeground(new java.awt.Color(89, 143, 179));
+        lblUsername.setForeground(new java.awt.Color(102, 102, 102));
         lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUsername.setText("BUWANEKA");
-        layout_Outer.add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 150, 30));
+        layout_Outer.add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 150, 30));
 
+        lblUserimg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUserimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/1465731972_user-01.png"))); // NOI18N
-        layout_Outer.add(lblUserimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 70, 70));
+        layout_Outer.add(lblUserimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 590, 80, 80));
 
         txt_DB_Name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        txt_DB_Name.setForeground(new java.awt.Color(102, 153, 255));
+        txt_DB_Name.setForeground(new java.awt.Color(102, 102, 102));
         txt_DB_Name.setText("jLabel1");
         layout_Outer.add(txt_DB_Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 700, 200, -1));
 
         txt_DB_HOST.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        txt_DB_HOST.setForeground(new java.awt.Color(102, 153, 255));
+        txt_DB_HOST.setForeground(new java.awt.Color(102, 102, 102));
         txt_DB_HOST.setText("jLabel1");
         layout_Outer.add(txt_DB_HOST, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 700, 190, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/if_question_2625632.png"))); // NOI18N
         jButton1.setToolTipText("Help [F1] ");
+        jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        layout_Outer.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(933, 0, 40, 30));
+        layout_Outer.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 0, 40, 30));
 
         getContentPane().add(layout_Outer, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 0, 1030, 720));
 
