@@ -14,6 +14,8 @@ import SUBUI.Frm_Help;
 import WINMNG.MyWindowManager;
 import java.awt.Desktop;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,10 +26,16 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -67,6 +75,7 @@ public class Frm_Main extends javax.swing.JFrame {
         this.txt_DB_Name.setText("DB:  " + GlobalData.config.getDb());
         RefreshLayOut();
         createUserMenu();
+        setShortCutKeys(this);
     }
 
     /**
@@ -254,6 +263,28 @@ public class Frm_Main extends javax.swing.JFrame {
     private javax.swing.JLabel txt_DB_Name;
     // End of variables declaration//GEN-END:variables
 
+    public void setShortCutKeys(JFrame f) {
+
+        String exit = "exit";
+        InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap0.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), exit);
+        ActionMap actionMap0 = f.getRootPane().getActionMap();
+        actionMap0.put(exit, new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                Logout();
+            }
+
+        }
+        );
+
+      
+
+      
+
+    }
+    
+    
+    
     private void createUserMenu() {
         TreeMap<String, DefaultMutableTreeNode> NodesMap = new TreeMap<String, DefaultMutableTreeNode>();
         try {

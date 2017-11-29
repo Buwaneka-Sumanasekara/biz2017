@@ -113,6 +113,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         jpanelq = new javax.swing.JPanel();
         but_TrnRefresh = new javax.swing.JButton();
         but_TrnPrint = new javax.swing.JButton();
+        but_TrnPrint1 = new javax.swing.JButton();
         layout_CusSup = new javax.swing.JPanel();
         txt_Id = new javax.swing.JTextField();
         lbl_CusSup = new javax.swing.JLabel();
@@ -120,14 +121,14 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         lbl_Name1 = new javax.swing.JLabel();
         lbl_LNAME = new javax.swing.JLabel();
         layout_Location = new javax.swing.JPanel();
-        cmb_Loc = new javax.swing.JComboBox<String>();
+        cmb_Loc = new javax.swing.JComboBox<>();
         layout_Period = new javax.swing.JPanel();
         txt_DateF = new com.toedter.calendar.JDateChooser();
         txt_DateT = new com.toedter.calendar.JDateChooser();
         lb_lTo = new javax.swing.JLabel();
-        cmb_Qut = new javax.swing.JComboBox<String>();
+        cmb_Qut = new javax.swing.JComboBox<>();
         layout_Period3 = new javax.swing.JPanel();
-        cmb_Loc2 = new javax.swing.JComboBox<String>();
+        cmb_Loc2 = new javax.swing.JComboBox<>();
         layout_Group = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         chk_GrpSelectAll = new javax.swing.JCheckBox();
@@ -196,7 +197,18 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                 but_TrnPrintActionPerformed(evt);
             }
         });
-        jPanel2.add(but_TrnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
+        jPanel2.add(but_TrnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 40, 40));
+
+        but_TrnPrint1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_print__outline__printer__document__office__computer__networkprinter_2318007 (1).png"))); // NOI18N
+        but_TrnPrint1.setToolTipText("Cancel(F7)");
+        but_TrnPrint1.setContentAreaFilled(false);
+        but_TrnPrint1.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/hold_disable.png"))); // NOI18N
+        but_TrnPrint1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_TrnPrint1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(but_TrnPrint1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 40, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
 
@@ -448,11 +460,16 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         setGroupPanelEnable();
     }//GEN-LAST:event_chkAllGroupsMouseReleased
 
+    private void but_TrnPrint1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnPrint1ActionPerformed
+     Rpt_ExportExcel();
+    }//GEN-LAST:event_but_TrnPrint1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton but_Grp_Back;
     private javax.swing.JButton but_Grp_Next;
     private javax.swing.JButton but_TrnPrint;
+    private javax.swing.JButton but_TrnPrint1;
     private javax.swing.JButton but_TrnRefresh;
     private javax.swing.JCheckBox chkAllGroups;
     private javax.swing.JCheckBox chk_GrpSelectAll;
@@ -929,5 +946,10 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
             Grp_SelectAll(false);
         }
 
+    }
+
+    private void Rpt_ExportExcel() {
+         
+    
     }
 }

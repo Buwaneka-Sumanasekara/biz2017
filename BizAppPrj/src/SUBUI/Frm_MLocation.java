@@ -162,7 +162,7 @@ public class Frm_MLocation extends javax.swing.JInternalFrame implements MyWindo
 
         jLabel3.setBackground(new java.awt.Color(153, 255, 51));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(110, 147, 169));
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("LOCATIONS");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 180, 40));
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
