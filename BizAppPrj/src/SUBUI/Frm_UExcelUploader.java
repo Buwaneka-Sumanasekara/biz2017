@@ -84,6 +84,7 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
         cmb_Type = new javax.swing.JComboBox<String>();
         lbl_Path = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("caption");
@@ -156,6 +157,14 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
         jPanel1.add(lbl_Path, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 460, 560, 50));
         jPanel1.add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 750, -1));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 620));
 
         setBounds(0, 0, 867, 646);
@@ -184,11 +193,16 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
         }
     }//GEN-LAST:event_but_ChooseActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       ReplaceProImg();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton but_Choose;
     private javax.swing.JButton but_ExcelSave;
     private javax.swing.JComboBox<String> cmb_Type;
+    private javax.swing.JButton jButton1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

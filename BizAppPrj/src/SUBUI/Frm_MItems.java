@@ -34,6 +34,8 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -155,6 +157,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         cmbG5 = new javax.swing.JComboBox();
         layoutPrice = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtprosellprice = new javax.swing.JTextField();
@@ -448,6 +451,16 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel6.setText("Sell Price");
         layoutPrice.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_office-18_809611.png"))); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        layoutPrice.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 30, 20));
+
         jLabel7.setText("Cost Price");
         layoutPrice.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
@@ -455,6 +468,9 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layoutPrice.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         txtprosellprice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtprosellpriceKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtprosellpriceKeyTyped(evt);
             }
@@ -478,7 +494,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 txtpromarkupKeyTyped(evt);
             }
         });
-        layoutPrice.add(txtpromarkup, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 120, 20));
+        layoutPrice.add(txtpromarkup, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 90, 20));
 
         layout_ProductInfo.add(layoutPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 210, 110));
 
@@ -783,7 +799,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_txtFproValActionPerformed
 
     private void cmbG5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG5ActionPerformed
-   
+
         SetProductName();
     }//GEN-LAST:event_cmbG5ActionPerformed
 
@@ -839,7 +855,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_txtpromarkupKeyTyped
 
     private void txtpromarkupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpromarkupActionPerformed
-        changeSellPrice();
+     
     }//GEN-LAST:event_txtpromarkupActionPerformed
 
     private void txtprocostKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprocostKeyTyped
@@ -904,6 +920,14 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
     }//GEN-LAST:event_but_ProImgChooseActionPerformed
 
+    private void txtprosellpriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprosellpriceKeyReleased
+       ChangeMarkup();
+    }//GEN-LAST:event_txtprosellpriceKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        changeSellPrice();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Chk_ProActive;
@@ -927,6 +951,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JComboBox cmbUnits;
     private javax.swing.JComboBox cmb_Suppliers;
     private javax.swing.JFileChooser img_chooser;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1405,8 +1430,20 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             double markup = Double.parseDouble(txtpromarkup.getText());
             double costp = Double.parseDouble(txtprocost.getText());
             double sellp = costp + ((costp * markup) / 100);
-            txtprosellprice.setText("" + sellp);
+            txtprosellprice.setText("" + new BigDecimal(sellp).setScale(2, RoundingMode.HALF_UP));
         }
+    }
+
+    private void ChangeMarkup() {
+        try {
+            double Cost = Double.parseDouble(txtprocost.getText());
+            double Sell = Double.parseDouble(txtprosellprice.getText());
+            double margine = new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue();
+            txtpromarkup.setText("" + margine);
+        } catch (Exception e) {
+            txtpromarkup.setText("0.0");
+        }
+
     }
 
     private void loadProduct() {
@@ -1477,7 +1514,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         try {
             cmbG1.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(1, true)));
         } catch (Exception e) {
-  System.err.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
@@ -1515,7 +1552,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
             cmbG3.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(3, ar)));
         } catch (Exception e) {
-  System.err.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
@@ -1543,7 +1580,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
             cmbG4.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(4, ar)));
         } catch (Exception e) {
-  System.err.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
@@ -1577,7 +1614,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
             cmbG5.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(5, ar)));
         } catch (Exception e) {
-  System.err.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
@@ -1620,23 +1657,23 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }
 
     /*
-    private void setProductIcon_old(String id){
-         BufferedImage img = GlobalData.ProImg.get(id);
-        if (img!= null) {
-            try {
+     private void setProductIcon_old(String id){
+     BufferedImage img = GlobalData.ProImg.get(id);
+     if (img!= null) {
+     try {
                
-                Image dimg = img.getScaledInstance(70, 70,
-                        Image.SCALE_SMOOTH);
+     Image dimg = img.getScaledInstance(70, 70,
+     Image.SCALE_SMOOTH);
 
-                lblProImg.setIcon(new ImageIcon(dimg));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }else{
-            lblProImg.setIcon(null); // NOI18N
-        }
-    }
-    */
+     lblProImg.setIcon(new ImageIcon(dimg));
+     } catch (Exception e) {
+     e.printStackTrace();
+     }
+     }else{
+     lblProImg.setIcon(null); // NOI18N
+     }
+     }
+     */
     private void setProductIcon(String path) {
         if (path != null) {
             String imgpath = path;
