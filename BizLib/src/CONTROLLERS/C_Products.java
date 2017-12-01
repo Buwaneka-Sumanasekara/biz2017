@@ -18,6 +18,8 @@ import VALIDATIONS.MyValidator;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -57,6 +59,46 @@ public class C_Products {
         createStocksForProductt(p, createBatch, unitGrp, 0.0);
     }
 
+    public ArrayList<MProducts> getAllSubItems(String parentId) throws Exception {
+        return getAllSubItems(parentId, 1);
+    }
+
+    public ArrayList<MProducts> getAllSubItems(String parentId, int Active) throws Exception {
+
+        ArrayList<MProducts> ar = new ArrayList<>();
+        String q = "SELECT * FROM m_products WHERE PARENT_ID='" + parentId + "'  ";
+        if (Active == 0 || Active == 1) {
+            q += " AND  ACTIVE=" + Active;
+        }
+        ResultSet rs = DB.Search(q);
+
+        while (rs.next()) {
+            MProducts p = new MProducts();
+            p.setId(rs.getString("ID"));
+            p.setParentid(rs.getString("PARENT_ID"));
+            p.setName(rs.getString("NAME"));
+            p.setPrintdes(rs.getString("PRINTDES"));
+            p.setBatch(rs.getByte("BATCH"));
+            p.setActive(rs.getByte("ACTIVE"));
+            MStocks lastBatch = getLastBatch(p.getId());
+            p.setSprice(lastBatch.getSellPrice());
+            p.setMarkup(lastBatch.getMarkup());
+            p.setCprice(lastBatch.getCostPrice());
+            p.setMGroup1(rs.getString("M_GROUP1_ID"));
+            p.setMGroup2(rs.getString("M_GROUP2_ID"));
+            p.setMGroup3(rs.getString("M_GROUP3_ID"));
+            p.setMGroup4(rs.getString("M_GROUP4_ID"));
+            p.setMGroup5(rs.getString("M_GROUP5_ID"));
+            p.setRef1(rs.getString("REF1"));
+            p.setRef2(rs.getString("REF2"));
+            p.setUnitGroupId(rs.getString("M_UNITGROUPS_ID"));
+            p.setProImg(rs.getString("PRO_IMG"));
+            ar.add(p);
+        }
+
+        return ar;
+    }
+
     public void createStocksForProductt(MProducts p, Boolean createBatch, String unitGrp, Double Qty) throws Exception {
 
         ArrayList<MLocation> allLocations = l.getAllLocations();
@@ -87,6 +129,20 @@ public class C_Products {
                 DB.Update(qg.UpdateRecord("M_STOCKS", Mstk, "WHERE M_LOCATION_ID=" + mLocation.getId() + " AND M_PRODUCTS_ID='" + p.getId() + "' AND BATCHNO='" + Batch + "'"));
             }
 
+            ArrayList<MProducts> allSubItems = getAllSubItems(p.getParentid());
+            if (allSubItems.size() > 1) {
+
+                for (MProducts mProducts : allSubItems) {
+                    Map<String, String> Mstk_sub = new TreeMap<String, String>();
+                    Mstk_sub.put("COSTP", "" + p.getCprice());
+                    Mstk_sub.put("SELLP", "" + p.getSprice());
+                    Mstk_sub.put("MARKUP", "" + p.getMarkup());
+                    DB.Update(qg.UpdateRecord("M_STOCKS", Mstk_sub, "WHERE M_LOCATION_ID=" + mLocation.getId() + " AND M_PRODUCTS_ID='" + mProducts.getId() + "' AND BATCHNO='" + Batch + "'"));
+
+                }
+
+            }
+
         }
 
     }
@@ -106,6 +162,9 @@ public class C_Products {
         Mstk.put("BATCHNO", "'" + Batch + "'");
         Mstk.put("COSTP", "" + Cost);
         Mstk.put("SELLP", "" + Sell);
+        
+        double markup=new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue();;
+        Mstk.put("MARKUP", "" + markup);
         Mstk.put("CRDATE", "NOW()");
         Mstk.put("M_UNITS_ID", "strf_getMaxUnit('" + unitgrp + "')");
         Mstk.put("SIH", "strf_ConvMaxUnit('" + unitgrp + "','" + unitid + "'," + Qty + ")");
@@ -118,6 +177,22 @@ public class C_Products {
             Mstk.put("SIH", "SIH+(strf_ConvMaxUnit('" + unitgrp + "','" + unitid + "'," + Qty + ")*" + stkentrytyp + ")");
             DB.Update(qg.UpdateRecord("M_STOCKS", Mstk, "WHERE M_LOCATION_ID=" + Loc.getId() + " AND M_PRODUCTS_ID='" + ProId + "' AND BATCHNO='" + Batch + "'"));
         }
+
+        MProducts p = getProduct(ProId);
+        ArrayList<MProducts> allSubItems = getAllSubItems(p.getParentid());
+        if (allSubItems.size() > 1) {
+
+            for (MProducts mProducts : allSubItems) {
+                Map<String, String> Mstk_sub = new TreeMap<String, String>();
+                Mstk_sub.put("COSTP", "" + Cost);
+                Mstk_sub.put("SELLP", "" + Sell);
+                Mstk_sub.put("MARKUP", "" + markup);
+                DB.Update(qg.UpdateRecord("M_STOCKS", Mstk_sub, "WHERE M_LOCATION_ID=" + Loc.getId() + " AND M_PRODUCTS_ID='" + mProducts.getId() + "' AND BATCHNO='" + Batch + "'"));
+
+            }
+
+        }
+
         BatchNo = Mstk.get("BATCHNO");
         return Batch;
     }
@@ -131,6 +206,11 @@ public class C_Products {
         Mstk.put("BATCHNO", "'" + Batch + "'");
         Mstk.put("COSTP", "" + Cost);
         Mstk.put("SELLP", "" + Sell);
+        
+        
+         double markup=new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue();;
+        Mstk.put("MARKUP", "" + markup);
+        
         Mstk.put("CRDATE", "NOW()");
         Mstk.put("M_UNITS_ID", "strf_getMaxUnit('" + unitGrp + "')");
         Mstk.put("SIH", "strf_ConvMaxUnit('" + unitGrp + "','" + unitid + "'," + Qty + ")");
@@ -139,6 +219,22 @@ public class C_Products {
 
             Mstk.put("SIH", "SIH+(strf_ConvMaxUnit('" + unitGrp + "','" + unitid + "'," + Qty + ")*" + stkentrytyp + ")");
             DB.Update(qg.UpdateRecord("M_STOCKS", Mstk, "WHERE M_LOCATION_ID=" + Loc.getId() + " AND M_PRODUCTS_ID='" + ProId + "' AND BATCHNO='" + Batch + "'"));
+
+            MProducts p = getProduct(ProId);
+            ArrayList<MProducts> allSubItems = getAllSubItems(p.getParentid());
+            if (allSubItems.size() > 1) {
+
+                for (MProducts mProducts : allSubItems) {
+                    Map<String, String> Mstk_sub = new TreeMap<String, String>();
+                    Mstk_sub.put("COSTP", "" + Cost);
+                    Mstk_sub.put("SELLP", "" + Sell);
+                    Mstk_sub.put("MARKUP", "" + markup);
+                    DB.Update(qg.UpdateRecord("M_STOCKS", Mstk_sub, "WHERE M_LOCATION_ID=" + Loc.getId() + " AND M_PRODUCTS_ID='" + mProducts.getId() + "' AND BATCHNO='" + Batch + "'"));
+
+                }
+
+            }
+
         }
 
     }
@@ -241,6 +337,7 @@ public class C_Products {
             if (rs.next()) {
                 p = new MProducts();
                 p.setId(rs.getString("ID"));
+                p.setParentid(rs.getString("PARENT_ID"));
                 p.setName(rs.getString("NAME"));
                 p.setPrintdes(rs.getString("PRINTDES"));
                 p.setBatch(rs.getByte("BATCH"));
@@ -275,6 +372,7 @@ public class C_Products {
         while (rs.next()) {
             MProducts p = new MProducts();
             p.setId(rs.getString("ID"));
+            p.setParentid(rs.getString("PARENT_ID"));
             p.setName(rs.getString("NAME"));
             p.setPrintdes(rs.getString("PRINTDES"));
             p.setBatch(rs.getByte("BATCH"));
@@ -310,6 +408,7 @@ public class C_Products {
             if (rs.next()) {
                 p = new MProducts();
                 p.setId(rs.getString("ID"));
+                p.setParentid(rs.getString("PARENT_ID"));
                 p.setName(rs.getString("NAME"));
                 p.setPrintdes(rs.getString("PRINTDES"));
                 p.setBatch(rs.getByte("BATCH"));
@@ -458,6 +557,14 @@ public class C_Products {
 
         mpro.put("ID", "'" + ProId + "'");
 
+        if (p.getParentid() != null && p.getParentid().length() > 0) {
+            if (getProduct(p.getParentid()) == null) {
+                throw new Exception("Parent Item not found");
+            }
+        }
+        String parentId = ((p.getParentid() != null && p.getParentid().length() > 0) ? p.getParentid() : ProId);
+        mpro.put("PARENT_ID", "'" + parentId + "'");
+
         try {
             DB.getCurrentCon().setAutoCommit(false);
 
@@ -544,8 +651,6 @@ public class C_Products {
                     StandardCopyOption.COPY_ATTRIBUTES
                 };
                 Files.copy(FROM, TO, options);
-
-               
 
             }
 

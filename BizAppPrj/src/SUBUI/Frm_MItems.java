@@ -139,11 +139,14 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jScrollPane1 = new javax.swing.JScrollPane();
         txtProName = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
-        txtProCode = new javax.swing.JTextField();
+        txtProParentCode = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         butCreateShortName = new javax.swing.JButton();
         chk_BatchCreate = new javax.swing.JCheckBox();
+        jLabel12 = new javax.swing.JLabel();
+        txtProCode = new javax.swing.JTextField();
+        but_ItemSearch = new javax.swing.JButton();
         layoutGroups = new javax.swing.JPanel();
         lblG1 = new javax.swing.JLabel();
         lblG2 = new javax.swing.JLabel();
@@ -347,20 +350,20 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel4.setText("Name");
         layout_Basic.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 100, 20));
 
-        txtProCode.addActionListener(new java.awt.event.ActionListener() {
+        txtProParentCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProCodeActionPerformed(evt);
+                txtProParentCodeActionPerformed(evt);
             }
         });
-        txtProCode.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtProParentCode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtProCodeKeyTyped(evt);
+                txtProParentCodeKeyTyped(evt);
             }
         });
-        layout_Basic.add(txtProCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 150, -1));
+        layout_Basic.add(txtProParentCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 130, -1));
 
-        jLabel2.setText("Code");
-        layout_Basic.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 70, 20));
+        jLabel2.setText("Parent Id");
+        layout_Basic.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 60, 20));
 
         jLabel9.setText("Status");
         layout_Basic.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 70, 20));
@@ -380,6 +383,32 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             }
         });
         layout_Basic.add(chk_BatchCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 120, 20));
+
+        jLabel12.setText("Code");
+        layout_Basic.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 70, 20));
+
+        txtProCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProCodeActionPerformed(evt);
+            }
+        });
+        txtProCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProCodeKeyTyped(evt);
+            }
+        });
+        layout_Basic.add(txtProCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 140, -1));
+
+        but_ItemSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/1480175721_Find01.png"))); // NOI18N
+        but_ItemSearch.setToolTipText("Search(F2)");
+        but_ItemSearch.setContentAreaFilled(false);
+        but_ItemSearch.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search_disable.png"))); // NOI18N
+        but_ItemSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_ItemSearchActionPerformed(evt);
+            }
+        });
+        layout_Basic.add(but_ItemSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 30, 20));
 
         layout_ProductInfo.add(layout_Basic, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 460, 160));
 
@@ -834,13 +863,13 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         }
     }//GEN-LAST:event_butCreateShortNameActionPerformed
 
-    private void txtProCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProCodeKeyTyped
+    private void txtProParentCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProParentCodeKeyTyped
 
-    }//GEN-LAST:event_txtProCodeKeyTyped
+    }//GEN-LAST:event_txtProParentCodeKeyTyped
 
-    private void txtProCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProCodeActionPerformed
-        loadProduct();
-    }//GEN-LAST:event_txtProCodeActionPerformed
+    private void txtProParentCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProParentCodeActionPerformed
+
+    }//GEN-LAST:event_txtProParentCodeActionPerformed
 
     private void txtProShortNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProShortNameKeyTyped
         fv.disableSpecialCharacters(txtProShortName, evt);
@@ -855,7 +884,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_txtpromarkupKeyTyped
 
     private void txtpromarkupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpromarkupActionPerformed
-     
+
     }//GEN-LAST:event_txtpromarkupActionPerformed
 
     private void txtprocostKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprocostKeyTyped
@@ -921,12 +950,24 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_but_ProImgChooseActionPerformed
 
     private void txtprosellpriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprosellpriceKeyReleased
-       ChangeMarkup();
+        ChangeMarkup();
     }//GEN-LAST:event_txtprosellpriceKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         changeSellPrice();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtProCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProCodeActionPerformed
+        loadProduct();
+    }//GEN-LAST:event_txtProCodeActionPerformed
+
+    private void txtProCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProCodeKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProCodeKeyTyped
+
+    private void but_ItemSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ItemSearchActionPerformed
+        SearchModeItem();
+    }//GEN-LAST:event_but_ItemSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -936,6 +977,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JButton butCreateShortName;
     private javax.swing.JButton butPropAdd;
     private javax.swing.JButton butSupAdd;
+    private javax.swing.JButton but_ItemSearch;
     private javax.swing.JButton but_ProImgChoose;
     private javax.swing.JButton but_Refresh;
     private javax.swing.JButton but_Save;
@@ -955,6 +997,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1007,6 +1050,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JFormattedTextField txtFproVal;
     private javax.swing.JTextField txtProCode;
     private javax.swing.JTextArea txtProName;
+    private javax.swing.JTextField txtProParentCode;
     private javax.swing.JTextField txtProShortName;
     private javax.swing.JTextField txtRef1;
     private javax.swing.JTextField txtRef2;
@@ -1032,6 +1076,9 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     MProducts p = new MProducts();
 
                     p.setId(txtProCode.getText());
+                    String parentId = txtProParentCode.getText().length() > 0 ? txtProParentCode.getText() : "";
+
+                    p.setParentid(parentId);
                     p.setName(txtProName.getText());
                     p.setPrintdes(txtProShortName.getText());
                     p.setActive((byte) (Chk_ProActive.isSelected() ? 1 : 0));
@@ -1065,7 +1112,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     for (int i = 0; i < tblProp.getRowCount(); i++) {
                         MPropertise prop = (MPropertise) tblProp.getValueAt(i, 0);
                         String propval = tblProp.getValueAt(i, 2).toString();
-                        VProProp.add(new MProductPropertise(txtProCode.getText(), prop.getPropId().toString(), propval));
+                        VProProp.add(new MProductPropertise(txtProParentCode.getText(), prop.getPropId().toString(), propval));
                     }
 
                     ListModel dlm = List_Sup.getModel();
@@ -1111,9 +1158,10 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     @Override
     public void EditMode() {
         if (but_Update.isEnabled()) {
-            JComponent enablecom[] = {but_Refresh, but_Save, layout_Basic, layoutGroups, but_ProImgChoose, txtProName, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+            JComponent enablecom[] = {but_Refresh, but_Save,but_ItemSearch, layout_Basic, layoutGroups, but_ProImgChoose,txtProParentCode, txtProName, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
             JComponent disablecom[] = {but_Search, but_Update, txtProCode};
             setDisableEnableComponents(enablecom, disablecom);
+            txtProCode.setEnabled(false);
         }
     }
 
@@ -1155,6 +1203,8 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         }
         );
 
+        
+
         String Save = "Save";
         InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), Save);
@@ -1186,6 +1236,19 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         actionMap4.put(Refresh, new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 Refresh();
+            }
+
+        }
+        );
+        
+        
+          String ItemSearch = "ItemSearch";
+        InputMap inputMap5 = txtProParentCode.getInputMap(JComponent.WHEN_FOCUSED);
+        inputMap5.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), ItemSearch);
+        ActionMap actionMap5 = txtProParentCode.getActionMap();
+        actionMap5.put(ItemSearch, new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                SearchModeItem();
             }
 
         }
@@ -1392,6 +1455,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
     private void Clear() {
         txtProCode.setText("");
+        txtProParentCode.setText("");
         txtProName.setText("");
         txtProShortName.setText("");
         txtRef1.setText("");
@@ -1417,7 +1481,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         txtProCode.grabFocus();
         JComponent disablecom[] = {but_Update};
 
-        JComponent enablecom[] = {but_Search, List_Sup, butSupAdd, tblProperty, tblUnits, layoutUnits, but_ProImgChoose, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+        JComponent enablecom[] = {but_Search,but_ItemSearch, List_Sup, butSupAdd, tblProperty, tblUnits, layoutUnits, but_ProImgChoose, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
 
         setDisableEnableComponents(enablecom, disablecom);
         ParentLayout.setSelectedIndex(0);
@@ -1451,11 +1515,12 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             try {
                 MProducts product = CProducts.getProduct(txtProCode.getText());
                 if (product != null) {
-                    JComponent disablecom[] = {but_Search, List_Sup, butSupAdd, but_ProImgChoose, txtProCode, tblProperty, tblUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+                    JComponent disablecom[] = {but_Search,but_ItemSearch, List_Sup, butSupAdd, but_ProImgChoose, txtProCode, txtProParentCode, tblProperty, tblUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
                     JComponent enablecom[] = {but_Refresh, but_Update};
                     setDisableEnableComponents(enablecom, disablecom);
 
                     txtProName.setText(product.getName());
+                    txtProParentCode.setText(product.getParentid());
                     txtProShortName.setText(product.getPrintdes());
                     Chk_ProActive.setSelected((product.getActive() == 1 ? true : false));
                     txtprocost.setText(product.getCprice().toString());
@@ -1697,5 +1762,35 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         } else {
             lblProImg.setIcon(null); // NOI18N 
         }
+    }
+
+    private void SearchModeItem() {
+        if (but_ItemSearch.isEnabled()) {
+            Vector<String> col = new Vector<>();
+            col.add("Parent Code");
+            col.add("Des");
+
+            String[] SQL_Col = {"PARENT_ID", "NAME"};
+            String SQL = "select PARENT_ID,NAME from M_PRODUCTS  ";
+            String SQLWhere = "  PARENT_ID=ID AND ";
+            Connection currentCon = null;
+            try {
+                currentCon = DB.getCurrentCon();
+            } catch (Exception ex) {
+                Logger.getLogger(Frm_MItems.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (ft == null) {
+
+                ft = new Frm_Table(txtProParentCode, currentCon, col, SQL_Col, SQL, SQLWhere);
+                ft.setVisible(true);
+
+            } else {
+                ft = null;
+                ft = new Frm_Table(txtProParentCode, currentCon, col, SQL_Col, SQL, SQLWhere);
+                ft.setFocusable(true);
+                ft.setVisible(true);
+            }
+        }
+
     }
 }

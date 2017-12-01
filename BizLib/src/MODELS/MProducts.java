@@ -9,6 +9,7 @@ import java.util.Date;
 public class MProducts implements java.io.Serializable {
 
     private String id;
+    private String parentid;
     private String MGroup3;
     private String MGroup4;
     private String MGroup2;
@@ -33,8 +34,9 @@ public class MProducts implements java.io.Serializable {
     public MProducts() {
     }
 
-    public MProducts(String id, String MGroup3, String MGroup4, String MGroup2, String MGroup1, String MUserByMduser, String MGroup5, String MUserByCruser, String name, String printdes, Byte active, Byte batch, Double markup, Double sprice, Double cprice, Date crdate, Date mddate, String ref1, String ref2, String UnitGroupId, String proImg) {
+    public MProducts(String id, String parentid, String MGroup3, String MGroup4, String MGroup2, String MGroup1, String MUserByMduser, String MGroup5, String MUserByCruser, String name, String printdes, Byte active, Byte batch, Double markup, Double sprice, Double cprice, Date crdate, Date mddate, String ref1, String ref2, String UnitGroupId, String proImg) {
         this.id = id;
+        this.parentid = parentid;
         this.MGroup3 = MGroup3;
         this.MGroup4 = MGroup4;
         this.MGroup2 = MGroup2;
@@ -56,6 +58,7 @@ public class MProducts implements java.io.Serializable {
         this.UnitGroupId = UnitGroupId;
         this.proImg = proImg;
     }
+
 
     public Double getMarkup() {
         return markup;
@@ -223,6 +226,14 @@ public class MProducts implements java.io.Serializable {
 
     public void setProImg(String proImg) {
         this.proImg = proImg;
+    }
+
+    public String getParentid() {
+        return parentid;
+    }
+
+    public void setParentid(String parentid) {
+        this.parentid = parentid;
     }
 
 }
