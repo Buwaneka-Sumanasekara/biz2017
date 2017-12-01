@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SalesSumary" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="d6eb293a-b621-4818-b20f-7cf5fe9cd248">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="PARA_TITLE" class="java.lang.String"/>
+	<parameter name="PARA_COMNAME" class="java.lang.String"/>
+	<parameter name="PARA_ADD1" class="java.lang.String"/>
+	<parameter name="PARA_ADD2" class="java.lang.String"/>
+	<parameter name="PARA_ADD3" class="java.lang.String"/>
+	<parameter name="PARA_ADD4" class="java.lang.String"/>
+	<parameter name="PARA_LOC" class="java.lang.String"/>
+	<parameter name="PARA_CONTACT" class="java.lang.String"/>
+	<parameter name="PARA_FDATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TDATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\HOME\\Documents\\biz2017\\BizAppPrj\\Reports\\Sales\\R00003\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT s.TRNTYPE,s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT,s.MDDATE
+FROM t_stockmst s
+inner join m_location l
+on s.M_LOCATION_SOURCE=l.ID
+inner join m_user u
+on s.M_USER_MD=u.ID
+where s.TRNTYPE='INV' and (s.EFT_DATE between $P{PARA_FDATE} AND $P{PARA_TDATE})
+group by s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT]]>
+	</queryString>
+	<field name="TRNTYPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FIRSTNAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NETAMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MDDATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="127" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="551" height="20" uuid="bbb9fe42-f431-4c39-a360-e73526a967aa"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_COMNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="19" width="551" height="20" uuid="e6b6fb05-28d4-418b-9fe4-7a9e781e1478"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="40" width="551" height="20" uuid="139ffe72-1299-48eb-8491-079b360012e2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_ADD2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="60" width="551" height="20" uuid="1725ffa4-a690-4f0c-93d3-75630caf10fe"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="80" width="551" height="20" uuid="c0d89006-fbca-49d0-87d6-e724e8c5b6ca"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="100" width="551" height="20" uuid="ffe00db2-2346-4837-a9c6-eab5dab22783"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_CONTACT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="552" height="31" backcolor="#CCCCCC" uuid="4a519603-82b6-49cd-9cf3-8e39f18bf9bd"/>
+				<graphicElement>
+					<pen lineColor="#CCCCCC"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="552" height="20" uuid="c79de36c-9a2b-4a2b-993f-20374b62a3a7"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_TITLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="2" width="110" height="20" uuid="c03a8396-6e9f-4d68-91cb-ddf57caf9203"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[INV NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="2" width="100" height="20" uuid="5544cfe9-5f60-4a08-bc9b-072d4f27a2f5"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[USER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="2" width="100" height="20" uuid="4f464551-8090-4cbf-b138-55242c467cda"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[NETAMOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="2" width="100" height="20" uuid="a59275f1-7d20-47dd-8340-5a6007ad8fdc"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DATE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="2" width="37" height="20" uuid="636520f4-4be0-40aa-9e94-43a2aaff60b1"/>
+				<textFieldExpression><![CDATA[$F{TRNTYPE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="2" width="75" height="20" uuid="9e3a3e70-674e-4fba-ba10-0c1667287dbf"/>
+				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="2" width="100" height="20" uuid="13d11339-f6b6-4dba-91c8-da41f39fa0f7"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{FIRSTNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="2" width="100" height="20" uuid="69b3c3b7-31de-440a-9174-2939e7c3bc78"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{NETAMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="2" width="100" height="20" uuid="8d8a8dba-b95b-4c25-98d3-12eae461f634"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{MDDATE}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="35">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="31" uuid="4b40937c-b342-4002-b218-4aa6ec5d4fc0"/>
+				<subreportParameter name="INVNO">
+					<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Rpt_SalesSummary_sub.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

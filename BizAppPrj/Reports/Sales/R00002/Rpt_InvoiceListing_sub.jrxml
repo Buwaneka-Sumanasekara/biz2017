@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_InvoiceListing_sub" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2ebc9e17-9e6d-4792-9f8f-9e5294cb180f">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="419"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="PARA_INVNO" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -44,61 +44,61 @@ where sl.TRNTYP='INV'  AND sl.T_STOCKMST_ID=$P{PARA_INVNO}]]>
 		<band height="23" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="49" height="20" uuid="fb78f06b-0abd-45c2-aa60-10793ff4c17d"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PROID}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="Float" x="49" y="0" width="187" height="20" isRemoveLineWhenBlank="true" uuid="2c69d83f-2415-414f-976d-677b6ed1114b"/>
-				<textElement markup="html">
+				<textElement verticalAlignment="Middle" markup="html">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<p>"+$F{PRONAME}+"</p>"]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00;(#,##0.00)">
 				<reportElement x="236" y="0" width="47" height="20" uuid="0312c4bd-549b-48b4-9aa4-52cf9c1e4f62"/>
-				<textElement textAlignment="Right">
+				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SPRICE}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="293" y="0" width="28" height="20" uuid="60e1dd22-4a51-4172-83d8-6517c72c24e9"/>
-				<textElement textAlignment="Right">
+			<textField pattern="###0;(###0)">
+				<reportElement x="297" y="0" width="28" height="20" uuid="60e1dd22-4a51-4172-83d8-6517c72c24e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{QTY}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="283" y="-2" width="10" height="17" uuid="9c0c4578-db9a-4ebe-936a-b927656e561c"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="284" y="0" width="10" height="20" uuid="9c0c4578-db9a-4ebe-936a-b927656e561c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[x]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="361" y="0" width="48" height="20" uuid="e415a7ff-1f54-4534-9816-bc33bd205a13"/>
-				<textElement textAlignment="Right">
+				<reportElement x="358" y="0" width="48" height="20" uuid="e415a7ff-1f54-4534-9816-bc33bd205a13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LDISPER}>0.0?$F{LDISPER}+"%":""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="418" y="0" width="39" height="20" uuid="e29a9e58-aead-45ea-ae64-8cc59e869321"/>
-				<textElement textAlignment="Right">
+				<reportElement x="417" y="0" width="39" height="20" uuid="e29a9e58-aead-45ea-ae64-8cc59e869321"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LDIS}>0.0?$F{LDIS}:""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="322" y="0" width="26" height="20" uuid="a0df5c9d-463a-4c32-b82b-c5d345f7feb4"/>
-				<textElement>
+				<reportElement x="325" y="0" width="26" height="20" uuid="a0df5c9d-463a-4c32-b82b-c5d345f7feb4"/>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SYMBLE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
-				<reportElement x="459" y="0" width="94" height="17" uuid="31907c23-8cb9-42d3-a388-2ab3a78c95f3"/>
-				<textElement textAlignment="Right">
+				<reportElement x="459" y="0" width="94" height="20" uuid="31907c23-8cb9-42d3-a388-2ab3a78c95f3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{AMOUNT}]]></textFieldExpression>

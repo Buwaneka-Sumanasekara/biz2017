@@ -45,7 +45,29 @@ on p.ID=s.M_PRODUCTS_ID
 inner join m_supplier_has_m_products sp
 on p.ID=sp.M_PRODUCTS_ID 
 order by p.ID
+=============================================
 
+select m.ID,m.MDDATE,pm.NAME AS PHNAME,IFNULL(pd.NAME,'') AS PDNAME,p.FRMAMOUNT,p.AMOUNT 
+from t_stockmst m
+inner join t_stockpayments p
+on m.ID=p.T_STOCKMST_ID AND m.TRNTYPE=p.TRNTYP
+inner join m_paymst pm
+on p.PAYHEDID=pm.ID
+left join m_paydet pd
+on p.PAYHEDID=pd.M_PAYMST_ID AND p.PAYDETID=pd.ID
+
+WHERE m.TRNTYPE='INV' AND m.TRNSTATE='P' 
+group by m.ID,pm.NAME,pd.NAME
+
+=============================
+SELECT s.TRNTYPE,s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT,s.MDDATE 
+FROM t_stockmst s
+inner join m_location l
+on s.M_LOCATION_SOURCE=l.ID
+inner join m_user u
+on s.M_USER_MD=u.ID
+where s.TRNTYPE='INV' and (s.EFT_DATE between '2017-01-01' AND '2018-01-01')
+group by s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT
 
 
    

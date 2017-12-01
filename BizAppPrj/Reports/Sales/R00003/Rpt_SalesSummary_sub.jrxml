@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SalesSummary_sub" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="49a3c3a4-2774-4337-833c-02813d9edc39">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="INVNO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select m.ID,m.MDDATE,pm.NAME AS PHNAME,IFNULL(pd.NAME,'') AS PDNAME,p.FRMAMOUNT,p.AMOUNT
+from t_stockmst m
+inner join t_stockpayments p
+on m.ID=p.T_STOCKMST_ID AND m.TRNTYPE=p.TRNTYP
+inner join m_paymst pm
+on p.PAYHEDID=pm.ID
+left join m_paydet pd
+on p.PAYHEDID=pd.M_PAYMST_ID AND p.PAYDETID=pd.ID
+
+WHERE m.TRNTYPE='INV' AND m.TRNSTATE='P' AND m.ID=$P{INVNO}
+group by m.ID,pm.NAME,pd.NAME]]>
+	</queryString>
+	<field name="ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MDDATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PHNAME" class="java.lang.String"/>
+	<field name="PDNAME" class="java.lang.String"/>
+	<field name="FRMAMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="072ac460-a883-4907-8525-b24a902bd61e"/>
+				<textFieldExpression><![CDATA[$F{PHNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="100" height="20" uuid="ef0b5115-d8b3-4680-bb8c-719b5b8bf46d"/>
+				<textFieldExpression><![CDATA[$F{PDNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="306" y="0" width="100" height="20" uuid="8f9942bb-e4ec-42aa-83c1-01d20dce2c7b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{FRMAMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="0" width="100" height="20" uuid="be4b568e-5888-4c59-bf45-d65afe0225dd"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{AMOUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
