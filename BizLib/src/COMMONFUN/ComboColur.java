@@ -34,9 +34,9 @@ public class ComboColur implements ListCellRenderer<Object> {
         try {
             if (value instanceof MUsergroup) {
                 if (isSelected ) {
-                    text.setBackground(list.getSelectionBackground());
+                    text.setBackground(Color.LIGHT_GRAY);
                 }else{
-                     text.setBackground(list.getBackground());
+                     text.setBackground(Color.white);
                 }
                 
                 
@@ -52,7 +52,9 @@ public class ComboColur implements ListCellRenderer<Object> {
                 }
                 
                 if (cellHasFocus) {
-                    text.setBackground(list.getSelectionBackground());
+                    text.setBackground(Color.LIGHT_GRAY);
+                }else{
+                     text.setBackground(Color.white);
                 }
                 
                 

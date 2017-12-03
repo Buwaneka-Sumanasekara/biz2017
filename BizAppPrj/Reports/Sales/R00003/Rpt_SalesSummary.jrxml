@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SalesSumary" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="d6eb293a-b621-4818-b20f-7cf5fe9cd248">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="192"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<parameter name="PARA_TITLE" class="java.lang.String"/>
 	<parameter name="PARA_COMNAME" class="java.lang.String"/>
@@ -49,6 +49,10 @@ group by s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT]]>
 	<field name="MDDATE" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="Total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{NETAMOUNT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -93,9 +97,9 @@ group by s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="33" splitType="Stretch">
+		<band height="52" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="552" height="31" backcolor="#CCCCCC" uuid="4a519603-82b6-49cd-9cf3-8e39f18bf9bd"/>
+				<reportElement x="0" y="0" width="552" height="52" backcolor="#CCCCCC" uuid="4a519603-82b6-49cd-9cf3-8e39f18bf9bd"/>
 				<graphicElement>
 					<pen lineColor="#CCCCCC"/>
 				</graphicElement>
@@ -107,55 +111,89 @@ group by s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARA_TITLE}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="53" y="32" width="251" height="20" uuid="18c2328a-cf7c-424a-ba46-83c0f27f2ee5"/>
+				<textFieldExpression><![CDATA[$P{PARA_FDATE} +"    To     "+$P{PARA_TDATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="32" width="51" height="20" uuid="5ecbb4ea-8237-4ebc-8c93-f73ff0483142"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Date Period]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="24" splitType="Stretch">
+		<band height="33" splitType="Stretch">
 			<staticText>
 				<reportElement x="2" y="2" width="110" height="20" uuid="c03a8396-6e9f-4d68-91cb-ddf57caf9203"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
 				<text><![CDATA[INV NO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="127" y="2" width="100" height="20" uuid="5544cfe9-5f60-4a08-bc9b-072d4f27a2f5"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="127" y="2" width="177" height="20" uuid="5544cfe9-5f60-4a08-bc9b-072d4f27a2f5"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
 				<text><![CDATA[USER]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="454" y="2" width="100" height="20" uuid="4f464551-8090-4cbf-b138-55242c467cda"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
 				<text><![CDATA[NETAMOUNT]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="324" y="2" width="100" height="20" uuid="a59275f1-7d20-47dd-8340-5a6007ad8fdc"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
 				<text><![CDATA[DATE]]></text>
 			</staticText>
+			<line>
+				<reportElement x="2" y="31" width="550" height="1" uuid="b3a5f4db-4664-4f82-ad16-dc7b8efe0535"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="22" splitType="Stretch">
 			<textField>
-				<reportElement x="1" y="2" width="37" height="20" uuid="636520f4-4be0-40aa-9e94-43a2aaff60b1"/>
+				<reportElement x="5" y="2" width="37" height="20" uuid="636520f4-4be0-40aa-9e94-43a2aaff60b1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{TRNTYPE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="33" y="2" width="75" height="20" uuid="9e3a3e70-674e-4fba-ba10-0c1667287dbf"/>
+				<reportElement x="27" y="2" width="85" height="20" uuid="9e3a3e70-674e-4fba-ba10-0c1667287dbf"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="125" y="2" width="100" height="20" uuid="13d11339-f6b6-4dba-91c8-da41f39fa0f7"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="125" y="2" width="179" height="20" uuid="13d11339-f6b6-4dba-91c8-da41f39fa0f7"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{FIRSTNAME}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00;(#,##0.00)">
 				<reportElement x="454" y="2" width="100" height="20" uuid="69b3c3b7-31de-440a-9174-2939e7c3bc78"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{NETAMOUNT}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="yyyy-MM-dd h:m a">
 				<reportElement x="325" y="2" width="100" height="20" uuid="8d8a8dba-b95b-4c25-98d3-12eae461f634"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{MDDATE}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -171,6 +209,21 @@ group by s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT]]>
 		</band>
 	</detail>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="42" splitType="Stretch">
+			<textField pattern="#,##0.00;(#,##0.00)">
+				<reportElement x="304" y="0" width="248" height="42" uuid="75cdb135-4388-4639-b7c4-b5bfa7fc7624"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="189" y="0" width="115" height="42" uuid="c7e45a52-471a-46e8-9c92-df854d43a872"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Sale:]]></text>
+			</staticText>
+		</band>
 	</summary>
 </jasperReport>

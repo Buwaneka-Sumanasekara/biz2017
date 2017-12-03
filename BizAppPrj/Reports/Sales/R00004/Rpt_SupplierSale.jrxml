@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SalesSumary" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="d6eb293a-b621-4818-b20f-7cf5fe9cd248">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="344"/>
+	<property name="ireport.y" value="481"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="PARA_TITLE" class="java.lang.String"/>
+	<parameter name="PARA_COMNAME" class="java.lang.String"/>
+	<parameter name="PARA_ADD1" class="java.lang.String"/>
+	<parameter name="PARA_ADD2" class="java.lang.String"/>
+	<parameter name="PARA_ADD3" class="java.lang.String"/>
+	<parameter name="PARA_ADD4" class="java.lang.String"/>
+	<parameter name="PARA_LOC" class="java.lang.String"/>
+	<parameter name="PARA_CONTACT" class="java.lang.String"/>
+	<parameter name="PARA_FDATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TDATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_SUP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\HOME\\Documents\\biz2017\\BizAppPrj\\Reports\\Sales\\R00004\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM M_Supplier s where s.active=1 and  $P!{PARA_SUP}]]>
+	</queryString>
+	<field name="ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CONTACTPERSON" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CONTACT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MOBILE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ACTIVE" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ADDRESS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="127" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="551" height="20" uuid="bbb9fe42-f431-4c39-a360-e73526a967aa"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_COMNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="19" width="551" height="20" uuid="e6b6fb05-28d4-418b-9fe4-7a9e781e1478"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="40" width="551" height="20" uuid="139ffe72-1299-48eb-8491-079b360012e2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_ADD2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="60" width="551" height="20" uuid="1725ffa4-a690-4f0c-93d3-75630caf10fe"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="80" width="551" height="20" uuid="c0d89006-fbca-49d0-87d6-e724e8c5b6ca"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{PARA_ADD4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="100" width="551" height="20" uuid="ffe00db2-2346-4837-a9c6-eab5dab22783"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_CONTACT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="47" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="552" height="47" backcolor="#CCCCCC" uuid="4a519603-82b6-49cd-9cf3-8e39f18bf9bd"/>
+				<graphicElement>
+					<pen lineColor="#CCCCCC"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="552" height="20" uuid="c79de36c-9a2b-4a2b-993f-20374b62a3a7"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_TITLE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="27" width="59" height="20" uuid="bd4ac598-b015-472b-8c0b-19bab10f3958"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Date Period]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="62" y="27" width="183" height="20" uuid="8ae8f4a7-89f9-4489-b8e9-89f56776fba8"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_FDATE} +"    To    "+$P{PARA_TDATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="2" width="552" height="20" backcolor="#CCCCCC" uuid="34cf91a7-c27c-447a-abd6-2ef23d58b997"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="88" y="1" width="288" height="20" uuid="3378f9c6-6662-4f7d-a3d2-8110ea61236e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="1" width="87" height="20" uuid="3826da9f-e33f-469f-895f-781796eea291"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<line>
+				<reportElement x="3" y="21" width="549" height="1" uuid="a3719455-beee-4fd1-9245-c39e02a8c441"/>
+			</line>
+			<textField>
+				<reportElement x="89" y="0" width="288" height="22" uuid="b4c402bc-f887-4a4f-aa9a-fe98b11d539b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="2" width="87" height="20" uuid="3a48174b-e1fc-456d-b070-0aeacb12104c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="1" y="0" width="551" height="39" uuid="5dbd04be-8494-4b62-91bc-c1b4116053d7"/>
+				<subreportParameter name="PARA_FDATE">
+					<subreportParameterExpression><![CDATA[$P{PARA_FDATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TDATE">
+					<subreportParameterExpression><![CDATA[$P{PARA_TDATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_SUPID">
+					<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_LOC">
+					<subreportParameterExpression><![CDATA[""+$P{PARA_LOC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Rpt_SupplierSale_sub.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="23" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

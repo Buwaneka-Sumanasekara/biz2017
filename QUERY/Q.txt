@@ -68,6 +68,22 @@ inner join m_user u
 on s.M_USER_MD=u.ID
 where s.TRNTYPE='INV' and (s.EFT_DATE between '2017-01-01' AND '2018-01-01')
 group by s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT
+=============================
+SELECT p.ID,p.NAME,SUM(strf_ConvMaxUnit(stl.M_UNITGROUPS_ID, stl.M_UNITS_ID, stl.QTY)) AS QTY,strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,SUM(stl.AMOUNT) as AMT 
+FROM t_stockmst stm
+inner join t_stockline stl
+on stm.ID=stl.T_STOCKMST_ID AND stm.TRNTYPE=stl.TRNTYP
+inner join m_products p
+on stl.PROID=p.ID
+inner join m_supplier_has_m_products shp
+on p.ID=shp.M_PRODUCTS_ID
+inner join u_transactions u
+on stm.TRNTYPE=u.TRNTYPE
+WHERE stm.TRNTYPE='INV' AND stm.TRNSTATE='P'
+AND stm.EFT_DATE between '2017-01-01' and '2018-01-01'
+AND shp.M_SUPPLIER_ID='S0002'
+GROUP BY p.ID
+
 
 
    

@@ -78,13 +78,20 @@ public class DefaultData {
         //Sales Reports(202-300)
         ar.add(new MPermissions("R00001", "R00000", "R_SALES", "Sales Reports", "RPT", (byte) 0, (byte) 1, 202, "Sales_Folder.png"));
         ar.add(new MPermissions("R00002", "R00001", "R_SALES_1", "Invoice Listing", "RPT", (byte) 0, (byte) 1, 203, "Report_sub.png"));
+        ar.add(new MPermissions("R00003", "R00001", "R_SALES_2", "Payment mode wise Sale", "RPT", (byte) 0, (byte) 1, 204, "Report_sub.png"));
+        ar.add(new MPermissions("R00004", "R00001", "R_SALES_3", "Supplier Products Sale", "RPT", (byte) 0, (byte) 1, 205, "Report_sub.png"));
 
+        
+        
         //Stock Reports(301-400)
         ar.add(new MPermissions("R00101", "R00000", "R_STOCK", "Stock Reports", "RPT", (byte) 0, (byte) 1, 301, "Stock_Folder.png"));
         ar.add(new MPermissions("R00102", "R00101", "R_STOCK_1", "Stock Balance Summary", "RPT", (byte) 0, (byte) 1, 302, "Report_sub.png"));
 
         //Custom Reports(401-500)
-        //Other Reports(601-600)
+        //Other Reports(501-600)
+        
+        
+        
         //Accounts(601-700) 
         ar.add(new MPermissions("A00000", "A00000", "ACCOUNTS", "Accounts/Payments", "ACC", (byte) 1, (byte) 1, "A", 601, "accounts.png"));//3
         ar.add(new MPermissions("A00001", "A00000", "ACHQ", "Cheque Payments", "ACHQ", (byte) 0, (byte) 1, "A", 602, "Cheque.png"));

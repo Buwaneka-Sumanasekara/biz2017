@@ -58,7 +58,8 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         this.fv = new MyValidator();
         this.cug = new C_UserGroup();
        // this.com_render=new ComboColur(cmb_Usergrp);
-       cmb_Usergrp.setRenderer(new ComboColur());
+      // cmb_Usergrp.setRenderer(new ComboColur());
+        
         Refresh();
         setShortCutKeys(this);
     }
@@ -77,8 +78,8 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         lblScreenName = new javax.swing.JLabel();
         jpanelq = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        cmb_Usergrp_Cur = new javax.swing.JComboBox<>();
-        cmb_Usergrp = new javax.swing.JComboBox<>();
+        cmb_Usergrp_Cur = new javax.swing.JComboBox<String>();
+        cmb_Usergrp = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
         butNewUsergrp = new javax.swing.JButton();
         butEditUsergrp = new javax.swing.JButton();
@@ -131,6 +132,11 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
 
         jPanel1.add(cmb_Usergrp_Cur, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 150, 30));
 
+        cmb_Usergrp.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmb_UsergrpItemStateChanged(evt);
+            }
+        });
         cmb_Usergrp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_UsergrpActionPerformed(evt);
@@ -240,16 +246,13 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
     }//GEN-LAST:event_tree_sel_usergrpKeyPressed
 
     private void cmb_UsergrpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_UsergrpActionPerformed
-     MUsergroup ug = (MUsergroup) cmb_Usergrp.getSelectedItem();
-            if (ug != null) {
-                if (ug.getActive()==1) {
-                    lblState.setText("");
-                } else {
-                    lblState.setText("[DEACTIVE]");
-                }
-            }
+    changePerm();
 
     }//GEN-LAST:event_cmb_UsergrpActionPerformed
+
+    private void cmb_UsergrpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmb_UsergrpItemStateChanged
+        changePerm();
+    }//GEN-LAST:event_cmb_UsergrpItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -515,5 +518,16 @@ public class Frm_SUserGroupPer extends javax.swing.JInternalFrame implements MyW
         }
 
     }
+
+    private void changePerm() {
+     MUsergroup ug = (MUsergroup) cmb_Usergrp.getSelectedItem();
+            if (ug != null) {
+                if (ug.getActive()==1) {
+                    lblState.setText("");
+                } else {
+                    lblState.setText("[DEACTIVE]");
+                }
+                createUserMenu(ug.getId(), tree_sel_usergrp);
+            }}
 
 }

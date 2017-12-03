@@ -113,22 +113,22 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         jpanelq = new javax.swing.JPanel();
         but_TrnRefresh = new javax.swing.JButton();
         but_TrnPrint = new javax.swing.JButton();
-        but_TrnPrint1 = new javax.swing.JButton();
         layout_CusSup = new javax.swing.JPanel();
         txt_Id = new javax.swing.JTextField();
         lbl_CusSup = new javax.swing.JLabel();
         lbl_FName = new javax.swing.JLabel();
         lbl_Name1 = new javax.swing.JLabel();
         lbl_LNAME = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         layout_Location = new javax.swing.JPanel();
-        cmb_Loc = new javax.swing.JComboBox<>();
+        cmb_Loc = new javax.swing.JComboBox<String>();
         layout_Period = new javax.swing.JPanel();
         txt_DateF = new com.toedter.calendar.JDateChooser();
         txt_DateT = new com.toedter.calendar.JDateChooser();
         lb_lTo = new javax.swing.JLabel();
-        cmb_Qut = new javax.swing.JComboBox<>();
+        cmb_Qut = new javax.swing.JComboBox<String>();
         layout_Period3 = new javax.swing.JPanel();
-        cmb_Loc2 = new javax.swing.JComboBox<>();
+        cmb_Loc2 = new javax.swing.JComboBox<String>();
         layout_Group = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         chk_GrpSelectAll = new javax.swing.JCheckBox();
@@ -199,34 +199,28 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         });
         jPanel2.add(but_TrnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 40, 40));
 
-        but_TrnPrint1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_print__outline__printer__document__office__computer__networkprinter_2318007 (1).png"))); // NOI18N
-        but_TrnPrint1.setToolTipText("Cancel(F7)");
-        but_TrnPrint1.setContentAreaFilled(false);
-        but_TrnPrint1.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/hold_disable.png"))); // NOI18N
-        but_TrnPrint1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                but_TrnPrint1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(but_TrnPrint1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 40, 40));
-
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
 
         layout_CusSup.setBackground(new java.awt.Color(255, 255, 255));
         layout_CusSup.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         layout_CusSup.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        layout_CusSup.add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 150, 30));
+        layout_CusSup.add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 130, 30));
 
         lbl_CusSup.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_CusSup.setText("Id");
-        layout_CusSup.add(lbl_CusSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 150, -1));
+        layout_CusSup.add(lbl_CusSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 130, -1));
 
         lbl_FName.setText("NAME");
-        layout_CusSup.add(lbl_FName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 270, 20));
+        layout_CusSup.add(lbl_FName, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 260, 20));
         layout_CusSup.add(lbl_Name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 270, 20));
 
         lbl_LNAME.setText("CONTACT");
-        layout_CusSup.add(lbl_LNAME, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 270, 30));
+        layout_CusSup.add(lbl_LNAME, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 260, 30));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/1480175721_Find01.png"))); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        layout_CusSup.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 30, 30));
 
         jPanel1.add(layout_CusSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 460, 80));
 
@@ -460,22 +454,18 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         setGroupPanelEnable();
     }//GEN-LAST:event_chkAllGroupsMouseReleased
 
-    private void but_TrnPrint1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnPrint1ActionPerformed
-     Rpt_ExportExcel();
-    }//GEN-LAST:event_but_TrnPrint1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton but_Grp_Back;
     private javax.swing.JButton but_Grp_Next;
     private javax.swing.JButton but_TrnPrint;
-    private javax.swing.JButton but_TrnPrint1;
     private javax.swing.JButton but_TrnRefresh;
     private javax.swing.JCheckBox chkAllGroups;
     private javax.swing.JCheckBox chk_GrpSelectAll;
     private javax.swing.JComboBox<String> cmb_Loc;
     private javax.swing.JComboBox<String> cmb_Loc2;
     private javax.swing.JComboBox<String> cmb_Qut;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -518,7 +508,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         txt_DateT.setDate(new Date());
 
         JComponent[] v_f = {txt_DateF, txt_DateT};
-        JComponent[] h_f = {lbl_GrpCode, layout_Group, layout_CusSup, cmb_Qut};
+        JComponent[] h_f = {lbl_GrpCode, layout_Group, layout_CusSup, cmb_Qut,layout_Period};
 
         setVisibleHideComponents(v_f, h_f);
 
@@ -537,6 +527,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
             }
         }
         if (mRpt.getEn_DateRange() == 1) {
+            layout_Period.setVisible(true);
             layout_Period.setEnabled(true);
             cmb_Qut.setVisible(false);
             txt_DateT.setVisible(true);
@@ -571,6 +562,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
         }
         if (mRpt.getEn_Sup() == 1) {
+            layout_CusSup.setEnabled(true);
             layout_CusSup.setVisible(true);
             lbl_FName.setText("");
             lbl_LNAME.setText("");
@@ -579,6 +571,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
             layout_CusSup.setBorder(new TitledBorder("Supplier"));
         }
         if (mRpt.getEn_Cus() == 1) {
+               layout_CusSup.setEnabled(true);
             layout_CusSup.setVisible(true);
             lbl_FName.setText("");
             lbl_LNAME.setText("");
@@ -732,22 +725,26 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                     if (txt_Id.getText().length() > 0) {
                         MSupplier supplier = cSup.getSupplier(txt_Id.getText());
                         if (supplier != null) {
-                            para.put("PARA_SUP", supplier.getId());
+                            para.put("PARA_SUP", " s.ID='"+supplier.getId()+"' ");
                         } else {
                             throw new Exception("Cannot find Supplier");
                         }
 
+                    }else{
+                          para.put("PARA_SUP", " s.ID LIKE '%%' ");
                     }
                 }
                 if (mRpt.getEn_Cus() == 1) {
                     if (txt_Id.getText().length() > 0) {
                         MCustomer c = cCus.getCustomer(txt_Id.getText());
                         if (c != null) {
-                            para.put("PARA_CUS", c.getId());
+                            para.put("PARA_CUS", " c.ID='"+c.getId()+"' ");
                         } else {
                             throw new Exception("Cannot find Customer");
                         }
 
+                    }else{
+                          para.put("PARA_CUS", " c.ID LIKE '%%' ");
                     }
                 }
 

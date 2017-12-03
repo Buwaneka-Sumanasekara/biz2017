@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SupplierSale_sub" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8e9272a7-a5c7-42be-9ac5-960f006bb0c7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_SUPID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_FDATE" class="java.lang.String"/>
+	<parameter name="PARA_TDATE" class="java.lang.String"/>
+	<parameter name="PARA_LOC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT p.ID,p.NAME,SUM(strf_ConvMaxUnit(stl.M_UNITGROUPS_ID, stl.M_UNITS_ID, stl.QTY)) AS QTY,strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,SUM(stl.AMOUNT) as AMT
+FROM t_stockmst stm
+inner join t_stockline stl
+on stm.ID=stl.T_STOCKMST_ID AND stm.TRNTYPE=stl.TRNTYP
+inner join m_products p
+on stl.PROID=p.ID
+inner join m_supplier_has_m_products shp
+on p.ID=shp.M_PRODUCTS_ID
+inner join u_transactions u
+on stm.TRNTYPE=u.TRNTYPE
+WHERE stm.TRNTYPE='INV' AND stm.TRNSTATE='P'
+AND (stm.EFT_DATE between $P{PARA_FDATE} and $P{PARA_TDATE})
+ AND shp.M_SUPPLIER_ID=$P{PARA_SUPID} AND  stm.M_LOCATION_SOURCE=$P{PARA_LOC}
+GROUP BY p.ID]]>
+	</queryString>
+	<field name="ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="QTY" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UNIT" class="java.lang.String"/>
+	<field name="AMT" class="java.lang.Double"/>
+	<variable name="Total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="82" height="20" uuid="d883249b-db07-4dc2-b32b-80ff3b2ea480"/>
+				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="82" y="0" width="299" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="ab3714b9-0686-4d09-878c-3b1117bce3f1"/>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;(###0)">
+				<reportElement x="381" y="0" width="52" height="20" uuid="3252b67a-428f-4c4d-91cd-1fe44d7a5d14"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{QTY}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(#,##0.00)">
+				<reportElement x="453" y="1" width="100" height="20" uuid="c17a2026-20ab-44a6-aadb-45bf25b939bc"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{AMT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="36">
+			<textField pattern="#,##0.00;(#,##0.00)">
+				<reportElement x="408" y="0" width="145" height="36" uuid="285a97ba-4a56-4258-90d0-5abd6fcedbb1"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>
