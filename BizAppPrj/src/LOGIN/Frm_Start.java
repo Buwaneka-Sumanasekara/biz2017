@@ -336,6 +336,20 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20171114_t10 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_ConvMinUnit ", " unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ", q_20171114_t10, " DOUBLE ");
         arStructures.add(str_20171114_t10);
 
+        
+        ArrayList<TblColumn> ar_20171204_t1 = new ArrayList<>();
+        ar_20171204_t1.add(new TblColumn("ID", "INT", "NOT NULL"));
+        ar_20171204_t1.add(new TblColumn("RPT_ID", "VARCHAR(50)", "NOT NULL"));
+        ar_20171204_t1.add(new TblColumn("EMAIL_ADD", "VARCHAR(200)", "NOT NULL"));
+
+        ArrayList<String> ar_20171204_t1PK = new ArrayList<>();
+        ar_20171204_t1PK.add("ID");
+
+        Structure str_20171204_t1 = new Structure(20171204, "U_RPT_EMAILS", ar_20171204_t1, ar_20171204_t1PK);
+        arStructures.add(str_20171204_t1);
+        
+        
+
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults + 3);
 
@@ -659,7 +673,7 @@ public final class Frm_Start extends javax.swing.JDialog {
     }
 
     public void LoadImages() {
-       /*
+        /*
         try {
 
             ArrayList<MProducts> allProducts = cPro.getAllProducts(2);
@@ -682,7 +696,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         } catch (Exception e) {
             System.out.println("Pro img [Loading]" + e.getMessage());
         }
-               */
+         */
     }
 
 
