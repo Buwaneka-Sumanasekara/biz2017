@@ -2109,23 +2109,19 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     private void loadProduct() {
         try {
             if (!txt_LItemCode.getText().equals("")) {
-                
+
+                String ProNo = C_Pro.getProNoFull(txt_LItemCode.getText());
+                txt_LItemCode.setText(ProNo);
+
                 ArrayList<MProducts> allSubItems = C_Pro.getAllSubItems(txt_LItemCode.getText());
-                if(allSubItems.size()>1){
-                    
+                if (allSubItems.size() > 1) {
+
                     String createSubItemsPopUp = Frm_MProSubItems.createSubItemsPopUp(mainW, allSubItems);
                     txt_LItemCode.setText(createSubItemsPopUp);
                 }
-                
-                
-                
+
                 String ProCode = txt_LItemCode.getText();
 
-                
-                
-                
-                
-                
                 MProducts product = C_Pro.getProductTrn(ProCode, 1);
                 if (product != null) {
 
@@ -2569,7 +2565,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
              lbl_Line_ProImg.setIcon(null); // NOI18N
         }
     }
-*/
+     */
     private void setProductIcon(String path) {
         if (path != null) {
             String imgpath = path;

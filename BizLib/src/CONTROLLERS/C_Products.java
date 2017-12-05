@@ -39,6 +39,10 @@ import javax.imageio.ImageIO;
  */
 public class C_Products {
 
+    private static final int PRO_NO_LENGTH=6;
+    private static final int BATCH_NO_LENGTH=4;
+    
+    
     QueryGen qg = null;
     CommonFun CommFun = null;
     MyValidator fv = null;
@@ -55,6 +59,21 @@ public class C_Products {
         CSup = new C_Suppliers();
     }
 
+    
+    
+    public String getProNoFull(String txt){
+        int no=Integer.parseInt(txt);
+        
+        int zerocount=(PRO_NO_LENGTH-(""+no).length());
+        
+        String prono="";
+        for (int i = 0; i < zerocount; i++) {
+           prono+="0"; 
+        }
+        return prono+no;
+    }
+    
+    
     public void createStocksForProductt(MProducts p, Boolean createBatch, String unitGrp) throws Exception {
         createStocksForProductt(p, createBatch, unitGrp, 0.0);
     }
@@ -240,11 +259,11 @@ public class C_Products {
     }
 
     public String getNextBatch(String ProId, String LocId) throws Exception {
-        return CommFun.generateNextNo(4, "", "M_STOCKS", "BATCHNO", "WHERE M_LOCATION_ID='" + LocId + "' AND M_PRODUCTS_ID='" + ProId + "'");
+        return CommFun.generateNextNo(BATCH_NO_LENGTH, "", "M_STOCKS", "BATCHNO", "WHERE M_LOCATION_ID='" + LocId + "' AND M_PRODUCTS_ID='" + ProId + "'");
     }
 
     public String getLastBatch(String ProId, String LocId) throws Exception {
-        return CommFun.generateLastNo(4, "", "M_STOCKS", "BATCHNO", "WHERE M_LOCATION_ID='" + LocId + "' AND M_PRODUCTS_ID='" + ProId + "'");
+        return CommFun.generateLastNo(BATCH_NO_LENGTH, "", "M_STOCKS", "BATCHNO", "WHERE M_LOCATION_ID='" + LocId + "' AND M_PRODUCTS_ID='" + ProId + "'");
     }
 
     public boolean IsBatchExists(String ProId, String LocId, String Batch) throws Exception {
@@ -281,7 +300,7 @@ public class C_Products {
 
         }
 
-        System.out.println(q);
+       // System.out.println(q);
         ResultSet rs = DB.Search(q);
 
         ArrayList<MStocks> ar = new ArrayList<>();
@@ -541,7 +560,7 @@ public class C_Products {
         mpro.put("REF1", "'" + fv.replacer(p.getRef1()) + "'");
         mpro.put("REF2", "'" + fv.replacer(p.getRef2()) + "'");
 
-        String GenIdProId = CommFun.generateNextNo(6, "", "m_products", "ID");
+        String GenIdProId = CommFun.generateNextNo(PRO_NO_LENGTH, "", "m_products", "ID");
         String ProId = GenIdProId;
 
         if (!p.getId().equals("")) {

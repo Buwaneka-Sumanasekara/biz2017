@@ -1513,6 +1513,8 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private void loadProduct() {
         if (!txtProCode.getText().equals("")) {
             try {
+                String proNoFull = CProducts.getProNoFull(txtProCode.getText());
+                txtProCode.setText(proNoFull);
                 MProducts product = CProducts.getProduct(txtProCode.getText());
                 if (product != null) {
                     JComponent disablecom[] = {but_Search,but_ItemSearch, List_Sup, butSupAdd, but_ProImgChoose, txtProCode, txtProParentCode, tblProperty, tblUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
