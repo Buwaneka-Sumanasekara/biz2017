@@ -93,6 +93,7 @@ public class Frm_Main extends javax.swing.JFrame {
         JDesktopF = new javax.swing.JDesktopPane();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         lbl_Global_Instructions = new javax.swing.JLabel();
         butLogout = new javax.swing.JButton();
         lblCompanyName = new javax.swing.JLabel();
@@ -134,11 +135,17 @@ public class Frm_Main extends javax.swing.JFrame {
         JDesktopF.add(jLabel3);
         jLabel3.setBounds(330, 180, 220, 110);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel5.setText("Biz");
+        jLabel5.setText("ERP");
         JDesktopF.add(jLabel5);
-        jLabel5.setBounds(410, 280, 90, 58);
+        jLabel5.setBounds(450, 290, 100, 44);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel6.setText("Biz");
+        JDesktopF.add(jLabel6);
+        jLabel6.setBounds(380, 280, 80, 58);
 
         layout_Outer.add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 868, 630));
 
@@ -174,7 +181,7 @@ public class Frm_Main extends javax.swing.JFrame {
 
         lblUserimg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUserimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/1465731972_user-01.png"))); // NOI18N
-        layout_Outer.add(lblUserimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 590, 80, 80));
+        layout_Outer.add(lblUserimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, 100, 80));
 
         txt_DB_Name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txt_DB_Name.setForeground(new java.awt.Color(102, 102, 102));
@@ -253,6 +260,7 @@ public class Frm_Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel layout_Outer;
     private javax.swing.JLabel lblCompanyName;

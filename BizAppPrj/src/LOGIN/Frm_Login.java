@@ -258,7 +258,7 @@ public class Frm_Login extends javax.swing.JFrame {
             }
 
         } else {
-            lbl_ComLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"))); // NOI18N
+            lbl_ComLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/iconappimg_small.png"))); // NOI18N
             lbl_ComLogo.setHorizontalAlignment(SwingConstants.CENTER);
         }
 
