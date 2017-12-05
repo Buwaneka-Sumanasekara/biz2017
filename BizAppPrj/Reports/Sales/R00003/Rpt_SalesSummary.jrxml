@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SalesSumary" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="d6eb293a-b621-4818-b20f-7cf5fe9cd248">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="252"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<parameter name="PARA_TITLE" class="java.lang.String"/>
 	<parameter name="PARA_COMNAME" class="java.lang.String"/>
@@ -28,7 +28,7 @@ inner join m_location l
 on s.M_LOCATION_SOURCE=l.ID
 inner join m_user u
 on s.M_USER_MD=u.ID
-where s.TRNTYPE='INV' and (s.EFT_DATE between $P{PARA_FDATE} AND $P{PARA_TDATE})
+where s.TRNTYPE='INV' and s.TRNSTATE='P' AND s.M_LOCATION_SOURCE=$P{PARA_LOC} and (s.EFT_DATE between $P{PARA_FDATE} AND $P{PARA_TDATE})
 group by s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT]]>
 	</queryString>
 	<field name="TRNTYPE" class="java.lang.String">
@@ -112,15 +112,15 @@ group by s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT]]>
 				<textFieldExpression><![CDATA[$P{PARA_TITLE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="53" y="32" width="251" height="20" uuid="18c2328a-cf7c-424a-ba46-83c0f27f2ee5"/>
+				<reportElement x="61" y="32" width="251" height="20" uuid="18c2328a-cf7c-424a-ba46-83c0f27f2ee5"/>
 				<textFieldExpression><![CDATA[$P{PARA_FDATE} +"    To     "+$P{PARA_TDATE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="2" y="32" width="51" height="20" uuid="5ecbb4ea-8237-4ebc-8c93-f73ff0483142"/>
+				<reportElement x="2" y="32" width="62" height="20" uuid="5ecbb4ea-8237-4ebc-8c93-f73ff0483142"/>
 				<textElement>
-					<font size="8"/>
+					<font size="10"/>
 				</textElement>
-				<text><![CDATA[Date Period]]></text>
+				<text><![CDATA[Date Period :]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -199,7 +199,7 @@ group by s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT]]>
 		</band>
 		<band height="35">
 			<subreport>
-				<reportElement x="0" y="0" width="555" height="31" uuid="4b40937c-b342-4002-b218-4aa6ec5d4fc0"/>
+				<reportElement x="0" y="0" width="552" height="31" uuid="4b40937c-b342-4002-b218-4aa6ec5d4fc0"/>
 				<subreportParameter name="INVNO">
 					<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -209,21 +209,35 @@ group by s.ID,l.NAME,u.FIRSTNAME,s.NETAMOUNT]]>
 		</band>
 	</detail>
 	<summary>
-		<band height="42" splitType="Stretch">
+		<band height="89" splitType="Stretch">
+			<rectangle>
+				<reportElement positionType="Float" x="178" y="46" width="377" height="42" uuid="bf8806f5-367a-47a1-b210-c25f313dc9a4"/>
+			</rectangle>
 			<textField pattern="#,##0.00;(#,##0.00)">
-				<reportElement x="304" y="0" width="248" height="42" uuid="75cdb135-4388-4639-b7c4-b5bfa7fc7624"/>
+				<reportElement x="305" y="47" width="248" height="42" uuid="75cdb135-4388-4639-b7c4-b5bfa7fc7624"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="189" y="0" width="115" height="42" uuid="c7e45a52-471a-46e8-9c92-df854d43a872"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<reportElement x="178" y="47" width="126" height="42" uuid="c7e45a52-471a-46e8-9c92-df854d43a872"/>
+				<textElement verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Sale:]]></text>
 			</staticText>
+			<subreport>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="2" y="0" width="550" height="40" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="a6d0497d-b821-4cb3-aad3-123b8ed9b60b"/>
+				<subreportParameter name="PARA_TDATE">
+					<subreportParameterExpression><![CDATA[$P{PARA_TDATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_FDATE">
+					<subreportParameterExpression><![CDATA[$P{PARA_FDATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Rpt_SalesSummary_sub2.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</summary>
 </jasperReport>

@@ -148,7 +148,7 @@ public class Frm_Login extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 40, 40));
-        jPanel1.add(lbl_ComLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 170, 130));
+        jPanel1.add(lbl_ComLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 260, 130));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 340));
 

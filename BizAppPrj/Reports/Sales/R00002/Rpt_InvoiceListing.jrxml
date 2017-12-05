@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SalesSumary" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="d6eb293a-b621-4818-b20f-7cf5fe9cd248">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="51"/>
 	<property name="ireport.y" value="336"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<parameter name="PARA_TITLE" class="java.lang.String"/>
@@ -119,21 +119,21 @@ WHERE s.ISACTIVE=1 AND s.TRNSTATE='P' AND s.TRNTYPE='INV'  AND s.M_LOCATION_SOUR
 				<text><![CDATA[Date Period :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="56" y="44" width="61" height="24" uuid="06e00b9a-5d3c-49e1-aceb-43032b685ec1"/>
+				<reportElement x="56" y="44" width="84" height="24" uuid="06e00b9a-5d3c-49e1-aceb-43032b685ec1"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARA_FDATE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="118" y="44" width="21" height="24" uuid="5e0fb384-efd4-41fa-905d-7b49990121cd"/>
+				<reportElement x="144" y="44" width="21" height="24" uuid="5e0fb384-efd4-41fa-905d-7b49990121cd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[To]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="140" y="44" width="100" height="24" uuid="f65306ab-e3ce-4f62-abc3-49050e3b0690"/>
+				<reportElement x="167" y="44" width="100" height="24" uuid="f65306ab-e3ce-4f62-abc3-49050e3b0690"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>

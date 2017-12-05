@@ -11,6 +11,7 @@ import CONTROLLERS.C_GroupCommon;
 import CONTROLLERS.C_Locations;
 import CONTROLLERS.C_ReportSetup;
 import CONTROLLERS.C_Suppliers;
+import DB_ACCESS.DB;
 import MAIN.Frm_Main;
 import MODELS.MCustomer;
 import MODELS.MGroupCommon;
@@ -25,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.io.File;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -220,6 +222,11 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/1480175721_Find01.png"))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         layout_CusSup.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 30, 30));
 
         jPanel1.add(layout_CusSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 460, 80));
@@ -454,6 +461,10 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         setGroupPanelEnable();
     }//GEN-LAST:event_chkAllGroupsMouseReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        SearchModeSup();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton but_Grp_Back;
@@ -508,7 +519,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         txt_DateT.setDate(new Date());
 
         JComponent[] v_f = {txt_DateF, txt_DateT};
-        JComponent[] h_f = {lbl_GrpCode, layout_Group, layout_CusSup, cmb_Qut,layout_Period};
+        JComponent[] h_f = {lbl_GrpCode, layout_Group, layout_CusSup, cmb_Qut, layout_Period};
 
         setVisibleHideComponents(v_f, h_f);
 
@@ -571,7 +582,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
             layout_CusSup.setBorder(new TitledBorder("Supplier"));
         }
         if (mRpt.getEn_Cus() == 1) {
-               layout_CusSup.setEnabled(true);
+            layout_CusSup.setEnabled(true);
             layout_CusSup.setVisible(true);
             lbl_FName.setText("");
             lbl_LNAME.setText("");
@@ -603,6 +614,18 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         actionMap4.put(Refresh, new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 Refresh();
+            }
+
+        }
+        );
+
+        String SupSearch = "SupSearch";
+        InputMap inputMap5 = txt_Id.getInputMap(JComponent.WHEN_FOCUSED);
+        inputMap5.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), SupSearch);
+        ActionMap actionMap5 = txt_Id.getActionMap();
+        actionMap5.put(SupSearch, new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+               SearchModeSup();
             }
 
         }
@@ -663,7 +686,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                             c_rptSet.rpt_RunStockBalance(Loc.getId());
                         }
 
-                       para.put("PARA_LOC", "" + Loc.getId());
+                        para.put("PARA_LOC", "" + Loc.getId());
                     } else {
                         throw new Exception("Invalid Location");
                     }
@@ -725,26 +748,26 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                     if (txt_Id.getText().length() > 0) {
                         MSupplier supplier = cSup.getSupplier(txt_Id.getText());
                         if (supplier != null) {
-                            para.put("PARA_SUP", " s.ID='"+supplier.getId()+"' ");
+                            para.put("PARA_SUP", " s.ID='" + supplier.getId() + "' ");
                         } else {
                             throw new Exception("Cannot find Supplier");
                         }
 
-                    }else{
-                          para.put("PARA_SUP", " s.ID LIKE '%%' ");
+                    } else {
+                        para.put("PARA_SUP", " s.ID LIKE '%%' ");
                     }
                 }
                 if (mRpt.getEn_Cus() == 1) {
                     if (txt_Id.getText().length() > 0) {
                         MCustomer c = cCus.getCustomer(txt_Id.getText());
                         if (c != null) {
-                            para.put("PARA_CUS", " c.ID='"+c.getId()+"' ");
+                            para.put("PARA_CUS", " c.ID='" + c.getId() + "' ");
                         } else {
                             throw new Exception("Cannot find Customer");
                         }
 
-                    }else{
-                          para.put("PARA_CUS", " c.ID LIKE '%%' ");
+                    } else {
+                        para.put("PARA_CUS", " c.ID LIKE '%%' ");
                     }
                 }
 
@@ -945,8 +968,37 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
     }
 
+    public void SearchModeSup() {
+
+        if (mRpt.getEn_Sup() == 1) {
+            Vector<String> col = new Vector<>();
+            col.add("Code");
+            col.add("Des");
+
+            String[] SQL_Col = {"ID", "NAME"};
+            String SQL = "select ID,NAME from m_supplier  ";
+            String SQLWhere = "  ACTIVE=1 AND  ";
+            Connection currentCon = null;
+            try {
+                currentCon = DB.getCurrentCon();
+            } catch (Exception ex) {
+                Logger.getLogger(Frm_MSupplier.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (ft == null) {
+
+                ft = new Frm_Table(txt_Id, currentCon, col, SQL_Col, SQL, SQLWhere);
+                ft.setVisible(true);
+
+            } else {
+                ft = null;
+                ft = new Frm_Table(txt_Id, currentCon, col, SQL_Col, SQL, SQLWhere);
+                ft.setFocusable(true);
+                ft.setVisible(true);
+            }
+        }
+    }
+
     private void Rpt_ExportExcel() {
-         
-    
+
     }
 }

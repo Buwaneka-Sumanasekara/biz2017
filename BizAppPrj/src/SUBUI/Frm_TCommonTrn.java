@@ -217,6 +217,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         txt_LProDes = new javax.swing.JLabel();
         lbl_IsLoad = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        txtImgPath = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -753,11 +754,19 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         txt_LProDes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txt_LProDes.setForeground(new java.awt.Color(0, 51, 204));
         txt_LProDes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255), 0));
+        txt_LProDes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_LProDesMouseClicked(evt);
+            }
+        });
         jPanel1.add(txt_LProDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 220, 40));
 
         lbl_IsLoad.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(lbl_IsLoad, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 600, 20, 20));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 630, 300, 10));
+
+        txtImgPath.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtImgPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 180, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 640));
 
@@ -1026,6 +1035,14 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         clearLine();
     }//GEN-LAST:event_but_LineClearActionPerformed
 
+    private void txt_LProDesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_LProDesMouseClicked
+    
+        if(evt.getClickCount()==2){
+        ProductImageLoad(); 
+        }
+        
+    }//GEN-LAST:event_txt_LProDesMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton but_Add;
@@ -1078,6 +1095,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     private javax.swing.JLabel lbl_Sup;
     private javax.swing.JLabel lbl_TrnNo;
     private javax.swing.JTable tblTrn;
+    private javax.swing.JLabel txtImgPath;
     private com.toedter.calendar.JDateChooser txt_DateSelector;
     private javax.swing.JLabel txt_FAmount;
     private javax.swing.JTextField txt_FNetDis;
@@ -2008,7 +2026,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 txt_LDisAmt.setText(ProDisAmt);
                 txt_LAmt.setText(ProAmt);
                 txt_LBatch.setText(Batch);
-                setProductIcon(product.getProImg());
+                txtImgPath.setText(product.getProImg());
                 lbl_IsLoad.setText("1");
                 txt_LQty.grabFocus();
             } catch (Exception ex) {
@@ -2072,6 +2090,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         lbl_Line_ProImg.setIcon(null);
         lbl_IsLoad.setText("");
         lbl_RefTrnNo.setText("");
+        txtImgPath.setText("");
     }
 
     private boolean doAddLineValidation() throws Exception {
@@ -2173,7 +2192,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                             txt_LQty.grabFocus();
                         }
 
-                        setProductIcon(product.getProImg());
+                        txtImgPath.setText(product.getProImg());
+                        //setProductIcon(product.getProImg());
                         //setProductIcon(product.getId());
 
                     } else {
@@ -2197,6 +2217,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         }
     }
 
+    private void ProductImageLoad(){
+        
+        setProductIcon(txtImgPath.getText());
+    }
+    
     private void CalculateTotal() {
 
         DefaultTableModel dtm = (DefaultTableModel) tblTrn.getModel();
