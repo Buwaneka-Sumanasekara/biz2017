@@ -174,7 +174,7 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void but_ChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ChooseActionPerformed
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("XLS files", "xls");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("XLS files", "xlsx");
         jFileChooser1.setFileFilter(filter);
         int returnval = jFileChooser1.showOpenDialog(this);
         if (returnval == JFileChooser.APPROVE_OPTION) {

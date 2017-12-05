@@ -64,13 +64,13 @@ public class ExcelUploader {
 
                 if (row.getCell(0) != null) {
 
-                    String G1_Code = row.getCell(0).getStringCellValue();
-                    String G2_Code = row.getCell(2).getStringCellValue();
-                    String G3_Code = row.getCell(4).getStringCellValue();
-                    String G4_Code = "G4"+row.getCell(6).getStringCellValue().substring(2);
+                    String G1_Code = row.getCell(0).getStringCellValue().toUpperCase();
+                    String G2_Code = row.getCell(2).getStringCellValue().toUpperCase();
+                    String G3_Code = row.getCell(4).getStringCellValue().toUpperCase();
+                    String G4_Code = "G4"+row.getCell(6).getStringCellValue().substring(2).toUpperCase();
 
 
-                    String G5_Code = "G5"+row.getCell(8).getStringCellValue().substring(2);
+                    String G5_Code = "G5"+row.getCell(8).getStringCellValue().substring(2).toUpperCase();
                     
                     
                    // System.out.println(rowIndex+"- "+row.getCell(9).getCellType());
@@ -89,13 +89,13 @@ public class ExcelUploader {
 
                     double Sell = row.getCell(12).getNumericCellValue();
 
-                    double margine = new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue();
+                    double margine = (Cost==0.0?0.0:(new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue()));
                     String Ref2 = (row.getCell(15)!=null?row.getCell(15).getStringCellValue():"");
 
                     MProducts p = new MProducts();
                     p.setId("");
                     p.setName(ItemName);
-                    p.setPrintdes((ItemName.length() > 42 ? ItemName.substring(42) : ItemName));
+                    p.setPrintdes((ItemName.length() > 42 ? ItemName.substring(0,42) : ItemName));
                     p.setBatch((byte) 0);
                     p.setActive((byte) 1);
                     p.setUnitGroupId("UG001");
