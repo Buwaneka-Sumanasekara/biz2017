@@ -22,7 +22,27 @@ public class C_Payments {
     }
     
     
-    public Vector<MPaymst> getPayMst() throws Exception{
+    public MPaymst getPayMst(String id) throws Exception{
+        String q="SELECT * FROM M_PAYMST WHERE ACTIVE=1 AND ID='"+id+"'";
+        ResultSet rs = DB.Search(q);
+        MPaymst m=null;
+        if (rs.next()) {
+            m=new MPaymst();
+            m.setId(rs.getString("ID"));
+            m.setName(rs.getString("NAME"));
+            m.setHasdet(rs.getByte("HASDET"));
+            m.setRefreq(rs.getByte("REFREQ"));
+            m.setOrder(rs.getInt("SEQ_ORDER"));
+            m.setShortname(rs.getString("SHORT_NAME"));
+            m.setActive(rs.getByte("ACTIVE"));
+            m.setOverpay(rs.getByte("OVER_PAY"));
+            m.setDatef(rs.getByte("DATE_F"));
+           m.setSetdueauto(rs.getByte("SET_DUE_AUTO"));
+        }
+        return m; 
+    }
+    
+    public Vector<MPaymst> getPayMstAll() throws Exception{
         String q="SELECT * FROM M_PAYMST WHERE ACTIVE=1 ORDER BY SEQ_ORDER";
         ResultSet rs = DB.Search(q);
         Vector<MPaymst> v=new Vector<>();
@@ -37,6 +57,7 @@ public class C_Payments {
             m.setActive(rs.getByte("ACTIVE"));
             m.setOverpay(rs.getByte("OVER_PAY"));
             m.setDatef(rs.getByte("DATE_F"));
+              m.setSetdueauto(rs.getByte("SET_DUE_AUTO"));
             v.add(m);
         }
         return v;

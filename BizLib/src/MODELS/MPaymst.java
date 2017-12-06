@@ -16,6 +16,7 @@ public class MPaymst  implements java.io.Serializable {
      private Byte active;
      private Byte overpay;
      private Byte datef;
+     private Byte setdueauto;
     public MPaymst() {
     }
 
@@ -113,6 +114,14 @@ public class MPaymst  implements java.io.Serializable {
 
     public void setDatef(Byte datef) {
         this.datef = datef;
+    }
+
+    public Byte getSetdueauto() {
+        return setdueauto;
+    }
+
+    public void setSetdueauto(Byte setdueauto) {
+        this.setdueauto = setdueauto;
     }
    
     

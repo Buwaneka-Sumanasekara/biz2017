@@ -182,7 +182,7 @@ public class C_Products {
         Mstk.put("COSTP", "" + Cost);
         Mstk.put("SELLP", "" + Sell);
         
-        double markup=new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue();;
+        double markup=(Cost==0?0:new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue());
         Mstk.put("MARKUP", "" + markup);
         Mstk.put("CRDATE", "NOW()");
         Mstk.put("M_UNITS_ID", "strf_getMaxUnit('" + unitgrp + "')");
@@ -190,7 +190,7 @@ public class C_Products {
         Mstk.put("ACTIVE", "" + 1 + "");
 
         if (IsBatchExists(ProId, Loc.getId().toString(), Batch) == false) {
-            Mstk.put("MARKUP", "" + 0.0);
+           // Mstk.put("MARKUP", "" + 0.0);
             DB.Save(qg.SaveRecord("M_STOCKS", Mstk));
         } else {
             Mstk.put("SIH", "SIH+(strf_ConvMaxUnit('" + unitgrp + "','" + unitid + "'," + Qty + ")*" + stkentrytyp + ")");
@@ -227,7 +227,7 @@ public class C_Products {
         Mstk.put("SELLP", "" + Sell);
         
         
-         double markup=new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue();;
+         double markup=(Cost==0?0:new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue());
         Mstk.put("MARKUP", "" + markup);
         
         Mstk.put("CRDATE", "NOW()");

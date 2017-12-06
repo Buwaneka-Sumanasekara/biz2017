@@ -81,21 +81,21 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
     @Override
     public void dispose() {
-        
+
         super.dispose(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void setVisible(boolean b) {
         super.setVisible(b); //To change body of generated methods, choose Tools | Templates.
-      txt_Amount.grabFocus();
+        txt_Amount.grabFocus();
     }
 
     public static String getPaymentScreen(Frm_Main parent, Frm_TCommonTrn parent_trn, boolean modal, UTransactions TrnSetup, TStockmst Hed, ArrayList<TStockline> Det) {
         Frm_TCommonTrnPayments frm = new Frm_TCommonTrnPayments(parent, parent_trn, modal, TrnSetup, Hed, Det);
         frm.setVisible(true);
         frm.setFocusable(true);
-         
+
         return TrnNo;
     }
 
@@ -141,9 +141,15 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         txt_Amount = new javax.swing.JTextField();
         txt_RefNo = new javax.swing.JTextField();
         txt_DateF = new com.toedter.calendar.JDateChooser();
+        lbl_Global_Instructions = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layout_ButPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -425,6 +431,14 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         jPanel3.add(cmb_PayHed, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 380, 50));
 
         txt_Amount.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_Amount.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_AmountFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_AmountFocusLost(evt);
+            }
+        });
         txt_Amount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_AmountActionPerformed(evt);
@@ -447,9 +461,14 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 480));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 550));
+        lbl_Global_Instructions.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lbl_Global_Instructions.setForeground(new java.awt.Color(204, 0, 0));
+        lbl_Global_Instructions.setText("[  F4: Refresh/Clear Payment ]   [  F5: SAVE /Bill Close ]   [ F10 : Clear Amount ]");
+        jPanel1.add(lbl_Global_Instructions, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 780, 20));
 
-        setSize(new java.awt.Dimension(835, 517));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 520));
+
+        setSize(new java.awt.Dimension(835, 560));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -472,16 +491,14 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     }//GEN-LAST:event_but_addActionPerformed
 
     private void but_BillCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_BillCloseActionPerformed
-        
-        
+
         try {
             billClose(true);
         } catch (Exception ex) {
-                JOptionPane.showMessageDialog(Parent_Trn, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(Parent_Trn, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_but_BillCloseActionPerformed
 
     private void cmb_PayDetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_PayDetActionPerformed
@@ -526,7 +543,9 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     }//GEN-LAST:event_txt_AmountActionPerformed
 
     private void txt_RefNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_RefNoActionPerformed
-        txt_Amount.grabFocus();        // TODO add your handling code here:
+        GrabDue();
+        txt_Amount.grabFocus();
+
     }//GEN-LAST:event_txt_RefNoActionPerformed
 
     private void but_ClearAmontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ClearAmontActionPerformed
@@ -569,6 +588,19 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     private void but_ClearPaymentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ClearPaymentsActionPerformed
         RefreshScreen();        // TODO add your handling code here:
     }//GEN-LAST:event_but_ClearPaymentsActionPerformed
+
+    private void txt_AmountFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_AmountFocusGained
+        txt_Amount.setBackground(Color.YELLOW);
+    }//GEN-LAST:event_txt_AmountFocusGained
+
+    private void txt_AmountFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_AmountFocusLost
+        txt_Amount.setBackground(Color.WHITE);
+    }//GEN-LAST:event_txt_AmountFocusLost
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        GrabDue();
+        txt_Amount.grabFocus();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -639,6 +671,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel layout_ButPanel;
     private javax.swing.JLabel lbl_Balance;
+    private javax.swing.JLabel lbl_Global_Instructions;
     private javax.swing.JLabel lbl_Payment;
     private javax.swing.JLabel lbl_ToPay;
     private javax.swing.JLabel lbl_due;
@@ -649,6 +682,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     public void exit() {
+        TrnNo = "";
         this.dispose();
     }
 
@@ -676,6 +710,36 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
         }
         );
+
+        String ClearAmt = "ClearAmt";
+        InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F10, 0), ClearAmt);
+        ActionMap actionMap2 = f.getRootPane().getActionMap();
+        actionMap2.put(ClearAmt, new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                txt_Amount.setText("");
+                txt_Amount.grabFocus();
+            }
+
+        }
+        );
+
+        String BillClose = "BillClose";
+        InputMap inputMap3 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap3.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), BillClose);
+        ActionMap actionMap3 = f.getRootPane().getActionMap();
+        actionMap3.put(BillClose, new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    billClose(true);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(Parent_Trn, ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        }
+        );
+
     }
 
     private void createLayout() {
@@ -684,9 +748,9 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             //  layout_ButPanel.setBackground(new Color(0, 0, 0, 64));
             tblPayment.setDefaultRenderer(Object.class, new TblPayment());
             tblPayment.setTableHeader(null);
-          tblPayment.setBackground(new Color(255, 255, 255));
-          jScrollPane1.getViewport().setBackground(new Color(255, 255, 255));
-          txt_Amount.grabFocus();
+            tblPayment.setBackground(new Color(255, 255, 255));
+            jScrollPane1.getViewport().setBackground(new Color(255, 255, 255));
+            txt_Amount.grabFocus();
 
         } catch (Exception ex) {
             Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
@@ -711,7 +775,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             txt_RefNo.setVisible(false);
             DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
             dtm.setRowCount(0);
-            cmb_PayHed.setModel(new DefaultComboBoxModel(C_Payment.getPayMst()));
+            cmb_PayHed.setModel(new DefaultComboBoxModel(C_Payment.getPayMstAll()));
             clearPaymentBox();
             txt_Amount.grabFocus();
         } catch (Exception ex) {
@@ -828,7 +892,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             txt_RefNo.setVisible(false);
             txt_DateF.setVisible(false);
             txt_DateF.setDate(new Date());
-            cmb_PayHed.setModel(new DefaultComboBoxModel(C_Payment.getPayMst()));
+            cmb_PayHed.setModel(new DefaultComboBoxModel(C_Payment.getPayMstAll()));
             loadSubPayModes();
             txt_RefNo.setText("");
             txt_Amount.setText("");
@@ -896,7 +960,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                 try {
                     TrnNo = saveData();
                     Parent_Trn.Refresh();
-                    JOptionPane.showMessageDialog(rootPane, "Save " + TrnSetup.getTrndesc() + " Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
+                    // JOptionPane.showMessageDialog(rootPane, "Save " + TrnSetup.getTrndesc() + " Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
 
                     this.dispose();
                 } catch (Exception ex) {
@@ -985,4 +1049,18 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         txt_Amount.setText(txt_Amount.getText() + val);
 
     }
+
+    private void GrabDue() {
+        MPaymst selectedItem = (MPaymst) cmb_PayHed.getSelectedItem();
+        if (selectedItem != null) {
+            if (selectedItem.getSetdueauto() == 1) {
+                try {
+                    txt_Amount.setText("" + cf.parseValueWithComma(lbl_due.getText()).doubleValue());
+                } catch (ParseException ex) {
+
+                }
+            }
+        }
+    }
+
 }

@@ -71,162 +71,7 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         ArrayList<Structure> arStructures = new ArrayList<>();
 
-        ArrayList<TblColumn> ar_20161002_t1 = new ArrayList<>();
-        ar_20161002_t1.add(new TblColumn("MARKUP", "DOUBLE", "NOT NULL DEFAULT 0"));
-        Structure str_20161002_t1 = new Structure(20161002, "M_STOCKS", ar_20161002_t1);
-        arStructures.add(str_20161002_t1);
-
-        /*20170226*/
-        ArrayList<TblColumn> ar_20170226_t1 = new ArrayList<>();
-        ar_20170226_t1.add(new TblColumn("IS_POSTRN", "INT", "NOT NULL DEFAULT 0"));
-        ar_20170226_t1.add(new TblColumn("DISPLAY_UNIT", "INT", "NOT NULL DEFAULT 1"));
-        Structure str_20170226_t1 = new Structure(20170226, "u_transactions", ar_20170226_t1);
-        arStructures.add(str_20170226_t1);
-
-        /*20170305*/
-        ArrayList<TblColumn> ar_20170305_t0 = new ArrayList<>();
-        ar_20170305_t0.add(new TblColumn("GRP_ID", "VARCHAR(50)", "NOT NULL"));
-        ar_20170305_t0.add(new TblColumn("GRP_NAME", "VARCHAR(100)", "NOT NULL"));
-        ar_20170305_t0.add(new TblColumn("GRP_STARTNO", "VARCHAR(100)", "NOT NULL"));
-        ar_20170305_t0.add(new TblColumn("GRP_ENDNO", "VARCHAR(100)", "NOT NULL"));
-        ar_20170305_t0.add(new TblColumn("GRP_QTY", "INT", "NOT NULL DEFAULT 0"));
-        ar_20170305_t0.add(new TblColumn("GRP_ACTIVE", "INT", "NOT NULL DEFAULT 0"));
-
-        ArrayList<String> ar_20170305_t0PK = new ArrayList<>();
-        ar_20170305_t0PK.add("GRP_ID");
-
-        Structure str_20170305_t0 = new Structure(20170305, "M_GIFTVOUCHER_GROUP", ar_20170305_t0, ar_20170305_t0PK);
-        arStructures.add(str_20170305_t0);
-
-        ArrayList<TblColumn> ar_20170305_t1 = new ArrayList<>();
-        ar_20170305_t1.add(new TblColumn("GRP_ID", "VARCHAR(50)", "NOT NULL"));
-        ar_20170305_t1.add(new TblColumn("GV_NO", "VARCHAR(100)", "NOT NULL"));
-        ar_20170305_t1.add(new TblColumn("VALUE", "DOUBLE", "NOT NULL DEFAULT 0"));
-        ar_20170305_t1.add(new TblColumn("CR_LOC", "INT", "NOT NULL"));
-        ar_20170305_t1.add(new TblColumn("CR_BY", "VARCHAR(50)", "NOT NULL"));
-        ar_20170305_t1.add(new TblColumn("CR_DATE", "DATETIME", ""));
-        ar_20170305_t1.add(new TblColumn("PUR_LOC", "INT", ""));
-        ar_20170305_t1.add(new TblColumn("PUR_DATE", "DATETIME", ""));
-        ar_20170305_t1.add(new TblColumn("PUR_CRBY", "VARCHAR(50)", ""));
-        ar_20170305_t1.add(new TblColumn("PUR_REFNO", "VARCHAR(100)", ""));
-        ar_20170305_t1.add(new TblColumn("ACTIVE", "INT", "NOT NULL DEFAULT 0"));
-        ar_20170305_t1.add(new TblColumn("ISPUR", "INT", "NOT NULL DEFAULT 0"));
-        ar_20170305_t1.add(new TblColumn("GV_DES", "VARCHAR(100)", ""));
-
-        ArrayList<String> ar_20170305_t1PK = new ArrayList<>();
-        // ar_20170305_t1PK.add("GRP_ID");
-        ar_20170305_t1PK.add("GV_NO");
-
-        Structure str_20170305_t1 = new Structure(20170305, "M_GIFTVOUCHER", ar_20170305_t1, ar_20170305_t1PK);
-        arStructures.add(str_20170305_t1);
-
-        ArrayList<TblColumn> ar_20170305_t2 = new ArrayList<>();
-        ar_20170305_t2.add(new TblColumn("NO", "INT", "NOT NULL"));
-        ar_20170305_t2.add(new TblColumn("GV_NO", "VARCHAR(100)", "NOT NULL"));
-        ar_20170305_t2.add(new TblColumn("RED_VAL", "DOUBLE", "NOT NULL DEFAULT 0"));
-        ar_20170305_t2.add(new TblColumn("RED_LOC", "INT", "NOT NULL"));
-        ar_20170305_t2.add(new TblColumn("RED_CRBY", "VARCHAR(50)", "NOT NULL"));
-        ar_20170305_t2.add(new TblColumn("RED_REFNO", "VARCHAR(100)", "NOT NULL"));
-
-        ArrayList<String> ar_20170305_t2PK = new ArrayList<>();
-        ar_20170305_t2PK.add("NO");
-        ar_20170305_t2PK.add("GV_NO");
-
-        Structure str_20170305_t2 = new Structure(20170305, "T_GVREDEEM", ar_20170305_t2, ar_20170305_t2PK);
-        arStructures.add(str_20170305_t2);
-
-        String q_20171101_t1 = "ALTER TABLE m_user DROP COLUMN LOCID";
-        Structure str_20171101_t1 = new Structure(20171101, q_20171101_t1);
-        arStructures.add(str_20171101_t1);
-
-        ArrayList<TblColumn> ar_20171102_t1 = new ArrayList<>();
-        ar_20171102_t1.add(new TblColumn("PREV_REP", "INT", "NOT NULL DEFAULT 1"));
-        ar_20171102_t1.add(new TblColumn("CANCEL_OPT", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171102_t1.add(new TblColumn("CANCEL_DAYS_WITH", "INT", "NOT NULL DEFAULT 1"));
-
-        ArrayList<String> ar_20171102_t1PK = new ArrayList<>();
-        ar_20170305_t2PK.add("TRNNO");
-        ar_20170305_t2PK.add("TRNTYPE");
-
-        Structure str_20171102_t2 = new Structure(20171102, "u_transactions", ar_20171102_t1, ar_20171102_t1PK);
-        arStructures.add(str_20171102_t2);
-
-        ArrayList<TblColumn> ar_20171106_t1 = new ArrayList<>();
-        ar_20171106_t1.add(new TblColumn("ORD", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171106_t1.add(new TblColumn("TREE_ICON", "VARCHAR(100)", "NOT NULL DEFAULT ''"));
-
-        ArrayList<String> ar_20171106_t1PK = new ArrayList<>();
-        ar_20171106_t1PK.add("ID");
-        ar_20171106_t1PK.add("PARENTID");
-
-        Structure str_20171106_t1 = new Structure(20171106, "m_permissions", ar_20171106_t1, ar_20171106_t1PK);
-        arStructures.add(str_20171106_t1);
-
-        ArrayList<TblColumn> ar_20171106_t2 = new ArrayList<>();
-        ar_20171106_t2.add(new TblColumn("LOCID", "INT", "NOT NULL "));
-        ar_20171106_t2.add(new TblColumn("PROID", "VARCHAR(50)", "NOT NULL "));
-        ar_20171106_t2.add(new TblColumn("BATCHID", "VARCHAR(50)", "NOT NULL "));
-        ar_20171106_t2.add(new TblColumn("SERIALID", "VARCHAR(100)", "NOT NULL "));
-        ar_20171106_t2.add(new TblColumn("PRONAME", "VARCHAR(100)", "NOT NULL "));
-        ar_20171106_t2.add(new TblColumn("COSTP", "DOUBLE", "NOT NULL "));
-        ar_20171106_t2.add(new TblColumn("SELLP", "DOUBLE", "NOT NULL "));
-
-        ArrayList<String> ar_20171106_t2PK = new ArrayList<>();
-        ar_20171106_t2PK.add("LOCID");
-        ar_20171106_t2PK.add("PROID");
-        ar_20171106_t2PK.add("BATCHID");
-
-        Structure str_20171106_t2 = new Structure(20171106, "R_PRICE_TAGS", ar_20171106_t2, ar_20171106_t2PK);
-        arStructures.add(str_20171106_t2);
-
-        //2017/11/07
-        ArrayList<TblColumn> ar_20171107_t1 = new ArrayList<>();
-        ar_20171107_t1.add(new TblColumn("RPT_ID", "VARCHAR(50)", "NOT NULL "));
-        ar_20171107_t1.add(new TblColumn("RPT_NAME", "VARCHAR(100)", "NOT NULL "));
-        ar_20171107_t1.add(new TblColumn("RPT_PATH", "VARCHAR(200)", "NOT NULL "));
-        ar_20171107_t1.add(new TblColumn("RPT_EN_LOC", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171107_t1.add(new TblColumn("RPT_EN_CUS", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171107_t1.add(new TblColumn("RPT_EN_SUP", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171107_t1.add(new TblColumn("RPT_EN_DATE_RANGE", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171107_t1.add(new TblColumn("RPT_EN_DATE_AS_AT", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171107_t1.add(new TblColumn("RPT_EN_DATE_QUATER", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171107_t1.add(new TblColumn("RPT_EN_GRP", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171107_t1.add(new TblColumn("RPT_SUBREPORT_PATH", "VARCHAR(200)", "NOT NULL DEFAULT ''"));
-
-        ArrayList<String> ar_20171107_t1PK = new ArrayList<>();
-        ar_20171107_t1PK.add("RPT_ID");
-
-        Structure str_20171107_t1 = new Structure(20171107, "U_REPORTS", ar_20171107_t1, ar_20171107_t1PK);
-        arStructures.add(str_20171107_t1);
-
-        ArrayList<String> q_20171107_t2 = new ArrayList<>();
-        q_20171107_t2.add(" DECLARE UNIT_NAME VARCHAR(100) DEFAULT '' ");
-        q_20171107_t2.add(" SELECT u.NAME INTO UNIT_NAME FROM m_units u where u.ID=unit_id ");
-        q_20171107_t2.add(" RETURN UNIT_NAME  ");
-        Structure str_20171107_t2 = new Structure(20171107, TableStruCreation.STR_FUN, " strf_getUnitName ", " unit_id VARCHAR(100) ", q_20171107_t2, " varchar(100) ");
-        arStructures.add(str_20171107_t2);
-
-        ArrayList<TblColumn> ar_20171108_t1 = new ArrayList<>();
-        ar_20171108_t1.add(new TblColumn("RPT_ACTIVE", "INT", "NOT NULL DEFAULT 1"));
-
-        ArrayList<String> ar_20171108_t1PK = new ArrayList<>();
-        ar_20171108_t1PK.add("RPT_ID");
-
-        Structure str_20171108_t1 = new Structure(20171108, "U_REPORTS", ar_20171108_t1, ar_20171108_t1PK);
-        arStructures.add(str_20171108_t1);
-
-        ArrayList<TblColumn> ar_20171108_t2 = new ArrayList<>();
-        ar_20171108_t2.add(new TblColumn("SUP_PROD_ONLY", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171108_t2.add(new TblColumn("CHANGE_SPRICE", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171108_t2.add(new TblColumn("HOLD_ONLY", "INT", "NOT NULL DEFAULT 0"));
-        ar_20171108_t2.add(new TblColumn("RETURN_REQ_REF", "INT", "NOT NULL DEFAULT 0"));
-
-        ArrayList<String> ar_20171108_t2PK = new ArrayList<>();
-        ar_20171108_t1PK.add("TRNNO");
-        ar_20171108_t1PK.add("TRNTYPE");
-
-        Structure str_20171108_t2 = new Structure(20171108, "u_transactions", ar_20171108_t2, ar_20171108_t2PK);
-        arStructures.add(str_20171108_t2);
+      
 
         ArrayList<String> q_20171114_t1 = new ArrayList<>();
         q_20171114_t1.add(" DECLARE UNIT_VOL DOUBLE DEFAULT '0' ");
@@ -258,23 +103,6 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20171114_t4 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_getUnitSym ", " unit_id VARCHAR(100) ", q_20171114_t4, " VARCHAR(100) ");
         arStructures.add(str_20171114_t4);
 
-        ArrayList<TblColumn> ar_20171114_t6 = new ArrayList<>();
-
-        ar_20171114_t6.add(new TblColumn("M_PRODUCTS_ID", "VARCHAR(50)", "NOT NULL"));
-        ar_20171114_t6.add(new TblColumn("PRONAME", "VARCHAR(200)", "NOT NULL"));
-        ar_20171114_t6.add(new TblColumn("SIH", "DOUBLE", "NOT NULL"));
-        ar_20171114_t6.add(new TblColumn("UNIT_ID", "VARCHAR(50)", "NOT NULL"));
-        ar_20171114_t6.add(new TblColumn("UNIT_SYM", "VARCHAR(50)", "NOT NULL"));
-        ar_20171114_t6.add(new TblColumn("BATCHNO", "VARCHAR(50)", "NOT NULL"));
-        ar_20171114_t6.add(new TblColumn("M_LOCATION_ID", "INT", "NOT NULL"));
-
-        ArrayList<String> ar_20171114_t6PK = new ArrayList<>();
-        ar_20171114_t6PK.add("M_PRODUCTS_ID");
-        ar_20171114_t6PK.add("BATCHNO");
-        ar_20171114_t6PK.add("M_LOCATION_ID");
-
-        Structure str_20171114_t6 = new Structure(20171114, "M_STOCKS_TEM", ar_20171114_t6, ar_20171114_t6PK);
-        arStructures.add(str_20171114_t6);
 
         ArrayList<String> q_20171114_t5 = new ArrayList<>();
         q_20171114_t5.add(" TRUNCATE TABLE  M_STOCKS_TEM ");
@@ -312,20 +140,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20171114_t7 = new Structure(20171114, TableStruCreation.STR_PROC, " strp_UpdateStockBalance ", " loc_code INT ", q_20171114_t7);
         arStructures.add(str_20171114_t7);
 
-        ArrayList<TblColumn> ar_20171114_t8 = new ArrayList<>();
-        ar_20171114_t8.add(new TblColumn("PRO_IMG", "VARCHAR(100)", "DEFAULT ''"));
-        ArrayList<String> ar_20171114_t8PK = new ArrayList<>();
-        ar_20171114_t8PK.add("ID");
-        Structure str_20171114_t8 = new Structure(20171114, "m_products", ar_20171114_t8, ar_20171114_t8PK);
-        arStructures.add(str_20171114_t8);
-
-        ArrayList<TblColumn> ar_20171114_t9 = new ArrayList<>();
-        ar_20171114_t9.add(new TblColumn("REF_TRN", "VARCHAR(100)", "DEFAULT ''"));
-        ArrayList<String> ar_20171114_t9PK = new ArrayList<>();
-        ar_20171114_t9PK.add("T_STOCKMST_ID");
-        ar_20171114_t9PK.add("LINEID");
-        Structure str_20171114_t9 = new Structure(20171114, "t_stockline", ar_20171114_t9, ar_20171114_t9PK);
-        arStructures.add(str_20171114_t9);
+       
 
         ArrayList<String> q_20171114_t10 = new ArrayList<>();
         q_20171114_t10.add(" DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0' ");
@@ -349,7 +164,16 @@ public final class Frm_Start extends javax.swing.JDialog {
         arStructures.add(str_20171204_t1);
         
         
-
+        ArrayList<TblColumn> ar_20171206_t1 = new ArrayList<>();
+        ar_20171206_t1.add(new TblColumn("SET_DUE_AUTO", "TINYINT", "DEFAULT '0'"));
+        ArrayList<String> ar_20171206_t1PK = new ArrayList<>();
+        ar_20171206_t1PK.add("ID");
+        Structure str_20171206_t1 = new Structure(20171206, "m_paymst", ar_20171206_t1, ar_20171206_t1PK);
+        arStructures.add(str_20171206_t1);
+        
+        
+        
+        
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults + 3);
 
