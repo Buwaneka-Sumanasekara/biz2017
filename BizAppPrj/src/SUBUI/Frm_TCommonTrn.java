@@ -12,6 +12,7 @@ import CONTROLLERS.C_Customers;
 import CONTROLLERS.C_GroupCommon;
 import CONTROLLERS.C_Locations;
 import CONTROLLERS.C_Products;
+import CONTROLLERS.C_SalesMan;
 import CONTROLLERS.C_Suppliers;
 import CONTROLLERS.C_TransactionCom;
 import CONTROLLERS.C_TransactionSetup;
@@ -24,6 +25,7 @@ import MODELS.MCustomer;
 import MODELS.MLocation;
 import MODELS.MPermissions;
 import MODELS.MProducts;
+import MODELS.MSalesMan;
 import MODELS.MStocks;
 import MODELS.MSupplier;
 import MODELS.MUnits;
@@ -92,6 +94,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     C_Units C_Units = null;
     C_GroupCommon c_Grp = null;
     C_TransactionCom C_TrnCom = null;
+    C_SalesMan C_Salesman = null;
     ArrayList<JComponent> FocusingOrder = null;
     ReportC C_Report = null;
 
@@ -118,6 +121,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         this.FocusingOrder = new ArrayList<JComponent>();
         this.C_Report = new ReportC();
         this.cf = new CommonFun();
+        this.C_Salesman = new C_SalesMan();
         CompileReport();
 
         setShortCutKeys(this);
@@ -174,7 +178,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         txt_DateSelector = new com.toedter.calendar.JDateChooser();
         cmb_Sup = new javax.swing.JComboBox();
         lbl_Sup = new javax.swing.JLabel();
-        lbl_Cus = new javax.swing.JLabel();
+        lbl_SA = new javax.swing.JLabel();
         cmb_Cus = new javax.swing.JComboBox();
         lbl_RefTrn = new javax.swing.JLabel();
         txt_RefTrn = new javax.swing.JTextField();
@@ -204,6 +208,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         lbl_IsReturn = new javax.swing.JLabel();
         but_LineClear = new javax.swing.JButton();
         lbl_RefTrnNo = new javax.swing.JLabel();
+        txt_SA = new javax.swing.JLabel();
+        txt_SA_COM = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTrn = new javax.swing.JTable();
         lbl_FSubTot = new javax.swing.JLabel();
@@ -218,6 +224,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         lbl_IsLoad = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         txtImgPath = new javax.swing.JLabel();
+        cmb_SA = new javax.swing.JComboBox();
+        lbl_Cus = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -377,11 +385,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         lbl_SourceLoc.setText("From");
         layout_LocationsPanel.add(lbl_SourceLoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 30, 30));
 
-        layout_LocationsPanel.add(cmb_SourceLoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 160, 30));
+        layout_LocationsPanel.add(cmb_SourceLoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 180, 30));
 
-        layout_LocationsPanel.add(cmb_DestLoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 160, 30));
+        layout_LocationsPanel.add(cmb_DestLoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 180, 30));
 
-        jPanel1.add(layout_LocationsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 60, 220, 90));
+        jPanel1.add(layout_LocationsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 60, 240, 90));
 
         lbl_DateSelector.setText("Date");
         jPanel1.add(lbl_DateSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 40, 30));
@@ -402,14 +410,15 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         lbl_Sup.setText("Supplier");
         jPanel1.add(lbl_Sup, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 80, 20));
 
-        lbl_Cus.setText("Customer");
-        jPanel1.add(lbl_Cus, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 80, 30));
+        lbl_SA.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_SA.setText("Salesman");
+        jPanel1.add(lbl_SA, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 150, 60, 30));
 
         jPanel1.add(cmb_Cus, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 280, 30));
 
         lbl_RefTrn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_RefTrn.setText("Ref Trn");
-        jPanel1.add(lbl_RefTrn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 110, 30));
+        jPanel1.add(lbl_RefTrn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 90, 30));
 
         txt_RefTrn.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -419,11 +428,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 txt_RefTrnFocusLost(evt);
             }
         });
-        jPanel1.add(txt_RefTrn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 170, 30));
+        jPanel1.add(txt_RefTrn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 130, 30));
 
         lbl_RefNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_RefNo.setText("Ref No");
-        jPanel1.add(lbl_RefNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 90, 30));
+        jPanel1.add(lbl_RefNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 90, 30));
 
         txt_RefNo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -433,11 +442,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 txt_RefNoFocusLost(evt);
             }
         });
-        jPanel1.add(txt_RefNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 170, 30));
+        jPanel1.add(txt_RefNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 120, 30));
 
         lbl_RefNo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_RefNo2.setText("Ref No2");
-        jPanel1.add(lbl_RefNo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, 90, 30));
+        jPanel1.add(lbl_RefNo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, 80, 30));
 
         txt_RefNo2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -447,7 +456,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 txt_RefNo2FocusLost(evt);
             }
         });
-        jPanel1.add(txt_RefNo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, 170, 30));
+        jPanel1.add(txt_RefNo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, 130, 30));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -589,7 +598,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         lbl_LDisPer.setText("Dis %");
         jPanel2.add(lbl_LDisPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 60, -1));
 
-        but_Add.setText("+");
+        but_Add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_14_Add_106230.png"))); // NOI18N
         but_Add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 but_AddActionPerformed(evt);
@@ -642,6 +651,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         jPanel2.add(txt_LBatch, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 90, 20));
         jPanel2.add(lbl_IsReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 20));
 
+        but_LineClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_clear-left_9220.png"))); // NOI18N
         but_LineClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 but_LineClearActionPerformed(evt);
@@ -649,6 +659,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         });
         jPanel2.add(but_LineClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 40, 40, 30));
         jPanel2.add(lbl_RefTrnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 140, 20));
+        jPanel2.add(txt_SA, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 70, 20));
+        jPanel2.add(txt_SA_COM, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 70, 20));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 860, 70));
 
@@ -657,11 +669,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
             },
             new String [] {
-                "Code", "Description", "Cost", "Sell Price", "Qty", "UnitSym", "Unit", "Dis%", "Dis Amt", "Amount", "Batch", "ColorId", "IsGV", "IsReturn", "ReturnTrnNo"
+                "Code", "Description", "Cost", "Sell Price", "Qty", "UnitSym", "Unit", "Dis%", "Dis Amt", "Amount", "Batch", "ColorId", "IsGV", "IsReturn", "ReturnTrnNo", "SA", "SA_COM"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -767,6 +779,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
         txtImgPath.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtImgPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 180, 20));
+
+        jPanel1.add(cmb_SA, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, 160, 30));
+
+        lbl_Cus.setText("Customer");
+        jPanel1.add(lbl_Cus, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 80, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 640));
 
@@ -1036,11 +1053,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }//GEN-LAST:event_but_LineClearActionPerformed
 
     private void txt_LProDesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_LProDesMouseClicked
-    
-        if(evt.getClickCount()==2){
-        ProductImageLoad(); 
+
+        if (evt.getClickCount() == 2) {
+            ProductImageLoad();
         }
-        
+
     }//GEN-LAST:event_txt_LProDesMouseClicked
 
 
@@ -1058,6 +1075,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     private javax.swing.JComboBox cmb_Cus;
     private javax.swing.JComboBox cmb_DestLoc;
     private javax.swing.JComboBox cmb_LUnit;
+    private javax.swing.JComboBox cmb_SA;
     private javax.swing.JComboBox cmb_SourceLoc;
     private javax.swing.JComboBox cmb_Sup;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -1091,6 +1109,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     private javax.swing.JLabel lbl_RefNo2;
     private javax.swing.JLabel lbl_RefTrn;
     private javax.swing.JLabel lbl_RefTrnNo;
+    private javax.swing.JLabel lbl_SA;
     private javax.swing.JLabel lbl_SourceLoc;
     private javax.swing.JLabel lbl_Sup;
     private javax.swing.JLabel lbl_TrnNo;
@@ -1112,6 +1131,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     private javax.swing.JTextField txt_RefNo;
     private javax.swing.JTextField txt_RefNo2;
     private javax.swing.JTextField txt_RefTrn;
+    private javax.swing.JLabel txt_SA;
+    private javax.swing.JLabel txt_SA_COM;
     private javax.swing.JLabel txt_State;
     private javax.swing.JTextField txt_TrnNo;
     // End of variables declaration//GEN-END:variables
@@ -1212,6 +1233,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 } else {
                     hed.setMLocationByMLocationDest(null);
                 }
+
                 hed.setEftDate(txt_DateSelector.getDate());
                 hed.setRefTrnNo(txt_RefTrn.getText());
 
@@ -1236,6 +1258,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                     String Batch = dtm.getValueAt(i, 10).toString();
                     String RefTrnNoLine = dtm.getValueAt(i, 14).toString();
 
+                    String SA = dtm.getValueAt(i, 15).toString();
+                    double SA_Com = Double.parseDouble(dtm.getValueAt(i, 15).toString());
+
                     TStockline stLine = new TStockline();
                     stLine.setTStockmst(hed);
                     stLine.setLineNo(i + 1);
@@ -1252,6 +1277,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                     stLine.setBatch(Batch);
                     stLine.setUTransactions(TrnSetup);
                     stLine.setRefTrnNo(RefTrnNoLine);
+                    stLine.setSalesMan(SA);
+                    stLine.setCommision(SA_Com);
+
                     det.add(stLine);
                 }
 
@@ -1641,7 +1669,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 cmb_Sup.setVisible(true);
             }
             if (TrnSetup.getCustomer() == 1) {
-                lbl_Cus.setVisible(true);
+                lbl_SA.setVisible(true);
                 cmb_Cus.setVisible(true);
             }
             if (TrnSetup.getSourceloc() == 1) {
@@ -1702,6 +1730,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
                 lbl_LDisAmt.setVisible(true);
                 txt_LDisAmt.setVisible(true);
+            }
+
+            if (TrnSetup.getEnSalesMan() == 1) {
+                lbl_SA.setVisible(true);
+                cmb_SA.setVisible(true);
             }
 
             switch (TrnSetup.getDefprice()) {
@@ -1778,6 +1811,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         tblTrn.getColumnModel().getColumn(IsRetTrnNoColindex).setMaxWidth(0);
         tblTrn.getColumnModel().getColumn(IsRetTrnNoColindex).setWidth(0);
 
+        int SAComColindex = 16;
+        tblTrn.getColumnModel().getColumn(SAComColindex).setMinWidth(0);
+        tblTrn.getColumnModel().getColumn(SAComColindex).setMaxWidth(0);
+        tblTrn.getColumnModel().getColumn(SAComColindex).setWidth(0);
+
         if (TrnSetup.getCprice() == 0) {
             //tblTrn.removeColumn(tblTrn.getColumnModel().getColumn(2)); 
             int colindex = 2;
@@ -1818,6 +1856,12 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             tblTrn.getColumnModel().getColumn(colindex).setMaxWidth(0);
             tblTrn.getColumnModel().getColumn(colindex).setWidth(0);
         }
+        if (TrnSetup.getEnSalesMan() == 0) {
+            int SAColindex = 15;
+            tblTrn.getColumnModel().getColumn(SAColindex).setMinWidth(0);
+            tblTrn.getColumnModel().getColumn(SAColindex).setMaxWidth(0);
+            tblTrn.getColumnModel().getColumn(SAColindex).setWidth(0);
+        }
 
         int colindex_amt = 9;
         tblTrn.getColumnModel().getColumn(colindex_amt).setCellRenderer(rightRenderer);
@@ -1826,7 +1870,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     private void hideAllComponents() {
         lbl_Sup.setVisible(false);
         cmb_Sup.setVisible(false);
-        lbl_Cus.setVisible(false);
+        lbl_SA.setVisible(false);
         cmb_Cus.setVisible(false);
         lbl_SourceLoc.setVisible(false);
         cmb_SourceLoc.setVisible(false);
@@ -1849,6 +1893,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         txt_LDisPer.setVisible(false);
         lbl_LDisAmt.setVisible(false);
         txt_LDisAmt.setVisible(false);
+
+        lbl_SA.setVisible(false);
+        cmb_SA.setVisible(false);
 
     }
 
@@ -1919,6 +1966,19 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 double GroLineAmt = fv.round(EfectPrice * fv.round((Qty / unitConversion), 3), 2);
                 double FinalLineAmount = GroLineAmt - ((GroLineAmt * LDisPer / 100) + LDisAmt);
 
+                String SA = "";
+                double SA_COM = 0.0;
+
+                if (txt_SA.getText().length() > 0) {
+                    SA = txt_SA.getText();
+                    SA_COM = Double.parseDouble(txt_SA_COM.getText());
+                } else if (TrnSetup.getEnSalesMan() == 1) {
+                    MSalesMan SAObj = (MSalesMan) cmb_SA.getSelectedItem();
+
+                    SA = SAObj.getId();
+                    SA_COM = SAObj.getComPer();
+                }
+
                 Vector v = new Vector();
                 v.add(ProCode);//0
                 v.add(Des);//1
@@ -1947,7 +2007,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
                 if (txt_TrnNo.getText().length() > 0 && isAutoLoad) {
 
-                    v.add(lbl_RefTrnNo.getText());//14(Return No)                   
+                    v.add(lbl_RefTrnNo.getText());//14(Return No)  
+                    v.add(SA);//SA
+                    v.add(SA_COM);//SA_COM
                     dtm.addRow(v);
 
                     clearLine();
@@ -1956,6 +2018,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 } else if (checkPermissions(v)) {
 
                     v.add(TrnRefNo);//14(Return No)  
+
+                    v.add(SA);//SA
+                    v.add(SA_COM);//SA_COM
 
                     if (exist_row > -1) {
                         dtm.removeRow(exist_row);
@@ -2013,6 +2078,10 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 String ProDisAmt = dtm.getValueAt(index, 8).toString();
                 String ProAmt = dtm.getValueAt(index, 9).toString();
                 String Batch = dtm.getValueAt(index, 10).toString();
+
+                String SA = dtm.getValueAt(index, 15).toString();
+                double SA_COM = Double.parseDouble(dtm.getValueAt(index, 16).toString());
+
                 txt_LItemCode.setText(ProCode);
                 txt_LProDes.setText(ProDes);
                 MProducts product = C_Pro.getProduct(ProCode);
@@ -2029,6 +2098,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 txtImgPath.setText(product.getProImg());
                 lbl_IsLoad.setText("1");
                 txt_LQty.grabFocus();
+                txt_SA.setText(SA);
+                txt_SA_COM.setText(""+SA_COM);
             } catch (Exception ex) {
                 Logger.getLogger(Frm_TCommonTrn.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2091,6 +2162,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         lbl_IsLoad.setText("");
         lbl_RefTrnNo.setText("");
         txtImgPath.setText("");
+        txt_SA.setText("");
+        txt_SA_COM.setText("");
     }
 
     private boolean doAddLineValidation() throws Exception {
@@ -2217,11 +2290,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         }
     }
 
-    private void ProductImageLoad(){
-        
+    private void ProductImageLoad() {
+
         setProductIcon(txtImgPath.getText());
     }
-    
+
     private void CalculateTotal() {
 
         DefaultTableModel dtm = (DefaultTableModel) tblTrn.getModel();

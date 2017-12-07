@@ -45,6 +45,7 @@ public class DefaultData {
         createPermissions();
         createSuperAdminPrevilages();
         createDefaultFolders();
+        createDefualtRec();
     }
 
     private void createPermissions() {
@@ -66,6 +67,7 @@ public class DefaultData {
         ar.add(new MPermissions("M00010", "M00000", "CUS", "Customer", "CUS", (byte) 0, (byte) 1, "A", 12, "customer.png"));
         ar.add(new MPermissions("M00013", "M00000", "GVCRE", "Gift Voucher Creation", "GVCRE", (byte) 0, (byte) 1, "A", 13, "gv.png"));
         ar.add(new MPermissions("M00014", "M00000", "GVSTA", "Gift Voucher Status", "GVSTA", (byte) 0, (byte) 1, "A", 14, "gv_status.png"));
+        ar.add(new MPermissions("M00015", "M00000", "SALESM", "Sales Person", "SALESM", (byte) 0, (byte) 1, "A", 14, "salesman.png"));
 
         //Transactions(101-200)
         ar.add(new MPermissions("T00000", "T00000", "TRANSACTIONS", "Transactions", "TRN", (byte) 1, (byte) 1, 101, "transaction.png"));//4
@@ -194,6 +196,14 @@ public class DefaultData {
             System.err.println("FOLDER CREATION ERROR:" + e.getMessage());
         }
 
+    }
+
+    private void createDefualtRec() {
+        try {
+            
+        } catch (Exception e) {
+        }
+    
     }
 
 }

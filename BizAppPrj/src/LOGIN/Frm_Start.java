@@ -7,21 +7,15 @@ import CONTROLLERS.C_ReportSetup;
 import CONTROLLERS.C_Setup;
 import CONTROLLERS.C_TransactionSetup;
 import GLOBALDATA.GlobalData;
-import MODELS.MProducts;
 import MODELS.RptCommon;
 import MODELS.UTransactions;
 import SETTINGS.Settings;
 import TABLE_STRUCT.TableStruCreation;
 import TABLE_STRUCT.TblColumn;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JRootPane;
 import javax.swing.UIManager;
 import net.sf.jasperreports.engine.JRException;
@@ -71,8 +65,6 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         ArrayList<Structure> arStructures = new ArrayList<>();
 
-      
-
         ArrayList<String> q_20171114_t1 = new ArrayList<>();
         q_20171114_t1.add(" DECLARE UNIT_VOL DOUBLE DEFAULT '0' ");
         q_20171114_t1.add(" select ugu.VOLUME INTO UNIT_VOL from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id  ");
@@ -102,7 +94,6 @@ public final class Frm_Start extends javax.swing.JDialog {
         q_20171114_t4.add(" RETURN UNIT_SYM  ");
         Structure str_20171114_t4 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_getUnitSym ", " unit_id VARCHAR(100) ", q_20171114_t4, " VARCHAR(100) ");
         arStructures.add(str_20171114_t4);
-
 
         ArrayList<String> q_20171114_t5 = new ArrayList<>();
         q_20171114_t5.add(" TRUNCATE TABLE  M_STOCKS_TEM ");
@@ -140,8 +131,6 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20171114_t7 = new Structure(20171114, TableStruCreation.STR_PROC, " strp_UpdateStockBalance ", " loc_code INT ", q_20171114_t7);
         arStructures.add(str_20171114_t7);
 
-       
-
         ArrayList<String> q_20171114_t10 = new ArrayList<>();
         q_20171114_t10.add(" DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0' ");
         q_20171114_t10.add(" DECLARE UNIT_VOL_MIN  DOUBLE DEFAULT '0' ");
@@ -151,7 +140,6 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20171114_t10 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_ConvMinUnit ", " unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ", q_20171114_t10, " DOUBLE ");
         arStructures.add(str_20171114_t10);
 
-        
         ArrayList<TblColumn> ar_20171204_t1 = new ArrayList<>();
         ar_20171204_t1.add(new TblColumn("ID", "INT", "NOT NULL"));
         ar_20171204_t1.add(new TblColumn("RPT_ID", "VARCHAR(50)", "NOT NULL"));
@@ -162,18 +150,52 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         Structure str_20171204_t1 = new Structure(20171204, "U_RPT_EMAILS", ar_20171204_t1, ar_20171204_t1PK);
         arStructures.add(str_20171204_t1);
-        
-        
+
         ArrayList<TblColumn> ar_20171206_t1 = new ArrayList<>();
         ar_20171206_t1.add(new TblColumn("SET_DUE_AUTO", "TINYINT", "DEFAULT '0'"));
         ArrayList<String> ar_20171206_t1PK = new ArrayList<>();
         ar_20171206_t1PK.add("ID");
         Structure str_20171206_t1 = new Structure(20171206, "m_paymst", ar_20171206_t1, ar_20171206_t1PK);
         arStructures.add(str_20171206_t1);
+
+        ArrayList<TblColumn> ar_20171206_t2 = new ArrayList<>();
+        ar_20171206_t2.add(new TblColumn("ID", "VARCHAR(50)", "NOT NULL"));
+        ar_20171206_t2.add(new TblColumn("FNAME", "VARCHAR(60)", "NOT NULL"));
+        ar_20171206_t2.add(new TblColumn("LNAME", "VARCHAR(60)", "NOT NULL"));
+        ar_20171206_t2.add(new TblColumn("IMGPATH", "VARCHAR(100)", "DEFAULT ''"));
+        ar_20171206_t2.add(new TblColumn("COMM_PER", "DOUBLE", "DEFAULT '0'"));
+        ar_20171206_t2.add(new TblColumn("ACTIVE", "TINYINT", "DEFAULT '1'"));
+        ArrayList<String> ar_20171206_t2PK = new ArrayList<>();
+        ar_20171206_t2PK.add("ID");
+        Structure str_20171206_t2 = new Structure(20171206, "m_SalesPerson", ar_20171206_t2, ar_20171206_t2PK);
+        arStructures.add(str_20171206_t2);
+
+        ArrayList<TblColumn> ar_20171206_t3 = new ArrayList<>();
+        ar_20171206_t2.add(new TblColumn("SALESMAN", "VARCHAR(50)", "DEFAULT ''"));
+        ar_20171206_t2.add(new TblColumn("SALES_COM", "DOUBLE", "DEFAULT '0'"));
+   
+        ArrayList<String> ar_20171206_t3PK = new ArrayList<>();
+        ar_20171206_t3PK.add("T_STOCKMST_ID");
+        ar_20171206_t3PK.add("TERMINAL");
+        ar_20171206_t3PK.add("TRNTYP");
+        ar_20171206_t3PK.add("LINEID");
+        ar_20171206_t3PK.add("PROID");
+        Structure str_20171206_t3 = new Structure(20171206, "t_stockline", ar_20171206_t3, ar_20171206_t3PK);
+        arStructures.add(str_20171206_t3);
         
         
+        ArrayList<TblColumn> ar_20171206_t4 = new ArrayList<>();
+        ar_20171206_t4.add(new TblColumn("EN_SALESMAN", "TINYINT", "DEFAULT '0'"));
+   
+        ArrayList<String> ar_20171206_t4PK = new ArrayList<>();
+        ar_20171206_t4PK.add("TRNNO");
+        ar_20171206_t4PK.add("TRNTYPE");
+     
+        Structure str_20171206_t4 = new Structure(20171206, "u_transactions", ar_20171206_t4, ar_20171206_t4PK);
+        arStructures.add(str_20171206_t4);
         
         
+
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults + 3);
 

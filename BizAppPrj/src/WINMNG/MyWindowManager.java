@@ -17,6 +17,7 @@ import SUBUI.Frm_MGroup;
 import SUBUI.Frm_MGroupMap;
 import SUBUI.Frm_MItems;
 import SUBUI.Frm_MLocation;
+import SUBUI.Frm_MSalesMan;
 import SUBUI.Frm_MSupplier;
 import SUBUI.Frm_MUnitGroup;
 import SUBUI.Frm_MUnits;
@@ -85,6 +86,9 @@ public class MyWindowManager {
                     break;
                 case "M00013":
                     jf = new Frm_GvCreation(fm, p.getDescription());
+                    break;
+                case "M00015":
+                    jf = new Frm_MSalesMan(fm, p.getDescription());
                     break;
                 case "S00001":
                     jf = new Frm_SUserCreation(fm, p.getDescription());

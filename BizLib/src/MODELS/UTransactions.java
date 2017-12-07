@@ -43,6 +43,8 @@ public class UTransactions  implements java.io.Serializable {
      private Byte changeSPrice;
      private Byte HoldOnly;
      private Byte ReturnReqRef;
+     private Byte enSalesMan;
+     
      
      private Set TStockmsts = new HashSet(0);
 
@@ -298,6 +300,14 @@ public class UTransactions  implements java.io.Serializable {
 
     public void setReturnReqRef(Byte ReturnReqRef) {
         this.ReturnReqRef = ReturnReqRef;
+    }
+
+    public Byte getEnSalesMan() {
+        return enSalesMan;
+    }
+
+    public void setEnSalesMan(Byte enSalesMan) {
+        this.enSalesMan = enSalesMan;
     }
 
 

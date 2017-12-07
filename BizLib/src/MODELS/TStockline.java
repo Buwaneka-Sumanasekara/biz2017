@@ -23,6 +23,8 @@ public class TStockline implements java.io.Serializable {
     private String Batch;
     private int IsGV;
    private String  RefTrnNo;
+   private String SalesMan;
+   private double commision;
     
     
     public TStockmst getTStockmst() {
@@ -151,6 +153,22 @@ public class TStockline implements java.io.Serializable {
 
     public void setRefTrnNo(String RefTrnNo) {
         this.RefTrnNo = RefTrnNo;
+    }
+
+    public String getSalesMan() {
+        return SalesMan;
+    }
+
+    public void setSalesMan(String SalesMan) {
+        this.SalesMan = SalesMan;
+    }
+
+    public double getCommision() {
+        return commision;
+    }
+
+    public void setCommision(double commision) {
+        this.commision = commision;
     }
 
 }
