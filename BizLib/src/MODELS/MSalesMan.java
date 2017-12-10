@@ -20,6 +20,16 @@ public class MSalesMan {
     public MSalesMan() {
     }
 
+    public MSalesMan(String id) {
+        this.id=id;
+    }
+    
+    public MSalesMan(String id,String name,double com) {
+        this.id=id;
+       this.ComPer=com;
+       this.FirstName=name;
+       this.LastName="";
+    }
     
     public MSalesMan(String id, String FirstName, String LastName, String ImgPath, double ComPer, int Active) {
         this.id = id;
@@ -77,6 +87,19 @@ public class MSalesMan {
     public void setComPer(double ComPer) {
         this.ComPer = ComPer;
     }
+
+    @Override
+    public String toString() {
+        return getFirstName()+" "+getLastName();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        MSalesMan e=(MSalesMan) obj;
+       return e.getId().equals(this.getId());
+    }
+    
+    
     
     
     

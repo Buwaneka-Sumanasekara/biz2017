@@ -171,8 +171,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         arStructures.add(str_20171206_t2);
 
         ArrayList<TblColumn> ar_20171206_t3 = new ArrayList<>();
-        ar_20171206_t2.add(new TblColumn("SALESMAN", "VARCHAR(50)", "DEFAULT ''"));
-        ar_20171206_t2.add(new TblColumn("SALES_COM", "DOUBLE", "DEFAULT '0'"));
+        ar_20171206_t3.add(new TblColumn("SALESMAN", "VARCHAR(50)", "DEFAULT ''"));
+        ar_20171206_t3.add(new TblColumn("SALES_COM", "DOUBLE", "DEFAULT '0'"));
    
         ArrayList<String> ar_20171206_t3PK = new ArrayList<>();
         ar_20171206_t3PK.add("T_STOCKMST_ID");

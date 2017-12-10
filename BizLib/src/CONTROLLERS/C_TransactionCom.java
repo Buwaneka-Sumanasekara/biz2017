@@ -57,9 +57,9 @@ public class C_TransactionCom {
         CVou = new C_Voucher();
     }
 
-    public String getNxtTrnNo(String TrnTyp, String LocId,String TermId) throws Exception {
+    public String getNxtTrnNo(String TrnTyp, String LocId, String TermId) throws Exception {
 
-        return cf.generateNextNo(12, (LocId.length() > 1 ? LocId : "0" + LocId)+(TermId.length() > 1 ? TermId : "0" + TermId) + sdf_trnformat.format(new Date()), "T_STOCKMST", "ID", "WHERE TRNTYPE='" + TrnTyp + "'");
+        return cf.generateNextNo(12, (LocId.length() > 1 ? LocId : "0" + LocId) + (TermId.length() > 1 ? TermId : "0" + TermId) + sdf_trnformat.format(new Date()), "T_STOCKMST", "ID", "WHERE TRNTYPE='" + TrnTyp + "'");
     }
 
     public void UpdateTransactionBatch(String MstId, String ProCode, String Batch, String TrnTyp) throws Exception {
@@ -276,7 +276,7 @@ public class C_TransactionCom {
 
                 }
             } else {
-                hed.setId(getNxtTrnNo(hed.getUTransactions().getTrntype(), "" + (hed.getMLocationByMLocationSource() != null ? hed.getMLocationByMLocationSource().getId() : 0),hed.getTerminalId()));
+                hed.setId(getNxtTrnNo(hed.getUTransactions().getTrntype(), "" + (hed.getMLocationByMLocationSource() != null ? hed.getMLocationByMLocationSource().getId() : 0), hed.getTerminalId()));
             }
 
             c = DB.getCurrentCon();
@@ -286,7 +286,7 @@ public class C_TransactionCom {
 
             hedMap.put("ID", "'" + hed.getId() + "'");
             hedMap.put("TRNTYPE", "'" + hed.getUTransactions().getTrntype() + "'");
-            hedMap.put("TERMINAL", "'"+hed.getTerminalId()+"'");
+            hedMap.put("TERMINAL", "'" + hed.getTerminalId() + "'");
             hedMap.put("FULLUTILIZE", "'" + hed.getFullutilize() + "'");
             hedMap.put("CRDATE", "'" + sdf.format(hed.getCrdate()) + "'");
             hedMap.put("M_USER_CR", "'" + hed.getMUserByMUserCr().getId() + "'");
@@ -313,7 +313,7 @@ public class C_TransactionCom {
             for (TStockline d : det) {
                 Map<String, String> detMap = new TreeMap<>();
                 detMap.put("T_STOCKMST_ID", "'" + hed.getId() + "'");
-                detMap.put("TERMINAL", "'"+hed.getTerminalId()+"'");
+                detMap.put("TERMINAL", "'" + hed.getTerminalId() + "'");
                 detMap.put("LINEID", "'" + d.getLineNo() + "'");
                 detMap.put("PROID", "'" + d.getProId() + "'");
                 detMap.put("TRNTYP", "'" + d.getUTransactions().getTrntype() + "'");
@@ -355,6 +355,9 @@ public class C_TransactionCom {
 
                 detMap.put("BATCH_NO", "'" + Batch + "'");
                 detMap.put("ISGV", "'" + d.getIsGV() + "'");
+                detMap.put("REF_TRN", "'" + d.getRefTrnNo() + "'");
+                detMap.put("SALESMAN", "'" + d.getSalesMan() + "'");
+                detMap.put("SALES_COM", "'" + d.getCommision() + "'");
 
                 String qDet = qg.SaveRecord("T_STOCKLINE", detMap);
                 DB.Save(qDet);
@@ -404,7 +407,7 @@ public class C_TransactionCom {
                     Map<String, String> payMap = new TreeMap<>();
                     payMap.put("ID", "" + pay.getId());
                     payMap.put("T_STOCKMST_ID", "'" + pay.getTStockmst().getId() + "'");
-                    payMap.put("TERMINAL", "'"+hed.getTerminalId()+"'");
+                    payMap.put("TERMINAL", "'" + hed.getTerminalId() + "'");
                     payMap.put("REFNO", "'" + pay.getRefno() + "'");
                     payMap.put("FRMAMOUNT", "'" + pay.getFrmamount() + "'");
                     payMap.put("AMOUNT", "'" + pay.getAmount() + "'");

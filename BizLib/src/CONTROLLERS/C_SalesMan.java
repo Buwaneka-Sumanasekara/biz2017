@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -73,6 +75,10 @@ public class C_SalesMan {
         String q = "SELECT * FROM m_SalesPerson WHERE ACTIVE=1 ";
         ResultSet rs = DB.Search(q);
         Vector<MSalesMan> ar = new Vector<>();
+        
+        ar.add(new MSalesMan("","", 0.0));
+        
+        
         while (rs.next()) {
             MSalesMan sm = new MSalesMan();
             sm.setId(rs.getString("ID"));
@@ -86,4 +92,15 @@ public class C_SalesMan {
         return ar;
     }
 
+    public void AddDefaultSalesMan(){
+        try {
+            if(getSalesMan("00000")==null){
+                String q="INSERT INTO m_salesperson(ID,FNAME,LNAME,COMM_PER,ACTIVE)VALUES('00000','','',0,1) ";
+            DB.Save(q);
+            }
+        } catch (Exception ex) {
+           // Logger.getLogger(C_SalesMan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

@@ -1258,8 +1258,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                     String Batch = dtm.getValueAt(i, 10).toString();
                     String RefTrnNoLine = dtm.getValueAt(i, 14).toString();
 
-                    String SA = dtm.getValueAt(i, 15).toString();
-                    double SA_Com = Double.parseDouble(dtm.getValueAt(i, 15).toString());
+                    MSalesMan SA =(MSalesMan) dtm.getValueAt(i, 15);
+                    double SA_Com = Double.parseDouble(dtm.getValueAt(i, 16).toString());
 
                     TStockline stLine = new TStockline();
                     stLine.setTStockmst(hed);
@@ -1277,7 +1277,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                     stLine.setBatch(Batch);
                     stLine.setUTransactions(TrnSetup);
                     stLine.setRefTrnNo(RefTrnNoLine);
-                    stLine.setSalesMan(SA);
+                    stLine.setSalesMan(SA.getId());
                     stLine.setCommision(SA_Com);
 
                     det.add(stLine);
@@ -1669,7 +1669,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 cmb_Sup.setVisible(true);
             }
             if (TrnSetup.getCustomer() == 1) {
-                lbl_SA.setVisible(true);
+                lbl_Cus.setVisible(true);
                 cmb_Cus.setVisible(true);
             }
             if (TrnSetup.getSourceloc() == 1) {
@@ -1870,7 +1870,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     private void hideAllComponents() {
         lbl_Sup.setVisible(false);
         cmb_Sup.setVisible(false);
-        lbl_SA.setVisible(false);
+        lbl_Cus.setVisible(false);
         cmb_Cus.setVisible(false);
         lbl_SourceLoc.setVisible(false);
         cmb_SourceLoc.setVisible(false);
@@ -1966,17 +1966,19 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 double GroLineAmt = fv.round(EfectPrice * fv.round((Qty / unitConversion), 3), 2);
                 double FinalLineAmount = GroLineAmt - ((GroLineAmt * LDisPer / 100) + LDisAmt);
 
-                String SA = "";
+                MSalesMan SA = new MSalesMan("", "", 0);
                 double SA_COM = 0.0;
 
-                if (txt_SA.getText().length() > 0) {
-                    SA = txt_SA.getText();
-                    SA_COM = Double.parseDouble(txt_SA_COM.getText());
-                } else if (TrnSetup.getEnSalesMan() == 1) {
-                    MSalesMan SAObj = (MSalesMan) cmb_SA.getSelectedItem();
+                if (TrnSetup.getEnSalesMan() == 1) {
 
-                    SA = SAObj.getId();
-                    SA_COM = SAObj.getComPer();
+                    MSalesMan SAObj = (MSalesMan) cmb_SA.getSelectedItem();
+                    if (SAObj != null) {
+                        SA = SAObj;
+
+                        SA_COM = SAObj.getComPer();
+
+                    }
+
                 }
 
                 Vector v = new Vector();
@@ -2008,8 +2010,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 if (txt_TrnNo.getText().length() > 0 && isAutoLoad) {
 
                     v.add(lbl_RefTrnNo.getText());//14(Return No)  
-                    v.add(SA);//SA
-                    v.add(SA_COM);//SA_COM
+                    v.add(SA);//15 SA
+                    v.add(SA_COM);//16 SA_COM
                     dtm.addRow(v);
 
                     clearLine();
@@ -2019,8 +2021,8 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
                     v.add(TrnRefNo);//14(Return No)  
 
-                    v.add(SA);//SA
-                    v.add(SA_COM);//SA_COM
+                    v.add(SA);//15 SA
+                    v.add(SA_COM);//16 SA_COM
 
                     if (exist_row > -1) {
                         dtm.removeRow(exist_row);
@@ -2079,7 +2081,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 String ProAmt = dtm.getValueAt(index, 9).toString();
                 String Batch = dtm.getValueAt(index, 10).toString();
 
-                String SA = dtm.getValueAt(index, 15).toString();
+                MSalesMan SA = (MSalesMan) dtm.getValueAt(index, 15);
                 double SA_COM = Double.parseDouble(dtm.getValueAt(index, 16).toString());
 
                 txt_LItemCode.setText(ProCode);
@@ -2098,8 +2100,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 txtImgPath.setText(product.getProImg());
                 lbl_IsLoad.setText("1");
                 txt_LQty.grabFocus();
-                txt_SA.setText(SA);
-                txt_SA_COM.setText(""+SA_COM);
+                txt_SA.setText(SA.getId());
+                txt_SA_COM.setText("" + SA_COM);
+                if (TrnSetup.getEnSalesMan() == 1) {
+                    cmb_SA.setSelectedItem(new MSalesMan(SA.getId()));
+                }
             } catch (Exception ex) {
                 Logger.getLogger(Frm_TCommonTrn.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2317,6 +2322,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             cmb_SourceLoc.setModel(new DefaultComboBoxModel(C_Loc.getAllLocationsV()));
             cmb_Sup.setModel(new DefaultComboBoxModel(C_Sup.getAllSuppliers()));
             cmb_Cus.setModel(new DefaultComboBoxModel(C_Cus.getAllCustomers()));
+            cmb_SA.setModel(new DefaultComboBoxModel(C_Salesman.getAllSalesMen()));
         } catch (Exception ex) {
 
         }
@@ -2540,6 +2546,10 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         txt_LAmt.setText(tStockline.getAmount().toString());
                         txt_LBatch.setText(tStockline.getBatch());
                         lbl_RefTrnNo.setText(tStockline.getRefTrnNo());
+
+                        cmb_SA.setSelectedItem(new MSalesMan(tStockline.getSalesMan()));
+                        txt_SA_COM.setText("" + tStockline.getCommision());
+
                         addToTable(true);
 
                     }
@@ -2647,22 +2657,22 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     /*
-    private void setProductIcon_old(String id) {
-        BufferedImage img = GlobalData.ProImg.get(id);
-        if (img!= null) {
-            try {
+     private void setProductIcon_old(String id) {
+     BufferedImage img = GlobalData.ProImg.get(id);
+     if (img!= null) {
+     try {
                
-                Image dimg = img.getScaledInstance(70, 70,
-                        Image.SCALE_SMOOTH);
+     Image dimg = img.getScaledInstance(70, 70,
+     Image.SCALE_SMOOTH);
 
-                lbl_Line_ProImg.setIcon(new ImageIcon(dimg));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }else{
-             lbl_Line_ProImg.setIcon(null); // NOI18N
-        }
-    }
+     lbl_Line_ProImg.setIcon(new ImageIcon(dimg));
+     } catch (Exception e) {
+     e.printStackTrace();
+     }
+     }else{
+     lbl_Line_ProImg.setIcon(null); // NOI18N
+     }
+     }
      */
     private void setProductIcon(String path) {
         if (path != null) {

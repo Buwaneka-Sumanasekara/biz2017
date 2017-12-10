@@ -6,8 +6,10 @@
 package COMMONFUN;
 
 import CONTROLLERS.C_Permissions;
+import CONTROLLERS.C_SalesMan;
 import CONTROLLERS.C_TransactionSetup;
 import CONTROLLERS.C_Users;
+import DB_ACCESS.DB;
 import GLOBALDATA.GlobalData;
 import MODELS.MPermissions;
 import MODELS.MUser;
@@ -32,12 +34,13 @@ public class DefaultData {
     C_Users CUsers = null;
     C_TransactionSetup cTrn = null;
     CommonFun cf = null;
-
+    
     public DefaultData() {
         CPerm = new C_Permissions();
         CUsers = new C_Users();
         cTrn = new C_TransactionSetup();
         cf = new CommonFun();
+      
     }
 
     public void createDefaultData() {
