@@ -98,7 +98,7 @@ public class C_TransactionCom {
                     calendar.add(Calendar.DATE, (-1 * trnsetup.getCancelDaysWithing()));
                     boolean cancancel = calendar.after(m.getMddate());
 
-                    if (cancancel || trnsetup.getCancelDaysWithing() < 0) {
+                    if (cancancel || trnsetup.getCancelDaysWithing() > 0) {
                         String q = "UPDATE T_STOCKMST SET TRNSTATE='C',MDDATE=NOW()  WHERE ID='" + m.getId() + "' AND TRNTYPE='" + m.getUTransactions().getTrntype() + "' ";
                         DB.Update(q);
                     } else {

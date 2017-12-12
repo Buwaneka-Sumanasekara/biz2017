@@ -336,7 +336,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         layout_TopActionPanel.add(txt_State, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 200, 40));
 
         but_TrnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_print__outline__printer__document__office__computer__networkprinter_2318007 (1).png"))); // NOI18N
-        but_TrnPrint.setToolTipText("Cancel(F7)");
+        but_TrnPrint.setToolTipText("Print(F8)");
         but_TrnPrint.setContentAreaFilled(false);
         but_TrnPrint.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/hold_disable.png"))); // NOI18N
         but_TrnPrint.addActionListener(new java.awt.event.ActionListener() {
@@ -1258,7 +1258,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                     String Batch = dtm.getValueAt(i, 10).toString();
                     String RefTrnNoLine = dtm.getValueAt(i, 14).toString();
 
-                    MSalesMan SA =(MSalesMan) dtm.getValueAt(i, 15);
+                    MSalesMan SA = (MSalesMan) dtm.getValueAt(i, 15);
                     double SA_Com = Double.parseDouble(dtm.getValueAt(i, 16).toString());
 
                     TStockline stLine = new TStockline();
@@ -1489,6 +1489,19 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         actionMap9.put(TrnCancel, new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 cancelTrn();
+            }
+
+        }
+        );
+        
+        
+          String TrnPrint = "TrnPrint";
+        InputMap inputMap10 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap10.put(KeyStroke.getKeyStroke(KeyEvent.VK_F8, 0), TrnPrint);
+        ActionMap actionMap10 = f.getRootPane().getActionMap();
+        actionMap10.put(TrnPrint, new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+              printTrn();
             }
 
         }
@@ -2547,8 +2560,13 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         txt_LBatch.setText(tStockline.getBatch());
                         lbl_RefTrnNo.setText(tStockline.getRefTrnNo());
 
-                        cmb_SA.setSelectedItem(new MSalesMan(tStockline.getSalesMan()));
-                        txt_SA_COM.setText("" + tStockline.getCommision());
+                        if (TrnSetup.getEnSalesMan() == 1) {
+                            if (tStockline.getSalesMan().length() > 0) {
+                                cmb_SA.setSelectedItem(new MSalesMan(tStockline.getSalesMan()));
+                                txt_SA_COM.setText("" + tStockline.getCommision());
+                            }
+
+                        }
 
                         addToTable(true);
 
@@ -2598,14 +2616,25 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         if (but_TrnCancel.isEnabled()) {
             if (txt_TrnNo.getText().length() > 0) {
                 try {
-                    TStockmst stockHed = C_TrnCom.getStockHed(txt_TrnNo.getText(), TrnSetup);
-                    if (stockHed != null) {
-                        if (stockHed.getTrnstate().equals("P") || stockHed.getTrnstate().equals("H")) {
-                            C_TrnCom.CancelStock(stockHed, TrnSetup);
-                            JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " No [" + stockHed.getId() + "] is sucessfully cancelled", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
-                            Refresh();
+                    boolean state = false;
+                    MPermissions p = GLOBALDATA.GlobalData.SpecialPer.get("P00026");
+                    if (p != null) {
+                        state = true;
+                    } else {
+                        state = Frm_PermissionsPopup.createPermissionPopUp(mainW, true, "P00026");
+                    }
+
+                    if (state) {
+                        TStockmst stockHed = C_TrnCom.getStockHed(txt_TrnNo.getText(), TrnSetup);
+                        if (stockHed != null) {
+                            if (stockHed.getTrnstate().equals("P") || stockHed.getTrnstate().equals("H")) {
+                                C_TrnCom.CancelStock(stockHed, TrnSetup);
+                                JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " No [" + stockHed.getId() + "] is sucessfully cancelled", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
+                                Refresh();
+                            }
                         }
                     }
+
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
                 }

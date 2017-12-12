@@ -151,7 +151,7 @@ public class Frm_Main extends javax.swing.JFrame {
 
         lbl_Global_Instructions.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lbl_Global_Instructions.setForeground(new java.awt.Color(204, 0, 0));
-        lbl_Global_Instructions.setText("[  F2 : SEARCH   ]   [   F3: EDIT  ]  [  F4: REFRESH  ]   [  F5: SAVE  ]  [F6: HOLD]  [F7: CANCEL]");
+        lbl_Global_Instructions.setText("[  F2 : SEARCH   ]   [   F3: EDIT  ]  [  F4: REFRESH  ]   [  F5: SAVE  ]  [F6: HOLD]  [F7: CANCEL] [F8: PRINT]");
         layout_Outer.add(lbl_Global_Instructions, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 670, 750, -1));
 
         butLogout.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

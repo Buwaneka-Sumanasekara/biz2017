@@ -52,6 +52,7 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
@@ -900,6 +901,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         ListModel dlm = List_Sup.getModel();
         Vector v = new Vector();
+
         for (int i = 0; i < dlm.getSize(); i++) {
             if (!sup.equals(dlm.getElementAt(i))) {
                 v.add(dlm.getElementAt(i));
@@ -933,8 +935,25 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
     private void List_SupKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_List_SupKeyPressed
         if (evt.getKeyChar() == KeyEvent.VK_DELETE) {
-            if (List_Sup.getSelectedIndex() >= 0) {
-                List_Sup.remove(List_Sup.getSelectedIndex());
+            int index = List_Sup.getSelectedIndex();
+
+            if (index > (-1)) {
+                ListModel dlm = List_Sup.getModel();
+                Vector v = new Vector();
+
+                for (int i = 0; i < dlm.getSize(); i++) {
+
+                    v.add(dlm.getElementAt(i));
+
+                }
+                v.remove(index);
+                List_Sup.removeAll();
+                List_Sup.setListData(v);
+
+                txtSupName.setText("");
+                txtSupContact.setText("");
+                txtSupMobile.setText("");
+                txtSupContactPer.setText("");
             }
         }
     }//GEN-LAST:event_List_SupKeyPressed
@@ -1158,7 +1177,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     @Override
     public void EditMode() {
         if (but_Update.isEnabled()) {
-            JComponent enablecom[] = {but_Refresh, but_Save,but_ItemSearch, layout_Basic, layoutGroups, but_ProImgChoose,txtProParentCode, txtProName, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+            JComponent enablecom[] = {but_Refresh, but_Save, but_ItemSearch, layout_Basic, layoutGroups, but_ProImgChoose, txtProParentCode, txtProName, layoutPrice, layoutRef, layoutUnits, layoutPropertise, butSupAdd, List_Sup, cmb_Suppliers};
             JComponent disablecom[] = {but_Search, but_Update, txtProCode};
             setDisableEnableComponents(enablecom, disablecom);
             txtProCode.setEnabled(false);
@@ -1203,8 +1222,6 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         }
         );
 
-        
-
         String Save = "Save";
         InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), Save);
@@ -1240,9 +1257,8 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
         }
         );
-        
-        
-          String ItemSearch = "ItemSearch";
+
+        String ItemSearch = "ItemSearch";
         InputMap inputMap5 = txtProParentCode.getInputMap(JComponent.WHEN_FOCUSED);
         inputMap5.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), ItemSearch);
         ActionMap actionMap5 = txtProParentCode.getActionMap();
@@ -1481,7 +1497,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         txtProCode.grabFocus();
         JComponent disablecom[] = {but_Update};
 
-        JComponent enablecom[] = {but_Search,but_ItemSearch, List_Sup, butSupAdd, tblProperty, tblUnits, layoutUnits, but_ProImgChoose, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+        JComponent enablecom[] = {but_Search, but_ItemSearch, List_Sup, butSupAdd, tblProperty, tblUnits, layoutUnits, but_ProImgChoose, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
 
         setDisableEnableComponents(enablecom, disablecom);
         ParentLayout.setSelectedIndex(0);
@@ -1517,7 +1533,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 txtProCode.setText(proNoFull);
                 MProducts product = CProducts.getProduct(txtProCode.getText());
                 if (product != null) {
-                    JComponent disablecom[] = {but_Search,but_ItemSearch, List_Sup, butSupAdd, but_ProImgChoose, txtProCode, txtProParentCode, tblProperty, tblUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
+                    JComponent disablecom[] = {but_Search, but_ItemSearch, List_Sup, cmb_Suppliers, butSupAdd, but_ProImgChoose, txtProCode, txtProParentCode, tblProperty, tblUnits, txtProName, but_Save, layout_Basic, layoutGroups, layoutPrice, layoutRef, layoutUnits, layoutPropertise};
                     JComponent enablecom[] = {but_Refresh, but_Update};
                     setDisableEnableComponents(enablecom, disablecom);
 

@@ -146,6 +146,7 @@ public class DefaultData {
         ar.add(new MPermissions("P00023", "P00000", "P23", "Give Discount Percentage", "GEN_PER", (byte) 0, (byte) 0, "A", 824, ""));
         ar.add(new MPermissions("P00024", "P00000", "P24", "Give Discount Amount", "GEN_PER", (byte) 0, (byte) 0, "A", 825, ""));
         ar.add(new MPermissions("P00025", "P00000", "P25", "Give Total Discount", "GEN_PER", (byte) 0, (byte) 0, "A", 826, ""));
+        ar.add(new MPermissions("P00026", "P00000", "P26", "Cancel Transaction", "GEN_PER", (byte) 0, (byte) 0, "A", 826, ""));
 
         CPerm.saveBullkPermissions(ar);
     }
