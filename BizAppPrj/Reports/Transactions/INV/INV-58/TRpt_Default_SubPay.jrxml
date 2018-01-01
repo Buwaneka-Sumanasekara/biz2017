@@ -40,14 +40,14 @@
 				<textFieldExpression><![CDATA[(($F{PAYDET}==null||$F{PAYDET}.equals(""))? $F{PAYHED}:$F{PAYHED}+" ["+$F{PAYDET}+"]")]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;(#,##0.00)">
-				<reportElement x="54" y="1" width="81" height="11" uuid="65e273f6-5e9b-4e55-a92f-6fec1e46211b"/>
+				<reportElement x="50" y="1" width="81" height="11" uuid="65e273f6-5e9b-4e55-a92f-6fec1e46211b"/>
 				<textElement textAlignment="Right">
 					<font size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FRMAMOUNT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="49" y="0" width="61" height="11" isRemoveLineWhenBlank="true" uuid="d06d8c99-f8bc-4b21-a433-68bcc1a4b142"/>
+				<reportElement x="44" y="0" width="61" height="11" isRemoveLineWhenBlank="true" uuid="d06d8c99-f8bc-4b21-a433-68bcc1a4b142"/>
 				<textElement verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
@@ -64,7 +64,7 @@
 				</graphicElement>
 			</line>
 			<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
-				<reportElement x="34" y="13" width="101" height="19" uuid="7059e178-59a9-4146-b473-d89c88315bab"/>
+				<reportElement x="31" y="13" width="101" height="19" uuid="7059e178-59a9-4146-b473-d89c88315bab"/>
 				<textElement textAlignment="Right">
 					<font size="8" isBold="true"/>
 				</textElement>
@@ -74,7 +74,7 @@
 				<reportElement x="47" y="12" width="100" height="1" uuid="a45cdfd6-7821-446e-8e19-9e4d649e8522"/>
 			</line>
 			<textField pattern="#,##0.00;(#,##0.00)">
-				<reportElement x="35" y="0" width="100" height="12" uuid="14867126-dceb-454f-8160-2ac367da7f63"/>
+				<reportElement x="32" y="0" width="100" height="12" uuid="14867126-dceb-454f-8160-2ac367da7f63"/>
 				<textElement textAlignment="Right">
 					<font size="7" isBold="true"/>
 				</textElement>
