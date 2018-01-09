@@ -87,6 +87,8 @@ public class Frm_TStockCountSel extends javax.swing.JInternalFrame implements My
         tbl_Grp = new javax.swing.JTable();
         but_Grp_Next = new javax.swing.JButton();
         chkAllGroups = new javax.swing.JCheckBox();
+        layout_LocationsPanel = new javax.swing.JPanel();
+        cmb_SourceLoc = new javax.swing.JComboBox();
 
         setClosable(true);
         setTitle("caption");
@@ -251,6 +253,14 @@ public class Frm_TStockCountSel extends javax.swing.JInternalFrame implements My
 
         jPanel1.add(layout_Group, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 830, 370));
 
+        layout_LocationsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        layout_LocationsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Location "));
+        layout_LocationsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        layout_LocationsPanel.add(cmb_SourceLoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 180, 30));
+
+        jPanel1.add(layout_LocationsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 40, 240, 70));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 620));
 
         setBounds(0, 0, 868, 653);
@@ -312,6 +322,7 @@ public class Frm_TStockCountSel extends javax.swing.JInternalFrame implements My
     private javax.swing.JButton but_LocSave;
     private javax.swing.JCheckBox chkAllGroups;
     private javax.swing.JCheckBox chk_GrpSelectAll;
+    private javax.swing.JComboBox cmb_SourceLoc;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -319,6 +330,7 @@ public class Frm_TStockCountSel extends javax.swing.JInternalFrame implements My
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jpanelq;
     private javax.swing.JPanel layout_Group;
+    private javax.swing.JPanel layout_LocationsPanel;
     private javax.swing.JLabel lblScreenName;
     private javax.swing.JLabel lbl_GrpCode;
     private javax.swing.JLabel lbl_GrpName;

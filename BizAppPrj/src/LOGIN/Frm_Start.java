@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         package LOGIN;
+package LOGIN;
 
 import COMMONFUN.CommonFun;
 import COMMONFUN.DefaultData;
@@ -173,7 +173,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         ArrayList<TblColumn> ar_20171206_t3 = new ArrayList<>();
         ar_20171206_t3.add(new TblColumn("SALESMAN", "VARCHAR(50)", "DEFAULT ''"));
         ar_20171206_t3.add(new TblColumn("SALES_COM", "DOUBLE", "DEFAULT '0'"));
-   
+
         ArrayList<String> ar_20171206_t3PK = new ArrayList<>();
         ar_20171206_t3PK.add("T_STOCKMST_ID");
         ar_20171206_t3PK.add("TERMINAL");
@@ -182,17 +182,28 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20171206_t3PK.add("PROID");
         Structure str_20171206_t3 = new Structure(20171206, "t_stockline", ar_20171206_t3, ar_20171206_t3PK);
         arStructures.add(str_20171206_t3);
-        
-        
+
         ArrayList<TblColumn> ar_20171206_t4 = new ArrayList<>();
         ar_20171206_t4.add(new TblColumn("EN_SALESMAN", "TINYINT", "DEFAULT '0'"));
-   
+
         ArrayList<String> ar_20171206_t4PK = new ArrayList<>();
         ar_20171206_t4PK.add("TRNNO");
         ar_20171206_t4PK.add("TRNTYPE");
-     
+
         Structure str_20171206_t4 = new Structure(20171206, "u_transactions", ar_20171206_t4, ar_20171206_t4PK);
         arStructures.add(str_20171206_t4);
+
+        
+        
+        ArrayList<TblColumn> ar_20170108_t1 = new ArrayList<>();
+        ar_20170108_t1.add(new TblColumn("UNIT_SYS", "VARCHAR(50)", "DEFAULT ''"));
+        ar_20170108_t1.add(new TblColumn("BATCH", "VARCHAR(5)", "DEFAULT ''"));
+        
+        ArrayList<String> ar_20170108_t1PK = new ArrayList<>();
+        Structure str_20170108_t1 = new Structure(20170108, "t_phystkdet", ar_20170108_t1, ar_20170108_t1PK);
+        arStructures.add(str_20170108_t1);
+        
+        
         
         
 

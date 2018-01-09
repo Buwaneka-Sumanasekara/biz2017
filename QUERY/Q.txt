@@ -25,7 +25,7 @@ order by  A.PROID,A.NAME,A.LOCID
 
 ----------------------------
 
-select p.ID as PROID,p.REF1 AS SUPCODE,p.NAME as PRONAME,s.COSTP as COST,s.MARKUP AS MARKUP,s.SELLP AS SELL,sp.M_SUPPLIER_ID as SUPID,s.BATCHNO,g1.ID as G1CODE,g1.NAME AS G1NAME
+select p.ID as PROID,p.REF1 AS SUPCODE,p.NAME as PRONAME,s.COSTP as COST,s.MARKUP AS MARKUP,s.SELLP AS SELL,sp.M_SUPPLIER_ID as SUPID,sup.NAME,s.BATCHNO,g1.ID as G1CODE,g1.NAME AS G1NAME
 ,g2.ID as G2CODE,g2.NAME AS G2NAME,g3.ID as G3CODE,g3.NAME AS G3NAME,g4.ID as G4CODE,g4.NAME AS G4NAME,g5.ID as G5CODE,g5.NAME AS G5NAME
 
 
@@ -44,6 +44,10 @@ inner join m_stocks s
 on p.ID=s.M_PRODUCTS_ID
 inner join m_supplier_has_m_products sp
 on p.ID=sp.M_PRODUCTS_ID 
+INNER JOIN m_supplier sup
+on sp.M_SUPPLIER_ID=sup.ID
+
+where p.ID > 000215
 order by p.ID
 =============================================
 

@@ -25,24 +25,7 @@ public class TPhystkmst  implements java.io.Serializable {
     public TPhystkmst() {
     }
 
-	
-    public TPhystkmst(String id, MUser MUserByMUserCr, MLocation MLocation, MUser MUserByMUserMd) {
-        this.id = id;
-        this.MUserByMUserCr = MUserByMUserCr;
-        this.MLocation = MLocation;
-        this.MUserByMUserMd = MUserByMUserMd;
-    }
-    public TPhystkmst(String id, MUser MUserByMUserCr, MLocation MLocation, MUser MUserByMUserMd, Date crdate, Date mddate, Byte isactive, String trnstate, Set TPhystkdets) {
-       this.id = id;
-       this.MUserByMUserCr = MUserByMUserCr;
-       this.MLocation = MLocation;
-       this.MUserByMUserMd = MUserByMUserMd;
-       this.crdate = crdate;
-       this.mddate = mddate;
-       this.isactive = isactive;
-       this.trnstate = trnstate;
-       this.TPhystkdets = TPhystkdets;
-    }
+
    
     public String getId() {
         return this.id;
