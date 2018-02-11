@@ -205,6 +205,13 @@ public final class Frm_Start extends javax.swing.JDialog {
         
         
         
+        ArrayList<TblColumn> ar_20180211_t1 = new ArrayList<>();
+        ar_20180211_t1.add(new TblColumn("EMAIL_RPT_DAYS_BFR", "INT", "DEFAULT '0'"));
+        
+        ArrayList<String> ar_20180211_t1PK = new ArrayList<>();
+        Structure str_20180211_t1 = new Structure(20180211, "u_setup", ar_20180211_t1, ar_20180211_t1PK);
+        arStructures.add(str_20180211_t1);
+        
         
 
         int TotalResults = arStructures.size() + 1;
