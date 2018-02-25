@@ -31,6 +31,7 @@ import MODELS.MSupplier;
 import MODELS.MUnits;
 import MODELS.TStockline;
 import MODELS.TStockmst;
+import MODELS.TStockpayments;
 import MODELS.UTransactions;
 import UI.Frm_Table;
 import VALIDATIONS.MyValidator;
@@ -50,6 +51,7 @@ import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
@@ -1284,7 +1286,36 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 }
 
                 if (TrnSetup.getPayments() == 1 && TrnState.equals("P")) {
-                    TrnNo = Frm_TCommonTrnPayments.getPaymentScreen(mainW, this, true, TrnSetup, hed, det);
+                    if (hed.getNetamount() > 0) {
+                        TrnNo = Frm_TCommonTrnPayments.getPaymentScreen(mainW, this, true, TrnSetup, hed, det);
+
+                    } else {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        ArrayList<TStockpayments> ar = new ArrayList<>();
+                        TStockpayments m = new TStockpayments();
+                        m.setId(0);
+                        m.setTStockmst(hed);
+                        m.setRefno("");
+                        m.setFrmamount(hed.getNetamount());
+                        m.setAmount(hed.getNetamount());
+                        m.setChange((-1 * hed.getNetamount()));
+                        m.setMPaydetId("CSH");
+                        m.setMPayHedId("CSH");
+                        m.setEfectiveDate(sdf.format(hed.getEftDate() != null ? hed.getEftDate() : new Date()));
+                        m.setUTransactions(hed.getUTransactions());
+                        m.setUtilized(1);
+                        ar.add(m);
+
+                        TrnNo = C_TrnCom.saveTransaction(hed, det, ar);
+                        Refresh();
+                        if (TrnState.equals("P")) {
+                            JOptionPane.showMessageDialog(rootPane, "" + TrnSetup.getTrndesc() + " Processed Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
+
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + TrnSetup.getTrndesc() + " Hold Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }
 
                     //FrmComPay.setVisible(true);
                 } else {
@@ -1493,15 +1524,14 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
         }
         );
-        
-        
-          String TrnPrint = "TrnPrint";
+
+        String TrnPrint = "TrnPrint";
         InputMap inputMap10 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap10.put(KeyStroke.getKeyStroke(KeyEvent.VK_F8, 0), TrnPrint);
         ActionMap actionMap10 = f.getRootPane().getActionMap();
         actionMap10.put(TrnPrint, new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-              printTrn();
+                printTrn();
             }
 
         }
