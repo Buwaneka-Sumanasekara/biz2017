@@ -213,6 +213,20 @@ public final class Frm_Start extends javax.swing.JDialog {
         arStructures.add(str_20180211_t1);
         
         
+        
+        ArrayList<String> q_20180415_t1 = new ArrayList<>();
+        q_20180415_t1.add(" DECLARE TRNPROFIT  DOUBLE DEFAULT '0' ");
+        
+        String q_20180415_q0=" select (SUM(sl.AMOUNT)-SUM(sl.CPRICE*sl.QTY)) INTO TRNPROFIT ";
+        q_20180415_q0+=" from t_stockline sl  ";
+        q_20180415_q0+=" where sl.T_STOCKMST_ID=para_trnid AND sl.TRNTYP=para_trntyp ";
+        q_20180415_q0+=" GROUP BY sl.T_STOCKMST_ID,sl.TRNTYP  ";
+        
+        q_20180415_t1.add(q_20180415_q0);
+        q_20180415_t1.add(" RETURN TRNPROFIT ");
+        Structure str_20180415_t1 = new Structure(20180415, TableStruCreation.STR_FUN, " strf_getInvProfit ", " para_trnid VARCHAR(100),para_trntyp VARCHAR(5) ", q_20180415_t1, " DOUBLE ");
+        arStructures.add(str_20180415_t1);
+        
 
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults + 3);

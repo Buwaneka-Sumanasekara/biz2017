@@ -85,6 +85,7 @@ public class DefaultData {
         ar.add(new MPermissions("R00002", "R00001", "R_SALES_1", "Invoice Listing", "RPT", (byte) 0, (byte) 1, 203, "Report_sub.png"));
         ar.add(new MPermissions("R00003", "R00001", "R_SALES_2", "Payment mode wise Sale", "RPT", (byte) 0, (byte) 1, 204, "Report_sub.png"));
         ar.add(new MPermissions("R00004", "R00001", "R_SALES_3", "Supplier Products Sale", "RPT", (byte) 0, (byte) 1, 205, "Report_sub.png"));
+        ar.add(new MPermissions("R00005", "R00001", "R_SALES_4", "Invoice wise Profit Report", "RPT", (byte) 0, (byte) 1, 206, "Report_sub.png"));
 
         
         
