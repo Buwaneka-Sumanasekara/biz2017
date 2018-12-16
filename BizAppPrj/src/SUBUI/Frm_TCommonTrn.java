@@ -1165,8 +1165,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                     if (jr != null) {
                         boolean printFromDB_Trn = C_Report.printFromDB_Trn(jr, trnno, TrnSetup, false, "", true);
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "Printout is not avaiable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-
+                        if (TrnSetup.getEnReport() == 1) {
+                            JOptionPane.showMessageDialog(rootPane, "Printout is not avaiable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+                        }
                     }
 
                 }
@@ -1943,7 +1944,12 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     /*  TABLE OPERATIONS */
-    private void addToTable(boolean isAutoLoad) {
+     private void addToTable(boolean isAutoLoad) {
+         addToTable(isAutoLoad, true);
+         
+     }
+    
+    private void addToTable(boolean isAutoLoad,boolean needToConvertUnit) {
         try {
 
             if (doAddLineValidation()) {
@@ -2006,7 +2012,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         break;
                 }
 
-                double GroLineAmt = fv.round(EfectPrice * fv.round((Qty / unitConversion), 3), 2);
+                double GroLineAmt = fv.round(EfectPrice * fv.round((Qty * unitConversion), 3), 2);
                 double FinalLineAmount = GroLineAmt - ((GroLineAmt * LDisPer / 100) + LDisAmt);
 
                 MSalesMan SA = new MSalesMan("", "", 0);
@@ -2690,8 +2696,12 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         if (jr != null) {
                             C_Report.printFromDB_Trn(jr, stockHed.getId(), TrnSetup, true, txt, true);
                         } else {
+                            if(TrnSetup.getEnReport()==1){
                             JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " Report Not Avialable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-
+                            }else{
+                              JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " printout disabled!", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+                              
+                            }
                         }
                     }
 
@@ -2710,9 +2720,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     private void CompileReport() {
-
-        jr = GLOBALDATA.GlobalData.CompiledReports.get("RPT_" + TrnSetup.getTrnno());
-
+        if (TrnSetup.getEnReport() == 1) {
+            jr = GLOBALDATA.GlobalData.CompiledReports.get("RPT_" + TrnSetup.getTrnno());
+        }
     }
 
     /*

@@ -1,99 +1,24 @@
--- MySQL Administrator dump 1.4
---
--- ------------------------------------------------------
--- Server version	5.5.5-m3
-
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.1.62-community - MySQL Community Server (GPL)
+-- Server OS:                    Win64
+-- HeidiSQL Version:             9.4.0.5125
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
---
--- Create schema bizdb
---
+-- Dumping database structure for bizdb
+DROP DATABASE IF EXISTS `bizdb`;
+CREATE DATABASE IF NOT EXISTS `bizdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `bizdb`;
 
-CREATE DATABASE IF NOT EXISTS bizdb;
-USE bizdb;
-
---
--- Temporary table structure for view `view_propropertise`
---
-DROP TABLE IF EXISTS `view_propropertise`;
-DROP VIEW IF EXISTS `view_propropertise`;
-CREATE TABLE `view_propropertise` (
-  `PROID` varchar(100),
-  `PRONAME` text,
-  `PROPNAME` varchar(45),
-  `PROPVAL` varchar(100)
-);
-
---
--- Temporary table structure for view `view_trnfull`
---
-DROP TABLE IF EXISTS `view_trnfull`;
-DROP VIEW IF EXISTS `view_trnfull`;
-CREATE TABLE `view_trnfull` (
-  `ID` varchar(50),
-  `TRNTYPE` varchar(50),
-  `CRDATE` datetime,
-  `REFNO` varchar(100),
-  `REFNO2` varchar(100),
-  `GRAMOUNT` double,
-  `NETDIS` double,
-  `NETAMOUNT` double,
-  `CUSNAME` varchar(45),
-  `LOCNAME_DES` varchar(45),
-  `SYMBLE` varchar(5),
-  `LINEID` int(11),
-  `PROID` varchar(100),
-  `SPRICE` double,
-  `CPRICE` double,
-  `QTY` double,
-  `LDIS` double,
-  `LDISPER` double,
-  `AMOUNT` double,
-  `PRONAME` longtext,
-  `BATCH_NO` varchar(50),
-  `SUP_NAME` varchar(100),
-  `CR_USER` varchar(45),
-  `EFT_DATE` datetime,
-  `REF_TRNNO` varchar(100),
-  `CHANGE_VAL` double,
-  `TRNSTATE` varchar(2),
-  `LOCNAME_SOURCE` varchar(45),
-  `MD_USER` varchar(45)
-);
-
---
--- Temporary table structure for view `view_trnpay`
---
-DROP TABLE IF EXISTS `view_trnpay`;
-DROP VIEW IF EXISTS `view_trnpay`;
-CREATE TABLE `view_trnpay` (
-  `PAYHED` varchar(50),
-  `PAYDET` varchar(45),
-  `FRMAMOUNT` double,
-  `REFNO` varchar(45),
-  `EFT_DATE` datetime,
-  `T_STOCKMST_ID` varchar(50),
-  `TRNTYP` varchar(5),
-  `DATE_F` int(11),
-  `DATEF_DET` bigint(11),
-  `AMOUNT` double
-);
-
---
--- Definition of table `m_customer`
---
-
+-- Dumping structure for table bizdb.m_customer
 DROP TABLE IF EXISTS `m_customer`;
-CREATE TABLE `m_customer` (
+CREATE TABLE IF NOT EXISTS `m_customer` (
   `ID` varchar(50) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
   `ADDNO` varchar(45) DEFAULT NULL,
@@ -105,22 +30,15 @@ CREATE TABLE `m_customer` (
   `ACTIVE` smallint(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_customer`
---
-
+-- Dumping data for table bizdb.m_customer: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_customer` DISABLE KEYS */;
-INSERT INTO `m_customer` (`ID`,`NAME`,`ADDNO`,`ADD1`,`ADD2`,`ADD3`,`CONTACT`,`MOBILE`,`ACTIVE`) VALUES 
- ('00001','CASH','-','-','-','-','-','-',1);
+INSERT IGNORE INTO `m_customer` (`ID`, `NAME`, `ADDNO`, `ADD1`, `ADD2`, `ADD3`, `CONTACT`, `MOBILE`, `ACTIVE`) VALUES
+	('00001', 'CASH', '-', '-', '-', '-', '-', '-', 1);
 /*!40000 ALTER TABLE `m_customer` ENABLE KEYS */;
 
-
---
--- Definition of table `m_giftvoucher`
---
-
+-- Dumping structure for table bizdb.m_giftvoucher
 DROP TABLE IF EXISTS `m_giftvoucher`;
-CREATE TABLE `m_giftvoucher` (
+CREATE TABLE IF NOT EXISTS `m_giftvoucher` (
   `GV_NO` varchar(100) NOT NULL,
   `GRP_ID` varchar(50) NOT NULL,
   `VALUE` double NOT NULL DEFAULT '0',
@@ -137,20 +55,13 @@ CREATE TABLE `m_giftvoucher` (
   PRIMARY KEY (`GV_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_giftvoucher`
---
-
+-- Dumping data for table bizdb.m_giftvoucher: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_giftvoucher` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_giftvoucher` ENABLE KEYS */;
 
-
---
--- Definition of table `m_giftvoucher_group`
---
-
+-- Dumping structure for table bizdb.m_giftvoucher_group
 DROP TABLE IF EXISTS `m_giftvoucher_group`;
-CREATE TABLE `m_giftvoucher_group` (
+CREATE TABLE IF NOT EXISTS `m_giftvoucher_group` (
   `GRP_ID` varchar(50) NOT NULL,
   `GRP_NAME` varchar(100) NOT NULL,
   `GRP_STARTNO` varchar(100) NOT NULL,
@@ -160,20 +71,13 @@ CREATE TABLE `m_giftvoucher_group` (
   PRIMARY KEY (`GRP_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_giftvoucher_group`
---
-
+-- Dumping data for table bizdb.m_giftvoucher_group: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_giftvoucher_group` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_giftvoucher_group` ENABLE KEYS */;
 
-
---
--- Definition of table `m_group1`
---
-
+-- Dumping structure for table bizdb.m_group1
 DROP TABLE IF EXISTS `m_group1`;
-CREATE TABLE `m_group1` (
+CREATE TABLE IF NOT EXISTS `m_group1` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL,
@@ -181,27 +85,13 @@ CREATE TABLE `m_group1` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_group1`
---
-
+-- Dumping data for table bizdb.m_group1: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_group1` DISABLE KEYS */;
-INSERT INTO `m_group1` (`ID`,`NAME`,`ACTIVE`,`ISHIDDEN`) VALUES 
- ('G1001','MENS',1,0),
- ('G1002','LADIES',1,0),
- ('G1003','MISS',1,0),
- ('G1004','MASTER',1,0),
- ('G1005','KIDS',0,0),
- ('G1006','BABY',1,0);
 /*!40000 ALTER TABLE `m_group1` ENABLE KEYS */;
 
-
---
--- Definition of table `m_group2`
---
-
+-- Dumping structure for table bizdb.m_group2
 DROP TABLE IF EXISTS `m_group2`;
-CREATE TABLE `m_group2` (
+CREATE TABLE IF NOT EXISTS `m_group2` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL,
@@ -209,25 +99,13 @@ CREATE TABLE `m_group2` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_group2`
---
-
+-- Dumping data for table bizdb.m_group2: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_group2` DISABLE KEYS */;
-INSERT INTO `m_group2` (`ID`,`NAME`,`ACTIVE`,`ISHIDDEN`) VALUES 
- ('G2001','CASUAL',1,0),
- ('G2002','FORMAL',1,0),
- ('G2003','PARTY',1,0),
- ('G2004','OFFICE',1,0);
 /*!40000 ALTER TABLE `m_group2` ENABLE KEYS */;
 
-
---
--- Definition of table `m_group3`
---
-
+-- Dumping structure for table bizdb.m_group3
 DROP TABLE IF EXISTS `m_group3`;
-CREATE TABLE `m_group3` (
+CREATE TABLE IF NOT EXISTS `m_group3` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL,
@@ -235,37 +113,13 @@ CREATE TABLE `m_group3` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_group3`
---
-
+-- Dumping data for table bizdb.m_group3: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_group3` DISABLE KEYS */;
-INSERT INTO `m_group3` (`ID`,`NAME`,`ACTIVE`,`ISHIDDEN`) VALUES 
- ('G3001','SHIRT',1,0),
- ('G3002','BLOUSE',1,0),
- ('G3003','T-SHIRT',1,0),
- ('G3004','FROCK',1,0),
- ('G3005','PANT',1,0),
- ('G3006','SHORT',1,0),
- ('G3007','SKIRT',1,0),
- ('G3008','TROUSER',1,0),
- ('G3009','THREE OUARTER',1,0),
- ('G3010','LEGGIN',1,0),
- ('G3011','DENIM',1,0),
- ('G3012','KURTHA ABOVE KNEE',1,0),
- ('G3013','UNDER SKIRT',1,0),
- ('G3014','SKINY',1,0),
- ('G3015','PANTY',1,0),
- ('G3016','KURTHA BELOW KNEE',1,0);
 /*!40000 ALTER TABLE `m_group3` ENABLE KEYS */;
 
-
---
--- Definition of table `m_group4`
---
-
+-- Dumping structure for table bizdb.m_group4
 DROP TABLE IF EXISTS `m_group4`;
-CREATE TABLE `m_group4` (
+CREATE TABLE IF NOT EXISTS `m_group4` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL,
@@ -273,77 +127,13 @@ CREATE TABLE `m_group4` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_group4`
---
-
+-- Dumping data for table bizdb.m_group4: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_group4` DISABLE KEYS */;
-INSERT INTO `m_group4` (`ID`,`NAME`,`ACTIVE`,`ISHIDDEN`) VALUES 
- ('G4001','PLAIN',1,0),
- ('G4002','LINE',1,0),
- ('G4003','DOTTED',1,0),
- ('G4004','WITH BUTTONS',1,0),
- ('G4005','-',1,0),
- ('G4006','KNEE LEVEL',1,0),
- ('G4007','THREE QUARTER',1,0),
- ('G4008','LONG',1,0),
- ('G4009','SHORT',1,0),
- ('G4010','FLOWERY',1,0),
- ('G4011','LACE',1,0),
- ('G4012','SLEEVE LESS',1,0),
- ('G4013','LONG SLEEVES',1,0),
- ('G4014','EMBROIDERY',1,0),
- ('G4015','PRINTED',1,0),
- ('G4016','SILK & LACE',1,0),
- ('G4017','SILK',1,0),
- ('G4018','SILK KNEE LEVEL',1,0),
- ('G4019','LANKA COLOUR',1,0),
- ('G4020','LEVIS',1,0),
- ('G4021','LANKA BLACK/WHITE',1,0),
- ('G4022','FRONT ZIPPER',1,0),
- ('G4023','BATHIK',1,0),
- ('G4024','DOTTED GATHERED',1,0),
- ('G4025','YORK PLEATED',1,0),
- ('G4026','FRONT PLEAT/ LACE',1,0),
- ('G4027','BLACK',1,0),
- ('G4028','COTTON S/S',1,0),
- ('G4029','OFF SHOULDER - FLOWERY',1,0),
- ('G4030','DOTTED SILK',1,0),
- ('G4031','BORDER PRINTED',1,0),
- ('G4032','PRINTED SLEEVE LESS',1,0),
- ('G4033','PLAIN SLEEVE LESS',1,0),
- ('G4034','OFF SHOULDER - PRINTED',1,0),
- ('G4035','OFF SHOULDER - PLAIN',1,0),
- ('G4036','FRILL TIGHT',1,0),
- ('G4037','BANKOK',1,0),
- ('G4038','LINES - S/LESS',1,0),
- ('G4039','LINES - 3/4 SLEEVE',1,0),
- ('G4040','LINES - SHORT SLEEVE',1,0),
- ('G4041','MOTOR BIKE',1,0),
- ('G4042','ELEPHANT',1,0),
- ('G4043','OFF SHOULDER LACE',1,0),
- ('G4044','GEORGET & PRINTED',1,0),
- ('G4045','COTTON PLAIN',1,0),
- ('G4046','COTTON',1,0),
- ('G4047','BABY',1,0),
- ('G4048','KID',1,0),
- ('G4049','BUTTERFLY',1,0),
- ('G4050','BLUE BEAR',1,0),
- ('G4051','PRINTED WITH LACE BAND',1,0),
- ('G4052','BLUE COLOUR PRINTED',1,0),
- ('G4053','PIPING',1,0),
- ('G4054','DENIM PRINT',1,0),
- ('G4055','WITH BELT',1,0),
- ('G4056','PINK STRIPES',1,0);
 /*!40000 ALTER TABLE `m_group4` ENABLE KEYS */;
 
-
---
--- Definition of table `m_group5`
---
-
+-- Dumping structure for table bizdb.m_group5
 DROP TABLE IF EXISTS `m_group5`;
-CREATE TABLE `m_group5` (
+CREATE TABLE IF NOT EXISTS `m_group5` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL,
@@ -351,37 +141,13 @@ CREATE TABLE `m_group5` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_group5`
---
-
+-- Dumping data for table bizdb.m_group5: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_group5` DISABLE KEYS */;
-INSERT INTO `m_group5` (`ID`,`NAME`,`ACTIVE`,`ISHIDDEN`) VALUES 
- ('G5001','L/S',1,0),
- ('G5002','S/S',1,0),
- ('G5003','XS',1,0),
- ('G5004','S',1,0),
- ('G5005','M',1,0),
- ('G5006','L',1,0),
- ('G5007','XL',1,0),
- ('G5008','XXL',1,0),
- ('G5009','3 XL',1,0),
- ('G5010','4 XL',1,0),
- ('G5011','5 XL',1,0),
- ('G5012','28',1,0),
- ('G5013','30',1,0),
- ('G5014','32',1,0),
- ('G5015','34',1,0),
- ('G5016','36',1,0);
 /*!40000 ALTER TABLE `m_group5` ENABLE KEYS */;
 
-
---
--- Definition of table `m_grouplink`
---
-
+-- Dumping structure for table bizdb.m_grouplink
 DROP TABLE IF EXISTS `m_grouplink`;
-CREATE TABLE `m_grouplink` (
+CREATE TABLE IF NOT EXISTS `m_grouplink` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `G1_ID` varchar(50) NOT NULL,
   `G2_ID` varchar(50) NOT NULL,
@@ -389,223 +155,15 @@ CREATE TABLE `m_grouplink` (
   `G4_ID` varchar(50) NOT NULL,
   `G5_ID` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_grouplink`
---
-
+-- Dumping data for table bizdb.m_grouplink: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_grouplink` DISABLE KEYS */;
-INSERT INTO `m_grouplink` (`ID`,`G1_ID`,`G2_ID`,`G3_ID`,`G4_ID`,`G5_ID`) VALUES 
- (1,'G1002','G2002','G3007','G4006','G5004'),
- (2,'G1002','G2002','G3007','G4006','G5005'),
- (3,'G1002','G2002','G3007','G4006','G5006'),
- (4,'G1002','G2002','G3007','G4006','G5007'),
- (5,'G1002','G2002','G3007','G4004','G5004'),
- (6,'G1002','G2002','G3007','G4004','G5005'),
- (7,'G1002','G2002','G3007','G4004','G5006'),
- (8,'G1002','G2001','G3002','G4011','G5004'),
- (9,'G1002','G2001','G3002','G4011','G5005'),
- (10,'G1002','G2001','G3002','G4011','G5006'),
- (11,'G1002','G2001','G3011','G4008','G5004'),
- (12,'G1002','G2001','G3011','G4008','G5005'),
- (13,'G1002','G2001','G3011','G4008','G5006'),
- (14,'G1002','G2002','G3012','G4002','G5004'),
- (15,'G1002','G2002','G3012','G4002','G5005'),
- (16,'G1002','G2002','G3012','G4002','G5006'),
- (17,'G1002','G2001','G3001','G4013','G5004'),
- (18,'G1002','G2001','G3001','G4013','G5005'),
- (19,'G1002','G2001','G3001','G4013','G5006'),
- (20,'G1002','G2001','G3002','G4010','G5004'),
- (21,'G1002','G2001','G3002','G4010','G5005'),
- (22,'G1002','G2001','G3002','G4010','G5006'),
- (23,'G1002','G2002','G3002','G4001','G5004'),
- (24,'G1002','G2002','G3002','G4001','G5005'),
- (25,'G1002','G2002','G3002','G4001','G5006'),
- (26,'G1002','G2002','G3002','G4014','G5004'),
- (27,'G1002','G2002','G3002','G4014','G5005'),
- (28,'G1002','G2002','G3002','G4014','G5006'),
- (29,'G1002','G2001','G3003','G4002','G5004'),
- (30,'G1002','G2001','G3003','G4002','G5005'),
- (31,'G1002','G2001','G3003','G4002','G5006'),
- (32,'G1002','G2001','G3010','G4008','G5004'),
- (33,'G1002','G2001','G3010','G4008','G5005'),
- (34,'G1002','G2001','G3010','G4008','G5006'),
- (35,'G1002','G2001','G3013','G4006','G5005'),
- (36,'G1002','G2001','G3013','G4006','G5006'),
- (37,'G1002','G2001','G3014','G4015','G5004'),
- (38,'G1002','G2001','G3014','G4015','G5005'),
- (39,'G1002','G2001','G3014','G4015','G5006'),
- (40,'G1002','G2001','G3007','G4016','G5004'),
- (41,'G1002','G2001','G3007','G4016','G5005'),
- (42,'G1002','G2001','G3007','G4016','G5006'),
- (43,'G1002','G2001','G3007','G4017','G5004'),
- (44,'G1002','G2001','G3007','G4017','G5005'),
- (45,'G1002','G2001','G3007','G4017','G5006'),
- (46,'G1002','G2001','G3007','G4018','G5004'),
- (47,'G1002','G2001','G3007','G4018','G5005'),
- (48,'G1002','G2001','G3007','G4018','G5006'),
- (49,'G1002','G2001','G3002','G4002','G5004'),
- (50,'G1002','G2001','G3002','G4002','G5005'),
- (51,'G1002','G2001','G3002','G4002','G5006'),
- (52,'G1002','G2002','G3002','G4003','G5006'),
- (53,'G1002','G2002','G3002','G4003','G5007'),
- (54,'G1002','G2002','G3002','G4003','G5008'),
- (55,'G1002','G2001','G3003','G4015','G5004'),
- (56,'G1002','G2001','G3003','G4015','G5005'),
- (57,'G1002','G2001','G3003','G4015','G5006'),
- (58,'G1002','G2001','G3003','G4019','G5004'),
- (59,'G1002','G2001','G3003','G4019','G5005'),
- (60,'G1002','G2001','G3003','G4019','G5006'),
- (61,'G1002','G2001','G3003','G4020','G5004'),
- (62,'G1002','G2001','G3003','G4020','G5005'),
- (63,'G1002','G2001','G3003','G4020','G5006'),
- (64,'G1002','G2002','G3002','G4015','G5004'),
- (65,'G1002','G2002','G3002','G4015','G5005'),
- (66,'G1002','G2002','G3002','G4015','G5006'),
- (67,'G1002','G2001','G3003','G4021','G5004'),
- (68,'G1002','G2001','G3003','G4021','G5005'),
- (69,'G1002','G2001','G3003','G4021','G5006'),
- (70,'G1002','G2002','G3002','G4012','G5004'),
- (71,'G1002','G2002','G3002','G4012','G5005'),
- (72,'G1002','G2002','G3002','G4012','G5006'),
- (73,'G1002','G2001','G3007','G4015','G5004'),
- (74,'G1002','G2001','G3007','G4015','G5005'),
- (75,'G1002','G2001','G3007','G4015','G5006'),
- (76,'G1002','G2002','G3015','G4015','G5004'),
- (77,'G1002','G2002','G3015','G4015','G5005'),
- (78,'G1002','G2002','G3015','G4015','G5006'),
- (79,'G1002','G2004','G3002','G4022','G5004'),
- (80,'G1002','G2004','G3002','G4022','G5005'),
- (81,'G1002','G2004','G3002','G4022','G5006'),
- (82,'G1002','G2004','G3002','G4022','G5007'),
- (83,'G1002','G2004','G3002','G4022','G5008'),
- (84,'G1002','G2002','G3016','G4023','G5005'),
- (85,'G1002','G2002','G3016','G4023','G5006'),
- (86,'G1002','G2002','G3016','G4023','G5007'),
- (87,'G1002','G2001','G3004','G4015','G5004'),
- (88,'G1002','G2001','G3004','G4015','G5005'),
- (89,'G1002','G2001','G3004','G4015','G5007'),
- (90,'G1002','G2001','G3002','G4024','G5005'),
- (91,'G1002','G2004','G3002','G4025','G5005'),
- (92,'G1002','G2004','G3002','G4025','G5006'),
- (93,'G1002','G2004','G3002','G4025','G5007'),
- (94,'G1002','G2004','G3002','G4025','G5008'),
- (95,'G1002','G2004','G3002','G4026','G5005'),
- (96,'G1002','G2004','G3002','G4026','G5006'),
- (97,'G1002','G2004','G3002','G4026','G5007'),
- (98,'G1002','G2002','G3002','G4027','G5004'),
- (99,'G1002','G2002','G3002','G4027','G5005'),
- (100,'G1002','G2002','G3002','G4027','G5006'),
- (101,'G1002','G2002','G3002','G4027','G5007'),
- (102,'G1002','G2002','G3002','G4028','G5008'),
- (103,'G1002','G2002','G3002','G4028','G5009'),
- (104,'G1002','G2002','G3002','G4028','G5010'),
- (105,'G1002','G2002','G3002','G4028','G5011'),
- (106,'G1002','G2001','G3004','G4029','G5004'),
- (107,'G1002','G2004','G3002','G4030','G5005'),
- (108,'G1002','G2004','G3002','G4030','G5006'),
- (109,'G1002','G2004','G3002','G4030','G5008'),
- (110,'G1002','G2002','G3002','G4031','G5006'),
- (111,'G1002','G2002','G3002','G4031','G5008'),
- (112,'G1002','G2002','G3002','G4031','G5009'),
- (113,'G1002','G2002','G3002','G4010','G5007'),
- (114,'G1002','G2002','G3002','G4010','G5008'),
- (115,'G1002','G2002','G3002','G4010','G5009'),
- (116,'G1002','G2001','G3002','G4032','G5006'),
- (117,'G1002','G2001','G3002','G4032','G5007'),
- (118,'G1002','G2001','G3002','G4032','G5008'),
- (119,'G1002','G2002','G3012','G4001','G5004'),
- (120,'G1002','G2002','G3012','G4001','G5005'),
- (121,'G1002','G2002','G3012','G4001','G5008'),
- (122,'G1002','G2002','G3002','G4015','G5009'),
- (123,'G1002','G2002','G3002','G4033','G5004'),
- (124,'G1002','G2002','G3002','G4033','G5005'),
- (125,'G1002','G2002','G3002','G4033','G5006'),
- (126,'G1002','G2002','G3002','G4033','G5008'),
- (127,'G1002','G2001','G3002','G4033','G5005'),
- (128,'G1002','G2001','G3002','G4033','G5006'),
- (129,'G1002','G2001','G3002','G4033','G5007'),
- (130,'G1002','G2002','G3016','G4002','G5004'),
- (131,'G1002','G2002','G3016','G4002','G5005'),
- (132,'G1002','G2002','G3016','G4002','G5006'),
- (133,'G1002','G2002','G3016','G4002','G5008'),
- (134,'G1002','g2001','G3002','G4034','G5004'),
- (135,'G1002','g2001','G3002','G4034','G5005'),
- (136,'G1002','g2001','G3002','G4034','G5006'),
- (137,'G1002','g2001','G3002','G4034','G5007'),
- (138,'G1002','G2002','G3002','G4031','G5007'),
- (139,'G1002','g2003','g3004','G4036','G5005'),
- (140,'G1002','g2003','g3004','G4036','G5006'),
- (141,'G1002','G2002','G3004','G4015','G5005'),
- (142,'G1002','G2002','G3004','G4015','G5006'),
- (143,'G1002','G2002','G3004','G4015','G5007'),
- (144,'G1002','G2002','G3004','G4034','G5004'),
- (145,'G1002','G2002','G3004','G4034','G5005'),
- (146,'G1002','G2002','G3004','G4034','G5006'),
- (147,'G1002','G2002','G3004','G4034','G5007'),
- (148,'G1002','G2001','G3004','G4035','G5007'),
- (149,'G1002','G2001','G3004','G4035','G5004'),
- (150,'G1002','G2003','G3016','G4014','G5005'),
- (151,'G1002','G2003','G3016','G4014','G5006'),
- (152,'G1002','G2003','G3016','G4014','G5007'),
- (153,'G1002','G2004','G3007','G4027','G5012'),
- (154,'G1002','G2004','G3007','G4027','G5013'),
- (155,'G1002','G2004','G3007','G4027','G5014'),
- (156,'G1002','G2004','G3007','G4027','G5015'),
- (157,'G1002','G2004','G3007','G4027','G5016'),
- (158,'G1002','G2001','G3010','G4008','G5007'),
- (159,'G1002','G2001','G3003','G4037','G5006'),
- (160,'G1002','G2001','G3003','G4038','G5004'),
- (161,'G1002','G2001','G3003','G4038','G5005'),
- (162,'G1002','G2001','G3003','G4038','G5006'),
- (163,'G1002','G2001','G3003','G4039','G5004'),
- (164,'G1002','G2001','G3003','G4039','G5005'),
- (165,'G1002','G2001','G3003','G4039','G5006'),
- (166,'G1002','G2001','G3003','G4040','G5004'),
- (167,'G1002','G2001','G3003','G4040','G5005'),
- (168,'G1002','G2001','G3003','G4040','G5006'),
- (169,'G1002','G2001','G3003','G4041','G5006'),
- (170,'G1002','G2001','G3003','G4042','G5006'),
- (171,'G1002','G2002','G3002','G4043','G5006'),
- (172,'G1002','G2001','G3004','G4023','G5004'),
- (173,'G1002','G2001','G3004','G4023','G5005'),
- (174,'G1002','G2001','G3004','G4023','G5006'),
- (175,'G1002','G2001','G3004','G4023','G5007'),
- (176,'G1002','G2001','G3004','G4044','G5004'),
- (177,'G1002','G2001','G3004','G4044','G5005'),
- (178,'G1002','G2001','G3004','G4044','G5006'),
- (179,'G1002','G2001','G3004','G4044','G5007'),
- (180,'G1002','G2002','G3016','G4001','G5004'),
- (181,'G1002','G2002','G3016','G4001','G5005'),
- (182,'G1002','G2002','G3016','G4001','G5006'),
- (183,'G1002','G2002','G3016','G4001','G5007'),
- (184,'G1002','G2002','G3002','G4045','G5004'),
- (185,'G1002','G2002','G3002','G4045','G5005'),
- (186,'G1002','G2002','G3002','G4045','G5006'),
- (187,'G1002','G2002','G3002','G4045','G5007'),
- (188,'G1003','G2002','G3015','G4047','G5005'),
- (189,'G1002','G2002','G3015','G4046','G5005'),
- (190,'G1003','G2001','G3003','G4049','G5005'),
- (191,'G1003','G2002','G3004','G4050','G5005'),
- (192,'G1003','G2002','G3004','G4051','G5005'),
- (193,'G1003','G2002','G3004','G4052','G5005'),
- (194,'G1003','G2002','G3004','G4053','G5005'),
- (195,'G1003','G2002','G3004','G4054','G5005'),
- (196,'G1006','G2002','G3004','G4046','G5005'),
- (197,'G1003','G2002','G3004','G4055','G5005'),
- (198,'G1003','G2002','G3004','G4056','G5005'),
- (199,'G1003','G2001','G3007','G4015','G5005'),
- (200,'G1006','G2002','G3004','G4014','G5005');
 /*!40000 ALTER TABLE `m_grouplink` ENABLE KEYS */;
 
-
---
--- Definition of table `m_location`
---
-
+-- Dumping structure for table bizdb.m_location
 DROP TABLE IF EXISTS `m_location`;
-CREATE TABLE `m_location` (
+CREATE TABLE IF NOT EXISTS `m_location` (
   `ID` int(11) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL,
@@ -614,22 +172,15 @@ CREATE TABLE `m_location` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_location`
---
-
+-- Dumping data for table bizdb.m_location: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_location` DISABLE KEYS */;
-INSERT INTO `m_location` (`ID`,`NAME`,`ACTIVE`,`VISIBLE`,`REFNO`) VALUES 
- (1,'HEAD OFFICE',1,1,'HO');
+INSERT IGNORE INTO `m_location` (`ID`, `NAME`, `ACTIVE`, `VISIBLE`, `REFNO`) VALUES
+	(1, 'HEAD OFFICE', 1, 1, 'HO');
 /*!40000 ALTER TABLE `m_location` ENABLE KEYS */;
 
-
---
--- Definition of table `m_paydet`
---
-
+-- Dumping structure for table bizdb.m_paydet
 DROP TABLE IF EXISTS `m_paydet`;
-CREATE TABLE `m_paydet` (
+CREATE TABLE IF NOT EXISTS `m_paydet` (
   `ID` varchar(5) NOT NULL,
   `M_PAYMST_ID` varchar(5) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -642,24 +193,17 @@ CREATE TABLE `m_paydet` (
   KEY `FK_M_PAYDET_M_PAYMST1_IDX` (`M_PAYMST_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_paydet`
---
-
+-- Dumping data for table bizdb.m_paydet: ~3 rows (approximately)
 /*!40000 ALTER TABLE `m_paydet` DISABLE KEYS */;
-INSERT INTO `m_paydet` (`ID`,`M_PAYMST_ID`,`NAME`,`RATE`,`SHORT_NAME`,`SEQ_ORDER`,`ACTIVE`,`REF_REQ`,`DATE_F`) VALUES 
- ('VISA','CRC','VISA',0,'VISA',0,1,1,0),
- ('MAST','CRC','MASTER',0,'MASTER',1,1,1,0),
- ('AMEX','CRC','AMEX',0,'AMEX',0,1,1,0);
+INSERT IGNORE INTO `m_paydet` (`ID`, `M_PAYMST_ID`, `NAME`, `RATE`, `SHORT_NAME`, `SEQ_ORDER`, `ACTIVE`, `REF_REQ`, `DATE_F`) VALUES
+	('VISA', 'CRC', 'VISA', 0, 'VISA', 0, 1, 1, 0),
+	('MAST', 'CRC', 'MASTER', 0, 'MASTER', 1, 1, 1, 0),
+	('AMEX', 'CRC', 'AMEX', 0, 'AMEX', 0, 1, 1, 0);
 /*!40000 ALTER TABLE `m_paydet` ENABLE KEYS */;
 
-
---
--- Definition of table `m_paymst`
---
-
+-- Dumping structure for table bizdb.m_paymst
 DROP TABLE IF EXISTS `m_paymst`;
-CREATE TABLE `m_paymst` (
+CREATE TABLE IF NOT EXISTS `m_paymst` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(50) DEFAULT NULL,
   `HASDET` smallint(6) DEFAULT NULL,
@@ -668,28 +212,22 @@ CREATE TABLE `m_paymst` (
   `SHORT_NAME` varchar(50) DEFAULT NULL,
   `ACTIVE` int(11) DEFAULT '1',
   `OVER_PAY` int(11) DEFAULT '0',
-  `DATE_F` int(11) DEFAULT '0'
+  `DATE_F` int(11) DEFAULT '0',
+  `SET_DUE_AUTO` tinyint(4) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_paymst`
---
-
+-- Dumping data for table bizdb.m_paymst: ~4 rows (approximately)
 /*!40000 ALTER TABLE `m_paymst` DISABLE KEYS */;
-INSERT INTO `m_paymst` (`ID`,`NAME`,`HASDET`,`REFREQ`,`SEQ_ORDER`,`SHORT_NAME`,`ACTIVE`,`OVER_PAY`,`DATE_F`) VALUES 
- ('CSH','CASH',0,0,0,'CASH',1,1,0),
- ('CRC','CREDIT CARD',1,0,1,'CRD CARD',1,0,0),
- ('CHQ','CHEQUE',0,1,2,'CHEQUE',0,0,1),
- ('VOU','VOUCHER',0,1,3,'VOUCHER',0,0,0);
+INSERT IGNORE INTO `m_paymst` (`ID`, `NAME`, `HASDET`, `REFREQ`, `SEQ_ORDER`, `SHORT_NAME`, `ACTIVE`, `OVER_PAY`, `DATE_F`, `SET_DUE_AUTO`) VALUES
+	('CSH', 'CASH', 0, 0, 0, 'CASH', 1, 1, 0, 0),
+	('CRC', 'CREDIT CARD', 1, 0, 1, 'CRD CARD', 0, 0, 0, 0),
+	('CHQ', 'CHEQUE', 0, 1, 2, 'CHEQUE', 0, 0, 1, 0),
+	('VOU', 'VOUCHER', 0, 1, 3, 'VOUCHER', 0, 0, 0, 0);
 /*!40000 ALTER TABLE `m_paymst` ENABLE KEYS */;
 
-
---
--- Definition of table `m_permissions`
---
-
+-- Dumping structure for table bizdb.m_permissions
 DROP TABLE IF EXISTS `m_permissions`;
-CREATE TABLE `m_permissions` (
+CREATE TABLE IF NOT EXISTS `m_permissions` (
   `ID` varchar(50) NOT NULL,
   `PARENTID` varchar(50) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -702,83 +240,79 @@ CREATE TABLE `m_permissions` (
   PRIMARY KEY (`ID`,`PARENTID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_permissions`
---
-
+-- Dumping data for table bizdb.m_permissions: ~65 rows (approximately)
 /*!40000 ALTER TABLE `m_permissions` DISABLE KEYS */;
-INSERT INTO `m_permissions` (`ID`,`PARENTID`,`NAME`,`DESCRIPTION`,`TYPE`,`HASSUB`,`ISUIMENU`,`ORD`,`TREE_ICON`) VALUES 
- ('A00000','A00000','ACCOUNTS','Accounts/Payments','ACC',1,1,601,'accounts.png'),
- ('A00001','A00000','ACHQ','Cheque Payments','ACHQ',1,1,602,'Cheque.png'),
- ('M00000','M00000','MASTER','Master Files','MAST',1,1,0,'materfiles.png'),
- ('M00001','M00000','LOCATIONS','Locations','LOC',0,1,1,'location.png'),
- ('M00002','M00000','GROUP1','Category','GROUP',0,1,2,'group.png'),
- ('M00003','M00000','GROUP2','Occation','GROUP',0,1,3,'group.png'),
- ('M00004','M00000','GROUP3','Type','GROUP',0,1,4,'group.png'),
- ('M00005','M00000','GROUP4','Design','GROUP',0,1,5,'group.png'),
- ('M00006','M00000','GROUP5','Size','GROUP',0,1,6,'group.png'),
- ('M00007','M00000','UNITS','Unit Master','UNITS',0,1,8,'units.png'),
- ('M00008','M00000','ITEMS','Item Maser','ITEMS',0,1,10,'item_cloth.png'),
- ('M00009','M00000','SUP','Supplier','SUP',0,1,11,'supplier.png'),
- ('M00010','M00000','CUS','Customer','CUS',0,1,12,'customer.png'),
- ('M00011','M00000','GROUPMAP','Group Map','GRPM',0,1,7,'groupmap.png'),
- ('M00012','M00000','UGRP','Unit Group','UGRP',0,1,9,'unitgrp.png'),
- ('M00013','M00000','GVCRE','Gift Voucher Creation','GVCRE',0,1,13,'gv.png'),
- ('M00014','M00000','GVSTA','Gift Voucher Status','GVSTA',0,1,14,'gv_status.png'),
- ('P00000','P00000','GEN_PER','General Permissions','GEN_PER',1,0,801,''),
- ('P00001','P00000','P1','Login','GEN_PER',0,0,802,''),
- ('P00002','P00000','P2','Logout','GEN_PER',0,0,803,''),
- ('P00003','P00000','P3','Location Create','GEN_PER',0,0,804,''),
- ('P00004','P00000','P4','Location Update','GEN_PER',0,0,805,''),
- ('P00005','P00000','P5','Group Creation','GEN_PER',0,0,805,''),
- ('P00006','P00000','P6','Group Update','GEN_PER',0,0,807,''),
- ('P00007','P00000','P7','Unit Creation','GEN_PER',0,0,808,''),
- ('P00008','P00000','P8','Unit Update','GEN_PER',0,0,809,''),
- ('P00009','P00000','P9','Item Creation','GEN_PER',0,0,810,''),
- ('P00010','P00000','P10','Item Update','GEN_PER',0,0,811,''),
- ('P00011','P00000','P11','Supplier Create','GEN_PER',0,0,812,''),
- ('P00012','P00000','P12','Supplier Update','GEN_PER',0,0,813,''),
- ('P00013','P00000','P13','Customer Create','GEN_PER',0,0,814,''),
- ('P00014','P00000','P14','Customer Update','GEN_PER',0,0,815,''),
- ('P00015','P00000','P15','Group Map Create','GEN_PER',0,0,816,''),
- ('P00016','P00000','P16','Group Map Update','GEN_PER',0,0,817,''),
- ('P00017','P00000','P17','Unit Map Create','GEN_PER',0,0,818,''),
- ('P00018','P00000','P18','Unit Map Update','GEN_PER',0,0,819,''),
- ('P00019','P00000','P19','Cheque Payment Update State','GEN_PER',0,0,820,''),
- ('P00020','P00000','P20','Cheque Payment Special Update(Re-Assign)','GEN_PER',0,0,821,''),
- ('P00021','P00000','P21','Gift voucher purchase','GEN_PER',0,0,822,''),
- ('P00022','P00000','P22','Gift voucher redeem','GEN_PER',0,0,823,''),
- ('P00023','P00000','P23','Give Discount Percentage','GEN_PER',0,0,824,''),
- ('P00024','P00000','P24','Give Discount Amount','GEN_PER',0,0,825,''),
- ('P00025','P00000','P25','Give Total Discount','GEN_PER',0,0,826,''),
- ('R00000','R00000','RPT','Reports','RPT',1,1,201,'report.png'),
- ('R00001','R00000','R_SALES','Sales Reports','RPT',0,1,202,'Sales_Folder.png'),
- ('R00002','R00001','R_SALES_1','Invoice Listing','RPT',0,1,203,'Report_sub.png'),
- ('R00003','R00001','R_SALES_2','Payment mode wise Sale','RPT',0,1,204,'Report_sub.png'),
- ('R00004','R00001','R_SALES_3','Supplier Products Sale','RPT',0,1,205,'Report_sub.png'),
- ('R00101','R00000','R_STOCK','Stock Reports','RPT',0,1,301,'Stock_Folder.png'),
- ('R00102','R00101','R_STOCK_1','Stock Balance Summary','RPT',0,1,302,'Report_sub.png'),
- ('S00000','S00000','SECURITY','Security','SECUR',1,1,701,'security.png'),
- ('S00001','S00000','SEC_UC','User Creation','SUC',0,1,702,'user_create.png'),
- ('S00002','S00000','SEC_GP','Group Permission','SGP',0,1,703,''),
- ('S00003','S00000','SEC_US','User Security','SUS',0,1,704,'user_security.png'),
- ('S00004','S00000','SEC_UUD','User Details Update','SUUDU',0,0,705,''),
- ('S00005','S00000','SEC_UUS','User State Update only','SUSU',0,0,706,''),
- ('T00000','T00000','TRANSACTIONS','Transactions','TRN',1,1,101,'transaction.png'),
- ('T00001','T00000','T_GRN','Goods Received Note','TRN',0,1,102,'grn.png'),
- ('T00002','T00000','T_INV','Invoice','TRN',0,1,103,'Invoice.png'),
- ('U00000','U00000','SETTINGS','Utilities','SET',1,1,751,'fol.png'),
- ('U00001','U00000','SET_SYS','Settings','SET',0,1,752,'settings.png'),
- ('U00002','U00000','SET_EXC','Excel Upload','SET',0,1,753,'excel.png');
+INSERT IGNORE INTO `m_permissions` (`ID`, `PARENTID`, `NAME`, `DESCRIPTION`, `TYPE`, `HASSUB`, `ISUIMENU`, `ORD`, `TREE_ICON`) VALUES
+	('A00000', 'A00000', 'ACCOUNTS', 'Accounts/Payments', 'ACC', 1, 1, 601, 'accounts.png'),
+	('A00001', 'A00000', 'ACHQ', 'Cheque Payments', 'ACHQ', 1, 1, 602, 'Cheque.png'),
+	('M00000', 'M00000', 'MASTER', 'Master Files', 'MAST', 1, 1, 0, 'materfiles.png'),
+	('M00001', 'M00000', 'LOCATIONS', 'Locations', 'LOC', 0, 1, 1, 'location.png'),
+	('M00002', 'M00000', 'GROUP1', 'Category', 'GROUP', 0, 1, 2, 'group.png'),
+	('M00003', 'M00000', 'GROUP2', 'Occation', 'GROUP', 0, 1, 3, 'group.png'),
+	('M00004', 'M00000', 'GROUP3', 'Type', 'GROUP', 0, 1, 4, 'group.png'),
+	('M00005', 'M00000', 'GROUP4', 'Design', 'GROUP', 0, 1, 5, 'group.png'),
+	('M00006', 'M00000', 'GROUP5', 'Size', 'GROUP', 0, 1, 6, 'group.png'),
+	('M00007', 'M00000', 'UNITS', 'Unit Master', 'UNITS', 0, 1, 8, 'units.png'),
+	('M00008', 'M00000', 'ITEMS', 'Item Maser', 'ITEMS', 0, 1, 10, 'item_cloth.png'),
+	('M00009', 'M00000', 'SUP', 'Supplier', 'SUP', 0, 1, 11, 'supplier.png'),
+	('M00010', 'M00000', 'CUS', 'Customer', 'CUS', 0, 1, 12, 'customer.png'),
+	('M00011', 'M00000', 'GROUPMAP', 'Group Map', 'GRPM', 0, 1, 7, 'groupmap.png'),
+	('M00012', 'M00000', 'UGRP', 'Unit Group', 'UGRP', 0, 1, 9, 'unitgrp.png'),
+	('M00013', 'M00000', 'GVCRE', 'Gift Voucher Creation', 'GVCRE', 0, 1, 13, 'gv.png'),
+	('M00014', 'M00000', 'GVSTA', 'Gift Voucher Status', 'GVSTA', 0, 1, 14, 'gv_status.png'),
+	('M00015', 'M00000', 'SALESM', 'Sales Person', 'SALESM', 0, 1, 14, 'salesman.png'),
+	('P00000', 'P00000', 'GEN_PER', 'General Permissions', 'GEN_PER', 1, 0, 801, ''),
+	('P00001', 'P00000', 'P1', 'Login', 'GEN_PER', 0, 0, 802, ''),
+	('P00002', 'P00000', 'P2', 'Logout', 'GEN_PER', 0, 0, 803, ''),
+	('P00003', 'P00000', 'P3', 'Location Create', 'GEN_PER', 0, 0, 804, ''),
+	('P00004', 'P00000', 'P4', 'Location Update', 'GEN_PER', 0, 0, 805, ''),
+	('P00005', 'P00000', 'P5', 'Group Creation', 'GEN_PER', 0, 0, 805, ''),
+	('P00006', 'P00000', 'P6', 'Group Update', 'GEN_PER', 0, 0, 807, ''),
+	('P00007', 'P00000', 'P7', 'Unit Creation', 'GEN_PER', 0, 0, 808, ''),
+	('P00008', 'P00000', 'P8', 'Unit Update', 'GEN_PER', 0, 0, 809, ''),
+	('P00009', 'P00000', 'P9', 'Item Creation', 'GEN_PER', 0, 0, 810, ''),
+	('P00010', 'P00000', 'P10', 'Item Update', 'GEN_PER', 0, 0, 811, ''),
+	('P00011', 'P00000', 'P11', 'Supplier Create', 'GEN_PER', 0, 0, 812, ''),
+	('P00012', 'P00000', 'P12', 'Supplier Update', 'GEN_PER', 0, 0, 813, ''),
+	('P00013', 'P00000', 'P13', 'Customer Create', 'GEN_PER', 0, 0, 814, ''),
+	('P00014', 'P00000', 'P14', 'Customer Update', 'GEN_PER', 0, 0, 815, ''),
+	('P00015', 'P00000', 'P15', 'Group Map Create', 'GEN_PER', 0, 0, 816, ''),
+	('P00016', 'P00000', 'P16', 'Group Map Update', 'GEN_PER', 0, 0, 817, ''),
+	('P00017', 'P00000', 'P17', 'Unit Map Create', 'GEN_PER', 0, 0, 818, ''),
+	('P00018', 'P00000', 'P18', 'Unit Map Update', 'GEN_PER', 0, 0, 819, ''),
+	('P00019', 'P00000', 'P19', 'Cheque Payment Update State', 'GEN_PER', 0, 0, 820, ''),
+	('P00020', 'P00000', 'P20', 'Cheque Payment Special Update(Re-Assign)', 'GEN_PER', 0, 0, 821, ''),
+	('P00021', 'P00000', 'P21', 'Gift voucher purchase', 'GEN_PER', 0, 0, 822, ''),
+	('P00022', 'P00000', 'P22', 'Gift voucher redeem', 'GEN_PER', 0, 0, 823, ''),
+	('P00023', 'P00000', 'P23', 'Give Discount Percentage', 'GEN_PER', 0, 0, 824, ''),
+	('P00024', 'P00000', 'P24', 'Give Discount Amount', 'GEN_PER', 0, 0, 825, ''),
+	('P00025', 'P00000', 'P25', 'Give Total Discount', 'GEN_PER', 0, 0, 826, ''),
+	('P00026', 'P00000', 'P26', 'Cancel Transaction', 'GEN_PER', 0, 0, 826, ''),
+	('R00000', 'R00000', 'RPT', 'Reports', 'RPT', 1, 1, 201, 'report.png'),
+	('R00001', 'R00000', 'R_SALES', 'Sales Reports', 'RPT', 0, 1, 202, 'Sales_Folder.png'),
+	('R00002', 'R00001', 'R_SALES_1', 'Invoice Listing', 'RPT', 0, 1, 203, 'Report_sub.png'),
+	('R00003', 'R00001', 'R_SALES_2', 'Payment mode wise Sale', 'RPT', 0, 1, 204, 'Report_sub.png'),
+	('R00004', 'R00001', 'R_SALES_3', 'Supplier Products Sale', 'RPT', 0, 1, 205, 'Report_sub.png'),
+	('R00005', 'R00001', 'R_SALES_4', 'Invoice wise Profit Report', 'RPT', 0, 1, 206, 'Report_sub.png'),
+	('R00101', 'R00000', 'R_STOCK', 'Stock Reports', 'RPT', 0, 1, 301, 'Stock_Folder.png'),
+	('R00102', 'R00101', 'R_STOCK_1', 'Stock Balance Summary', 'RPT', 0, 1, 302, 'Report_sub.png'),
+	('S00000', 'S00000', 'SECURITY', 'Security', 'SECUR', 1, 1, 701, 'security.png'),
+	('S00001', 'S00000', 'SEC_UC', 'User Creation', 'SUC', 0, 1, 702, 'user_create.png'),
+	('S00002', 'S00000', 'SEC_GP', 'Group Permission', 'SGP', 0, 1, 703, ''),
+	('S00003', 'S00000', 'SEC_US', 'User Security', 'SUS', 0, 1, 704, 'user_security.png'),
+	('S00004', 'S00000', 'SEC_UUD', 'User Details Update', 'SUUDU', 0, 0, 705, ''),
+	('S00005', 'S00000', 'SEC_UUS', 'User State Update only', 'SUSU', 0, 0, 706, ''),
+	('T00000', 'T00000', 'TRANSACTIONS', 'Transactions', 'TRN', 1, 1, 101, 'transaction.png'),
+	('T00001', 'T00000', 'T_GRN', 'Goods Received Note', 'TRN', 0, 1, 102, 'grn.png'),
+	('T00002', 'T00000', 'T_INV', 'Invoice', 'TRN', 0, 1, 103, 'Invoice.png'),
+	('U00000', 'U00000', 'SETTINGS', 'Utilities', 'SET', 1, 1, 751, 'fol.png'),
+	('U00001', 'U00000', 'SET_SYS', 'Settings', 'SET', 0, 1, 752, 'settings.png'),
+	('U00002', 'U00000', 'SET_EXC', 'Excel Upload', 'SET', 0, 1, 753, 'excel.png');
 /*!40000 ALTER TABLE `m_permissions` ENABLE KEYS */;
 
-
---
--- Definition of table `m_products`
---
-
+-- Dumping structure for table bizdb.m_products
 DROP TABLE IF EXISTS `m_products`;
-CREATE TABLE `m_products` (
+CREATE TABLE IF NOT EXISTS `m_products` (
   `ID` varchar(100) NOT NULL,
   `PARENT_ID` varchar(100) DEFAULT NULL,
   `NAME` text,
@@ -808,235 +342,13 @@ CREATE TABLE `m_products` (
   KEY `FK_M_PRODUCTS_M_USER2_IDX` (`MDUSER`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_products`
---
-
+-- Dumping data for table bizdb.m_products: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_products` DISABLE KEYS */;
-INSERT INTO `m_products` (`ID`,`PARENT_ID`,`NAME`,`PRINTDES`,`ACTIVE`,`BATCH`,`CRDATE`,`CRUSER`,`MDDATE`,`MDUSER`,`M_GROUP1_ID`,`M_GROUP2_ID`,`M_GROUP3_ID`,`M_GROUP4_ID`,`M_GROUP5_ID`,`REF1`,`REF2`,`M_UNITGROUPS_ID`,`PRO_IMG`) VALUES 
- ('000001','000001','LADIES FORMAL SKIRT KNEE LEVEL S','LADIES FORMAL SKIRT KNEE LEVEL S',1,0,'2017-11-24 09:24:11','U0000','2017-12-02 01:27:01','U0000','G1002','G2002','G3007','G4006','G5004','S-1111','','UG001','MyData/Products/PRO_000001.jpg'),
- ('000002','000001','LADIES FORMAL SKIRT KNEE LEVEL M','LADIES FORMAL SKIRT KNEE LEVEL M',1,0,'2017-11-24 09:24:11','U0000','2017-12-02 01:26:48','U0000','G1002','G2002','G3007','G4006','G5005','M-1111','','UG001','MyData/Products/PRO_000002.jpg'),
- ('000003','000001','LADIES FORMAL SKIRT KNEE LEVEL L','LADIES FORMAL SKIRT KNEE LEVEL L',1,0,'2017-11-24 09:24:11','U0000','2017-12-02 01:12:42','U0000','G1002','G2002','G3007','G4006','G5006','L-1111','','UG001','MyData/Products/PRO_000003.jpg'),
- ('000004','000001','LADIES FORMAL SKIRT KNEE LEVEL XL','LADIES FORMAL SKIRT KNEE LEVEL XL',1,0,'2017-11-24 09:24:11','U0000','2017-12-02 01:12:56','U0000','G1002','G2002','G3007','G4006','G5007','XL-1111','','UG001','MyData/Products/PRO_000004.jpg'),
- ('000005','000005','LADIES FORMAL SKIRT WITH BUTTONS S','LADIES FORMAL SKIRT WITH BUTTONS S',1,0,'2017-11-24 09:24:11','U0000','2017-11-24 09:24:11','U0000','G1002','G2002','G3007','G4004','G5004','S-2222','','UG001','MyData/Products/PRO_000005.jpg'),
- ('000006','000005','LADIES FORMAL SKIRT WITH BUTTONS M','LADIES FORMAL SKIRT WITH BUTTONS M',1,0,'2017-11-24 09:24:11','U0000','2017-11-24 09:24:11','U0000','G1002','G2002','G3007','G4004','G5005','M-2222','','UG001','MyData/Products/PRO_000006.jpg'),
- ('000007','000005','LADIES FORMAL SKIRT WITH BUTTONS L','LADIES FORMAL SKIRT WITH BUTTONS L',1,0,'2017-11-24 09:24:11','U0000','2017-11-24 09:24:11','U0000','G1002','G2002','G3007','G4004','G5006','L-2222','','UG001','MyData/Products/PRO_000007.jpg'),
- ('000008','000008','LADIES CASUAL BLOUSE LACE S','LADIES CASUAL BLOUSE LACE S',1,0,'2017-11-24 09:24:11','U0000','2017-11-24 09:24:11','U0000','G1002','G2001','G3002','G4011','G5004','S-3333','','UG001','MyData/Products/PRO_000008.jpg'),
- ('000009','000008','LADIES CASUAL BLOUSE LACE M','LADIES CASUAL BLOUSE LACE M',1,0,'2017-11-24 09:24:11','U0000','2017-11-24 09:24:11','U0000','G1002','G2001','G3002','G4011','G5005','M-3333','','UG001','MyData/Products/PRO_000009.jpg'),
- ('000010','000008','LADIES CASUAL BLOUSE LACE L','LADIES CASUAL BLOUSE LACE L',1,0,'2017-11-24 09:24:11','U0000','2017-11-24 09:24:11','U0000','G1002','G2001','G3002','G4011','G5006','L-3333','','UG001','MyData/Products/PRO_000010.jpg'),
- ('000011','000011','LADIES CASUAL DENIM LONG S','LADIES CASUAL DENIM LONG S',1,0,'2017-11-24 09:24:11','U0000','2017-11-24 09:24:11','U0000','G1002','G2001','G3011','G4008','G5004','S-4444','','UG001','MyData/Products/PRO_000011.jpg'),
- ('000012','000011','LADIES CASUAL DENIM LONG M','LADIES CASUAL DENIM LONG M',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3011','G4008','G5005','M-4444','','UG001','MyData/Products/PRO_000012.jpg'),
- ('000013','000011','LADIES CASUAL DENIM LONG L','LADIES CASUAL DENIM LONG L',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3011','G4008','G5006','L-4444','','UG001','MyData/Products/PRO_000013.jpg'),
- ('000014','000014','LADIES FORMAL KURTHA ABOVE KNEE LINE S','LADIES FORMAL KURTHA ABOVE KNEE LINE S',1,0,'2017-11-24 09:24:12','U0000','2017-12-01 21:28:26','U0000','G1002','G2002','G3012','G4002','G5004','S-10090281','','UG001','MyData/Products/PRO_000014.jpg'),
- ('000015','000014','LADIES FORMAL KURTHA ABOVE KNEE LINE M','LADIES FORMAL KURTHA ABOVE KNEE LINE M',1,0,'2017-11-24 09:24:12','U0000','2017-12-01 21:28:41','U0000','G1002','G2002','G3012','G4002','G5005','M-10090281','','UG001','MyData/Products/PRO_000015.jpg'),
- ('000016','000014','LADIES FORMAL KURTHA ABOVE KNEE LINE L','LADIES FORMAL KURTHA ABOVE KNEE LINE L',1,0,'2017-11-24 09:24:12','U0000','2017-12-01 21:28:54','U0000','G1002','G2002','G3012','G4002','G5006','L-10090281','','UG001','MyData/Products/PRO_000016.jpg'),
- ('000017','000017','LADIES CASUAL SHIRT LONG SLEEVES S','LADIES CASUAL SHIRT LONG SLEEVES S',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3001','G4013','G5004','S-1001087','','UG001','MyData/Products/PRO_000017.jpg'),
- ('000018','000017','LADIES CASUAL SHIRT LONG SLEEVES M','LADIES CASUAL SHIRT LONG SLEEVES M',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3001','G4013','G5005','M-1001087','','UG001','MyData/Products/PRO_000018.jpg'),
- ('000019','000017','LADIES CASUAL SHIRT LONG SLEEVES L','LADIES CASUAL SHIRT LONG SLEEVES L',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3001','G4013','G5006','L-1001087','','UG001','MyData/Products/PRO_000019.jpg'),
- ('000020','000020','LADIES CASUAL BLOUSE FLOWERY S','LADIES CASUAL BLOUSE FLOWERY S',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3002','G4010','G5004','S-10011030','','UG001','MyData/Products/PRO_000020.jpg'),
- ('000021','000020','LADIES CASUAL BLOUSE FLOWERY M','LADIES CASUAL BLOUSE FLOWERY M',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3002','G4010','G5005','M-10011030','','UG001','MyData/Products/PRO_000021.jpg'),
- ('000022','000020','LADIES CASUAL BLOUSE FLOWERY L','LADIES CASUAL BLOUSE FLOWERY L',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3002','G4010','G5006','L-10011030','','UG001','MyData/Products/PRO_000022.jpg'),
- ('000023','000023','LADIES FORMAL BLOUSE PLAIN S','LADIES FORMAL BLOUSE PLAIN S',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2002','G3002','G4001','G5004','S-10011031','','UG001','MyData/Products/PRO_000023.jpg'),
- ('000024','000023','LADIES FORMAL BLOUSE PLAIN M','LADIES FORMAL BLOUSE PLAIN M',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2002','G3002','G4001','G5005','M-10011031','','UG001','MyData/Products/PRO_000024.jpg'),
- ('000025','000023','LADIES FORMAL BLOUSE PLAIN L','LADIES FORMAL BLOUSE PLAIN L',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2002','G3002','G4001','G5006','L-10011031','','UG001','MyData/Products/PRO_000025.jpg'),
- ('000026','000026','LADIES FORMAL BLOUSE EMBROIDERY S','LADIES FORMAL BLOUSE EMBROIDERY S',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2002','G3002','G4014','G5004','S-10011019','','UG001','MyData/Products/PRO_000026.jpg'),
- ('000027','000026','LADIES FORMAL BLOUSE EMBROIDERY M','LADIES FORMAL BLOUSE EMBROIDERY M',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2002','G3002','G4014','G5005','M-10011019','','UG001','MyData/Products/PRO_000027.jpg'),
- ('000028','000026','LADIES FORMAL BLOUSE EMBROIDERY L','LADIES FORMAL BLOUSE EMBROIDERY L',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2002','G3002','G4014','G5006','L-10011019','','UG001','MyData/Products/PRO_000028.jpg'),
- ('000029','000029','LADIES CASUAL T-SHIRT LINE S','LADIES CASUAL T-SHIRT LINE S',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3003','G4002','G5004','S-10050334','','UG001','MyData/Products/PRO_000029.jpg'),
- ('000030','000029','LADIES CASUAL T-SHIRT LINE M','LADIES CASUAL T-SHIRT LINE M',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3003','G4002','G5005','M-10050334','','UG001','MyData/Products/PRO_000030.jpg'),
- ('000031','000029','LADIES CASUAL T-SHIRT LINE L','LADIES CASUAL T-SHIRT LINE L',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3003','G4002','G5006','L-10050334','','UG001','MyData/Products/PRO_000031.jpg'),
- ('000032','000032','LADIES CASUAL LEGGIN LONG S','LADIES CASUAL LEGGIN LONG S',1,0,'2017-11-24 09:24:12','U0000','2017-12-01 21:29:11','U0000','G1002','G2001','G3010','G4008','G5004','S-10160033','','UG001','MyData/Products/PRO_000032.jpg'),
- ('000033','000032','LADIES CASUAL LEGGIN LONG M','LADIES CASUAL LEGGIN LONG M',1,0,'2017-11-24 09:24:12','U0000','2017-12-01 21:29:25','U0000','G1002','G2001','G3010','G4008','G5005','M-10160033','','UG001','MyData/Products/PRO_000033.jpg'),
- ('000034','000032','LADIES CASUAL LEGGIN LONG L','LADIES CASUAL LEGGIN LONG L',1,0,'2017-11-24 09:24:12','U0000','2017-12-01 21:29:44','U0000','G1002','G2001','G3010','G4008','G5006','L-10160033','','UG001','MyData/Products/PRO_000034.jpg'),
- ('000035','000035','LADIES CASUAL UNDER SKIRT KNEE LEVEL M','LADIES CASUAL UNDER SKIRT KNEE LEVEL M',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3013','G4006','G5005','M-1023000','','UG001','MyData/Products/PRO_000035.jpg'),
- ('000036','000035','LADIES CASUAL UNDER SKIRT KNEE LEVEL L','LADIES CASUAL UNDER SKIRT KNEE LEVEL L',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3013','G4006','G5006','L-1023000','','UG001','MyData/Products/PRO_000036.jpg'),
- ('000037','000037','LADIES CASUAL SKINY PRINTED S','LADIES CASUAL SKINY PRINTED S',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3014','G4015','G5004','S-10030055','','UG001','MyData/Products/PRO_000037.jpg'),
- ('000038','000037','LADIES CASUAL SKINY PRINTED M','LADIES CASUAL SKINY PRINTED M',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3014','G4015','G5005','M-10030055','','UG001','MyData/Products/PRO_000038.jpg'),
- ('000039','000037','LADIES CASUAL SKINY PRINTED L','LADIES CASUAL SKINY PRINTED L',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3014','G4015','G5006','L-10030055','','UG001','MyData/Products/PRO_000039.jpg'),
- ('000040','000040','LADIES CASUAL SKIRT SILK & LACE S','LADIES CASUAL SKIRT SILK & LACE S',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3007','G4016','G5004','S-10020574','','UG001','MyData/Products/PRO_000040.jpg'),
- ('000041','000040','LADIES CASUAL SKIRT SILK & LACE M','LADIES CASUAL SKIRT SILK & LACE M',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3007','G4016','G5005','M-10020574','','UG001','MyData/Products/PRO_000041.jpg'),
- ('000042','000040','LADIES CASUAL SKIRT SILK & LACE L','LADIES CASUAL SKIRT SILK & LACE L',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3007','G4016','G5006','L-10020574','','UG001','MyData/Products/PRO_000042.jpg'),
- ('000043','000043','LADIES CASUAL SKIRT SILK S','LADIES CASUAL SKIRT SILK S',1,0,'2017-11-24 09:24:12','U0000','2017-11-24 09:24:12','U0000','G1002','G2001','G3007','G4017','G5004','S-10020542','','UG001','MyData/Products/PRO_000043.jpg'),
- ('000044','000043','LADIES CASUAL SKIRT SILK M','LADIES CASUAL SKIRT SILK M',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3007','G4017','G5005','M-10020542','','UG001','MyData/Products/PRO_000044.jpg'),
- ('000045','000043','LADIES CASUAL SKIRT SILK L','LADIES CASUAL SKIRT SILK L',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3007','G4017','G5006','L-10020542','','UG001','MyData/Products/PRO_000045.jpg'),
- ('000046','000046','LADIES CASUAL SKIRT SILK KNEE LEVEL S','LADIES CASUAL SKIRT SILK KNEE LEVEL S',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3007','G4018','G5004','S-10020521','','UG001','MyData/Products/PRO_000046.jpg'),
- ('000047','000046','LADIES CASUAL SKIRT SILK KNEE LEVEL M','LADIES CASUAL SKIRT SILK KNEE LEVEL M',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3007','G4018','G5005','M-10020521','','UG001','MyData/Products/PRO_000047.jpg'),
- ('000048','000046','LADIES CASUAL SKIRT SILK KNEE LEVEL L','LADIES CASUAL SKIRT SILK KNEE LEVEL L',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3007','G4018','G5006','L-10020521','','UG001','MyData/Products/PRO_000048.jpg'),
- ('000049','000049','LADIES CASUAL LEGGIN LONG S','LADIES CASUAL LEGGIN LONG S',1,0,'2017-11-24 09:24:13','U0000','2017-12-01 21:30:16','U0000','G1002','G2001','G3010','G4008','G5004','S-10160032','','UG001','MyData/Products/PRO_000049.jpg'),
- ('000050','000049','LADIES CASUAL LEGGIN LONG M','LADIES CASUAL LEGGIN LONG M',1,0,'2017-11-24 09:24:13','U0000','2017-12-01 21:30:34','U0000','G1002','G2001','G3010','G4008','G5005','M-10160032','','UG001','MyData/Products/PRO_000050.jpg'),
- ('000051','000049','LADIES CASUAL LEGGIN LONG L','LADIES CASUAL LEGGIN LONG L',1,0,'2017-11-24 09:24:13','U0000','2017-12-01 21:30:47','U0000','G1002','G2001','G3010','G4008','G5006','L-10160032','','UG001','MyData/Products/PRO_000051.jpg'),
- ('000052','000052','LADIES CASUAL BLOUSE LINE S','LADIES CASUAL BLOUSE LINE S',1,0,'2017-11-24 09:24:13','U0000','2017-12-01 21:31:05','U0000','G1002','G2001','G3002','G4002','G5004','S-10011021','','UG001','MyData/Products/PRO_000052.jpg'),
- ('000053','000052','LADIES CASUAL BLOUSE LINE M','LADIES CASUAL BLOUSE LINE M',1,0,'2017-11-24 09:24:13','U0000','2017-12-01 21:31:23','U0000','G1002','G2001','G3002','G4002','G5005','M-10011021','','UG001','MyData/Products/PRO_000053.jpg'),
- ('000054','000052','LADIES CASUAL BLOUSE LINE L','LADIES CASUAL BLOUSE LINE L',1,0,'2017-11-24 09:24:13','U0000','2017-12-01 21:31:47','U0000','G1002','G2001','G3002','G4002','G5006','L-10011021','','UG001','MyData/Products/PRO_000054.jpg'),
- ('000055','000055','LADIES FORMAL BLOUSE DOTTED L','LADIES FORMAL BLOUSE DOTTED L',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2002','G3002','G4003','G5006','L-100109711','','UG001','MyData/Products/PRO_000055.jpg'),
- ('000056','000055','LADIES FORMAL BLOUSE DOTTED XL','LADIES FORMAL BLOUSE DOTTED XL',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2002','G3002','G4003','G5007','XL-100109711','','UG001','MyData/Products/PRO_000056.jpg'),
- ('000057','000055','LADIES FORMAL BLOUSE DOTTED XXL','LADIES FORMAL BLOUSE DOTTED XXL',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2002','G3002','G4003','G5008','XXL-100109711','','UG001','MyData/Products/PRO_000057.jpg'),
- ('000058','000058','LADIES CASUAL T-SHIRT PRINTED S','LADIES CASUAL T-SHIRT PRINTED S',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4015','G5004','S-10050277','','UG001','MyData/Products/PRO_000058.jpg'),
- ('000059','000058','LADIES CASUAL T-SHIRT PRINTED M','LADIES CASUAL T-SHIRT PRINTED M',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4015','G5005','M-10050277','','UG001','MyData/Products/PRO_000059.jpg'),
- ('000060','000058','LADIES CASUAL T-SHIRT PRINTED L','LADIES CASUAL T-SHIRT PRINTED L',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4015','G5006','L-10050277','','UG001','MyData/Products/PRO_000060.jpg'),
- ('000061','000061','LADIES CASUAL T-SHIRT LANKA COLOUR S','LADIES CASUAL T-SHIRT LANKA COLOUR S',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4019','G5004','S-10050319','','UG001','MyData/Products/PRO_000061.jpg'),
- ('000062','000061','LADIES CASUAL T-SHIRT LANKA COLOUR M','LADIES CASUAL T-SHIRT LANKA COLOUR M',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4019','G5005','M-10050319','','UG001','MyData/Products/PRO_000062.jpg'),
- ('000063','000061','LADIES CASUAL T-SHIRT LANKA COLOUR L','LADIES CASUAL T-SHIRT LANKA COLOUR L',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4019','G5006','L-10050319','','UG001','MyData/Products/PRO_000063.jpg'),
- ('000064','000064','LADIES CASUAL T-SHIRT LEVIS S','LADIES CASUAL T-SHIRT LEVIS S',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4020','G5004','S-10050318','','UG001','MyData/Products/PRO_000064.jpg'),
- ('000065','000064','LADIES CASUAL T-SHIRT LEVIS M','LADIES CASUAL T-SHIRT LEVIS M',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4020','G5005','M-10050318','','UG001','MyData/Products/PRO_000065.jpg'),
- ('000066','000064','LADIES CASUAL T-SHIRT LEVIS L','LADIES CASUAL T-SHIRT LEVIS L',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4020','G5006','L-10050318','','UG001','MyData/Products/PRO_000066.jpg'),
- ('000067','000067','LADIES FORMAL BLOUSE PRINTED S','LADIES FORMAL BLOUSE PRINTED S',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2002','G3002','G4015','G5004','S-10011012','','UG001','MyData/Products/PRO_000067.jpg'),
- ('000068','000067','LADIES FORMAL BLOUSE PRINTED M','LADIES FORMAL BLOUSE PRINTED M',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2002','G3002','G4015','G5005','M-10011012','','UG001','MyData/Products/PRO_000068.jpg'),
- ('000069','000067','LADIES FORMAL BLOUSE PRINTED L','LADIES FORMAL BLOUSE PRINTED L',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2002','G3002','G4015','G5006','L-10011012','','UG001','MyData/Products/PRO_000069.jpg'),
- ('000070','000070','LADIES CASUAL T-SHIRT LANKA BLACK/WHITE S','LADIES CASUAL T-SHIRT LANKA BLACK/WHITE S',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4021','G5004','S-10050200','','UG001','MyData/Products/PRO_000070.jpg'),
- ('000071','000070','LADIES CASUAL T-SHIRT LANKA BLACK/WHITE M','LADIES CASUAL T-SHIRT LANKA BLACK/WHITE M',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4021','G5005','M-10050200','','UG001','MyData/Products/PRO_000071.jpg'),
- ('000072','000070','LADIES CASUAL T-SHIRT LANKA BLACK/WHITE L','LADIES CASUAL T-SHIRT LANKA BLACK/WHITE L',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4021','G5006','L-10050200','','UG001','MyData/Products/PRO_000072.jpg'),
- ('000073','000073','LADIES CASUAL T-SHIRT LINE S','LADIES CASUAL T-SHIRT LINE S',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4002','G5004','S-10050333','','UG001','MyData/Products/PRO_000073.jpg'),
- ('000074','000073','LADIES CASUAL T-SHIRT LINE M','LADIES CASUAL T-SHIRT LINE M',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4002','G5005','M-10050333','','UG001','MyData/Products/PRO_000074.jpg'),
- ('000075','000073','LADIES CASUAL T-SHIRT LINE L','LADIES CASUAL T-SHIRT LINE L',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2001','G3003','G4002','G5006','L-10050333','','UG001','MyData/Products/PRO_000075.jpg'),
- ('000076','000076','LADIES FORMAL BLOUSE SLEEVE LESS S','LADIES FORMAL BLOUSE SLEEVE LESS S',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2002','G3002','G4012','G5004','S-10010984','','UG001','MyData/Products/PRO_000076.jpg'),
- ('000077','000076','LADIES FORMAL BLOUSE SLEEVE LESS M','LADIES FORMAL BLOUSE SLEEVE LESS M',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2002','G3002','G4012','G5005','M-10010984','','UG001','MyData/Products/PRO_000077.jpg'),
- ('000078','000076','LADIES FORMAL BLOUSE SLEEVE LESS L','LADIES FORMAL BLOUSE SLEEVE LESS L',1,0,'2017-11-24 09:24:13','U0000','2017-11-24 09:24:13','U0000','G1002','G2002','G3002','G4012','G5006','L-10010984','','UG001','MyData/Products/PRO_000078.jpg'),
- ('000079','000079','LADIES CASUAL SKIRT PRINTED S','LADIES CASUAL SKIRT PRINTED S',1,0,'2017-11-24 09:24:14','U0000','2017-11-24 09:24:14','U0000','G1002','G2001','G3007','G4015','G5004','S-100205110','','UG001','MyData/Products/PRO_000079.jpg'),
- ('000080','000079','LADIES CASUAL SKIRT PRINTED M','LADIES CASUAL SKIRT PRINTED M',1,0,'2017-11-24 09:24:14','U0000','2017-11-24 09:24:14','U0000','G1002','G2001','G3007','G4015','G5005','M-100205110','','UG001','MyData/Products/PRO_000080.jpg'),
- ('000081','000079','LADIES CASUAL SKIRT PRINTED L','LADIES CASUAL SKIRT PRINTED L',1,0,'2017-11-24 09:24:14','U0000','2017-11-24 09:24:14','U0000','G1002','G2001','G3007','G4015','G5006','L-100205110','','UG001','MyData/Products/PRO_000081.jpg'),
- ('000082','000082','LADIES FORMAL PANTY PRINTED S','LADIES FORMAL PANTY PRINTED S',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2002','G3015','G4015','G5004','','','UG001',''),
- ('000083','000082','LADIES FORMAL PANTY PRINTED M','LADIES FORMAL PANTY PRINTED M',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2002','G3015','G4015','G5005','','','UG001',''),
- ('000084','000082','LADIES FORMAL PANTY PRINTED L','LADIES FORMAL PANTY PRINTED L',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2002','G3015','G4015','G5006','','','UG001',''),
- ('000085','000085','LADIES OFFICE BLOUSE FRONT ZIPPER S','LADIES OFFICE BLOUSE FRONT ZIPPER S',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2004','G3002','G4022','G5004','','','UG001',''),
- ('000086','000085','LADIES OFFICE BLOUSE FRONT ZIPPER M','LADIES OFFICE BLOUSE FRONT ZIPPER M',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2004','G3002','G4022','G5005','M-1 YAPA','','UG001','MyData/Products/PRO_000086.jpg'),
- ('000087','000085','LADIES OFFICE BLOUSE FRONT ZIPPER L','LADIES OFFICE BLOUSE FRONT ZIPPER L',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2004','G3002','G4022','G5006','L-1 YAPA','','UG001','MyData/Products/PRO_000087.jpg'),
- ('000088','000085','LADIES OFFICE BLOUSE FRONT ZIPPER XL','LADIES OFFICE BLOUSE FRONT ZIPPER XL',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2004','G3002','G4022','G5007','XL-1 YAPA','','UG001','MyData/Products/PRO_000088.jpg'),
- ('000089','000085','LADIES OFFICE BLOUSE FRONT ZIPPER XXL','LADIES OFFICE BLOUSE FRONT ZIPPER XXL',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2004','G3002','G4022','G5008','XXL-1 YAPA','','UG001','MyData/Products/PRO_000089.jpg'),
- ('000090','000090','LADIES FORMAL KURTHA BELOW KNEE BATHIK M','LADIES FORMAL KURTHA BELOW KNEE BATHIK M',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2002','G3016','G4023','G5005','M-2 YAPA','','UG001',''),
- ('000091','000090','LADIES FORMAL KURTHA BELOW KNEE BATHIK L','LADIES FORMAL KURTHA BELOW KNEE BATHIK L',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2002','G3016','G4023','G5006','L-2 YAPA','','UG001',''),
- ('000092','000090','LADIES FORMAL KURTHA BELOW KNEE BATHIK XL','LADIES FORMAL KURTHA BELOW KNEE BATHIK XL',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2002','G3016','G4023','G5007','XL-2 YAPA','','UG001',''),
- ('000093','000093','LADIES CASUAL FROCK PRINTED S','LADIES CASUAL FROCK PRINTED S',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2001','G3004','G4015','G5004','S-3 YAPA','','UG001','MyData/Products/PRO_000093.jpg'),
- ('000094','000093','LADIES CASUAL FROCK PRINTED M','LADIES CASUAL FROCK PRINTED M',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2001','G3004','G4015','G5005','M-3 YAPA','','UG001','MyData/Products/PRO_000094.jpg'),
- ('000095','000093','LADIES CASUAL FROCK PRINTED XL','LADIES CASUAL FROCK PRINTED XL',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2001','G3004','G4015','G5007','XL-3 YAPA','','UG001','MyData/Products/PRO_000095.jpg'),
- ('000096','000096','LADIES CASUAL BLOUSE DOTTED GATHERED M','LADIES CASUAL BLOUSE DOTTED GATHERED M',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2001','G3002','G4024','G5005','M-4 YAPA','','UG001','MyData/Products/PRO_000096.jpg'),
- ('000097','000097','LADIES OFFICE BLOUSE YORK PLEATED M','LADIES OFFICE BLOUSE YORK PLEATED M',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2004','G3002','G4025','G5005','M-5 YAPA','','UG001','MyData/Products/PRO_000097.jpg'),
- ('000098','000097','LADIES OFFICE BLOUSE YORK PLEATED L','LADIES OFFICE BLOUSE YORK PLEATED L',1,0,'2017-11-28 15:07:33','U0000','2017-11-28 15:07:33','U0000','G1002','G2004','G3002','G4025','G5006','L-5 YAPA','','UG001','MyData/Products/PRO_000098.jpg'),
- ('000099','000097','LADIES OFFICE BLOUSE YORK PLEATED XL','LADIES OFFICE BLOUSE YORK PLEATED XL',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2004','G3002','G4025','G5007','XL-5 YAPA','','UG001','MyData/Products/PRO_000099.jpg'),
- ('000100','000097','LADIES OFFICE BLOUSE YORK PLEATED XXL','LADIES OFFICE BLOUSE YORK PLEATED XXL',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2004','G3002','G4025','G5008','XXL-5 YAPA','','UG001','MyData/Products/PRO_000100.jpg'),
- ('000101','000101','LADIES OFFICE BLOUSE FRONT PLEAT/ LACE M','LADIES OFFICE BLOUSE FRONT PLEAT/ LACE M',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2004','G3002','G4026','G5005','M-6 YAPA','','UG001','MyData/Products/PRO_000101.jpg'),
- ('000102','000101','LADIES OFFICE BLOUSE FRONT PLEAT/ LACE L','LADIES OFFICE BLOUSE FRONT PLEAT/ LACE L',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2004','G3002','G4026','G5006','L-6 YAPA','','UG001','MyData/Products/PRO_000102.jpg'),
- ('000103','000101','LADIES OFFICE BLOUSE FRONT PLEAT/ LACE XL','LADIES OFFICE BLOUSE FRONT PLEAT/ LACE XL',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2004','G3002','G4026','G5007','XL-6 YAPA','','UG001','MyData/Products/PRO_000103.jpg'),
- ('000104','000104','LADIES FORMAL BLOUSE BLACK S','LADIES FORMAL BLOUSE BLACK S',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2002','G3002','G4027','G5004','S-7 YAPA','','UG001','MyData/Products/PRO_000104.jpg'),
- ('000105','000104','LADIES FORMAL BLOUSE BLACK M','LADIES FORMAL BLOUSE BLACK M',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2002','G3002','G4027','G5005','M-7 YAPA','','UG001','MyData/Products/PRO_000105.jpg'),
- ('000106','000104','LADIES FORMAL BLOUSE BLACK L','LADIES FORMAL BLOUSE BLACK L',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2002','G3002','G4027','G5006','L-7 YAPA','','UG001','MyData/Products/PRO_000106.jpg'),
- ('000107','000104','LADIES FORMAL BLOUSE BLACK XL','LADIES FORMAL BLOUSE BLACK XL',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2002','G3002','G4027','G5007','XL-7 YAPA','','UG001','MyData/Products/PRO_000107.jpg'),
- ('000108','000108','LADIES FORMAL BLOUSE COTTON S/S XXL','LADIES FORMAL BLOUSE COTTON S/S XXL',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2002','G3002','G4028','G5008','XXL-8 YAPA','','UG001','MyData/Products/PRO_000108.jpg'),
- ('000109','000108','LADIES FORMAL BLOUSE COTTON S/S 3 XL','LADIES FORMAL BLOUSE COTTON S/S 3 XL',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2002','G3002','G4028','G5009','3 XL-8 YAPA','','UG001','MyData/Products/PRO_000109.jpg'),
- ('000110','000108','LADIES FORMAL BLOUSE COTTON S/S 4 XL','LADIES FORMAL BLOUSE COTTON S/S 4 XL',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2002','G3002','G4028','G5010','4 XL-8 YAPA','','UG001','MyData/Products/PRO_000110.jpg'),
- ('000111','000108','LADIES FORMAL BLOUSE COTTON S/S 5 XL','LADIES FORMAL BLOUSE COTTON S/S 5 XL',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2002','G3002','G4028','G5011','5 XL-8 YAPA','','UG001','MyData/Products/PRO_000111.jpg'),
- ('000112','000112','LADIES CASUAL FROCK OFF SHOULDER - FLOWERY S','LADIES CASUAL FROCK OFF SHOULDER - FLOWERY S',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2001','G3004','G4029','G5004','S-9 YAPA','','UG001','MyData/Products/PRO_000112.jpg'),
- ('000113','000113','LADIES OFFICE BLOUSE DOTTED SILK M','LADIES OFFICE BLOUSE DOTTED SILK M',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2004','G3002','G4030','G5005','M-10 YAPA','','UG001','MyData/Products/PRO_000113.jpg'),
- ('000114','000113','LADIES OFFICE BLOUSE DOTTED SILK L','LADIES OFFICE BLOUSE DOTTED SILK L',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2004','G3002','G4030','G5006','L-10 YAPA','','UG001','MyData/Products/PRO_000114.jpg'),
- ('000115','000113','LADIES OFFICE BLOUSE DOTTED SILK XXL','LADIES OFFICE BLOUSE DOTTED SILK XXL',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2004','G3002','G4030','G5008','XXL-10 YAPA','','UG001','MyData/Products/PRO_000115.jpg'),
- ('000116','000116','LADIES FORMAL BLOUSE BORDER PRINTED L','LADIES FORMAL BLOUSE BORDER PRINTED L',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2002','G3002','G4031','G5006','L-11 YAPA','','UG001','MyData/Products/PRO_000116.jpg'),
- ('000117','000116','LADIES FORMAL BLOUSE BORDER PRINTED XXL','LADIES FORMAL BLOUSE BORDER PRINTED XXL',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2002','G3002','G4031','G5008','XXL-11 YAPA','','UG001','MyData/Products/PRO_000117.jpg'),
- ('000118','000116','LADIES FORMAL BLOUSE BORDER PRINTED 3 XL','LADIES FORMAL BLOUSE BORDER PRINTED 3 XL',1,0,'2017-11-28 15:07:34','U0000','2017-11-28 15:07:34','U0000','G1002','G2002','G3002','G4031','G5009','3 XL-11 YAPA','','UG001','MyData/Products/PRO_000118.jpg'),
- ('000119','000119','LADIES FORMAL BLOUSE FLOWERY XL','LADIES FORMAL BLOUSE FLOWERY XL',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2002','G3002','G4010','G5007','XL-12 YAPA','','UG001','MyData/Products/PRO_000119.jpg'),
- ('000120','000119','LADIES FORMAL BLOUSE FLOWERY XXL','LADIES FORMAL BLOUSE FLOWERY XXL',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2002','G3002','G4010','G5008','XXL-12 YAPA','','UG001','MyData/Products/PRO_000120.jpg'),
- ('000121','000119','LADIES FORMAL BLOUSE FLOWERY 3 XL','LADIES FORMAL BLOUSE FLOWERY 3 XL',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2002','G3002','G4010','G5009','3 XL-12 YAPA','','UG001','MyData/Products/PRO_000121.jpg'),
- ('000122','000122','LADIES CASUAL BLOUSE PRINTED SLEEVE LESS L','LADIES CASUAL BLOUSE PRINTED SLEEVE LESS L',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2001','G3002','G4032','G5006','L-13 YAPA','','UG001','MyData/Products/PRO_000122.jpg'),
- ('000123','000122','LADIES CASUAL BLOUSE PRINTED SLEEVE LESS XL','LADIES CASUAL BLOUSE PRINTED SLEEVE LESS XL',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2001','G3002','G4032','G5007','XL-13 YAPA','','UG001','MyData/Products/PRO_000123.jpg'),
- ('000124','000122','LADIES CASUAL BLOUSE PRINTED SLEEVE LESS XXL','LADIES CASUAL BLOUSE PRINTED SLEEVE LESS XXL',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2001','G3002','G4032','G5008','XXL-13 YAPA','','UG001','MyData/Products/PRO_000124.jpg'),
- ('000125','000125','LADIES FORMAL KURTHA ABOVE KNEE PLAIN S','LADIES FORMAL KURTHA ABOVE KNEE PLAIN S',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2002','G3012','G4001','G5004','S-14 YAPA','','UG001','MyData/Products/PRO_000125.jpg'),
- ('000126','000125','LADIES FORMAL KURTHA ABOVE KNEE PLAIN M','LADIES FORMAL KURTHA ABOVE KNEE PLAIN M',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2002','G3012','G4001','G5005','M-14 YAPA','','UG001','MyData/Products/PRO_000126.jpg'),
- ('000127','000125','LADIES FORMAL KURTHA ABOVE KNEE PLAIN XXL','LADIES FORMAL KURTHA ABOVE KNEE PLAIN XXL',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2002','G3012','G4001','G5008','XXL-14 YAPA','','UG001','MyData/Products/PRO_000127.jpg'),
- ('000128','000128','LADIES FORMAL BLOUSE PRINTED 3 XL','LADIES FORMAL BLOUSE PRINTED 3 XL',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2002','G3002','G4015','G5009','3 XL-15 YAPA','','UG001','MyData/Products/PRO_000128.jpg'),
- ('000129','000129','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS S','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS S',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2002','G3002','G4033','G5004','S-16 YAPA','','UG001','MyData/Products/PRO_000129.jpg'),
- ('000130','000129','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS M','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS M',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2002','G3002','G4033','G5005','M-16 YAPA','','UG001','MyData/Products/PRO_000130.jpg'),
- ('000131','000129','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS L','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS L',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2002','G3002','G4033','G5006','L-16 YAPA','','UG001','MyData/Products/PRO_000131.jpg'),
- ('000132','000129','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS XXL','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS XXL',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2002','G3002','G4033','G5008','XXL-16 YAPA','','UG001','MyData/Products/PRO_000132.jpg'),
- ('000133','000129','LADIES CASUAL BLOUSE PLAIN SLEEVE LESS M','LADIES CASUAL BLOUSE PLAIN SLEEVE LESS M',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2001','G3002','G4033','G5005','M-17 YAPA','','UG001','MyData/Products/PRO_000133.jpg'),
- ('000134','000129','LADIES CASUAL BLOUSE PLAIN SLEEVE LESS L','LADIES CASUAL BLOUSE PLAIN SLEEVE LESS L',1,0,'2017-11-28 15:07:35','U0000','2017-11-28 15:07:35','U0000','G1002','G2001','G3002','G4033','G5006','L-17 YAPA','','UG001','MyData/Products/PRO_000134.jpg'),
- ('000135','000129','LADIES CASUAL BLOUSE PLAIN SLEEVE LESS XL','LADIES CASUAL BLOUSE PLAIN SLEEVE LESS XL',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','G2001','G3002','G4033','G5007','XL-17 YAPA','','UG001','MyData/Products/PRO_000135.jpg'),
- ('000136','000136','LADIES FORMAL KURTHA BELOW KNEE LINE S','LADIES FORMAL KURTHA BELOW KNEE LINE S',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','G2002','G3016','G4002','G5004','S-18 YAPA','','UG001','MyData/Products/PRO_000136.jpg'),
- ('000137','000136','LADIES FORMAL KURTHA BELOW KNEE LINE M','LADIES FORMAL KURTHA BELOW KNEE LINE M',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','G2002','G3016','G4002','G5005','M-18 YAPA','','UG001','MyData/Products/PRO_000137.jpg'),
- ('000138','000136','LADIES FORMAL KURTHA BELOW KNEE LINE L','LADIES FORMAL KURTHA BELOW KNEE LINE L',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','G2002','G3016','G4002','G5006','L-18 YAPA','','UG001','MyData/Products/PRO_000138.jpg'),
- ('000139','000136','LADIES FORMAL KURTHA BELOW KNEE LINE XXL','LADIES FORMAL KURTHA BELOW KNEE LINE XXL',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','G2002','G3016','G4002','G5008','XXL-18 YAPA','','UG001','MyData/Products/PRO_000139.jpg'),
- ('000140','000140','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED S','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED S',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','g2001','G3002','G4034','G5004','S-19 YAPA','','UG001','MyData/Products/PRO_000140.jpg'),
- ('000141','000140','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED M','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED M',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','g2001','G3002','G4034','G5005','M-19 YAPA','','UG001','MyData/Products/PRO_000141.jpg'),
- ('000142','000140','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED L','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED L',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','g2001','G3002','G4034','G5006','L-19 YAPA','','UG001','MyData/Products/PRO_000142.jpg'),
- ('000143','000140','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED XL','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED XL',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','g2001','G3002','G4034','G5007','XL-19 YAPA','','UG001','MyData/Products/PRO_000143.jpg'),
- ('000144','000144','LADIES FORMAL BLOUSE BORDER PRINTED XXL','LADIES FORMAL BLOUSE BORDER PRINTED XXL',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','G2002','G3002','G4031','G5008','XXL-20 YAPA','','UG001',''),
- ('000145','000144','LADIES FORMAL BLOUSE BORDER PRINTED 3 XL','LADIES FORMAL BLOUSE BORDER PRINTED 3 XL',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','G2002','G3002','G4031','G5009','3 XL-20 YAPA','','UG001',''),
- ('000146','000144','LADIES FORMAL BLOUSE BORDER PRINTED XL','LADIES FORMAL BLOUSE BORDER PRINTED XL',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','G2002','G3002','G4031','G5007','XL-20 YAPA','','UG001',''),
- ('000147','000147','LADIES PARTY FROCK FRILL TIGHT M','LADIES PARTY FROCK FRILL TIGHT M',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','g2003','g3004','G4036','G5005','M-21 YAPA','','UG001','MyData/Products/PRO_000147.jpg'),
- ('000148','000147','LADIES PARTY FROCK FRILL TIGHT L','LADIES PARTY FROCK FRILL TIGHT L',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','g2003','g3004','G4036','G5006','L-21 YAPA','','UG001','MyData/Products/PRO_000148.jpg'),
- ('000149','000149','LADIES FORMAL FROCK PRINTED M','LADIES FORMAL FROCK PRINTED M',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','G2002','G3004','G4015','G5005','M-23 YAPA','','UG001','MyData/Products/PRO_000149.jpg'),
- ('000150','000149','LADIES FORMAL FROCK PRINTED L','LADIES FORMAL FROCK PRINTED L',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','G2002','G3004','G4015','G5006','L-23 YAPA','','UG001','MyData/Products/PRO_000150.jpg'),
- ('000151','000149','LADIES FORMAL FROCK PRINTED XL','LADIES FORMAL FROCK PRINTED XL',1,0,'2017-11-28 15:07:36','U0000','2017-11-28 15:07:36','U0000','G1002','G2002','G3004','G4015','G5007','XL-23 YAPA','','UG001','MyData/Products/PRO_000151.jpg'),
- ('000152','000152','LADIES FORMAL FROCK OFF SHOULDER - PRINTED S','LADIES FORMAL FROCK OFF SHOULDER - PRINTED S',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2002','G3004','G4034','G5004','S-24 YAPA','','UG001','MyData/Products/PRO_000152.jpg'),
- ('000153','000152','LADIES FORMAL FROCK OFF SHOULDER - PRINTED M','LADIES FORMAL FROCK OFF SHOULDER - PRINTED M',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2002','G3004','G4034','G5005','M-24 YAPA','','UG001','MyData/Products/PRO_000153.jpg'),
- ('000154','000152','LADIES FORMAL FROCK OFF SHOULDER - PRINTED L','LADIES FORMAL FROCK OFF SHOULDER - PRINTED L',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2002','G3004','G4034','G5006','L-24 YAPA','','UG001','MyData/Products/PRO_000154.jpg'),
- ('000155','000152','LADIES FORMAL FROCK OFF SHOULDER - PRINTED XL','LADIES FORMAL FROCK OFF SHOULDER - PRINTED XL',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2002','G3004','G4034','G5007','XL-24 YAPA','','UG001','MyData/Products/PRO_000155.jpg'),
- ('000156','000156','LADIES CASUAL FROCK OFF SHOULDER - PLAIN XL','LADIES CASUAL FROCK OFF SHOULDER - PLAIN XL',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2001','G3004','G4035','G5007','XL-25 YAPA','','UG001',''),
- ('000157','000156','LADIES CASUAL FROCK OFF SHOULDER - PLAIN S','LADIES CASUAL FROCK OFF SHOULDER - PLAIN S',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2001','G3004','G4035','G5004','S-25 YAPA','','UG001',''),
- ('000158','000158','LADIES PARTY KURTHA BELOW KNEE EMBROIDERY M','LADIES PARTY KURTHA BELOW KNEE EMBROIDERY M',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2003','G3016','G4014','G5005','M-26 YAPA','','UG001','MyData/Products/PRO_000158.jpg'),
- ('000159','000158','LADIES PARTY KURTHA BELOW KNEE EMBROIDERY L','LADIES PARTY KURTHA BELOW KNEE EMBROIDERY L',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2003','G3016','G4014','G5006','L-26 YAPA','','UG001','MyData/Products/PRO_000159.jpg'),
- ('000160','000158','LADIES PARTY KURTHA BELOW KNEE EMBROIDERY XL','LADIES PARTY KURTHA BELOW KNEE EMBROIDERY XL',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2003','G3016','G4014','G5007','XL-26 YAPA','','UG001','MyData/Products/PRO_000160.jpg'),
- ('000161','000161','LADIES OFFICE SKIRT BLACK 28','LADIES OFFICE SKIRT BLACK 28',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2004','G3007','G4027','G5012','28-27 YAPA','','UG001','MyData/Products/PRO_000161.jpg'),
- ('000162','000161','LADIES OFFICE SKIRT BLACK 30','LADIES OFFICE SKIRT BLACK 30',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2004','G3007','G4027','G5013','30-27 YAPA','','UG001','MyData/Products/PRO_000162.jpg'),
- ('000163','000161','LADIES OFFICE SKIRT BLACK 32','LADIES OFFICE SKIRT BLACK 32',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2004','G3007','G4027','G5014','32-27 YAPA','','UG001','MyData/Products/PRO_000163.jpg'),
- ('000164','000161','LADIES OFFICE SKIRT BLACK 34','LADIES OFFICE SKIRT BLACK 34',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2004','G3007','G4027','G5015','34-27 YAPA','','UG001','MyData/Products/PRO_000164.jpg'),
- ('000165','000161','LADIES OFFICE SKIRT BLACK 36','LADIES OFFICE SKIRT BLACK 36',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2004','G3007','G4027','G5016','36-27 YAPA','','UG001','MyData/Products/PRO_000165.jpg'),
- ('000166','000166','LADIES CASUAL LEGGIN LONG S','LADIES CASUAL LEGGIN LONG S',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2001','G3010','G4008','G5004','S-1 JEE','','UG001',''),
- ('000167','000166','LADIES CASUAL LEGGIN LONG M','LADIES CASUAL LEGGIN LONG M',1,0,'2017-11-28 15:07:37','U0000','2017-12-02 02:25:48','U0000','G1002','G2001','G3010','G4008','G5005','M-1 JEE','','UG001',''),
- ('000168','000166','LADIES CASUAL LEGGIN LONG L','LADIES CASUAL LEGGIN LONG L',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2001','G3010','G4008','G5006','L-1 JEE','','UG001',''),
- ('000169','000166','LADIES CASUAL LEGGIN LONG XL','LADIES CASUAL LEGGIN LONG XL',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2001','G3010','G4008','G5007','XL-1 JEE','','UG001',''),
- ('000170','000170','LADIES CASUAL T-SHIRT BANKOK L','LADIES CASUAL T-SHIRT BANKOK L',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2001','G3003','G4037','G5006','L-2 JEE','','UG001','MyData/Products/PRO_000170.jpg'),
- ('000171','000171','LADIES CASUAL T-SHIRT LINES - S/LESS S','LADIES CASUAL T-SHIRT LINES - S/LESS S',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2001','G3003','G4038','G5004','S-3 JEE','','UG001','MyData/Products/PRO_000171.jpg'),
- ('000172','000171','LADIES CASUAL T-SHIRT LINES - S/LESS M','LADIES CASUAL T-SHIRT LINES - S/LESS M',1,0,'2017-11-28 15:07:37','U0000','2017-11-28 15:07:37','U0000','G1002','G2001','G3003','G4038','G5005','M-3 JEE','','UG001','MyData/Products/PRO_000172.jpg'),
- ('000173','000171','LADIES CASUAL T-SHIRT LINES - S/LESS L','LADIES CASUAL T-SHIRT LINES - S/LESS L',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4038','G5006','L-3 JEE','','UG001','MyData/Products/PRO_000173.jpg'),
- ('000174','000171','LADIES CASUAL T-SHIRT LINES - S/LESS S','LADIES CASUAL T-SHIRT LINES - S/LESS S',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4038','G5004','S-4 JEE','','UG001','MyData/Products/PRO_000174.jpg'),
- ('000175','000171','LADIES CASUAL T-SHIRT LINES - S/LESS M','LADIES CASUAL T-SHIRT LINES - S/LESS M',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4038','G5005','M-4 JEE','','UG001','MyData/Products/PRO_000175.jpg'),
- ('000176','000171','LADIES CASUAL T-SHIRT LINES - S/LESS L','LADIES CASUAL T-SHIRT LINES - S/LESS L',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4038','G5006','L-4 JEE','','UG001','MyData/Products/PRO_000176.jpg'),
- ('000177','000177','LADIES CASUAL T-SHIRT LINES - 3/4 SLEEVE S','LADIES CASUAL T-SHIRT LINES - 3/4 SLEEVE S',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4039','G5004','S-5 JEE','','UG001','MyData/Products/PRO_000177.jpg'),
- ('000178','000177','LADIES CASUAL T-SHIRT LINES - 3/4 SLEEVE M','LADIES CASUAL T-SHIRT LINES - 3/4 SLEEVE M',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4039','G5005','M-5 JEE','','UG001','MyData/Products/PRO_000178.jpg'),
- ('000179','000177','LADIES CASUAL T-SHIRT LINES - 3/4 SLEEVE L','LADIES CASUAL T-SHIRT LINES - 3/4 SLEEVE L',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4039','G5006','L-5 JEE','','UG001','MyData/Products/PRO_000179.jpg'),
- ('000180','000180','LADIES CASUAL T-SHIRT LINES - SHORT SLEEVE S','LADIES CASUAL T-SHIRT LINES - SHORT SLEEVE S',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4040','G5004','S-6 JEE','','UG001','MyData/Products/PRO_000180.jpg'),
- ('000181','000180','LADIES CASUAL T-SHIRT LINES - SHORT SLEEVE M','LADIES CASUAL T-SHIRT LINES - SHORT SLEEVE M',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4040','G5005','M-6 JEE','','UG001','MyData/Products/PRO_000181.jpg'),
- ('000182','000180','LADIES CASUAL T-SHIRT LINES - SHORT SLEEVE L','LADIES CASUAL T-SHIRT LINES - SHORT SLEEVE L',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4040','G5006','L-6 JEE','','UG001','MyData/Products/PRO_000182.jpg'),
- ('000183','000183','LADIES CASUAL T-SHIRT MOTOR BIKE L','LADIES CASUAL T-SHIRT MOTOR BIKE L',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4041','G5006','L-7 JEE','','UG001','MyData/Products/PRO_000183.jpg'),
- ('000184','000184','LADIES CASUAL T-SHIRT ELEPHANT L','LADIES CASUAL T-SHIRT ELEPHANT L',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2001','G3003','G4042','G5006','L-8 JEE','','UG001','MyData/Products/PRO_000184.jpg'),
- ('000185','000185','LADIES FORMAL BLOUSE OFF SHOULDER LACE L','LADIES FORMAL BLOUSE OFF SHOULDER LACE L',1,0,'2017-11-28 15:07:38','U0000','2017-11-28 15:07:38','U0000','G1002','G2002','G3002','G4043','G5006','L-9 JEE','','UG001','MyData/Products/PRO_000185.jpg'),
- ('000186','000186','LADIES CASUAL FROCK BATHIK S','LADIES CASUAL FROCK BATHIK S',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2001','G3004','G4023','G5004','','','UG001',''),
- ('000187','000186','LADIES CASUAL FROCK BATHIK M','LADIES CASUAL FROCK BATHIK M',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:11:31','U0000','G1002','G2001','G3004','G4023','G5005','','','UG001',''),
- ('000188','000186','LADIES CASUAL FROCK BATHIK L','LADIES CASUAL FROCK BATHIK L',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:12:15','U0000','G1002','G2001','G3004','G4023','G5006','','','UG001',''),
- ('000189','000186','LADIES CASUAL FROCK BATHIK XL','LADIES CASUAL FROCK BATHIK XL',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:13:02','U0000','G1002','G2001','G3004','G4023','G5007','','','UG001',''),
- ('000190','000190','LADIES CASUAL FROCK GEORGET & PRINTED S','LADIES CASUAL FROCK GEORGET & PRINTED S',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2001','G3004','G4044','G5004','','','UG001',''),
- ('000191','000190','LADIES CASUAL FROCK GEORGET & PRINTED M','LADIES CASUAL FROCK GEORGET & PRINTED M',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:15:38','U0000','G1002','G2001','G3004','G4044','G5005','','','UG001',''),
- ('000192','000190','LADIES CASUAL FROCK GEORGET & PRINTED L','LADIES CASUAL FROCK GEORGET & PRINTED L',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2001','G3004','G4044','G5006','','','UG001',''),
- ('000193','000190','LADIES CASUAL FROCK GEORGET & PRINTED XL','LADIES CASUAL FROCK GEORGET & PRINTED XL',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2001','G3004','G4044','G5007','','','UG001',''),
- ('000194','000194','LADIES FORMAL KURTHA BELOW KNEE PLAIN S','LADIES FORMAL KURTHA BELOW KNEE PLAIN S',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2002','G3016','G4001','G5004','','','UG001',''),
- ('000195','000194','LADIES FORMAL KURTHA BELOW KNEE PLAIN M','LADIES FORMAL KURTHA BELOW KNEE PLAIN M',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2002','G3016','G4001','G5005','','','UG001',''),
- ('000196','000194','LADIES FORMAL KURTHA BELOW KNEE PLAIN L','LADIES FORMAL KURTHA BELOW KNEE PLAIN L',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2002','G3016','G4001','G5006','','','UG001',''),
- ('000197','000194','LADIES FORMAL KURTHA BELOW KNEE PLAIN XL','LADIES FORMAL KURTHA BELOW KNEE PLAIN XL',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2002','G3016','G4001','G5007','','','UG001',''),
- ('000198','000198','LADIES FORMAL BLOUSE COTTON PLAIN S','LADIES FORMAL BLOUSE COTTON PLAIN S',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2002','G3002','G4045','G5004','','','UG001',''),
- ('000199','000198','LADIES FORMAL BLOUSE COTTON PLAIN M','LADIES FORMAL BLOUSE COTTON PLAIN M',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2002','G3002','G4045','G5005','','','UG001',''),
- ('000200','000198','LADIES FORMAL BLOUSE COTTON PLAIN L','LADIES FORMAL BLOUSE COTTON PLAIN L',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2002','G3002','G4045','G5006','','','UG001',''),
- ('000201','000198','LADIES FORMAL BLOUSE COTTON PLAIN XL','LADIES FORMAL BLOUSE COTTON PLAIN XL',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2002','G3002','G4045','G5007','','','UG001',''),
- ('000202','000202','MISS FORMAL PANTY BABY M','MISS FORMAL PANTY BABY M',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1003','G2002','G3015','G4047','G5005','','','UG001',''),
- ('000203','000203','LADIES FORMAL PANTY COTTON M','LADIES FORMAL PANTY COTTON M',1,0,'2017-12-05 15:04:53','U0000','2017-12-05 15:04:53','U0000','G1002','G2002','G3015','G4046','G5005','','','UG001',''),
- ('000204','000204','MISS CASUAL T-SHIRT BUTTERFLY M','MISS CASUAL T-SHIRT BUTTERFLY M',1,0,'2017-12-05 15:04:54','U0000','2017-12-05 15:04:54','U0000','G1003','G2001','G3003','G4049','G5005','','','UG001',''),
- ('000205','000205','MISS FORMAL FROCK BLUE BEAR M','MISS FORMAL FROCK BLUE BEAR M',1,0,'2017-12-05 15:04:54','U0000','2017-12-05 15:04:54','U0000','G1003','G2002','G3004','G4050','G5005','','','UG001',''),
- ('000206','000206','MISS FORMAL FROCK PRINTED WITH LACE BAND M','MISS FORMAL FROCK PRINTED WITH LACE BAND M',1,0,'2017-12-05 15:04:54','U0000','2017-12-05 15:04:54','U0000','G1003','G2002','G3004','G4051','G5005','','','UG001',''),
- ('000207','000207','MISS FORMAL FROCK BLUE COLOUR PRINTED M','MISS FORMAL FROCK BLUE COLOUR PRINTED M',1,0,'2017-12-05 15:04:54','U0000','2017-12-05 15:04:54','U0000','G1003','G2002','G3004','G4052','G5005','','','UG001',''),
- ('000208','000208','MISS FORMAL FROCK PIPING M','MISS FORMAL FROCK PIPING M',1,0,'2017-12-05 15:04:54','U0000','2017-12-05 15:04:54','U0000','G1003','G2002','G3004','G4053','G5005','','','UG001',''),
- ('000209','000209','MISS FORMAL FROCK DENIM PRINT M','MISS FORMAL FROCK DENIM PRINT M',1,0,'2017-12-05 15:04:54','U0000','2017-12-05 15:04:54','U0000','G1003','G2002','G3004','G4054','G5005','','','UG001',''),
- ('000210','000210','BABY FORMAL FROCK COTTON M','BABY FORMAL FROCK COTTON M',1,0,'2017-12-05 15:04:54','U0000','2017-12-05 15:04:54','U0000','G1006','G2002','G3004','G4046','G5005','','','UG001',''),
- ('000211','000211','MISS FORMAL FROCK WITH BELT M','MISS FORMAL FROCK WITH BELT M',1,0,'2017-12-05 15:04:54','U0000','2017-12-05 15:04:54','U0000','G1003','G2002','G3004','G4055','G5005','','','UG001',''),
- ('000212','000212','MISS FORMAL FROCK PINK STRIPES M','MISS FORMAL FROCK PINK STRIPES M',1,0,'2017-12-05 15:04:54','U0000','2017-12-05 15:04:54','U0000','G1003','G2002','G3004','G4056','G5005','','','UG001',''),
- ('000213','000213','MISS CASUAL SKIRT PRINTED M','MISS CASUAL SKIRT PRINTED M',1,0,'2017-12-05 15:04:54','U0000','2017-12-05 15:04:54','U0000','G1003','G2001','G3007','G4015','G5005','','','UG001',''),
- ('000214','000214','BABY FORMAL FROCK EMBROIDERY M','BABY FORMAL FROCK EMBROIDERY M',1,0,'2017-12-05 15:04:54','U0000','2017-12-05 15:04:54','U0000','G1006','G2002','G3004','G4014','G5005','','','UG001','');
 /*!40000 ALTER TABLE `m_products` ENABLE KEYS */;
 
-
---
--- Definition of table `m_products_has_m_propertise`
---
-
+-- Dumping structure for table bizdb.m_products_has_m_propertise
 DROP TABLE IF EXISTS `m_products_has_m_propertise`;
-CREATE TABLE `m_products_has_m_propertise` (
+CREATE TABLE IF NOT EXISTS `m_products_has_m_propertise` (
   `M_PRODUCTS_ID` varchar(50) NOT NULL,
   `M_PROPERTISE_ID` int(11) NOT NULL,
   `VALUE` varchar(100) DEFAULT NULL,
@@ -1044,45 +356,31 @@ CREATE TABLE `m_products_has_m_propertise` (
   KEY `FK_M_PRODUCTS_HAS_M_PROPERTISE_M_PROPERTISE1_IDX` (`M_PROPERTISE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_products_has_m_propertise`
---
-
+-- Dumping data for table bizdb.m_products_has_m_propertise: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_products_has_m_propertise` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_products_has_m_propertise` ENABLE KEYS */;
 
-
---
--- Definition of table `m_propdatatype`
---
-
+-- Dumping structure for table bizdb.m_propdatatype
 DROP TABLE IF EXISTS `m_propdatatype`;
-CREATE TABLE `m_propdatatype` (
+CREATE TABLE IF NOT EXISTS `m_propdatatype` (
   `ID` int(11) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
   `FORMAT` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_propdatatype`
---
-
+-- Dumping data for table bizdb.m_propdatatype: ~5 rows (approximately)
 /*!40000 ALTER TABLE `m_propdatatype` DISABLE KEYS */;
-INSERT INTO `m_propdatatype` (`ID`,`NAME`,`FORMAT`) VALUES 
- (1,'NUM',''),
- (2,'TEXT',''),
- (3,'DATE',''),
- (4,'EXPDATE','YY-MM-DD'),
- (5,'WARRENTY','YY-MM-DD');
+INSERT IGNORE INTO `m_propdatatype` (`ID`, `NAME`, `FORMAT`) VALUES
+	(1, 'NUM', ''),
+	(2, 'TEXT', ''),
+	(3, 'DATE', ''),
+	(4, 'EXPDATE', 'YY-MM-DD'),
+	(5, 'WARRENTY', 'YY-MM-DD');
 /*!40000 ALTER TABLE `m_propdatatype` ENABLE KEYS */;
 
-
---
--- Definition of table `m_propertise`
---
-
+-- Dumping structure for table bizdb.m_propertise
 DROP TABLE IF EXISTS `m_propertise`;
-CREATE TABLE `m_propertise` (
+CREATE TABLE IF NOT EXISTS `m_propertise` (
   `ID` int(11) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL,
@@ -1090,20 +388,29 @@ CREATE TABLE `m_propertise` (
   KEY `FK_M_PROPERTISE_M_PROPDATATYPE1_IDX` (`M_PROPDATATYPE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_propertise`
---
-
+-- Dumping data for table bizdb.m_propertise: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_propertise` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_propertise` ENABLE KEYS */;
 
+-- Dumping structure for table bizdb.m_salesperson
+DROP TABLE IF EXISTS `m_salesperson`;
+CREATE TABLE IF NOT EXISTS `m_salesperson` (
+  `ID` varchar(50) NOT NULL,
+  `FNAME` varchar(60) NOT NULL,
+  `LNAME` varchar(60) NOT NULL,
+  `IMGPATH` varchar(100) DEFAULT '',
+  `COMM_PER` double DEFAULT '0',
+  `ACTIVE` tinyint(4) DEFAULT '1',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Definition of table `m_stocks`
---
+-- Dumping data for table bizdb.m_salesperson: ~0 rows (approximately)
+/*!40000 ALTER TABLE `m_salesperson` DISABLE KEYS */;
+/*!40000 ALTER TABLE `m_salesperson` ENABLE KEYS */;
 
+-- Dumping structure for table bizdb.m_stocks
 DROP TABLE IF EXISTS `m_stocks`;
-CREATE TABLE `m_stocks` (
+CREATE TABLE IF NOT EXISTS `m_stocks` (
   `M_LOCATION_ID` int(11) NOT NULL,
   `M_PRODUCTS_ID` varchar(50) NOT NULL,
   `BATCHNO` varchar(50) DEFAULT NULL,
@@ -1119,235 +426,13 @@ CREATE TABLE `m_stocks` (
   KEY `FK_M_STOCKS_M_UNITS1_IDX` (`M_UNITS_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_stocks`
---
-
+-- Dumping data for table bizdb.m_stocks: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_stocks` DISABLE KEYS */;
-INSERT INTO `m_stocks` (`M_LOCATION_ID`,`M_PRODUCTS_ID`,`BATCHNO`,`COSTP`,`SELLP`,`CRDATE`,`M_UNITS_ID`,`SIH`,`MARKUP`,`ACTIVE`) VALUES 
- (1,'000001','0001',350,550,'2017-12-05 22:57:02','U0001',0,57.14,1),
- (1,'000002','0001',350,550,'2017-12-05 15:37:59','U0001',0,57.14,1),
- (1,'000003','0001',350,550,'2017-12-05 07:40:43','U0001',0,57.14,1),
- (1,'000004','0001',350,550,'2017-12-05 22:03:32','U0001',0,57.14,1),
- (1,'000005','0001',350,550,'2017-11-24 09:24:11','U0001',0,57.14,1),
- (1,'000006','0001',350,550,'2017-12-05 21:09:08','U0001',0,57.14,1),
- (1,'000007','0001',350,550,'2017-12-05 22:57:02','U0001',0,57.14,1),
- (1,'000008','0001',350,500,'2017-11-24 09:24:11','U0001',0,42.86,1),
- (1,'000009','0001',350,500,'2017-12-05 07:40:43','U0001',0,42.86,1),
- (1,'000010','0001',350,500,'2017-12-05 22:03:32','U0001',0,42.86,1),
- (1,'000011','0001',730,1050,'2017-11-24 09:24:11','U0001',0,43.84,1),
- (1,'000012','0001',730,1050,'2017-12-05 21:09:08','U0001',0,43.84,1),
- (1,'000013','0001',730,1050,'2017-12-05 07:40:43','U0001',0,43.84,1),
- (1,'000014','0001',630,890,'2017-12-05 15:37:59','U0001',0,41.27,1),
- (1,'000015','0001',630,890,'2017-12-05 15:37:59','U0001',0,41.27,1),
- (1,'000016','0001',630,890,'2017-12-01 21:28:54','U0001',0,41.27,1),
- (1,'000017','0001',490,650,'2017-12-01 11:10:05','U0001',0,32.65,1),
- (1,'000018','0001',490,650,'2017-11-24 09:24:12','U0001',0,32.65,1),
- (1,'000019','0001',490,650,'2017-12-01 11:10:05','U0001',0,32.65,1),
- (1,'000020','0001',510,675,'2017-11-24 09:24:12','U0001',0,32.35,1),
- (1,'000021','0001',510,675,'2017-11-24 09:24:12','U0001',0,32.35,1),
- (1,'000022','0001',510,675,'2017-11-24 09:24:12','U0001',0,32.35,1),
- (1,'000023','0001',490,650,'2017-11-24 09:24:12','U0001',0,32.65,1),
- (1,'000024','0001',490,650,'2017-11-24 09:24:12','U0001',0,32.65,1),
- (1,'000025','0001',490,650,'2017-11-24 09:24:12','U0001',0,32.65,1),
- (1,'000026','0001',590,790,'2017-11-24 09:24:12','U0001',0,33.9,1),
- (1,'000027','0001',590,790,'2017-11-24 09:24:12','U0001',0,33.9,1),
- (1,'000028','0001',590,790,'2017-11-24 09:24:12','U0001',0,33.9,1),
- (1,'000029','0001',290,400,'2017-11-24 09:24:12','U0001',0,37.93,1),
- (1,'000030','0001',290,400,'2017-11-24 09:24:12','U0001',0,37.93,1),
- (1,'000031','0001',290,400,'2017-11-24 09:24:12','U0001',0,37.93,1),
- (1,'000032','0001',225,400,'2017-12-01 21:29:11','U0001',0,77.78,1),
- (1,'000033','0001',225,400,'2017-12-01 21:29:25','U0001',0,77.78,1),
- (1,'000034','0001',225,400,'2017-12-01 21:29:44','U0001',0,77.78,1),
- (1,'000035','0001',150,250,'2017-11-24 09:24:12','U0001',0,66.67,1),
- (1,'000036','0001',150,250,'2017-11-24 09:24:12','U0001',0,66.67,1),
- (1,'000037','0001',160,300,'2017-11-24 09:24:12','U0001',0,87.5,1),
- (1,'000038','0001',160,300,'2017-11-24 09:24:12','U0001',0,87.5,1),
- (1,'000039','0001',160,300,'2017-11-24 09:24:12','U0001',0,87.5,1),
- (1,'000040','0001',820,1050,'2017-11-24 09:24:12','U0001',0,28.05,1),
- (1,'000041','0001',820,1050,'2017-11-24 09:24:12','U0001',0,28.05,1),
- (1,'000042','0001',820,1050,'2017-11-24 09:24:12','U0001',0,28.05,1),
- (1,'000043','0001',710,950,'2017-11-24 09:24:12','U0001',0,33.8,1),
- (1,'000044','0001',710,950,'2017-11-24 09:24:13','U0001',0,33.8,1),
- (1,'000045','0001',710,950,'2017-11-24 09:24:13','U0001',0,33.8,1),
- (1,'000046','0001',565,750,'2017-11-24 09:24:13','U0001',0,32.74,1),
- (1,'000047','0001',565,750,'2017-11-24 09:24:13','U0001',0,32.74,1),
- (1,'000048','0001',565,750,'2017-11-24 09:24:13','U0001',0,32.74,1),
- (1,'000049','0001',325,475,'2017-12-01 21:30:16','U0001',0,46.15,1),
- (1,'000050','0001',325,475,'2017-12-01 21:30:34','U0001',0,46.15,1),
- (1,'000051','0001',325,475,'2017-12-01 21:30:47','U0001',0,46.15,1),
- (1,'000052','0001',510,675,'2017-12-01 21:31:05','U0001',0,32.35,1),
- (1,'000053','0001',510,675,'2017-12-01 21:31:23','U0001',0,32.35,1),
- (1,'000054','0001',510,675,'2017-12-01 21:31:47','U0001',0,32.35,1),
- (1,'000055','0001',530,750,'2017-11-24 09:24:13','U0001',0,41.51,1),
- (1,'000056','0001',530,750,'2017-11-24 09:24:13','U0001',0,41.51,1),
- (1,'000057','0001',530,750,'2017-11-24 09:24:13','U0001',0,41.51,1),
- (1,'000058','0001',290,400,'2017-11-24 09:24:13','U0001',0,37.93,1),
- (1,'000059','0001',290,400,'2017-11-24 09:24:13','U0001',0,37.93,1),
- (1,'000060','0001',290,400,'2017-11-24 09:24:13','U0001',0,37.93,1),
- (1,'000061','0001',390,525,'2017-11-24 09:24:13','U0001',0,34.62,1),
- (1,'000062','0001',390,525,'2017-11-24 09:24:13','U0001',0,34.62,1),
- (1,'000063','0001',390,525,'2017-11-24 09:24:13','U0001',0,34.62,1),
- (1,'000064','0001',390,525,'2017-11-24 09:24:13','U0001',0,34.62,1),
- (1,'000065','0001',390,525,'2017-11-24 09:24:13','U0001',0,34.62,1),
- (1,'000066','0001',390,525,'2017-11-24 09:24:13','U0001',0,34.62,1),
- (1,'000067','0001',490,700,'2017-11-24 09:24:13','U0001',0,42.86,1),
- (1,'000068','0001',490,700,'2017-11-24 09:24:13','U0001',0,42.86,1),
- (1,'000069','0001',490,700,'2017-11-24 09:24:13','U0001',0,42.86,1),
- (1,'000070','0001',260,425,'2017-11-24 09:24:13','U0001',0,63.46,1),
- (1,'000071','0001',260,425,'2017-11-24 09:24:13','U0001',0,63.46,1),
- (1,'000072','0001',260,425,'2017-11-24 09:24:13','U0001',0,63.46,1),
- (1,'000073','0001',190,400,'2017-11-24 09:24:13','U0001',0,110.53,1),
- (1,'000074','0001',190,400,'2017-11-24 09:24:13','U0001',0,110.53,1),
- (1,'000075','0001',190,400,'2017-11-24 09:24:13','U0001',0,110.53,1),
- (1,'000076','0001',590,800,'2017-11-24 09:24:13','U0001',0,35.59,1),
- (1,'000077','0001',590,800,'2017-11-24 09:24:13','U0001',0,35.59,1),
- (1,'000078','0001',590,800,'2017-11-24 09:24:14','U0001',0,35.59,1),
- (1,'000079','0001',390,525,'2017-11-24 09:24:14','U0001',0,34.62,1),
- (1,'000080','0001',390,525,'2017-11-24 09:24:14','U0001',0,34.62,1),
- (1,'000081','0001',390,525,'2017-11-24 09:24:14','U0001',0,34.62,1),
- (1,'000082','0001',50,85,'2017-11-28 15:07:33','U0001',0,70,1),
- (1,'000083','0001',50,85,'2017-11-28 15:07:33','U0001',0,70,1),
- (1,'000084','0001',50,85,'2017-11-28 15:07:33','U0001',0,70,1),
- (1,'000085','0001',550,800,'2017-11-28 15:07:33','U0001',0,45.45,1),
- (1,'000086','0001',550,800,'2017-11-28 15:07:33','U0001',0,45.45,1),
- (1,'000087','0001',550,800,'2017-11-28 15:07:33','U0001',0,45.45,1),
- (1,'000088','0001',550,800,'2017-11-28 15:07:33','U0001',0,45.45,1),
- (1,'000089','0001',550,800,'2017-11-28 15:07:33','U0001',0,45.45,1),
- (1,'000090','0001',650,925,'2017-11-28 15:07:33','U0001',0,42.31,1),
- (1,'000091','0001',650,925,'2017-11-28 15:07:33','U0001',0,42.31,1),
- (1,'000092','0001',650,925,'2017-11-28 15:07:33','U0001',0,42.31,1),
- (1,'000093','0001',650,950,'2017-11-28 15:07:33','U0001',0,46.15,1),
- (1,'000094','0001',650,950,'2017-11-28 15:07:33','U0001',0,46.15,1),
- (1,'000095','0001',650,950,'2017-11-28 15:07:33','U0001',0,46.15,1),
- (1,'000096','0001',490,675,'2017-11-28 15:07:33','U0001',0,37.76,1),
- (1,'000097','0001',550,775,'2017-11-28 15:07:33','U0001',0,40.91,1),
- (1,'000098','0001',550,775,'2017-11-28 15:07:33','U0001',0,40.91,1),
- (1,'000099','0001',550,775,'2017-11-28 15:07:34','U0001',0,40.91,1),
- (1,'000100','0001',550,775,'2017-11-28 15:07:34','U0001',0,40.91,1),
- (1,'000101','0001',550,775,'2017-11-28 15:07:34','U0001',0,40.91,1),
- (1,'000102','0001',550,775,'2017-11-28 15:07:34','U0001',0,40.91,1),
- (1,'000103','0001',550,775,'2017-11-28 15:07:34','U0001',0,40.91,1),
- (1,'000104','0001',490,650,'2017-11-28 15:07:34','U0001',0,32.65,1),
- (1,'000105','0001',490,650,'2017-11-28 15:07:34','U0001',0,32.65,1),
- (1,'000106','0001',490,650,'2017-11-28 15:07:34','U0001',0,32.65,1),
- (1,'000107','0001',490,650,'2017-11-28 15:07:34','U0001',0,32.65,1),
- (1,'000108','0001',550,775,'2017-11-28 15:07:34','U0001',0,40.91,1),
- (1,'000109','0001',550,775,'2017-11-28 15:07:34','U0001',0,40.91,1),
- (1,'000110','0001',550,775,'2017-11-28 15:07:34','U0001',0,40.91,1),
- (1,'000111','0001',550,775,'2017-11-28 15:07:34','U0001',0,40.91,1),
- (1,'000112','0001',850,1150,'2017-11-28 15:07:34','U0001',0,35.29,1),
- (1,'000113','0001',300,450,'2017-11-28 15:07:34','U0001',0,50,1),
- (1,'000114','0001',300,450,'2017-11-28 15:07:34','U0001',0,50,1),
- (1,'000115','0001',300,450,'2017-11-28 15:07:34','U0001',0,50,1),
- (1,'000116','0001',490,750,'2017-11-28 15:07:34','U0001',0,53.06,1),
- (1,'000117','0001',490,750,'2017-11-28 15:07:34','U0001',0,53.06,1),
- (1,'000118','0001',490,750,'2017-11-28 15:07:34','U0001',0,53.06,1),
- (1,'000119','0001',525,750,'2017-11-28 15:07:35','U0001',0,42.86,1),
- (1,'000120','0001',525,750,'2017-11-28 15:07:35','U0001',0,42.86,1),
- (1,'000121','0001',525,750,'2017-11-28 15:07:35','U0001',0,42.86,1),
- (1,'000122','0001',450,600,'2017-11-28 15:07:35','U0001',0,33.33,1),
- (1,'000123','0001',450,600,'2017-11-28 15:07:35','U0001',0,33.33,1),
- (1,'000124','0001',450,600,'2017-11-28 15:07:35','U0001',0,33.33,1),
- (1,'000125','0001',750,1050,'2017-11-28 15:07:35','U0001',0,40,1),
- (1,'000126','0001',750,1050,'2017-11-28 15:07:35','U0001',0,40,1),
- (1,'000127','0001',750,1050,'2017-11-28 15:07:35','U0001',0,40,1),
- (1,'000128','0001',400,550,'2017-11-28 15:07:35','U0001',0,37.5,1),
- (1,'000129','0001',450,625,'2017-11-28 15:07:35','U0001',0,38.89,1),
- (1,'000130','0001',450,625,'2017-11-28 15:07:35','U0001',0,38.89,1),
- (1,'000131','0001',450,625,'2017-11-28 15:07:35','U0001',0,38.89,1),
- (1,'000132','0001',450,625,'2017-11-28 15:07:35','U0001',0,38.89,1),
- (1,'000133','0001',475,650,'2017-11-28 15:07:35','U0001',0,36.84,1),
- (1,'000134','0001',475,650,'2017-11-28 15:07:35','U0001',0,36.84,1),
- (1,'000135','0001',475,650,'2017-11-28 15:07:36','U0001',0,36.84,1),
- (1,'000136','0001',590,790,'2017-11-28 15:07:36','U0001',0,33.9,1),
- (1,'000137','0001',590,790,'2017-11-28 15:07:36','U0001',0,33.9,1),
- (1,'000138','0001',590,790,'2017-11-28 15:07:36','U0001',0,33.9,1),
- (1,'000139','0001',590,790,'2017-11-28 15:07:36','U0001',0,33.9,1),
- (1,'000140','0001',750,950,'2017-11-28 15:07:36','U0001',0,26.67,1),
- (1,'000141','0001',750,975,'2017-11-28 15:07:36','U0001',0,30,1),
- (1,'000142','0001',750,975,'2017-11-28 15:07:36','U0001',0,30,1),
- (1,'000143','0001',750,975,'2017-11-28 15:07:36','U0001',0,30,1),
- (1,'000144','0001',525,750,'2017-11-28 15:07:36','U0001',0,42.86,1),
- (1,'000145','0001',525,750,'2017-11-28 15:07:36','U0001',0,42.86,1),
- (1,'000146','0001',525,750,'2017-11-28 15:07:36','U0001',0,42.86,1),
- (1,'000147','0001',775,1100,'2017-11-28 15:07:36','U0001',0,41.94,1),
- (1,'000148','0001',775,1100,'2017-11-28 15:07:36','U0001',0,41.94,1),
- (1,'000149','0001',650,900,'2017-11-28 15:07:36','U0001',0,38.46,1),
- (1,'000150','0001',650,900,'2017-11-28 15:07:36','U0001',0,38.46,1),
- (1,'000151','0001',650,900,'2017-11-28 15:07:36','U0001',0,38.46,1),
- (1,'000152','0001',690,950,'2017-11-28 15:07:37','U0001',0,37.68,1),
- (1,'000153','0001',690,950,'2017-11-28 15:07:37','U0001',0,37.68,1),
- (1,'000154','0001',690,950,'2017-11-28 15:07:37','U0001',0,37.68,1),
- (1,'000155','0001',690,950,'2017-11-28 15:07:37','U0001',0,37.68,1),
- (1,'000156','0001',850,1100,'2017-11-28 15:07:37','U0001',0,29.41,1),
- (1,'000157','0001',850,1100,'2017-11-28 15:07:37','U0001',0,29.41,1),
- (1,'000158','0001',1200,1500,'2017-11-28 15:07:37','U0001',0,25,1),
- (1,'000159','0001',1200,1500,'2017-11-28 15:07:37','U0001',0,25,1),
- (1,'000160','0001',1200,1500,'2017-11-28 15:07:37','U0001',0,25,1),
- (1,'000161','0001',425,575,'2017-11-28 15:07:37','U0001',0,35.29,1),
- (1,'000162','0001',425,575,'2017-11-28 15:07:37','U0001',0,35.29,1),
- (1,'000163','0001',425,575,'2017-11-28 15:07:37','U0001',0,35.29,1),
- (1,'000164','0001',425,575,'2017-11-28 15:07:37','U0001',0,35.29,1),
- (1,'000165','0001',425,575,'2017-11-28 15:07:37','U0001',0,35.29,1),
- (1,'000166','0001',475,625,'2017-11-28 15:07:37','U0001',0,32.98,1),
- (1,'000167','0001',475,625,'2017-12-02 02:25:48','U0001',0,32.98,1),
- (1,'000168','0001',475,625,'2017-11-28 15:07:37','U0001',0,32.98,1),
- (1,'000169','0001',475,625,'2017-11-28 15:07:37','U0001',0,32.98,1),
- (1,'000170','0001',525,675,'2017-11-28 15:07:37','U0001',0,28.57,1),
- (1,'000171','0001',450,590,'2017-11-28 15:07:37','U0001',0,31.11,1),
- (1,'000172','0001',450,590,'2017-11-28 15:07:37','U0001',0,31.11,1),
- (1,'000173','0001',450,590,'2017-11-28 15:07:38','U0001',0,31.11,1),
- (1,'000174','0001',495,600,'2017-11-28 15:07:38','U0001',0,21.21,1),
- (1,'000175','0001',495,600,'2017-11-28 15:07:38','U0001',0,21.21,1),
- (1,'000176','0001',495,600,'2017-11-28 15:07:38','U0001',0,21.21,1),
- (1,'000177','0001',475,590,'2017-11-28 15:07:38','U0001',0,24.21,1),
- (1,'000178','0001',475,590,'2017-11-28 15:07:38','U0001',0,24.21,1),
- (1,'000179','0001',475,590,'2017-11-28 15:07:38','U0001',0,24.21,1),
- (1,'000180','0001',450,590,'2017-11-28 15:07:38','U0001',0,31.11,1),
- (1,'000181','0001',450,590,'2017-11-28 15:07:38','U0001',0,31.11,1),
- (1,'000182','0001',450,590,'2017-11-28 15:07:38','U0001',0,31.11,1),
- (1,'000183','0001',495,625,'2017-11-28 15:07:38','U0001',0,26.26,1),
- (1,'000184','0001',475,625,'2017-11-28 15:07:38','U0001',0,31.58,1),
- (1,'000185','0001',725,975,'2017-11-28 15:07:38','U0001',0,34.48,1),
- (1,'000186','0001',0,0,'2017-12-05 15:04:53','U0001',0,0,1),
- (1,'000187','0001',0,0,'2017-12-05 15:11:31','U0001',0,0,1),
- (1,'000188','0001',0,0,'2017-12-05 15:12:15','U0001',0,0,1),
- (1,'000189','0001',0,0,'2017-12-05 15:13:02','U0001',0,0,1),
- (1,'000190','0001',550,0,'2017-12-05 15:04:53','U0001',0,-100,1),
- (1,'000191','0001',550,0,'2017-12-05 15:15:38','U0001',0,-100,1),
- (1,'000192','0001',0,0,'2017-12-05 15:04:53','U0001',0,0,1),
- (1,'000193','0001',0,0,'2017-12-05 15:04:53','U0001',0,0,1),
- (1,'000194','0001',0,0,'2017-12-05 15:04:53','U0001',0,0,1),
- (1,'000195','0001',0,0,'2017-12-05 15:04:53','U0001',0,0,1),
- (1,'000196','0001',0,0,'2017-12-05 15:04:53','U0001',0,0,1),
- (1,'000197','0001',0,0,'2017-12-05 15:04:53','U0001',0,0,1),
- (1,'000198','0001',0,0,'2017-12-05 15:04:53','U0001',0,0,1),
- (1,'000199','0001',0,0,'2017-12-05 15:04:53','U0001',0,0,1),
- (1,'000200','0001',0,0,'2017-12-05 15:04:53','U0001',0,0,1),
- (1,'000201','0001',0,0,'2017-12-05 15:04:53','U0001',0,0,1),
- (1,'000202','0001',160,225,'2017-12-05 15:04:53','U0001',0,40.63,1),
- (1,'000203','0001',185,250,'2017-12-05 15:04:53','U0001',0,35.14,1),
- (1,'000204','0001',200,275,'2017-12-05 15:04:54','U0001',0,37.5,1),
- (1,'000205','0001',300,425,'2017-12-05 15:04:54','U0001',0,41.67,1),
- (1,'000206','0001',300,425,'2017-12-05 15:04:54','U0001',0,41.67,1),
- (1,'000207','0001',300,425,'2017-12-05 15:04:54','U0001',0,41.67,1),
- (1,'000208','0001',550,750,'2017-12-05 15:04:54','U0001',0,36.36,1),
- (1,'000209','0001',550,750,'2017-12-05 15:04:54','U0001',0,36.36,1),
- (1,'000210','0001',230,325,'2017-12-05 15:04:54','U0001',0,41.3,1),
- (1,'000211','0001',550,750,'2017-12-05 15:04:54','U0001',0,36.36,1),
- (1,'000212','0001',450,625,'2017-12-05 15:04:54','U0001',0,38.89,1),
- (1,'000213','0001',200,275,'2017-12-05 15:04:54','U0001',0,37.5,1),
- (1,'000214','0001',275,375,'2017-12-05 15:04:54','U0001',0,36.36,1);
 /*!40000 ALTER TABLE `m_stocks` ENABLE KEYS */;
 
-
---
--- Definition of table `m_stocks_tem`
---
-
+-- Dumping structure for table bizdb.m_stocks_tem
 DROP TABLE IF EXISTS `m_stocks_tem`;
-CREATE TABLE `m_stocks_tem` (
+CREATE TABLE IF NOT EXISTS `m_stocks_tem` (
   `M_PRODUCTS_ID` varchar(50) NOT NULL,
   `PRONAME` varchar(200) NOT NULL,
   `SIH` double NOT NULL,
@@ -1358,235 +443,13 @@ CREATE TABLE `m_stocks_tem` (
   PRIMARY KEY (`M_PRODUCTS_ID`,`BATCHNO`,`M_LOCATION_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_stocks_tem`
---
-
+-- Dumping data for table bizdb.m_stocks_tem: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_stocks_tem` DISABLE KEYS */;
-INSERT INTO `m_stocks_tem` (`M_PRODUCTS_ID`,`PRONAME`,`SIH`,`UNIT_ID`,`UNIT_SYM`,`BATCHNO`,`M_LOCATION_ID`) VALUES 
- ('000001','LADIES FORMAL SKIRT KNEE LEVEL S',0,'U0001','','0001',1),
- ('000002','LADIES FORMAL SKIRT KNEE LEVEL M',0,'U0001','','0001',1),
- ('000003','LADIES FORMAL SKIRT KNEE LEVEL L',0,'U0001','','0001',1),
- ('000004','LADIES FORMAL SKIRT KNEE LEVEL XL',0,'U0001','','0001',1),
- ('000005','LADIES FORMAL SKIRT WITH BUTTONS S',0,'U0001','','0001',1),
- ('000006','LADIES FORMAL SKIRT WITH BUTTONS M',0,'U0001','','0001',1),
- ('000007','LADIES FORMAL SKIRT WITH BUTTONS L',0,'U0001','','0001',1),
- ('000008','LADIES CASUAL BLOUSE LACE S',0,'U0001','','0001',1),
- ('000009','LADIES CASUAL BLOUSE LACE M',0,'U0001','','0001',1),
- ('000010','LADIES CASUAL BLOUSE LACE L',0,'U0001','','0001',1),
- ('000011','LADIES CASUAL DENIM LONG S',0,'U0001','','0001',1),
- ('000012','LADIES CASUAL DENIM LONG M',0,'U0001','','0001',1),
- ('000013','LADIES CASUAL DENIM LONG L',0,'U0001','','0001',1),
- ('000014','LADIES FORMAL KURTHA ABOVE KNEE LINE S',0,'U0001','','0001',1),
- ('000015','LADIES FORMAL KURTHA ABOVE KNEE LINE M',0,'U0001','','0001',1),
- ('000016','LADIES FORMAL KURTHA ABOVE KNEE LINE L',0,'U0001','','0001',1),
- ('000017','LADIES CASUAL SHIRT LONG SLEEVES S',0,'U0001','','0001',1),
- ('000018','LADIES CASUAL SHIRT LONG SLEEVES M',0,'U0001','','0001',1),
- ('000019','LADIES CASUAL SHIRT LONG SLEEVES L',0,'U0001','','0001',1),
- ('000020','LADIES CASUAL BLOUSE FLOWERY S',0,'U0001','','0001',1),
- ('000021','LADIES CASUAL BLOUSE FLOWERY M',0,'U0001','','0001',1),
- ('000022','LADIES CASUAL BLOUSE FLOWERY L',0,'U0001','','0001',1),
- ('000023','LADIES FORMAL BLOUSE PLAIN S',0,'U0001','','0001',1),
- ('000024','LADIES FORMAL BLOUSE PLAIN M',0,'U0001','','0001',1),
- ('000025','LADIES FORMAL BLOUSE PLAIN L',0,'U0001','','0001',1),
- ('000026','LADIES FORMAL BLOUSE EMBROIDERY S',0,'U0001','','0001',1),
- ('000027','LADIES FORMAL BLOUSE EMBROIDERY M',0,'U0001','','0001',1),
- ('000028','LADIES FORMAL BLOUSE EMBROIDERY L',0,'U0001','','0001',1),
- ('000029','LADIES CASUAL T-SHIRT LINE S',0,'U0001','','0001',1),
- ('000030','LADIES CASUAL T-SHIRT LINE M',0,'U0001','','0001',1),
- ('000031','LADIES CASUAL T-SHIRT LINE L',0,'U0001','','0001',1),
- ('000032','LADIES CASUAL LEGGIN LONG S',0,'U0001','','0001',1),
- ('000033','LADIES CASUAL LEGGIN LONG M',0,'U0001','','0001',1),
- ('000034','LADIES CASUAL LEGGIN LONG L',0,'U0001','','0001',1),
- ('000035','LADIES CASUAL UNDER SKIRT KNEE LEVEL M',0,'U0001','','0001',1),
- ('000036','LADIES CASUAL UNDER SKIRT KNEE LEVEL L',0,'U0001','','0001',1),
- ('000037','LADIES CASUAL SKINY PRINTED S',0,'U0001','','0001',1),
- ('000038','LADIES CASUAL SKINY PRINTED M',0,'U0001','','0001',1),
- ('000039','LADIES CASUAL SKINY PRINTED L',0,'U0001','','0001',1),
- ('000040','LADIES CASUAL SKIRT SILK & LACE S',0,'U0001','','0001',1),
- ('000041','LADIES CASUAL SKIRT SILK & LACE M',0,'U0001','','0001',1),
- ('000042','LADIES CASUAL SKIRT SILK & LACE L',0,'U0001','','0001',1),
- ('000043','LADIES CASUAL SKIRT SILK S',0,'U0001','','0001',1),
- ('000044','LADIES CASUAL SKIRT SILK M',0,'U0001','','0001',1),
- ('000045','LADIES CASUAL SKIRT SILK L',0,'U0001','','0001',1),
- ('000046','LADIES CASUAL SKIRT SILK KNEE LEVEL S',0,'U0001','','0001',1),
- ('000047','LADIES CASUAL SKIRT SILK KNEE LEVEL M',0,'U0001','','0001',1),
- ('000048','LADIES CASUAL SKIRT SILK KNEE LEVEL L',0,'U0001','','0001',1),
- ('000049','LADIES CASUAL LEGGIN LONG S',0,'U0001','','0001',1),
- ('000050','LADIES CASUAL LEGGIN LONG M',0,'U0001','','0001',1),
- ('000051','LADIES CASUAL LEGGIN LONG L',0,'U0001','','0001',1),
- ('000052','LADIES CASUAL BLOUSE LINE S',0,'U0001','','0001',1),
- ('000053','LADIES CASUAL BLOUSE LINE M',0,'U0001','','0001',1),
- ('000054','LADIES CASUAL BLOUSE LINE L',0,'U0001','','0001',1),
- ('000055','LADIES FORMAL BLOUSE DOTTED L',0,'U0001','','0001',1),
- ('000056','LADIES FORMAL BLOUSE DOTTED XL',0,'U0001','','0001',1),
- ('000057','LADIES FORMAL BLOUSE DOTTED XXL',0,'U0001','','0001',1),
- ('000058','LADIES CASUAL T-SHIRT PRINTED S',0,'U0001','','0001',1),
- ('000059','LADIES CASUAL T-SHIRT PRINTED M',0,'U0001','','0001',1),
- ('000060','LADIES CASUAL T-SHIRT PRINTED L',0,'U0001','','0001',1),
- ('000061','LADIES CASUAL T-SHIRT LANKA COLOUR S',0,'U0001','','0001',1),
- ('000062','LADIES CASUAL T-SHIRT LANKA COLOUR M',0,'U0001','','0001',1),
- ('000063','LADIES CASUAL T-SHIRT LANKA COLOUR L',0,'U0001','','0001',1),
- ('000064','LADIES CASUAL T-SHIRT LEVIS S',0,'U0001','','0001',1),
- ('000065','LADIES CASUAL T-SHIRT LEVIS M',0,'U0001','','0001',1),
- ('000066','LADIES CASUAL T-SHIRT LEVIS L',0,'U0001','','0001',1),
- ('000067','LADIES FORMAL BLOUSE PRINTED S',0,'U0001','','0001',1),
- ('000068','LADIES FORMAL BLOUSE PRINTED M',0,'U0001','','0001',1),
- ('000069','LADIES FORMAL BLOUSE PRINTED L',0,'U0001','','0001',1),
- ('000070','LADIES CASUAL T-SHIRT LANKA BLACK/WHITE S',0,'U0001','','0001',1),
- ('000071','LADIES CASUAL T-SHIRT LANKA BLACK/WHITE M',0,'U0001','','0001',1),
- ('000072','LADIES CASUAL T-SHIRT LANKA BLACK/WHITE L',0,'U0001','','0001',1),
- ('000073','LADIES CASUAL T-SHIRT LINE S',0,'U0001','','0001',1),
- ('000074','LADIES CASUAL T-SHIRT LINE M',0,'U0001','','0001',1),
- ('000075','LADIES CASUAL T-SHIRT LINE L',0,'U0001','','0001',1),
- ('000076','LADIES FORMAL BLOUSE SLEEVE LESS S',0,'U0001','','0001',1),
- ('000077','LADIES FORMAL BLOUSE SLEEVE LESS M',0,'U0001','','0001',1),
- ('000078','LADIES FORMAL BLOUSE SLEEVE LESS L',0,'U0001','','0001',1),
- ('000079','LADIES CASUAL SKIRT PRINTED S',0,'U0001','','0001',1),
- ('000080','LADIES CASUAL SKIRT PRINTED M',0,'U0001','','0001',1),
- ('000081','LADIES CASUAL SKIRT PRINTED L',0,'U0001','','0001',1),
- ('000082','LADIES FORMAL PANTY PRINTED S',0,'U0001','','0001',1),
- ('000083','LADIES FORMAL PANTY PRINTED M',0,'U0001','','0001',1),
- ('000084','LADIES FORMAL PANTY PRINTED L',0,'U0001','','0001',1),
- ('000085','LADIES OFFICE BLOUSE FRONT ZIPPER S',0,'U0001','','0001',1),
- ('000086','LADIES OFFICE BLOUSE FRONT ZIPPER M',0,'U0001','','0001',1),
- ('000087','LADIES OFFICE BLOUSE FRONT ZIPPER L',0,'U0001','','0001',1),
- ('000088','LADIES OFFICE BLOUSE FRONT ZIPPER XL',0,'U0001','','0001',1),
- ('000089','LADIES OFFICE BLOUSE FRONT ZIPPER XXL',0,'U0001','','0001',1),
- ('000090','LADIES FORMAL KURTHA BELOW KNEE BATHIK M',0,'U0001','','0001',1),
- ('000091','LADIES FORMAL KURTHA BELOW KNEE BATHIK L',0,'U0001','','0001',1),
- ('000092','LADIES FORMAL KURTHA BELOW KNEE BATHIK XL',0,'U0001','','0001',1),
- ('000093','LADIES CASUAL FROCK PRINTED S',0,'U0001','','0001',1),
- ('000094','LADIES CASUAL FROCK PRINTED M',0,'U0001','','0001',1),
- ('000095','LADIES CASUAL FROCK PRINTED XL',0,'U0001','','0001',1),
- ('000096','LADIES CASUAL BLOUSE DOTTED GATHERED M',0,'U0001','','0001',1),
- ('000097','LADIES OFFICE BLOUSE YORK PLEATED M',0,'U0001','','0001',1),
- ('000098','LADIES OFFICE BLOUSE YORK PLEATED L',0,'U0001','','0001',1),
- ('000099','LADIES OFFICE BLOUSE YORK PLEATED XL',0,'U0001','','0001',1),
- ('000100','LADIES OFFICE BLOUSE YORK PLEATED XXL',0,'U0001','','0001',1),
- ('000101','LADIES OFFICE BLOUSE FRONT PLEAT/ LACE M',0,'U0001','','0001',1),
- ('000102','LADIES OFFICE BLOUSE FRONT PLEAT/ LACE L',0,'U0001','','0001',1),
- ('000103','LADIES OFFICE BLOUSE FRONT PLEAT/ LACE XL',0,'U0001','','0001',1),
- ('000104','LADIES FORMAL BLOUSE BLACK S',0,'U0001','','0001',1),
- ('000105','LADIES FORMAL BLOUSE BLACK M',0,'U0001','','0001',1),
- ('000106','LADIES FORMAL BLOUSE BLACK L',0,'U0001','','0001',1),
- ('000107','LADIES FORMAL BLOUSE BLACK XL',0,'U0001','','0001',1),
- ('000108','LADIES FORMAL BLOUSE COTTON S/S XXL',0,'U0001','','0001',1),
- ('000109','LADIES FORMAL BLOUSE COTTON S/S 3 XL',0,'U0001','','0001',1),
- ('000110','LADIES FORMAL BLOUSE COTTON S/S 4 XL',0,'U0001','','0001',1),
- ('000111','LADIES FORMAL BLOUSE COTTON S/S 5 XL',0,'U0001','','0001',1),
- ('000112','LADIES CASUAL FROCK OFF SHOULDER - FLOWERY S',0,'U0001','','0001',1),
- ('000113','LADIES OFFICE BLOUSE DOTTED SILK M',0,'U0001','','0001',1),
- ('000114','LADIES OFFICE BLOUSE DOTTED SILK L',0,'U0001','','0001',1),
- ('000115','LADIES OFFICE BLOUSE DOTTED SILK XXL',0,'U0001','','0001',1),
- ('000116','LADIES FORMAL BLOUSE BORDER PRINTED L',0,'U0001','','0001',1),
- ('000117','LADIES FORMAL BLOUSE BORDER PRINTED XXL',0,'U0001','','0001',1),
- ('000118','LADIES FORMAL BLOUSE BORDER PRINTED 3 XL',0,'U0001','','0001',1),
- ('000119','LADIES FORMAL BLOUSE FLOWERY XL',0,'U0001','','0001',1),
- ('000120','LADIES FORMAL BLOUSE FLOWERY XXL',0,'U0001','','0001',1),
- ('000121','LADIES FORMAL BLOUSE FLOWERY 3 XL',0,'U0001','','0001',1),
- ('000122','LADIES CASUAL BLOUSE PRINTED SLEEVE LESS L',0,'U0001','','0001',1),
- ('000123','LADIES CASUAL BLOUSE PRINTED SLEEVE LESS XL',0,'U0001','','0001',1),
- ('000124','LADIES CASUAL BLOUSE PRINTED SLEEVE LESS XXL',0,'U0001','','0001',1),
- ('000125','LADIES FORMAL KURTHA ABOVE KNEE PLAIN S',0,'U0001','','0001',1),
- ('000126','LADIES FORMAL KURTHA ABOVE KNEE PLAIN M',0,'U0001','','0001',1),
- ('000127','LADIES FORMAL KURTHA ABOVE KNEE PLAIN XXL',0,'U0001','','0001',1),
- ('000128','LADIES FORMAL BLOUSE PRINTED 3 XL',0,'U0001','','0001',1),
- ('000129','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS S',0,'U0001','','0001',1),
- ('000130','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS M',0,'U0001','','0001',1),
- ('000131','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS L',0,'U0001','','0001',1),
- ('000132','LADIES FORMAL BLOUSE PLAIN SLEEVE LESS XXL',0,'U0001','','0001',1),
- ('000133','LADIES CASUAL BLOUSE PLAIN SLEEVE LESS M',0,'U0001','','0001',1),
- ('000134','LADIES CASUAL BLOUSE PLAIN SLEEVE LESS L',0,'U0001','','0001',1),
- ('000135','LADIES CASUAL BLOUSE PLAIN SLEEVE LESS XL',0,'U0001','','0001',1),
- ('000136','LADIES FORMAL KURTHA BELOW KNEE LINE S',0,'U0001','','0001',1),
- ('000137','LADIES FORMAL KURTHA BELOW KNEE LINE M',0,'U0001','','0001',1),
- ('000138','LADIES FORMAL KURTHA BELOW KNEE LINE L',0,'U0001','','0001',1),
- ('000139','LADIES FORMAL KURTHA BELOW KNEE LINE XXL',0,'U0001','','0001',1),
- ('000140','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED S',0,'U0001','','0001',1),
- ('000141','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED M',0,'U0001','','0001',1),
- ('000142','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED L',0,'U0001','','0001',1),
- ('000143','LADIES CASUAL BLOUSE OFF SHOULDER - PRINTED XL',0,'U0001','','0001',1),
- ('000144','LADIES FORMAL BLOUSE BORDER PRINTED XXL',0,'U0001','','0001',1),
- ('000145','LADIES FORMAL BLOUSE BORDER PRINTED 3 XL',0,'U0001','','0001',1),
- ('000146','LADIES FORMAL BLOUSE BORDER PRINTED XL',0,'U0001','','0001',1),
- ('000147','LADIES PARTY FROCK FRILL TIGHT M',0,'U0001','','0001',1),
- ('000148','LADIES PARTY FROCK FRILL TIGHT L',0,'U0001','','0001',1),
- ('000149','LADIES FORMAL FROCK PRINTED M',0,'U0001','','0001',1),
- ('000150','LADIES FORMAL FROCK PRINTED L',0,'U0001','','0001',1),
- ('000151','LADIES FORMAL FROCK PRINTED XL',0,'U0001','','0001',1),
- ('000152','LADIES FORMAL FROCK OFF SHOULDER - PRINTED S',0,'U0001','','0001',1),
- ('000153','LADIES FORMAL FROCK OFF SHOULDER - PRINTED M',0,'U0001','','0001',1),
- ('000154','LADIES FORMAL FROCK OFF SHOULDER - PRINTED L',0,'U0001','','0001',1),
- ('000155','LADIES FORMAL FROCK OFF SHOULDER - PRINTED XL',0,'U0001','','0001',1),
- ('000156','LADIES CASUAL FROCK OFF SHOULDER - PLAIN XL',0,'U0001','','0001',1),
- ('000157','LADIES CASUAL FROCK OFF SHOULDER - PLAIN S',0,'U0001','','0001',1),
- ('000158','LADIES PARTY KURTHA BELOW KNEE EMBROIDERY M',0,'U0001','','0001',1),
- ('000159','LADIES PARTY KURTHA BELOW KNEE EMBROIDERY L',0,'U0001','','0001',1),
- ('000160','LADIES PARTY KURTHA BELOW KNEE EMBROIDERY XL',0,'U0001','','0001',1),
- ('000161','LADIES OFFICE SKIRT BLACK 28',0,'U0001','','0001',1),
- ('000162','LADIES OFFICE SKIRT BLACK 30',0,'U0001','','0001',1),
- ('000163','LADIES OFFICE SKIRT BLACK 32',0,'U0001','','0001',1),
- ('000164','LADIES OFFICE SKIRT BLACK 34',0,'U0001','','0001',1),
- ('000165','LADIES OFFICE SKIRT BLACK 36',0,'U0001','','0001',1),
- ('000166','LADIES CASUAL LEGGIN LONG S',0,'U0001','','0001',1),
- ('000167','LADIES CASUAL LEGGIN LONG M',0,'U0001','','0001',1),
- ('000168','LADIES CASUAL LEGGIN LONG L',0,'U0001','','0001',1),
- ('000169','LADIES CASUAL LEGGIN LONG XL',0,'U0001','','0001',1),
- ('000170','LADIES CASUAL T-SHIRT BANKOK L',0,'U0001','','0001',1),
- ('000171','LADIES CASUAL T-SHIRT LINES - S/LESS S',0,'U0001','','0001',1),
- ('000172','LADIES CASUAL T-SHIRT LINES - S/LESS M',0,'U0001','','0001',1),
- ('000173','LADIES CASUAL T-SHIRT LINES - S/LESS L',0,'U0001','','0001',1),
- ('000174','LADIES CASUAL T-SHIRT LINES - S/LESS S',0,'U0001','','0001',1),
- ('000175','LADIES CASUAL T-SHIRT LINES - S/LESS M',0,'U0001','','0001',1),
- ('000176','LADIES CASUAL T-SHIRT LINES - S/LESS L',0,'U0001','','0001',1),
- ('000177','LADIES CASUAL T-SHIRT LINES - 3/4 SLEEVE S',0,'U0001','','0001',1),
- ('000178','LADIES CASUAL T-SHIRT LINES - 3/4 SLEEVE M',0,'U0001','','0001',1),
- ('000179','LADIES CASUAL T-SHIRT LINES - 3/4 SLEEVE L',0,'U0001','','0001',1),
- ('000180','LADIES CASUAL T-SHIRT LINES - SHORT SLEEVE S',0,'U0001','','0001',1),
- ('000181','LADIES CASUAL T-SHIRT LINES - SHORT SLEEVE M',0,'U0001','','0001',1),
- ('000182','LADIES CASUAL T-SHIRT LINES - SHORT SLEEVE L',0,'U0001','','0001',1),
- ('000183','LADIES CASUAL T-SHIRT MOTOR BIKE L',0,'U0001','','0001',1),
- ('000184','LADIES CASUAL T-SHIRT ELEPHANT L',0,'U0001','','0001',1),
- ('000185','LADIES FORMAL BLOUSE OFF SHOULDER LACE L',0,'U0001','','0001',1),
- ('000186','LADIES CASUAL FROCK BATHIK S',0,'U0001','','0001',1),
- ('000187','LADIES CASUAL FROCK BATHIK M',0,'U0001','','0001',1),
- ('000188','LADIES CASUAL FROCK BATHIK L',0,'U0001','','0001',1),
- ('000189','LADIES CASUAL FROCK BATHIK XL',0,'U0001','','0001',1),
- ('000190','LADIES CASUAL FROCK GEORGET & PRINTED S',0,'U0001','','0001',1),
- ('000191','LADIES CASUAL FROCK GEORGET & PRINTED M',0,'U0001','','0001',1),
- ('000192','LADIES CASUAL FROCK GEORGET & PRINTED L',0,'U0001','','0001',1),
- ('000193','LADIES CASUAL FROCK GEORGET & PRINTED XL',0,'U0001','','0001',1),
- ('000194','LADIES FORMAL KURTHA BELOW KNEE PLAIN S',0,'U0001','','0001',1),
- ('000195','LADIES FORMAL KURTHA BELOW KNEE PLAIN M',0,'U0001','','0001',1),
- ('000196','LADIES FORMAL KURTHA BELOW KNEE PLAIN L',0,'U0001','','0001',1),
- ('000197','LADIES FORMAL KURTHA BELOW KNEE PLAIN XL',0,'U0001','','0001',1),
- ('000198','LADIES FORMAL BLOUSE COTTON PLAIN S',0,'U0001','','0001',1),
- ('000199','LADIES FORMAL BLOUSE COTTON PLAIN M',0,'U0001','','0001',1),
- ('000200','LADIES FORMAL BLOUSE COTTON PLAIN L',0,'U0001','','0001',1),
- ('000201','LADIES FORMAL BLOUSE COTTON PLAIN XL',0,'U0001','','0001',1),
- ('000202','MISS FORMAL PANTY BABY M',0,'U0001','','0001',1),
- ('000203','LADIES FORMAL PANTY COTTON M',0,'U0001','','0001',1),
- ('000204','MISS CASUAL T-SHIRT BUTTERFLY M',0,'U0001','','0001',1),
- ('000205','MISS FORMAL FROCK BLUE BEAR M',0,'U0001','','0001',1),
- ('000206','MISS FORMAL FROCK PRINTED WITH LACE BAND M',0,'U0001','','0001',1),
- ('000207','MISS FORMAL FROCK BLUE COLOUR PRINTED M',0,'U0001','','0001',1),
- ('000208','MISS FORMAL FROCK PIPING M',0,'U0001','','0001',1),
- ('000209','MISS FORMAL FROCK DENIM PRINT M',0,'U0001','','0001',1),
- ('000210','BABY FORMAL FROCK COTTON M',0,'U0001','','0001',1),
- ('000211','MISS FORMAL FROCK WITH BELT M',0,'U0001','','0001',1),
- ('000212','MISS FORMAL FROCK PINK STRIPES M',0,'U0001','','0001',1),
- ('000213','MISS CASUAL SKIRT PRINTED M',0,'U0001','','0001',1),
- ('000214','BABY FORMAL FROCK EMBROIDERY M',0,'U0001','','0001',1);
 /*!40000 ALTER TABLE `m_stocks_tem` ENABLE KEYS */;
 
-
---
--- Definition of table `m_supplier`
---
-
+-- Dumping structure for table bizdb.m_supplier
 DROP TABLE IF EXISTS `m_supplier`;
-CREATE TABLE `m_supplier` (
+CREATE TABLE IF NOT EXISTS `m_supplier` (
   `ID` varchar(50) NOT NULL,
   `NAME` varchar(100) DEFAULT NULL,
   `CONTACTPERSON` varchar(15) DEFAULT NULL,
@@ -1596,27 +459,15 @@ CREATE TABLE `m_supplier` (
   `ADDRESS` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_supplier`
---
-
+-- Dumping data for table bizdb.m_supplier: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_supplier` DISABLE KEYS */;
-INSERT INTO `m_supplier` (`ID`,`NAME`,`CONTACTPERSON`,`CONTACT`,`MOBILE`,`ACTIVE`,`ADDRESS`) VALUES 
- ('S0001','-','-','','',0,''),
- ('S0002','RMS FASHION ','','','',1,''),
- ('S0003','USHA FACTORY EXCESS','','','',1,''),
- ('S0004','YAPA FASHIONS','','','',1,''),
- ('S0005','JEE FASHION','','','',1,''),
- ('S0006','S B K APPAREL (PVT) LTD','','','',1,'');
+INSERT IGNORE INTO `m_supplier` (`ID`, `NAME`, `CONTACTPERSON`, `CONTACT`, `MOBILE`, `ACTIVE`, `ADDRESS`) VALUES
+	('S0001', '-', '-', '', '', 0, '');
 /*!40000 ALTER TABLE `m_supplier` ENABLE KEYS */;
 
-
---
--- Definition of table `m_supplier_has_m_products`
---
-
+-- Dumping structure for table bizdb.m_supplier_has_m_products
 DROP TABLE IF EXISTS `m_supplier_has_m_products`;
-CREATE TABLE `m_supplier_has_m_products` (
+CREATE TABLE IF NOT EXISTS `m_supplier_has_m_products` (
   `M_SUPPLIER_ID` varchar(50) NOT NULL,
   `M_PRODUCTS_ID` varchar(50) NOT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL,
@@ -1624,256 +475,27 @@ CREATE TABLE `m_supplier_has_m_products` (
   KEY `FK_M_SUPPLIER_HAS_M_PRODUCTS_M_SUPPLIER1_IDX` (`M_SUPPLIER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_supplier_has_m_products`
---
-
+-- Dumping data for table bizdb.m_supplier_has_m_products: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_supplier_has_m_products` DISABLE KEYS */;
-INSERT INTO `m_supplier_has_m_products` (`M_SUPPLIER_ID`,`M_PRODUCTS_ID`,`ACTIVE`) VALUES 
- ('S0002','000005',1),
- ('S0002','000006',1),
- ('S0002','000007',1),
- ('S0002','000008',1),
- ('S0002','000009',1),
- ('S0002','000010',1),
- ('S0002','000011',1),
- ('S0002','000012',1),
- ('S0002','000013',1),
- ('S0003','000017',1),
- ('S0003','000018',1),
- ('S0003','000019',1),
- ('S0003','000020',1),
- ('S0003','000021',1),
- ('S0003','000022',1),
- ('S0003','000023',1),
- ('S0003','000024',1),
- ('S0003','000025',1),
- ('S0003','000026',1),
- ('S0003','000027',1),
- ('S0003','000028',1),
- ('S0003','000029',1),
- ('S0003','000030',1),
- ('S0003','000031',1),
- ('S0003','000035',1),
- ('S0003','000036',1),
- ('S0003','000037',1),
- ('S0003','000038',1),
- ('S0003','000039',1),
- ('S0003','000040',1),
- ('S0003','000041',1),
- ('S0003','000042',1),
- ('S0003','000043',1),
- ('S0003','000044',1),
- ('S0003','000045',1),
- ('S0003','000046',1),
- ('S0003','000047',1),
- ('S0003','000048',1),
- ('S0003','000055',1),
- ('S0003','000056',1),
- ('S0003','000057',1),
- ('S0003','000058',1),
- ('S0003','000059',1),
- ('S0003','000060',1),
- ('S0003','000061',1),
- ('S0003','000062',1),
- ('S0003','000063',1),
- ('S0003','000064',1),
- ('S0003','000065',1),
- ('S0003','000066',1),
- ('S0003','000067',1),
- ('S0003','000068',1),
- ('S0003','000069',1),
- ('S0003','000070',1),
- ('S0003','000071',1),
- ('S0003','000072',1),
- ('S0003','000073',1),
- ('S0003','000074',1),
- ('S0003','000075',1),
- ('S0003','000076',1),
- ('S0003','000077',1),
- ('S0003','000078',1),
- ('S0003','000079',1),
- ('S0003','000080',1),
- ('S0003','000081',1),
- ('S0003','000082',1),
- ('S0003','000083',1),
- ('S0003','000084',1),
- ('S0004','000085',1),
- ('S0004','000086',1),
- ('S0004','000087',1),
- ('S0004','000088',1),
- ('S0004','000089',1),
- ('S0004','000090',1),
- ('S0004','000091',1),
- ('S0004','000092',1),
- ('S0004','000093',1),
- ('S0004','000094',1),
- ('S0004','000095',1),
- ('S0004','000096',1),
- ('S0004','000097',1),
- ('S0004','000098',1),
- ('S0004','000099',1),
- ('S0004','000100',1),
- ('S0004','000101',1),
- ('S0004','000102',1),
- ('S0004','000103',1),
- ('S0004','000104',1),
- ('S0004','000105',1),
- ('S0004','000106',1),
- ('S0004','000107',1),
- ('S0004','000108',1),
- ('S0004','000109',1),
- ('S0004','000110',1),
- ('S0004','000111',1),
- ('S0004','000112',1),
- ('S0004','000113',1),
- ('S0004','000114',1),
- ('S0004','000115',1),
- ('S0004','000116',1),
- ('S0004','000117',1),
- ('S0004','000118',1),
- ('S0004','000119',1),
- ('S0004','000120',1),
- ('S0004','000121',1),
- ('S0004','000122',1),
- ('S0004','000123',1),
- ('S0004','000124',1),
- ('S0004','000125',1),
- ('S0004','000126',1),
- ('S0004','000127',1),
- ('S0004','000128',1),
- ('S0004','000129',1),
- ('S0004','000130',1),
- ('S0004','000131',1),
- ('S0004','000132',1),
- ('S0004','000133',1),
- ('S0004','000134',1),
- ('S0004','000135',1),
- ('S0004','000136',1),
- ('S0004','000137',1),
- ('S0004','000138',1),
- ('S0004','000139',1),
- ('S0004','000140',1),
- ('S0004','000141',1),
- ('S0004','000142',1),
- ('S0004','000143',1),
- ('S0004','000144',1),
- ('S0004','000145',1),
- ('S0004','000146',1),
- ('S0004','000147',1),
- ('S0004','000148',1),
- ('S0004','000149',1),
- ('S0004','000150',1),
- ('S0004','000151',1),
- ('S0004','000152',1),
- ('S0004','000153',1),
- ('S0004','000154',1),
- ('S0004','000155',1),
- ('S0004','000156',1),
- ('S0004','000157',1),
- ('S0004','000158',1),
- ('S0004','000159',1),
- ('S0004','000160',1),
- ('S0004','000161',1),
- ('S0004','000162',1),
- ('S0004','000163',1),
- ('S0004','000164',1),
- ('S0004','000165',1),
- ('S0005','000166',1),
- ('S0005','000168',1),
- ('S0005','000169',1),
- ('S0005','000170',1),
- ('S0005','000171',1),
- ('S0005','000172',1),
- ('S0005','000173',1),
- ('S0005','000174',1),
- ('S0005','000175',1),
- ('S0005','000176',1),
- ('S0005','000177',1),
- ('S0005','000178',1),
- ('S0005','000179',1),
- ('S0005','000180',1),
- ('S0005','000181',1),
- ('S0005','000182',1),
- ('S0005','000183',1),
- ('S0005','000184',1),
- ('S0005','000185',1),
- ('S0003','000014',1),
- ('S0003','000015',1),
- ('S0003','000016',1),
- ('S0003','000032',1),
- ('S0003','000033',1),
- ('S0003','000034',1),
- ('S0003','000049',1),
- ('S0003','000050',1),
- ('S0003','000051',1),
- ('S0003','000052',1),
- ('S0003','000053',1),
- ('S0003','000054',1),
- ('S0002','000003',1),
- ('S0002','000004',1),
- ('S0002','000002',1),
- ('S0002','000001',1),
- ('S0005','000167',1),
- ('S0004','000186',1),
- ('S0004','000190',1),
- ('S0004','000192',1),
- ('S0004','000193',1),
- ('S0004','000194',1),
- ('S0004','000195',1),
- ('S0004','000196',1),
- ('S0004','000197',1),
- ('S0004','000198',1),
- ('S0004','000199',1),
- ('S0004','000200',1),
- ('S0004','000201',1),
- ('S0006','000202',1),
- ('S0006','000203',1),
- ('S0006','000204',1),
- ('S0006','000205',1),
- ('S0006','000206',1),
- ('S0006','000207',1),
- ('S0006','000208',1),
- ('S0006','000209',1),
- ('S0006','000210',1),
- ('S0006','000211',1),
- ('S0006','000212',1),
- ('S0006','000213',1),
- ('S0006','000214',1),
- ('S0004','000187',1),
- ('S0004','000188',1),
- ('S0004','000189',1),
- ('S0004','000191',1);
 /*!40000 ALTER TABLE `m_supplier_has_m_products` ENABLE KEYS */;
 
-
---
--- Definition of table `m_unitgroups`
---
-
+-- Dumping structure for table bizdb.m_unitgroups
 DROP TABLE IF EXISTS `m_unitgroups`;
-CREATE TABLE `m_unitgroups` (
+CREATE TABLE IF NOT EXISTS `m_unitgroups` (
   `ID` varchar(50) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_unitgroups`
---
-
+-- Dumping data for table bizdb.m_unitgroups: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_unitgroups` DISABLE KEYS */;
-INSERT INTO `m_unitgroups` (`ID`,`NAME`,`ACTIVE`) VALUES 
- ('UG001','NO',1);
+INSERT IGNORE INTO `m_unitgroups` (`ID`, `NAME`, `ACTIVE`) VALUES
+	('UG001', 'NO', 1);
 /*!40000 ALTER TABLE `m_unitgroups` ENABLE KEYS */;
 
-
---
--- Definition of table `m_unitgroups_has_m_units`
---
-
+-- Dumping structure for table bizdb.m_unitgroups_has_m_units
 DROP TABLE IF EXISTS `m_unitgroups_has_m_units`;
-CREATE TABLE `m_unitgroups_has_m_units` (
+CREATE TABLE IF NOT EXISTS `m_unitgroups_has_m_units` (
   `M_UNITGROUPS_ID` varchar(50) NOT NULL,
   `M_UNITS_ID` varchar(50) NOT NULL,
   `VOLUME` float(24,0) DEFAULT NULL,
@@ -1882,44 +504,30 @@ CREATE TABLE `m_unitgroups_has_m_units` (
   KEY `FK_M_UNITGROUPS_HAS_M_UNITS_M_UNITS1_IDX` (`M_UNITS_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_unitgroups_has_m_units`
---
-
+-- Dumping data for table bizdb.m_unitgroups_has_m_units: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_unitgroups_has_m_units` DISABLE KEYS */;
-INSERT INTO `m_unitgroups_has_m_units` (`M_UNITGROUPS_ID`,`M_UNITS_ID`,`VOLUME`,`ACTIVE`,`BASEUNIT`) VALUES 
- ('UG001','U0001',1,1,1);
+INSERT IGNORE INTO `m_unitgroups_has_m_units` (`M_UNITGROUPS_ID`, `M_UNITS_ID`, `VOLUME`, `ACTIVE`, `BASEUNIT`) VALUES
+	('UG001', 'U0001', 1, 1, 1);
 /*!40000 ALTER TABLE `m_unitgroups_has_m_units` ENABLE KEYS */;
 
-
---
--- Definition of table `m_units`
---
-
+-- Dumping structure for table bizdb.m_units
 DROP TABLE IF EXISTS `m_units`;
-CREATE TABLE `m_units` (
+CREATE TABLE IF NOT EXISTS `m_units` (
   `ID` varchar(50) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL,
   `SYMBLE` varchar(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_units`
---
-
+-- Dumping data for table bizdb.m_units: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_units` DISABLE KEYS */;
-INSERT INTO `m_units` (`ID`,`NAME`,`ACTIVE`,`SYMBLE`) VALUES 
- ('U0001','NO',1,'');
+INSERT IGNORE INTO `m_units` (`ID`, `NAME`, `ACTIVE`, `SYMBLE`) VALUES
+	('U0001', 'NO', 1, '');
 /*!40000 ALTER TABLE `m_units` ENABLE KEYS */;
 
-
---
--- Definition of table `m_user`
---
-
+-- Dumping structure for table bizdb.m_user
 DROP TABLE IF EXISTS `m_user`;
-CREATE TABLE `m_user` (
+CREATE TABLE IF NOT EXISTS `m_user` (
   `ID` varchar(50) NOT NULL,
   `FIRSTNAME` varchar(45) DEFAULT NULL,
   `LASTNAME` varchar(45) DEFAULT NULL,
@@ -1930,46 +538,32 @@ CREATE TABLE `m_user` (
   KEY `FK_M_USER_M_USERGROUP1_IDX` (`UGRUID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_user`
---
-
+-- Dumping data for table bizdb.m_user: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_user` DISABLE KEYS */;
-INSERT INTO `m_user` (`ID`,`FIRSTNAME`,`LASTNAME`,`IMGURL`,`UGRUID`,`ACTIVE`,`VISIBLE`) VALUES 
- ('U0000','SUPER','ADMIN','-',1,1,0);
+INSERT IGNORE INTO `m_user` (`ID`, `FIRSTNAME`, `LASTNAME`, `IMGURL`, `UGRUID`, `ACTIVE`, `VISIBLE`) VALUES
+	('U0000', 'SUPER', 'ADMIN', '-', 1, 1, 0);
 /*!40000 ALTER TABLE `m_user` ENABLE KEYS */;
 
-
---
--- Definition of table `m_usergroup`
---
-
+-- Dumping structure for table bizdb.m_usergroup
 DROP TABLE IF EXISTS `m_usergroup`;
-CREATE TABLE `m_usergroup` (
+CREATE TABLE IF NOT EXISTS `m_usergroup` (
   `ID` int(11) NOT NULL,
   `GROUPNAME` varchar(45) DEFAULT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL,
   `VISIBLE` smallint(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_usergroup`
---
-
+-- Dumping data for table bizdb.m_usergroup: ~3 rows (approximately)
 /*!40000 ALTER TABLE `m_usergroup` DISABLE KEYS */;
-INSERT INTO `m_usergroup` (`ID`,`GROUPNAME`,`ACTIVE`,`VISIBLE`) VALUES 
- (1,'SUPER ADMIN',1,0),
- (2,'ADMIN',1,1),
- (3,'CASHIER',1,1);
+INSERT IGNORE INTO `m_usergroup` (`ID`, `GROUPNAME`, `ACTIVE`, `VISIBLE`) VALUES
+	(1, 'SUPER ADMIN', 1, 0),
+	(2, 'ADMIN', 1, 1),
+	(3, 'CASHIER', 1, 1);
 /*!40000 ALTER TABLE `m_usergroup` ENABLE KEYS */;
 
-
---
--- Definition of table `m_usersecurity`
---
-
+-- Dumping structure for table bizdb.m_usersecurity
 DROP TABLE IF EXISTS `m_usersecurity`;
-CREATE TABLE `m_usersecurity` (
+CREATE TABLE IF NOT EXISTS `m_usersecurity` (
   `ID` int(11) NOT NULL,
   `USERNAME` varchar(45) DEFAULT NULL,
   `PASSWORD` varchar(45) DEFAULT NULL,
@@ -1977,22 +571,15 @@ CREATE TABLE `m_usersecurity` (
   KEY `FK_M_USERSECURITY_M_USER_IDX` (`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `m_usersecurity`
---
-
+-- Dumping data for table bizdb.m_usersecurity: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_usersecurity` DISABLE KEYS */;
-INSERT INTO `m_usersecurity` (`ID`,`USERNAME`,`PASSWORD`,`UID`) VALUES 
- (1,'ADMIN','ÃËÝÅÉÓÐÖ','U0000');
+INSERT IGNORE INTO `m_usersecurity` (`ID`, `USERNAME`, `PASSWORD`, `UID`) VALUES
+	(1, 'ADMIN', 'ÃËÝÅÉÓÐÖ', 'U0000');
 /*!40000 ALTER TABLE `m_usersecurity` ENABLE KEYS */;
 
-
---
--- Definition of table `r_price_tags`
---
-
+-- Dumping structure for table bizdb.r_price_tags
 DROP TABLE IF EXISTS `r_price_tags`;
-CREATE TABLE `r_price_tags` (
+CREATE TABLE IF NOT EXISTS `r_price_tags` (
   `LOCID` int(11) NOT NULL,
   `PROID` varchar(50) NOT NULL,
   `BATCHID` varchar(50) NOT NULL,
@@ -2003,20 +590,76 @@ CREATE TABLE `r_price_tags` (
   PRIMARY KEY (`LOCID`,`PROID`,`BATCHID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `r_price_tags`
---
-
+-- Dumping data for table bizdb.r_price_tags: ~0 rows (approximately)
 /*!40000 ALTER TABLE `r_price_tags` DISABLE KEYS */;
 /*!40000 ALTER TABLE `r_price_tags` ENABLE KEYS */;
 
+-- Dumping structure for function bizdb.strf_ConvMaxUnit
+DROP FUNCTION IF EXISTS `strf_ConvMaxUnit`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_ConvMaxUnit`( unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ) RETURNS double
+BEGIN   DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0'  ;  DECLARE UNIT_VOL_MAX  DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL_CUR from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id    ;  select ugu.VOLUME INTO UNIT_VOL_MAX from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME desc limit 1    ;  RETURN ((qty*UNIT_VOL_CUR)/UNIT_VOL_MAX)  ; END//
+DELIMITER ;
 
---
--- Definition of table `t_chqpayments`
---
+-- Dumping structure for function bizdb.strf_ConvMinUnit
+DROP FUNCTION IF EXISTS `strf_ConvMinUnit`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_ConvMinUnit`( unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ) RETURNS double
+BEGIN   DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0'  ;  DECLARE UNIT_VOL_MIN  DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL_CUR from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id    ;  select ugu.VOLUME INTO UNIT_VOL_MIN from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME asc limit 1    ;  RETURN ((qty*UNIT_VOL_CUR)*UNIT_VOL_MIN)  ; END//
+DELIMITER ;
 
+-- Dumping structure for function bizdb.strf_getInvProfit
+DROP FUNCTION IF EXISTS `strf_getInvProfit`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getInvProfit`( para_trnid VARCHAR(100),para_trntyp VARCHAR(5) ) RETURNS double
+BEGIN   DECLARE TRNPROFIT  DOUBLE DEFAULT '0'  ;  select (SUM(sl.AMOUNT)-SUM(sl.CPRICE*sl.QTY)) INTO TRNPROFIT  from t_stockline sl   where sl.T_STOCKMST_ID=para_trnid AND sl.TRNTYP=para_trntyp  GROUP BY sl.T_STOCKMST_ID,sl.TRNTYP   ;  RETURN TRNPROFIT  ; END//
+DELIMITER ;
+
+-- Dumping structure for function bizdb.strf_getMaxUnit
+DROP FUNCTION IF EXISTS `strf_getMaxUnit`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getMaxUnit`( unit_grp VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
+BEGIN   DECLARE UNIT_ID VARCHAR(100) DEFAULT ''  ;  select ugu.M_UNITS_ID  INTO UNIT_ID from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME DESC LIMIT 1    ;  RETURN UNIT_ID   ; END//
+DELIMITER ;
+
+-- Dumping structure for function bizdb.strf_getUnitName
+DROP FUNCTION IF EXISTS `strf_getUnitName`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitName`( unit_id VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
+BEGIN   DECLARE UNIT_NAME VARCHAR(100) DEFAULT ''  ;  SELECT u.NAME INTO UNIT_NAME FROM m_units u where u.ID=unit_id  ;  RETURN UNIT_NAME   ; END//
+DELIMITER ;
+
+-- Dumping structure for function bizdb.strf_getUnitSym
+DROP FUNCTION IF EXISTS `strf_getUnitSym`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitSym`( unit_id VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
+BEGIN   DECLARE UNIT_SYM VARCHAR(100) DEFAULT ''  ;  SELECT SYMBLE INTO UNIT_SYM FROM m_units WHERE ID=unit_id  ;  RETURN UNIT_SYM   ; END//
+DELIMITER ;
+
+-- Dumping structure for function bizdb.strf_getUnitVol
+DROP FUNCTION IF EXISTS `strf_getUnitVol`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitVol`( unit_grp VARCHAR(100),unit_id VARCHAR(100) ) RETURNS double
+BEGIN   DECLARE UNIT_VOL DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id   ;  RETURN UNIT_VOL   ; END//
+DELIMITER ;
+
+-- Dumping structure for procedure bizdb.strp_StockBalance
+DROP PROCEDURE IF EXISTS `strp_StockBalance`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `strp_StockBalance`( loc_code INT )
+BEGIN   TRUNCATE TABLE  M_STOCKS_TEM  ;  INSERT INTO M_STOCKS_TEM (SELECT PROID,NAME,sum(SIH) AS SIH,UNITID,UNIT,BATCH,LOCID FROM  (  (select p.ID as PROID,p.NAME as NAME,0 as SIH,strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,  strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,'0001' as BATCH,l.ID as LOCID   from m_products p cross join m_location l   where p.ACTIVE=1 AND l.ACTIVE=1 )  union all  (SELECT SL.PROID AS PROID,P.NAME AS NAME,SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)) AS SIH,  strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,SL.BATCH_NO AS BATCH,  SM.M_LOCATION_SOURCE as LOCID  FROM t_stockmst SM  inner join t_stockline SL  on SM.ID=SL.T_STOCKMST_ID and SM.TRNTYPE=SL.TRNTYP  inner join u_transactions u  on SM.TRNTYPE=u.TRNTYPE  INNER JOIN m_products P  on SL.PROID=P.ID  where SM.TRNSTATE='P'  GROUP BY SL.PROID,P.NAME)  )A  WHERE A.LOCID=loc_code  group by  A.PROID,A.NAME,A.LOCID,A.BATCH,A.UNIT  order by  A.PROID,A.NAME,A.LOCID ) ; END//
+DELIMITER ;
+
+-- Dumping structure for procedure bizdb.strp_UpdateStockBalance
+DROP PROCEDURE IF EXISTS `strp_UpdateStockBalance`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `strp_UpdateStockBalance`( loc_code INT )
+BEGIN   CALL strp_StockBalance(loc_code)  ;  UPDATE  M_STOCKS  S INNER JOIN M_STOCKS_TEM TS ON S.M_PRODUCTS_ID=TS.M_PRODUCTS_ID AND S.BATCHNO=TS.BATCHNO AND S.M_LOCATION_ID=TS.M_LOCATION_ID SET S.SIH=TS.SIH   ; END//
+DELIMITER ;
+
+-- Dumping structure for table bizdb.t_chqpayments
 DROP TABLE IF EXISTS `t_chqpayments`;
-CREATE TABLE `t_chqpayments` (
+CREATE TABLE IF NOT EXISTS `t_chqpayments` (
   `CHQ_NO` varchar(50) NOT NULL,
   `CHQ_DATE` datetime NOT NULL,
   `STATE` varchar(5) NOT NULL,
@@ -2032,20 +675,13 @@ CREATE TABLE `t_chqpayments` (
   PRIMARY KEY (`CHQ_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `t_chqpayments`
---
-
+-- Dumping data for table bizdb.t_chqpayments: ~0 rows (approximately)
 /*!40000 ALTER TABLE `t_chqpayments` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_chqpayments` ENABLE KEYS */;
 
-
---
--- Definition of table `t_gvredeem`
---
-
+-- Dumping structure for table bizdb.t_gvredeem
 DROP TABLE IF EXISTS `t_gvredeem`;
-CREATE TABLE `t_gvredeem` (
+CREATE TABLE IF NOT EXISTS `t_gvredeem` (
   `NO` int(11) NOT NULL,
   `GV_NO` varchar(100) NOT NULL,
   `RED_VAL` double NOT NULL DEFAULT '0',
@@ -2055,20 +691,13 @@ CREATE TABLE `t_gvredeem` (
   PRIMARY KEY (`NO`,`GV_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `t_gvredeem`
---
-
+-- Dumping data for table bizdb.t_gvredeem: ~0 rows (approximately)
 /*!40000 ALTER TABLE `t_gvredeem` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_gvredeem` ENABLE KEYS */;
 
-
---
--- Definition of table `t_phystkdet`
---
-
+-- Dumping structure for table bizdb.t_phystkdet
 DROP TABLE IF EXISTS `t_phystkdet`;
-CREATE TABLE `t_phystkdet` (
+CREATE TABLE IF NOT EXISTS `t_phystkdet` (
   `ID` int(11) NOT NULL,
   `T_PHYSTKMST_ID` varchar(50) NOT NULL,
   `SYSQTY` double DEFAULT NULL,
@@ -2078,25 +707,20 @@ CREATE TABLE `t_phystkdet` (
   `PROID` varchar(100) NOT NULL,
   `M_UNITS_ID` varchar(50) NOT NULL,
   `M_UNITGROUPS_ID` varchar(50) NOT NULL,
+  `UNIT_SYS` varchar(50) DEFAULT '',
+  `BATCH` varchar(5) DEFAULT '',
   KEY `FK_T_PHYSTKDET_M_UNITGROUPS1_IDX` (`M_UNITGROUPS_ID`),
   KEY `FK_T_PHYSTKDET_M_UNITS1_IDX` (`M_UNITS_ID`),
   KEY `FK_T_PHYSTKDET_T_PHYSTKMST1_IDX` (`T_PHYSTKMST_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `t_phystkdet`
---
-
+-- Dumping data for table bizdb.t_phystkdet: ~0 rows (approximately)
 /*!40000 ALTER TABLE `t_phystkdet` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_phystkdet` ENABLE KEYS */;
 
-
---
--- Definition of table `t_phystkmst`
---
-
+-- Dumping structure for table bizdb.t_phystkmst
 DROP TABLE IF EXISTS `t_phystkmst`;
-CREATE TABLE `t_phystkmst` (
+CREATE TABLE IF NOT EXISTS `t_phystkmst` (
   `ID` varchar(50) NOT NULL,
   `CRDATE` datetime DEFAULT NULL,
   `M_USER_CR` varchar(50) NOT NULL,
@@ -2110,20 +734,13 @@ CREATE TABLE `t_phystkmst` (
   KEY `FK_T_PHYSTKMST_M_USER2_IDX` (`M_USER_MD`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `t_phystkmst`
---
-
+-- Dumping data for table bizdb.t_phystkmst: ~0 rows (approximately)
 /*!40000 ALTER TABLE `t_phystkmst` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_phystkmst` ENABLE KEYS */;
 
-
---
--- Definition of table `t_stockline`
---
-
+-- Dumping structure for table bizdb.t_stockline
 DROP TABLE IF EXISTS `t_stockline`;
-CREATE TABLE `t_stockline` (
+CREATE TABLE IF NOT EXISTS `t_stockline` (
   `T_STOCKMST_ID` varchar(50) NOT NULL,
   `TERMINAL` varchar(5) NOT NULL,
   `TRNTYP` varchar(5) DEFAULT NULL,
@@ -2141,25 +758,20 @@ CREATE TABLE `t_stockline` (
   `BATCH_NO` varchar(50) DEFAULT NULL,
   `ISGV` tinyint(4) DEFAULT '0',
   `REF_TRN` varchar(100) DEFAULT '',
+  `SALESMAN` varchar(50) DEFAULT '',
+  `SALES_COM` double DEFAULT '0',
   KEY `FK_T_STOCKLINE_M_UNITGROUPS1_IDX` (`M_UNITGROUPS_ID`),
   KEY `FK_T_STOCKLINE_M_UNITS1_IDX` (`M_UNITS_ID`),
   KEY `FK_T_STOCKLINE_T_STOCKMST1_IDX` (`T_STOCKMST_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `t_stockline`
---
-
+-- Dumping data for table bizdb.t_stockline: ~0 rows (approximately)
 /*!40000 ALTER TABLE `t_stockline` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_stockline` ENABLE KEYS */;
 
-
---
--- Definition of table `t_stockmst`
---
-
+-- Dumping structure for table bizdb.t_stockmst
 DROP TABLE IF EXISTS `t_stockmst`;
-CREATE TABLE `t_stockmst` (
+CREATE TABLE IF NOT EXISTS `t_stockmst` (
   `ID` varchar(50) NOT NULL,
   `TERMINAL` varchar(5) NOT NULL,
   `TRNTYPE` varchar(50) NOT NULL,
@@ -2193,20 +805,13 @@ CREATE TABLE `t_stockmst` (
   KEY `FK_T_STOCKMST_U_TRANSACTIONS1_IDX` (`TRNTYPE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `t_stockmst`
---
-
+-- Dumping data for table bizdb.t_stockmst: ~0 rows (approximately)
 /*!40000 ALTER TABLE `t_stockmst` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_stockmst` ENABLE KEYS */;
 
-
---
--- Definition of table `t_stockpayments`
---
-
+-- Dumping structure for table bizdb.t_stockpayments
 DROP TABLE IF EXISTS `t_stockpayments`;
-CREATE TABLE `t_stockpayments` (
+CREATE TABLE IF NOT EXISTS `t_stockpayments` (
   `ID` int(11) NOT NULL,
   `T_STOCKMST_ID` varchar(50) NOT NULL,
   `TERMINAL` varchar(5) NOT NULL,
@@ -2223,20 +828,154 @@ CREATE TABLE `t_stockpayments` (
   KEY `FK_T_STOCKPAYMENTS_T_STOCKMST1_IDX` (`T_STOCKMST_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `t_stockpayments`
---
-
+-- Dumping data for table bizdb.t_stockpayments: ~0 rows (approximately)
 /*!40000 ALTER TABLE `t_stockpayments` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_stockpayments` ENABLE KEYS */;
 
+-- Dumping structure for table bizdb.user_permitions
+DROP TABLE IF EXISTS `user_permitions`;
+CREATE TABLE IF NOT EXISTS `user_permitions` (
+  `M_USERGROUP_ID` int(11) NOT NULL,
+  `M_PERMISSIONS_ID` varchar(50) NOT NULL,
+  `M_PERMISSIONS_PARENTID` varchar(50) NOT NULL,
+  `ACCESSTYPE` varchar(5) DEFAULT NULL,
+  KEY `USER_PERMITIONS_FK_M_USERGROUP_HAS_M_PERMISSIONS_M_PERMISSIONS1` (`M_PERMISSIONS_ID`,`M_PERMISSIONS_PARENTID`),
+  KEY `USER_PERMITIONS_FK_M_USERGROUP_HAS_M_PERMISSIONS_M_USERGROUP1_2` (`M_USERGROUP_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Definition of table `u_reports`
---
+-- Dumping data for table bizdb.user_permitions: ~125 rows (approximately)
+/*!40000 ALTER TABLE `user_permitions` DISABLE KEYS */;
+INSERT IGNORE INTO `user_permitions` (`M_USERGROUP_ID`, `M_PERMISSIONS_ID`, `M_PERMISSIONS_PARENTID`, `ACCESSTYPE`) VALUES
+	(1, 'M00000', 'M00000', 'A'),
+	(1, 'M00001', 'M00000', 'A'),
+	(1, 'M00002', 'M00000', 'A'),
+	(1, 'M00003', 'M00000', 'A'),
+	(1, 'M00004', 'M00000', 'A'),
+	(1, 'M00005', 'M00000', 'A'),
+	(1, 'M00006', 'M00000', 'A'),
+	(1, 'M00007', 'M00000', 'A'),
+	(1, 'M00008', 'M00000', 'A'),
+	(1, 'M00009', 'M00000', 'A'),
+	(1, 'M00010', 'M00000', 'A'),
+	(1, 'M00011', 'M00000', 'A'),
+	(1, 'M00012', 'M00000', 'A'),
+	(1, 'T00000', 'T00000', 'A'),
+	(1, 'T00001', 'T00000', 'A'),
+	(1, 'T00002', 'T00000', 'null'),
+	(1, 'S00000', 'S00000', 'null'),
+	(1, 'S00001', 'S00000', 'null'),
+	(1, 'S00002', 'S00000', 'null'),
+	(1, 'S00003', 'S00000', 'null'),
+	(1, 'A00000', 'A00000', 'null'),
+	(1, 'A00001', 'A00000', 'null'),
+	(1, 'P00000', 'P00000', 'null'),
+	(1, 'P00001', 'P00000', 'null'),
+	(1, 'P00002', 'P00000', 'null'),
+	(1, 'P00003', 'P00000', 'null'),
+	(1, 'P00004', 'P00000', 'null'),
+	(1, 'P00005', 'P00000', 'null'),
+	(1, 'P00006', 'P00000', 'null'),
+	(1, 'P00007', 'P00000', 'null'),
+	(1, 'P00008', 'P00000', 'null'),
+	(1, 'P00009', 'P00000', 'null'),
+	(1, 'P00010', 'P00000', 'null'),
+	(1, 'P00011', 'P00000', 'null'),
+	(1, 'P00012', 'P00000', 'null'),
+	(1, 'P00013', 'P00000', 'null'),
+	(1, 'P00014', 'P00000', 'null'),
+	(1, 'P00015', 'P00000', 'null'),
+	(1, 'P00016', 'P00000', 'null'),
+	(1, 'P00017', 'P00000', 'null'),
+	(1, 'P00018', 'P00000', 'null'),
+	(1, 'P00019', 'P00000', 'null'),
+	(1, 'P00020', 'P00000', 'null'),
+	(1, 'M00013', 'M00000', 'null'),
+	(1, 'M00014', 'M00000', 'null'),
+	(1, 'P00021', 'P00000', 'null'),
+	(1, 'P00022', 'P00000', 'null'),
+	(1, 'P00023', 'P00000', 'null'),
+	(1, 'P00024', 'P00000', 'null'),
+	(1, 'P00025', 'P00000', 'null'),
+	(1, 'R00000', 'R00000', 'null'),
+	(1, 'R00001', 'R00000', 'null'),
+	(1, 'R00002', 'R00001', 'null'),
+	(1, 'R00101', 'R00000', 'null'),
+	(1, 'R00102', 'R00101', 'null'),
+	(1, 'S00004', 'S00000', 'null'),
+	(1, 'S00005', 'S00000', 'null'),
+	(1, 'U00000', 'U00000', 'null'),
+	(1, 'U00001', 'U00000', 'null'),
+	(1, 'U00002', 'U00000', 'null'),
+	(2, 'M00000', 'M00000', 'A'),
+	(2, 'M00001', 'M00000', 'A'),
+	(2, 'M00002', 'M00000', 'A'),
+	(2, 'M00003', 'M00000', 'A'),
+	(2, 'M00004', 'M00000', 'A'),
+	(2, 'M00005', 'M00000', 'A'),
+	(2, 'M00006', 'M00000', 'A'),
+	(2, 'M00011', 'M00000', 'A'),
+	(2, 'M00007', 'M00000', 'A'),
+	(2, 'M00012', 'M00000', 'A'),
+	(2, 'M00008', 'M00000', 'A'),
+	(2, 'M00009', 'M00000', 'A'),
+	(2, 'M00010', 'M00000', 'A'),
+	(2, 'P00000', 'P00000', 'A'),
+	(2, 'P00001', 'P00000', 'A'),
+	(2, 'P00002', 'P00000', 'A'),
+	(2, 'P00003', 'P00000', 'A'),
+	(2, 'P00004', 'P00000', 'A'),
+	(2, 'P00005', 'P00000', 'A'),
+	(2, 'P00006', 'P00000', 'A'),
+	(2, 'P00007', 'P00000', 'A'),
+	(2, 'P00008', 'P00000', 'A'),
+	(2, 'P00009', 'P00000', 'A'),
+	(2, 'P00010', 'P00000', 'A'),
+	(2, 'P00011', 'P00000', 'A'),
+	(2, 'P00012', 'P00000', 'A'),
+	(2, 'P00013', 'P00000', 'A'),
+	(2, 'P00014', 'P00000', 'A'),
+	(2, 'P00015', 'P00000', 'A'),
+	(2, 'P00016', 'P00000', 'A'),
+	(2, 'P00017', 'P00000', 'A'),
+	(2, 'P00018', 'P00000', 'A'),
+	(2, 'P00019', 'P00000', 'A'),
+	(2, 'P00020', 'P00000', 'A'),
+	(2, 'P00021', 'P00000', 'A'),
+	(2, 'P00022', 'P00000', 'A'),
+	(2, 'P00023', 'P00000', 'A'),
+	(2, 'P00024', 'P00000', 'A'),
+	(2, 'P00025', 'P00000', 'A'),
+	(2, 'R00000', 'R00000', 'A'),
+	(2, 'R00001', 'R00000', 'A'),
+	(2, 'R00101', 'R00000', 'A'),
+	(2, 'R00002', 'R00001', 'A'),
+	(2, 'R00102', 'R00101', 'A'),
+	(2, 'S00000', 'S00000', 'A'),
+	(2, 'S00001', 'S00000', 'A'),
+	(2, 'S00002', 'S00000', 'A'),
+	(2, 'S00003', 'S00000', 'A'),
+	(2, 'S00004', 'S00000', 'A'),
+	(2, 'S00005', 'S00000', 'A'),
+	(2, 'T00000', 'T00000', 'A'),
+	(2, 'T00001', 'T00000', 'A'),
+	(2, 'T00002', 'T00000', 'A'),
+	(3, 'T00000', 'T00000', 'A'),
+	(3, 'T00002', 'T00000', 'A'),
+	(3, 'S00000', 'S00000', 'A'),
+	(3, 'S00004', 'S00000', 'A'),
+	(3, 'S00003', 'S00000', 'A'),
+	(1, 'R00003', 'R00001', 'null'),
+	(1, 'R00004', 'R00001', 'null'),
+	(2, 'R00003', 'R00001', 'A'),
+	(2, 'R00004', 'R00001', 'A'),
+	(1, 'M00015', 'M00000', 'null'),
+	(1, 'P00026', 'P00000', 'null'),
+	(1, 'R00005', 'R00001', 'null');
+/*!40000 ALTER TABLE `user_permitions` ENABLE KEYS */;
 
+-- Dumping structure for table bizdb.u_reports
 DROP TABLE IF EXISTS `u_reports`;
-CREATE TABLE `u_reports` (
+CREATE TABLE IF NOT EXISTS `u_reports` (
   `RPT_ID` varchar(50) NOT NULL,
   `RPT_NAME` varchar(100) NOT NULL,
   `RPT_PATH` varchar(200) NOT NULL,
@@ -2252,45 +991,31 @@ CREATE TABLE `u_reports` (
   PRIMARY KEY (`RPT_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `u_reports`
---
-
+-- Dumping data for table bizdb.u_reports: ~4 rows (approximately)
 /*!40000 ALTER TABLE `u_reports` DISABLE KEYS */;
-INSERT INTO `u_reports` (`RPT_ID`,`RPT_NAME`,`RPT_PATH`,`RPT_EN_LOC`,`RPT_EN_CUS`,`RPT_EN_SUP`,`RPT_EN_DATE_RANGE`,`RPT_EN_DATE_AS_AT`,`RPT_EN_DATE_QUATER`,`RPT_EN_GRP`,`RPT_ACTIVE`,`RPT_SUBREPORT_PATH`) VALUES 
- ('R00002','INVOICE LISTING','Sales\\\\R00002\\\\Rpt_InvoiceListing.jrxml',1,0,0,1,0,0,0,1,'Reports\\\\Sales\\\\R00002\\\\'),
- ('R00003','PAYMODE WISE SALE','Sales\\\\R00003\\\\Rpt_SalesSummary.jrxml',1,0,0,1,0,0,0,1,'Reports\\\\Sales\\\\R00003\\\\'),
- ('R00004','SUPPLIER WISE SALE','Sales\\\\R00004\\\\Rpt_SupplierSale.jrxml',1,0,1,1,0,0,0,1,'Reports\\\\Sales\\\\R00004\\\\'),
- ('R00102','STOCK BALANCE','Stock\\\\R00102\\\\Rpt_StockBalance.jrxml',1,0,0,0,0,0,1,1,'');
+INSERT IGNORE INTO `u_reports` (`RPT_ID`, `RPT_NAME`, `RPT_PATH`, `RPT_EN_LOC`, `RPT_EN_CUS`, `RPT_EN_SUP`, `RPT_EN_DATE_RANGE`, `RPT_EN_DATE_AS_AT`, `RPT_EN_DATE_QUATER`, `RPT_EN_GRP`, `RPT_ACTIVE`, `RPT_SUBREPORT_PATH`) VALUES
+	('R00002', 'INVOICE LISTING', 'Sales\\\\R00002\\\\Rpt_InvoiceListing.jrxml', 1, 0, 0, 1, 0, 0, 0, 1, 'Reports\\\\Sales\\\\R00002\\\\'),
+	('R00003', 'PAYMODE WISE SALE', 'Sales\\\\R00003\\\\Rpt_SalesSummary.jrxml', 1, 0, 0, 1, 0, 0, 0, 1, 'Reports\\\\Sales\\\\R00003\\\\'),
+	('R00004', 'SUPPLIER WISE SALE', 'Sales\\\\R00004\\\\Rpt_SupplierSale.jrxml', 1, 0, 1, 1, 0, 0, 0, 1, 'Reports\\\\Sales\\\\R00004\\\\'),
+	('R00102', 'STOCK BALANCE', 'Stock\\\\R00102\\\\Rpt_StockBalance.jrxml', 1, 0, 0, 0, 0, 0, 1, 1, '');
 /*!40000 ALTER TABLE `u_reports` ENABLE KEYS */;
 
-
---
--- Definition of table `u_rpt_emails`
---
-
+-- Dumping structure for table bizdb.u_rpt_emails
 DROP TABLE IF EXISTS `u_rpt_emails`;
-CREATE TABLE `u_rpt_emails` (
+CREATE TABLE IF NOT EXISTS `u_rpt_emails` (
   `ID` int(11) NOT NULL,
   `RPT_ID` varchar(50) NOT NULL,
   `EMAIL_ADD` varchar(200) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `u_rpt_emails`
---
-
+-- Dumping data for table bizdb.u_rpt_emails: ~0 rows (approximately)
 /*!40000 ALTER TABLE `u_rpt_emails` DISABLE KEYS */;
 /*!40000 ALTER TABLE `u_rpt_emails` ENABLE KEYS */;
 
-
---
--- Definition of table `u_setup`
---
-
+-- Dumping structure for table bizdb.u_setup
 DROP TABLE IF EXISTS `u_setup`;
-CREATE TABLE `u_setup` (
+CREATE TABLE IF NOT EXISTS `u_setup` (
   `ID` int(11) NOT NULL,
   `COMSERIAL` varchar(50) DEFAULT NULL,
   `COMNAME` varchar(100) DEFAULT NULL,
@@ -2304,45 +1029,32 @@ CREATE TABLE `u_setup` (
   `UPDATE_VER` varchar(50) DEFAULT NULL,
   `BATCH_ENABLE` int(11) NOT NULL,
   `COM_IMG` varchar(100) DEFAULT '',
-  `MYSQL_DUMP_PATH` varchar(500) DEFAULT ''
+  `MYSQL_DUMP_PATH` varchar(500) DEFAULT '',
+  `EMAIL_RPT_DAYS_BFR` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `u_setup`
---
-
+-- Dumping data for table bizdb.u_setup: ~1 rows (approximately)
 /*!40000 ALTER TABLE `u_setup` DISABLE KEYS */;
-INSERT INTO `u_setup` (`ID`,`COMSERIAL`,`COMNAME`,`CURLOC`,`ADDNO`,`ADD1`,`ADD2`,`ADD3`,`STKMIN`,`UITHEME`,`UPDATE_VER`,`BATCH_ENABLE`,`COM_IMG`,`MYSQL_DUMP_PATH`) VALUES 
- (1,'001','THE FASHION PALETTE ',1,'No. 68 B, Kolonnawa Rd','New Town','Gothatuwa','TP 0778365202',1,0,NULL,0,'001.jpg','C:\\\\Program Files (x86)\\MySQL\\\\MySQL Server 5.5\\\\bin');
+INSERT IGNORE INTO `u_setup` (`ID`, `COMSERIAL`, `COMNAME`, `CURLOC`, `ADDNO`, `ADD1`, `ADD2`, `ADD3`, `STKMIN`, `UITHEME`, `UPDATE_VER`, `BATCH_ENABLE`, `COM_IMG`, `MYSQL_DUMP_PATH`, `EMAIL_RPT_DAYS_BFR`) VALUES
+	(1, '002', 'SAMS HUT', 1, 'No. 68 B, Kolonnawa Rd', '-', '-', '-', 1, 0, NULL, 0, '002.jpg', 'C:\\\\Program Files (x86)\\MySQL\\\\MySQL Server 5.5\\\\bin', 0);
 /*!40000 ALTER TABLE `u_setup` ENABLE KEYS */;
 
-
---
--- Definition of table `u_systhemes`
---
-
+-- Dumping structure for table bizdb.u_systhemes
 DROP TABLE IF EXISTS `u_systhemes`;
-CREATE TABLE `u_systhemes` (
+CREATE TABLE IF NOT EXISTS `u_systhemes` (
   `ID` int(11) NOT NULL,
   `NAME` varchar(45) NOT NULL,
   `URL` varchar(100) NOT NULL,
   `ACTIVE` smallint(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `u_systhemes`
---
-
+-- Dumping data for table bizdb.u_systhemes: ~0 rows (approximately)
 /*!40000 ALTER TABLE `u_systhemes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `u_systhemes` ENABLE KEYS */;
 
-
---
--- Definition of table `u_terminals`
---
-
+-- Dumping structure for table bizdb.u_terminals
 DROP TABLE IF EXISTS `u_terminals`;
-CREATE TABLE `u_terminals` (
+CREATE TABLE IF NOT EXISTS `u_terminals` (
   `LOC_ID` int(11) NOT NULL,
   `TERMINAL_ID` varchar(10) NOT NULL,
   `PRODUCTKEY` varchar(100) DEFAULT NULL,
@@ -2350,20 +1062,13 @@ CREATE TABLE `u_terminals` (
   PRIMARY KEY (`LOC_ID`,`TERMINAL_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `u_terminals`
---
-
+-- Dumping data for table bizdb.u_terminals: ~0 rows (approximately)
 /*!40000 ALTER TABLE `u_terminals` DISABLE KEYS */;
 /*!40000 ALTER TABLE `u_terminals` ENABLE KEYS */;
 
-
---
--- Definition of table `u_transactions`
---
-
+-- Dumping structure for table bizdb.u_transactions
 DROP TABLE IF EXISTS `u_transactions`;
-CREATE TABLE `u_transactions` (
+CREATE TABLE IF NOT EXISTS `u_transactions` (
   `TRNNO` varchar(50) NOT NULL,
   `TRNTYPE` varchar(5) DEFAULT NULL,
   `REFTRNTYPE` varchar(5) DEFAULT NULL,
@@ -2395,315 +1100,97 @@ CREATE TABLE `u_transactions` (
   `SUP_PROD_ONLY` int(11) NOT NULL DEFAULT '0',
   `CHANGE_SPRICE` int(11) NOT NULL DEFAULT '0',
   `HOLD_ONLY` int(11) NOT NULL DEFAULT '0',
-  `RETURN_REQ_REF` int(11) NOT NULL DEFAULT '0'
+  `RETURN_REQ_REF` int(11) NOT NULL DEFAULT '0',
+  `EN_SALESMAN` tinyint(4) DEFAULT '0',
+  `RPT_ENABLE` tinyint(4) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `u_transactions`
---
-
+-- Dumping data for table bizdb.u_transactions: ~2 rows (approximately)
 /*!40000 ALTER TABLE `u_transactions` DISABLE KEYS */;
-INSERT INTO `u_transactions` (`TRNNO`,`TRNTYPE`,`REFTRNTYPE`,`REFNO`,`REFNO2`,`TRNDESC`,`ACTIVE`,`STOCKENTYP`,`DEFPRICE`,`LINEDIS`,`LINEDISPER`,`CUSTOMER`,`SUPPLIER`,`CPRICE`,`SPRICE`,`BATCHCREATE`,`DATECHOOSER`,`FUTUREDATE`,`CHGDEFPRICE`,`SOURCELOC`,`DESTLOC`,`PAYMENTS`,`REPORT_PATH`,`IS_POSTRN`,`DISPLAY_UNIT`,`PREV_REP`,`CANCEL_OPT`,`CANCEL_DAYS_WITH`,`SUP_PROD_ONLY`,`CHANGE_SPRICE`,`HOLD_ONLY`,`RETURN_REQ_REF`) VALUES 
- ('T00001','GRN','','Supplier Inv No','','GRN',1,1,'C',0,0,0,1,1,1,1,1,0,1,1,0,0,'',0,1,1,1,1,1,1,0,0),
- ('T00002','INV','','','','Invoice',1,-1,'S',1,1,1,0,0,1,0,0,0,0,1,0,1,'INV//INV-58//TRpt_Default.jrxml',1,0,0,1,1,0,0,0,1);
+INSERT IGNORE INTO `u_transactions` (`TRNNO`, `TRNTYPE`, `REFTRNTYPE`, `REFNO`, `REFNO2`, `TRNDESC`, `ACTIVE`, `STOCKENTYP`, `DEFPRICE`, `LINEDIS`, `LINEDISPER`, `CUSTOMER`, `SUPPLIER`, `CPRICE`, `SPRICE`, `BATCHCREATE`, `DATECHOOSER`, `FUTUREDATE`, `CHGDEFPRICE`, `SOURCELOC`, `DESTLOC`, `PAYMENTS`, `REPORT_PATH`, `IS_POSTRN`, `DISPLAY_UNIT`, `PREV_REP`, `CANCEL_OPT`, `CANCEL_DAYS_WITH`, `SUP_PROD_ONLY`, `CHANGE_SPRICE`, `HOLD_ONLY`, `RETURN_REQ_REF`, `EN_SALESMAN`, `RPT_ENABLE`) VALUES
+	('T00001', 'GRN', '', 'Supplier Inv No', '', 'GRN', 1, 1, 'C', 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, '', 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1),
+	('T00002', 'INV', '', '', '', 'Invoice', 1, -1, 'S', 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 'INV//INV-58//TRpt_Default.jrxml', 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1);
 /*!40000 ALTER TABLE `u_transactions` ENABLE KEYS */;
 
-
---
--- Definition of table `user_permitions`
---
-
-DROP TABLE IF EXISTS `user_permitions`;
-CREATE TABLE `user_permitions` (
-  `M_USERGROUP_ID` int(11) NOT NULL,
-  `M_PERMISSIONS_ID` varchar(50) NOT NULL,
-  `M_PERMISSIONS_PARENTID` varchar(50) NOT NULL,
-  `ACCESSTYPE` varchar(5) DEFAULT NULL,
-  KEY `USER_PERMITIONS_FK_M_USERGROUP_HAS_M_PERMISSIONS_M_PERMISSIONS1` (`M_PERMISSIONS_ID`,`M_PERMISSIONS_PARENTID`),
-  KEY `USER_PERMITIONS_FK_M_USERGROUP_HAS_M_PERMISSIONS_M_USERGROUP1_2` (`M_USERGROUP_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_permitions`
---
-
-/*!40000 ALTER TABLE `user_permitions` DISABLE KEYS */;
-INSERT INTO `user_permitions` (`M_USERGROUP_ID`,`M_PERMISSIONS_ID`,`M_PERMISSIONS_PARENTID`,`ACCESSTYPE`) VALUES 
- (1,'M00000','M00000','A'),
- (1,'M00001','M00000','A'),
- (1,'M00002','M00000','A'),
- (1,'M00003','M00000','A'),
- (1,'M00004','M00000','A'),
- (1,'M00005','M00000','A'),
- (1,'M00006','M00000','A'),
- (1,'M00007','M00000','A'),
- (1,'M00008','M00000','A'),
- (1,'M00009','M00000','A'),
- (1,'M00010','M00000','A'),
- (1,'M00011','M00000','A'),
- (1,'M00012','M00000','A'),
- (1,'T00000','T00000','A'),
- (1,'T00001','T00000','A'),
- (1,'T00002','T00000','null'),
- (1,'S00000','S00000','null'),
- (1,'S00001','S00000','null'),
- (1,'S00002','S00000','null'),
- (1,'S00003','S00000','null'),
- (1,'A00000','A00000','null'),
- (1,'A00001','A00000','null'),
- (1,'P00000','P00000','null'),
- (1,'P00001','P00000','null'),
- (1,'P00002','P00000','null'),
- (1,'P00003','P00000','null'),
- (1,'P00004','P00000','null'),
- (1,'P00005','P00000','null'),
- (1,'P00006','P00000','null'),
- (1,'P00007','P00000','null'),
- (1,'P00008','P00000','null'),
- (1,'P00009','P00000','null'),
- (1,'P00010','P00000','null'),
- (1,'P00011','P00000','null'),
- (1,'P00012','P00000','null'),
- (1,'P00013','P00000','null'),
- (1,'P00014','P00000','null'),
- (1,'P00015','P00000','null'),
- (1,'P00016','P00000','null'),
- (1,'P00017','P00000','null'),
- (1,'P00018','P00000','null'),
- (1,'P00019','P00000','null'),
- (1,'P00020','P00000','null'),
- (1,'M00013','M00000','null'),
- (1,'M00014','M00000','null'),
- (1,'P00021','P00000','null'),
- (1,'P00022','P00000','null'),
- (1,'P00023','P00000','null'),
- (1,'P00024','P00000','null'),
- (1,'P00025','P00000','null'),
- (1,'R00000','R00000','null'),
- (1,'R00001','R00000','null'),
- (1,'R00002','R00001','null'),
- (1,'R00101','R00000','null'),
- (1,'R00102','R00101','null'),
- (1,'S00004','S00000','null'),
- (1,'S00005','S00000','null'),
- (1,'U00000','U00000','null'),
- (1,'U00001','U00000','null'),
- (1,'U00002','U00000','null'),
- (2,'M00000','M00000','A'),
- (2,'M00001','M00000','A'),
- (2,'M00002','M00000','A'),
- (2,'M00003','M00000','A'),
- (2,'M00004','M00000','A'),
- (2,'M00005','M00000','A'),
- (2,'M00006','M00000','A'),
- (2,'M00011','M00000','A'),
- (2,'M00007','M00000','A'),
- (2,'M00012','M00000','A'),
- (2,'M00008','M00000','A'),
- (2,'M00009','M00000','A'),
- (2,'M00010','M00000','A'),
- (2,'P00000','P00000','A'),
- (2,'P00001','P00000','A'),
- (2,'P00002','P00000','A'),
- (2,'P00003','P00000','A'),
- (2,'P00004','P00000','A'),
- (2,'P00005','P00000','A'),
- (2,'P00006','P00000','A'),
- (2,'P00007','P00000','A'),
- (2,'P00008','P00000','A'),
- (2,'P00009','P00000','A'),
- (2,'P00010','P00000','A'),
- (2,'P00011','P00000','A'),
- (2,'P00012','P00000','A'),
- (2,'P00013','P00000','A'),
- (2,'P00014','P00000','A'),
- (2,'P00015','P00000','A'),
- (2,'P00016','P00000','A'),
- (2,'P00017','P00000','A'),
- (2,'P00018','P00000','A'),
- (2,'P00019','P00000','A'),
- (2,'P00020','P00000','A'),
- (2,'P00021','P00000','A'),
- (2,'P00022','P00000','A'),
- (2,'P00023','P00000','A'),
- (2,'P00024','P00000','A'),
- (2,'P00025','P00000','A'),
- (2,'R00000','R00000','A'),
- (2,'R00001','R00000','A'),
- (2,'R00101','R00000','A'),
- (2,'R00002','R00001','A'),
- (2,'R00102','R00101','A'),
- (2,'S00000','S00000','A'),
- (2,'S00001','S00000','A'),
- (2,'S00002','S00000','A'),
- (2,'S00003','S00000','A'),
- (2,'S00004','S00000','A'),
- (2,'S00005','S00000','A'),
- (2,'T00000','T00000','A'),
- (2,'T00001','T00000','A'),
- (2,'T00002','T00000','A'),
- (3,'T00000','T00000','A'),
- (3,'T00002','T00000','A'),
- (3,'S00000','S00000','A'),
- (3,'S00004','S00000','A'),
- (3,'S00003','S00000','A'),
- (1,'R00003','R00001','null'),
- (1,'R00004','R00001','null'),
- (2,'R00003','R00001','A'),
- (2,'R00004','R00001','A');
-/*!40000 ALTER TABLE `user_permitions` ENABLE KEYS */;
-
-
---
--- Definition of function `strf_ConvMaxUnit`
---
-
-DROP FUNCTION IF EXISTS `strf_ConvMaxUnit`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `strf_ConvMaxUnit`( unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ) RETURNS double
-BEGIN   DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0'  ;  DECLARE UNIT_VOL_MAX  DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL_CUR from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id    ;  select ugu.VOLUME INTO UNIT_VOL_MAX from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME desc limit 1    ;  RETURN ((qty*UNIT_VOL_CUR)/UNIT_VOL_MAX)  ; END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of function `strf_ConvMinUnit`
---
-
-DROP FUNCTION IF EXISTS `strf_ConvMinUnit`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `strf_ConvMinUnit`( unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ) RETURNS double
-BEGIN   DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0'  ;  DECLARE UNIT_VOL_MIN  DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL_CUR from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id    ;  select ugu.VOLUME INTO UNIT_VOL_MIN from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME asc limit 1    ;  RETURN ((qty*UNIT_VOL_CUR)*UNIT_VOL_MIN)  ; END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of function `strf_getMaxUnit`
---
-
-DROP FUNCTION IF EXISTS `strf_getMaxUnit`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getMaxUnit`( unit_grp VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
-BEGIN   DECLARE UNIT_ID VARCHAR(100) DEFAULT ''  ;  select ugu.M_UNITS_ID  INTO UNIT_ID from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME DESC LIMIT 1    ;  RETURN UNIT_ID   ; END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of function `strf_getUnitName`
---
-
-DROP FUNCTION IF EXISTS `strf_getUnitName`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitName`( unit_id VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
-BEGIN   DECLARE UNIT_NAME VARCHAR(100) DEFAULT ''  ;  SELECT u.NAME INTO UNIT_NAME FROM m_units u where u.ID=unit_id  ;  RETURN UNIT_NAME   ; END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of function `strf_getUnitSym`
---
-
-DROP FUNCTION IF EXISTS `strf_getUnitSym`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitSym`( unit_id VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
-BEGIN   DECLARE UNIT_SYM VARCHAR(100) DEFAULT ''  ;  SELECT SYMBLE INTO UNIT_SYM FROM m_units WHERE ID=unit_id  ;  RETURN UNIT_SYM   ; END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of function `strf_getUnitVol`
---
-
-DROP FUNCTION IF EXISTS `strf_getUnitVol`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitVol`( unit_grp VARCHAR(100),unit_id VARCHAR(100) ) RETURNS double
-BEGIN   DECLARE UNIT_VOL DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id   ;  RETURN UNIT_VOL   ; END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `strp_StockBalance`
---
-
-DROP PROCEDURE IF EXISTS `strp_StockBalance`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `strp_StockBalance`( loc_code INT )
-BEGIN   TRUNCATE TABLE  M_STOCKS_TEM  ;  INSERT INTO M_STOCKS_TEM (SELECT PROID,NAME,sum(SIH) AS SIH,UNITID,UNIT,BATCH,LOCID FROM  (  (select p.ID as PROID,p.NAME as NAME,0 as SIH,strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,  strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,'0001' as BATCH,l.ID as LOCID   from m_products p cross join m_location l   where p.ACTIVE=1 AND l.ACTIVE=1 )  union all  (SELECT SL.PROID AS PROID,P.NAME AS NAME,SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)) AS SIH,  strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,SL.BATCH_NO AS BATCH,  SM.M_LOCATION_SOURCE as LOCID  FROM t_stockmst SM  inner join t_stockline SL  on SM.ID=SL.T_STOCKMST_ID and SM.TRNTYPE=SL.TRNTYP  inner join u_transactions u  on SM.TRNTYPE=u.TRNTYPE  INNER JOIN m_products P  on SL.PROID=P.ID  where SM.TRNSTATE='P'  GROUP BY SL.PROID,P.NAME)  )A  WHERE A.LOCID=loc_code  group by  A.PROID,A.NAME,A.LOCID,A.BATCH,A.UNIT  order by  A.PROID,A.NAME,A.LOCID ) ; END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `strp_UpdateStockBalance`
---
-
-DROP PROCEDURE IF EXISTS `strp_UpdateStockBalance`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `strp_UpdateStockBalance`( loc_code INT )
-BEGIN   CALL strp_StockBalance(loc_code)  ;  UPDATE  M_STOCKS  S INNER JOIN M_STOCKS_TEM TS ON S.M_PRODUCTS_ID=TS.M_PRODUCTS_ID AND S.BATCHNO=TS.BATCHNO AND S.M_LOCATION_ID=TS.M_LOCATION_ID SET S.SIH=TS.SIH   ; END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of view `view_propropertise`
---
-
-DROP TABLE IF EXISTS `view_propropertise`;
+-- Dumping structure for view bizdb.view_propropertise
 DROP VIEW IF EXISTS `view_propropertise`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_propropertise` AS select `m_products`.`ID` AS `PROID`,`m_products`.`NAME` AS `PRONAME`,`m_propertise`.`NAME` AS `PROPNAME`,`m_products_has_m_propertise`.`VALUE` AS `PROPVAL` from ((`m_products` join `m_products_has_m_propertise` on((`m_products`.`ID` = `m_products_has_m_propertise`.`M_PRODUCTS_ID`))) join `m_propertise` on((`m_products_has_m_propertise`.`M_PROPERTISE_ID` = `m_propertise`.`ID`)));
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `view_propropertise` (
+	`PROID` VARCHAR(100) NOT NULL COLLATE 'latin1_swedish_ci',
+	`PRONAME` TEXT NULL COLLATE 'latin1_swedish_ci',
+	`PROPNAME` VARCHAR(45) NULL COLLATE 'latin1_swedish_ci',
+	`PROPVAL` VARCHAR(100) NULL COLLATE 'latin1_swedish_ci'
+) ENGINE=MyISAM;
 
---
--- Definition of view `view_trnfull`
---
-
-DROP TABLE IF EXISTS `view_trnfull`;
+-- Dumping structure for view bizdb.view_trnfull
 DROP VIEW IF EXISTS `view_trnfull`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_trnfull` AS select `t_stockmst`.`ID` AS `ID`,`t_stockmst`.`TRNTYPE` AS `TRNTYPE`,`t_stockmst`.`CRDATE` AS `CRDATE`,`t_stockmst`.`REFNO` AS `REFNO`,`t_stockmst`.`REFNO2` AS `REFNO2`,`t_stockmst`.`GRAMOUNT` AS `GRAMOUNT`,`t_stockmst`.`NETDIS` AS `NETDIS`,`t_stockmst`.`NETAMOUNT` AS `NETAMOUNT`,`m_customer`.`NAME` AS `CUSNAME`,`m_location`.`NAME` AS `LOCNAME_DES`,`m_units`.`SYMBLE` AS `SYMBLE`,`t_stockline`.`LINEID` AS `LINEID`,`t_stockline`.`PROID` AS `PROID`,`t_stockline`.`SPRICE` AS `SPRICE`,`t_stockline`.`CPRICE` AS `CPRICE`,`t_stockline`.`QTY` AS `QTY`,`t_stockline`.`LDIS` AS `LDIS`,`t_stockline`.`LDISPER` AS `LDISPER`,`t_stockline`.`AMOUNT` AS `AMOUNT`,`t_stockline`.`PRONAME` AS `PRONAME`,`t_stockline`.`BATCH_NO` AS `BATCH_NO`,`m_supplier`.`NAME` AS `SUP_NAME`,`m_user`.`FIRSTNAME` AS `CR_USER`,`t_stockmst`.`EFT_DATE` AS `EFT_DATE`,`t_stockmst`.`REF_TRNNO` AS `REF_TRNNO`,ifnull(`t_stockmst`.`CHANGE_AMT`,0) AS `CHANGE_VAL`,`t_stockmst`.`TRNSTATE` AS `TRNSTATE`,`m_location_1`.`NAME` AS `LOCNAME_SOURCE`,`m_user_1`.`FIRSTNAME` AS `MD_USER` from ((((((((`t_stockline` join `t_stockmst` on(((`t_stockline`.`T_STOCKMST_ID` = `t_stockmst`.`ID`) and (`t_stockline`.`TRNTYP` = `t_stockmst`.`TRNTYPE`)))) join `m_user` on((`t_stockmst`.`M_USER_CR` = `m_user`.`ID`))) left join `m_customer` on((`t_stockmst`.`M_CUSTOMER_ID` = `m_customer`.`ID`))) left join `m_location` on((`t_stockmst`.`M_LOCATION_DEST` = `m_location`.`ID`))) left join `m_supplier` on((`t_stockmst`.`M_SUPPLIER_ID` = `m_supplier`.`ID`))) left join `m_units` on((`t_stockline`.`M_UNITS_ID` = `m_units`.`ID`))) left join `m_location` `m_location_1` on((`t_stockmst`.`M_LOCATION_SOURCE` = `m_location_1`.`ID`))) left join `m_user` `m_user_1` on((`t_stockmst`.`M_USER_MD` = `m_user_1`.`ID`)));
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `view_trnfull` (
+	`ID` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`TRNTYPE` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`CRDATE` DATETIME NULL,
+	`REFNO` VARCHAR(100) NULL COLLATE 'latin1_swedish_ci',
+	`REFNO2` VARCHAR(100) NULL COLLATE 'latin1_swedish_ci',
+	`GRAMOUNT` DOUBLE NULL,
+	`NETDIS` DOUBLE NULL,
+	`NETAMOUNT` DOUBLE NULL,
+	`CUSNAME` VARCHAR(45) NULL COLLATE 'latin1_swedish_ci',
+	`LOCNAME_DES` VARCHAR(45) NULL COLLATE 'latin1_swedish_ci',
+	`SYMBLE` VARCHAR(5) NULL COLLATE 'latin1_swedish_ci',
+	`LINEID` INT(11) NOT NULL,
+	`PROID` VARCHAR(100) NOT NULL COLLATE 'latin1_swedish_ci',
+	`SPRICE` DOUBLE NULL,
+	`CPRICE` DOUBLE NULL,
+	`QTY` DOUBLE NULL,
+	`LDIS` DOUBLE NULL,
+	`LDISPER` DOUBLE NULL,
+	`AMOUNT` DOUBLE NULL,
+	`PRONAME` LONGTEXT NOT NULL COLLATE 'latin1_swedish_ci',
+	`BATCH_NO` VARCHAR(50) NULL COLLATE 'latin1_swedish_ci',
+	`SUP_NAME` VARCHAR(100) NULL COLLATE 'latin1_swedish_ci',
+	`CR_USER` VARCHAR(45) NULL COLLATE 'latin1_swedish_ci',
+	`EFT_DATE` DATETIME NULL,
+	`REF_TRNNO` VARCHAR(100) NULL COLLATE 'latin1_swedish_ci',
+	`CHANGE_VAL` DOUBLE NOT NULL,
+	`TRNSTATE` VARCHAR(2) NULL COLLATE 'latin1_swedish_ci',
+	`LOCNAME_SOURCE` VARCHAR(45) NULL COLLATE 'latin1_swedish_ci',
+	`MD_USER` VARCHAR(45) NULL COLLATE 'latin1_swedish_ci'
+) ENGINE=MyISAM;
 
---
--- Definition of view `view_trnpay`
---
-
-DROP TABLE IF EXISTS `view_trnpay`;
+-- Dumping structure for view bizdb.view_trnpay
 DROP VIEW IF EXISTS `view_trnpay`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_trnpay` AS select `m_paymst`.`NAME` AS `PAYHED`,`m_paydet`.`NAME` AS `PAYDET`,`t_stockpayments`.`FRMAMOUNT` AS `FRMAMOUNT`,`t_stockpayments`.`REFNO` AS `REFNO`,`t_stockpayments`.`EFT_DATE` AS `EFT_DATE`,`t_stockpayments`.`T_STOCKMST_ID` AS `T_STOCKMST_ID`,`t_stockpayments`.`TRNTYP` AS `TRNTYP`,`m_paymst`.`DATE_F` AS `DATE_F`,ifnull(`m_paydet`.`DATE_F`,0) AS `DATEF_DET`,`t_stockpayments`.`AMOUNT` AS `AMOUNT` from ((`t_stockpayments` join `m_paymst` on((`t_stockpayments`.`PAYHEDID` = `m_paymst`.`ID`))) left join `m_paydet` on((`t_stockpayments`.`PAYDETID` = `m_paydet`.`ID`)));
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `view_trnpay` (
+	`PAYHED` VARCHAR(50) NULL COLLATE 'latin1_swedish_ci',
+	`PAYDET` VARCHAR(45) NULL COLLATE 'latin1_swedish_ci',
+	`FRMAMOUNT` DOUBLE NULL,
+	`REFNO` VARCHAR(45) NULL COLLATE 'latin1_swedish_ci',
+	`EFT_DATE` DATETIME NULL,
+	`T_STOCKMST_ID` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`TRNTYP` VARCHAR(5) NULL COLLATE 'latin1_swedish_ci',
+	`DATE_F` INT(11) NULL,
+	`DATEF_DET` BIGINT(11) NOT NULL,
+	`AMOUNT` DOUBLE NULL
+) ENGINE=MyISAM;
 
+-- Dumping structure for view bizdb.view_propropertise
+DROP VIEW IF EXISTS `view_propropertise`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `view_propropertise`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` VIEW `view_propropertise` AS select `m_products`.`ID` AS `PROID`,`m_products`.`NAME` AS `PRONAME`,`m_propertise`.`NAME` AS `PROPNAME`,`m_products_has_m_propertise`.`VALUE` AS `PROPVAL` from ((`m_products` join `m_products_has_m_propertise` on((`m_products`.`ID` = `m_products_has_m_propertise`.`M_PRODUCTS_ID`))) join `m_propertise` on((`m_products_has_m_propertise`.`M_PROPERTISE_ID` = `m_propertise`.`ID`))) ;
 
+-- Dumping structure for view bizdb.view_trnfull
+DROP VIEW IF EXISTS `view_trnfull`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `view_trnfull`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` VIEW `view_trnfull` AS select `t_stockmst`.`ID` AS `ID`,`t_stockmst`.`TRNTYPE` AS `TRNTYPE`,`t_stockmst`.`CRDATE` AS `CRDATE`,`t_stockmst`.`REFNO` AS `REFNO`,`t_stockmst`.`REFNO2` AS `REFNO2`,`t_stockmst`.`GRAMOUNT` AS `GRAMOUNT`,`t_stockmst`.`NETDIS` AS `NETDIS`,`t_stockmst`.`NETAMOUNT` AS `NETAMOUNT`,`m_customer`.`NAME` AS `CUSNAME`,`m_location`.`NAME` AS `LOCNAME_DES`,`m_units`.`SYMBLE` AS `SYMBLE`,`t_stockline`.`LINEID` AS `LINEID`,`t_stockline`.`PROID` AS `PROID`,`t_stockline`.`SPRICE` AS `SPRICE`,`t_stockline`.`CPRICE` AS `CPRICE`,`t_stockline`.`QTY` AS `QTY`,`t_stockline`.`LDIS` AS `LDIS`,`t_stockline`.`LDISPER` AS `LDISPER`,`t_stockline`.`AMOUNT` AS `AMOUNT`,`t_stockline`.`PRONAME` AS `PRONAME`,`t_stockline`.`BATCH_NO` AS `BATCH_NO`,`m_supplier`.`NAME` AS `SUP_NAME`,`m_user`.`FIRSTNAME` AS `CR_USER`,`t_stockmst`.`EFT_DATE` AS `EFT_DATE`,`t_stockmst`.`REF_TRNNO` AS `REF_TRNNO`,ifnull(`t_stockmst`.`CHANGE_AMT`,0) AS `CHANGE_VAL`,`t_stockmst`.`TRNSTATE` AS `TRNSTATE`,`m_location_1`.`NAME` AS `LOCNAME_SOURCE`,`m_user_1`.`FIRSTNAME` AS `MD_USER` from ((((((((`t_stockline` join `t_stockmst` on(((`t_stockline`.`T_STOCKMST_ID` = `t_stockmst`.`ID`) and (`t_stockline`.`TRNTYP` = `t_stockmst`.`TRNTYPE`)))) join `m_user` on((`t_stockmst`.`M_USER_CR` = `m_user`.`ID`))) left join `m_customer` on((`t_stockmst`.`M_CUSTOMER_ID` = `m_customer`.`ID`))) left join `m_location` on((`t_stockmst`.`M_LOCATION_DEST` = `m_location`.`ID`))) left join `m_supplier` on((`t_stockmst`.`M_SUPPLIER_ID` = `m_supplier`.`ID`))) left join `m_units` on((`t_stockline`.`M_UNITS_ID` = `m_units`.`ID`))) left join `m_location` `m_location_1` on((`t_stockmst`.`M_LOCATION_SOURCE` = `m_location_1`.`ID`))) left join `m_user` `m_user_1` on((`t_stockmst`.`M_USER_MD` = `m_user_1`.`ID`))) ;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- Dumping structure for view bizdb.view_trnpay
+DROP VIEW IF EXISTS `view_trnpay`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `view_trnpay`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` VIEW `view_trnpay` AS select `m_paymst`.`NAME` AS `PAYHED`,`m_paydet`.`NAME` AS `PAYDET`,`t_stockpayments`.`FRMAMOUNT` AS `FRMAMOUNT`,`t_stockpayments`.`REFNO` AS `REFNO`,`t_stockpayments`.`EFT_DATE` AS `EFT_DATE`,`t_stockpayments`.`T_STOCKMST_ID` AS `T_STOCKMST_ID`,`t_stockpayments`.`TRNTYP` AS `TRNTYP`,`m_paymst`.`DATE_F` AS `DATE_F`,ifnull(`m_paydet`.`DATE_F`,0) AS `DATEF_DET`,`t_stockpayments`.`AMOUNT` AS `AMOUNT` from ((`t_stockpayments` join `m_paymst` on((`t_stockpayments`.`PAYHEDID` = `m_paymst`.`ID`))) left join `m_paydet` on((`t_stockpayments`.`PAYDETID` = `m_paydet`.`ID`))) ;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

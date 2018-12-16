@@ -95,41 +95,6 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20171114_t4 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_getUnitSym ", " unit_id VARCHAR(100) ", q_20171114_t4, " VARCHAR(100) ");
         arStructures.add(str_20171114_t4);
 
-        ArrayList<String> q_20171114_t5 = new ArrayList<>();
-        q_20171114_t5.add(" TRUNCATE TABLE  M_STOCKS_TEM ");
-        String q_20171114_t5_str = " INSERT INTO M_STOCKS_TEM (SELECT PROID,NAME,sum(SIH) AS SIH,UNITID,UNIT,BATCH,LOCID FROM ";
-        q_20171114_t5_str += " ( ";
-        q_20171114_t5_str += " (select p.ID as PROID,p.NAME as NAME,0 as SIH,strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID, ";
-        q_20171114_t5_str += " strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,'0001' as BATCH,l.ID as LOCID  ";
-        q_20171114_t5_str += " from m_products p cross join m_location l  ";
-        q_20171114_t5_str += " where p.ACTIVE=1 AND l.ACTIVE=1 ) ";
-        q_20171114_t5_str += " union all ";
-        q_20171114_t5_str += " (SELECT SL.PROID AS PROID,P.NAME AS NAME,SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)) AS SIH, ";
-        q_20171114_t5_str += " strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,SL.BATCH_NO AS BATCH, ";
-        q_20171114_t5_str += " SM.M_LOCATION_SOURCE as LOCID ";
-        q_20171114_t5_str += " FROM t_stockmst SM ";
-        q_20171114_t5_str += " inner join t_stockline SL ";
-        q_20171114_t5_str += " on SM.ID=SL.T_STOCKMST_ID and SM.TRNTYPE=SL.TRNTYP ";
-        q_20171114_t5_str += " inner join u_transactions u ";
-        q_20171114_t5_str += " on SM.TRNTYPE=u.TRNTYPE ";
-        q_20171114_t5_str += " INNER JOIN m_products P ";
-        q_20171114_t5_str += " on SL.PROID=P.ID ";
-        q_20171114_t5_str += " where SM.TRNSTATE='P' ";
-        q_20171114_t5_str += " GROUP BY SL.PROID,P.NAME) ";
-        q_20171114_t5_str += " )A ";
-        q_20171114_t5_str += " WHERE A.LOCID=loc_code ";
-        q_20171114_t5_str += " group by  A.PROID,A.NAME,A.LOCID,A.BATCH,A.UNIT ";
-        q_20171114_t5_str += " order by  A.PROID,A.NAME,A.LOCID )";
-        q_20171114_t5.add(q_20171114_t5_str);
-
-        Structure str_20171114_t5 = new Structure(20171114, TableStruCreation.STR_PROC, " strp_StockBalance ", " loc_code INT ", q_20171114_t5);
-        arStructures.add(str_20171114_t5);
-
-        ArrayList<String> q_20171114_t7 = new ArrayList<>();
-        q_20171114_t7.add(" CALL strp_StockBalance(loc_code) ");
-        q_20171114_t7.add(" UPDATE  M_STOCKS  S INNER JOIN M_STOCKS_TEM TS ON S.M_PRODUCTS_ID=TS.M_PRODUCTS_ID AND S.BATCHNO=TS.BATCHNO AND S.M_LOCATION_ID=TS.M_LOCATION_ID SET S.SIH=TS.SIH  ");
-        Structure str_20171114_t7 = new Structure(20171114, TableStruCreation.STR_PROC, " strp_UpdateStockBalance ", " loc_code INT ", q_20171114_t7);
-        arStructures.add(str_20171114_t7);
 
         ArrayList<String> q_20171114_t10 = new ArrayList<>();
         q_20171114_t10.add(" DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0' ");
@@ -193,39 +158,102 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20171206_t4 = new Structure(20171206, "u_transactions", ar_20171206_t4, ar_20171206_t4PK);
         arStructures.add(str_20171206_t4);
 
-        
-        
         ArrayList<TblColumn> ar_20170108_t1 = new ArrayList<>();
         ar_20170108_t1.add(new TblColumn("UNIT_SYS", "VARCHAR(50)", "DEFAULT ''"));
         ar_20170108_t1.add(new TblColumn("BATCH", "VARCHAR(5)", "DEFAULT ''"));
-        
+
         ArrayList<String> ar_20170108_t1PK = new ArrayList<>();
         Structure str_20170108_t1 = new Structure(20170108, "t_phystkdet", ar_20170108_t1, ar_20170108_t1PK);
         arStructures.add(str_20170108_t1);
-        
-        
-        
+
         ArrayList<TblColumn> ar_20180211_t1 = new ArrayList<>();
         ar_20180211_t1.add(new TblColumn("EMAIL_RPT_DAYS_BFR", "INT", "DEFAULT '0'"));
-        
+
         ArrayList<String> ar_20180211_t1PK = new ArrayList<>();
         Structure str_20180211_t1 = new Structure(20180211, "u_setup", ar_20180211_t1, ar_20180211_t1PK);
         arStructures.add(str_20180211_t1);
-        
-        
-        
+
         ArrayList<String> q_20180415_t1 = new ArrayList<>();
         q_20180415_t1.add(" DECLARE TRNPROFIT  DOUBLE DEFAULT '0' ");
-        
-        String q_20180415_q0=" select (SUM(sl.AMOUNT)-SUM(sl.CPRICE*sl.QTY)) INTO TRNPROFIT ";
-        q_20180415_q0+=" from t_stockline sl  ";
-        q_20180415_q0+=" where sl.T_STOCKMST_ID=para_trnid AND sl.TRNTYP=para_trntyp ";
-        q_20180415_q0+=" GROUP BY sl.T_STOCKMST_ID,sl.TRNTYP  ";
-        
+
+        String q_20180415_q0 = " select (SUM(sl.AMOUNT)-SUM(sl.CPRICE*sl.QTY)) INTO TRNPROFIT ";
+        q_20180415_q0 += " from t_stockline sl  ";
+        q_20180415_q0 += " where sl.T_STOCKMST_ID=para_trnid AND sl.TRNTYP=para_trntyp ";
+        q_20180415_q0 += " GROUP BY sl.T_STOCKMST_ID,sl.TRNTYP  ";
+
         q_20180415_t1.add(q_20180415_q0);
         q_20180415_t1.add(" RETURN TRNPROFIT ");
         Structure str_20180415_t1 = new Structure(20180415, TableStruCreation.STR_FUN, " strf_getInvProfit ", " para_trnid VARCHAR(100),para_trntyp VARCHAR(5) ", q_20180415_t1, " DOUBLE ");
         arStructures.add(str_20180415_t1);
+
+        //new update : report flag
+        ArrayList<TblColumn> ar_20181212_t1 = new ArrayList<>();
+        ar_20181212_t1.add(new TblColumn("RPT_ENABLE", "TINYINT", "DEFAULT '1'"));
+        ArrayList<String> ar_20181212_t1PK = new ArrayList<>();
+        Structure str_20181212_t1 = new Structure(20181212, "u_transactions", ar_20181212_t1, ar_20181212_t1PK);
+        arStructures.add(str_20181212_t1);
+
+        ArrayList<String> q_20181216_t1 = new ArrayList<>();
+        q_20181216_t1.add(" DECLARE UNIT_ID VARCHAR(100) DEFAULT '' ");
+        q_20181216_t1.add(" select ugu.M_UNITS_ID  INTO UNIT_ID from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME ASC LIMIT 1   ");
+        q_20181216_t1.add(" RETURN UNIT_ID  ");
+        Structure str_20181216_t1 = new Structure(20181216, TableStruCreation.STR_FUN, " strf_getMinUnit ", " unit_grp VARCHAR(100) ", q_20181216_t1, " VARCHAR(100) ");
+        arStructures.add(str_20181216_t1);
+
+        ArrayList<TblColumn> ar_20181216_t2 = new ArrayList<>();
+        ar_20181216_t2.add(new TblColumn("SIH_MAXU_ROU", "DOUBLE", "DEFAULT '0'"));
+        ar_20181216_t2.add(new TblColumn("SIH_MINU_ROU", "DOUBLE", "DEFAULT '0'"));
+        ar_20181216_t2.add(new TblColumn("UNIT_M", "VARCHAR(50)", "DEFAULT ''"));
+        ArrayList<String> ar_20181216_t2PK = new ArrayList<>();
+        Structure str_20181216_t2 = new Structure(20181216, "M_STOCKS_TEM", ar_20181216_t2, ar_20181216_t2PK);
+        arStructures.add(str_20181216_t2);
+
+        ArrayList<TblColumn> ar_20181216_t3 = new ArrayList<>();
+        ar_20181216_t3.add(new TblColumn("SIH_MAXU_ROU", "DOUBLE", "DEFAULT '0'"));
+        ar_20181216_t3.add(new TblColumn("SIH_MINU_ROU", "DOUBLE", "DEFAULT '0'"));
+        ar_20181216_t3.add(new TblColumn("UNIT_M", "VARCHAR(50)", "DEFAULT ''"));
+        ArrayList<String> ar_20181216_t3PK = new ArrayList<>();
+        Structure str_20181216_t3 = new Structure(20181216, "M_STOCKS", ar_20181216_t3, ar_20181216_t3PK);
+        arStructures.add(str_20181216_t3);
+        
+        
+        ArrayList<String> q_20171114_t5 = new ArrayList<>();
+        q_20171114_t5.add(" TRUNCATE TABLE  M_STOCKS_TEM ");
+        String q_20171114_t5_str = " INSERT INTO M_STOCKS_TEM (SELECT PROID,NAME,sum(SIH) AS SIH,UNITID,UNIT,BATCH,LOCID,SUM(REM_SIH_MAX) AS SIH_MAXU_ROU,SUM(REM_SIH_MIN) AS SIH_MINU_ROU,MIN_UNIT FROM ";
+        q_20171114_t5_str += " ( ";
+        q_20171114_t5_str += " (select p.ID as PROID,p.NAME as NAME,0 as SIH,0 as REM_SIH_MAX,0 AS REM_SIH_MIN ,strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID, ";
+        q_20171114_t5_str += " strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,strf_getUnitSym(strf_getMinUnit(p.M_UNITGROUPS_ID)) AS MIN_UNIT,'0001' as BATCH,l.ID as LOCID  ";
+        q_20171114_t5_str += " from m_products p cross join m_location l  ";
+        q_20171114_t5_str += " where p.ACTIVE=1 AND l.ACTIVE=1 ) ";
+        q_20171114_t5_str += " union all ";
+        q_20171114_t5_str += " (SELECT SL.PROID AS PROID,P.NAME AS NAME,SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)) AS SIH, ";
+        q_20171114_t5_str += " (TRUNCATE(SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)),0) ) as REM_SIH_MAX, ";
+        q_20171114_t5_str += " (SUM(u.STOCKENTYP*strf_ConvMinUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)) - (strf_getUnitVol(SL.M_UNITGROUPS_ID,strf_getMaxUnit(p.M_UNITGROUPS_ID))* TRUNCATE(SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)),0)) ) as REM_SIH_MIN, ";
+        q_20171114_t5_str += " strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,strf_getUnitSym(strf_getMinUnit(p.M_UNITGROUPS_ID)) AS MIN_UNIT,SL.BATCH_NO AS BATCH, ";
+        q_20171114_t5_str += " SM.M_LOCATION_SOURCE as LOCID ";
+        q_20171114_t5_str += " FROM t_stockmst SM ";
+        q_20171114_t5_str += " inner join t_stockline SL ";
+        q_20171114_t5_str += " on SM.ID=SL.T_STOCKMST_ID and SM.TRNTYPE=SL.TRNTYP ";
+        q_20171114_t5_str += " inner join u_transactions u ";
+        q_20171114_t5_str += " on SM.TRNTYPE=u.TRNTYPE ";
+        q_20171114_t5_str += " INNER JOIN m_products P ";
+        q_20171114_t5_str += " on SL.PROID=P.ID ";
+        q_20171114_t5_str += " where SM.TRNSTATE='P' ";
+        q_20171114_t5_str += " GROUP BY SL.PROID,P.NAME) ";
+        q_20171114_t5_str += " )A ";
+        q_20171114_t5_str += " WHERE A.LOCID=loc_code ";
+        q_20171114_t5_str += " group by  A.PROID,A.NAME,A.LOCID,A.BATCH,A.UNIT ";
+        q_20171114_t5_str += " order by  A.PROID,A.NAME,A.LOCID )";
+        q_20171114_t5.add(q_20171114_t5_str);
+
+        Structure str_20171114_t5 = new Structure(20181216, TableStruCreation.STR_PROC, " strp_StockBalance ", " loc_code INT ", q_20171114_t5);
+        arStructures.add(str_20171114_t5);
+
+        ArrayList<String> q_20171114_t7 = new ArrayList<>();
+        q_20171114_t7.add(" CALL strp_StockBalance(loc_code) ");
+        q_20171114_t7.add(" UPDATE  M_STOCKS  S INNER JOIN M_STOCKS_TEM TS ON S.M_PRODUCTS_ID=TS.M_PRODUCTS_ID AND S.BATCHNO=TS.BATCHNO AND S.M_LOCATION_ID=TS.M_LOCATION_ID SET S.SIH=TS.SIH,S.SIH_MAXU_ROU=TS.SIH_MAXU_ROU,S.SIH_MINU_ROU=TS.SIH_MINU_ROU,S.UNIT_M=TS.UNIT_M  ");
+        Structure str_20171114_t7 = new Structure(20181216, TableStruCreation.STR_PROC, " strp_UpdateStockBalance ", " loc_code INT ", q_20171114_t7);
+        arStructures.add(str_20171114_t7);
         
 
         int TotalResults = arStructures.size() + 1;
@@ -558,28 +586,28 @@ public final class Frm_Start extends javax.swing.JDialog {
 
     public void LoadImages() {
         /*
-        try {
+         try {
 
-            ArrayList<MProducts> allProducts = cPro.getAllProducts(2);
-            for (MProducts mProducts : allProducts) {
-                String imgpath = mProducts.getProImg();
-                File f = new File(imgpath);
-                if (f.exists()) {
-                    BufferedImage img = null;
-                    try {
-                        img = ImageIO.read(f);
-                        GlobalData.ProImg.put(mProducts.getId(), img);
+         ArrayList<MProducts> allProducts = cPro.getAllProducts(2);
+         for (MProducts mProducts : allProducts) {
+         String imgpath = mProducts.getProImg();
+         File f = new File(imgpath);
+         if (f.exists()) {
+         BufferedImage img = null;
+         try {
+         img = ImageIO.read(f);
+         GlobalData.ProImg.put(mProducts.getId(), img);
 
-                    } catch (IOException e) {
+         } catch (IOException e) {
 
-                        System.out.println("Pro img Load[Loading]" + e.getMessage());
-                    }
+         System.out.println("Pro img Load[Loading]" + e.getMessage());
+         }
 
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Pro img [Loading]" + e.getMessage());
-        }
+         }
+         }
+         } catch (Exception e) {
+         System.out.println("Pro img [Loading]" + e.getMessage());
+         }
          */
     }
 

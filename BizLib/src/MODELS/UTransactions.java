@@ -44,6 +44,9 @@ public class UTransactions  implements java.io.Serializable {
      private Byte HoldOnly;
      private Byte ReturnReqRef;
      private Byte enSalesMan;
+     private Byte enReport;
+     
+     
      
      
      private Set TStockmsts = new HashSet(0);
@@ -308,6 +311,14 @@ public class UTransactions  implements java.io.Serializable {
 
     public void setEnSalesMan(Byte enSalesMan) {
         this.enSalesMan = enSalesMan;
+    }
+
+    public Byte getEnReport() {
+        return enReport;
+    }
+
+    public void setEnReport(Byte enReport) {
+        this.enReport = enReport;
     }
 
 

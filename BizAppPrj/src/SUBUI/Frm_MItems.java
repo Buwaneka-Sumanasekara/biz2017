@@ -1611,7 +1611,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 ar.add(G1.getId());
             }
 
-            cmbG2.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(2, ar)));
+            cmbG2.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroupsForItems(2, ar)));
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -1633,7 +1633,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 ar.add(G2.getId());
             }
 
-            cmbG3.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(3, ar)));
+            cmbG3.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroupsForItems(3, ar)));
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -1661,7 +1661,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 ar.add(G3.getId());
             }
 
-            cmbG4.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(4, ar)));
+            cmbG4.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroupsForItems(4, ar)));
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -1695,7 +1695,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 ar.add(G4.getId());
             }
 
-            cmbG5.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroups(5, ar)));
+            cmbG5.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroupsForItems(5, ar)));
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
