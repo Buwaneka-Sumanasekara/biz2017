@@ -12,12 +12,10 @@
 
 
 -- Dumping database structure for bizdb
-DROP DATABASE IF EXISTS `bizdb`;
 CREATE DATABASE IF NOT EXISTS `bizdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `bizdb`;
 
 -- Dumping structure for table bizdb.m_customer
-DROP TABLE IF EXISTS `m_customer`;
 CREATE TABLE IF NOT EXISTS `m_customer` (
   `ID` varchar(50) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -37,7 +35,6 @@ INSERT IGNORE INTO `m_customer` (`ID`, `NAME`, `ADDNO`, `ADD1`, `ADD2`, `ADD3`, 
 /*!40000 ALTER TABLE `m_customer` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_giftvoucher
-DROP TABLE IF EXISTS `m_giftvoucher`;
 CREATE TABLE IF NOT EXISTS `m_giftvoucher` (
   `GV_NO` varchar(100) NOT NULL,
   `GRP_ID` varchar(50) NOT NULL,
@@ -60,7 +57,6 @@ CREATE TABLE IF NOT EXISTS `m_giftvoucher` (
 /*!40000 ALTER TABLE `m_giftvoucher` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_giftvoucher_group
-DROP TABLE IF EXISTS `m_giftvoucher_group`;
 CREATE TABLE IF NOT EXISTS `m_giftvoucher_group` (
   `GRP_ID` varchar(50) NOT NULL,
   `GRP_NAME` varchar(100) NOT NULL,
@@ -76,7 +72,6 @@ CREATE TABLE IF NOT EXISTS `m_giftvoucher_group` (
 /*!40000 ALTER TABLE `m_giftvoucher_group` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_group1
-DROP TABLE IF EXISTS `m_group1`;
 CREATE TABLE IF NOT EXISTS `m_group1` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -92,7 +87,6 @@ INSERT IGNORE INTO `m_group1` (`ID`, `NAME`, `ACTIVE`, `ISHIDDEN`) VALUES
 /*!40000 ALTER TABLE `m_group1` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_group2
-DROP TABLE IF EXISTS `m_group2`;
 CREATE TABLE IF NOT EXISTS `m_group2` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -108,7 +102,6 @@ INSERT IGNORE INTO `m_group2` (`ID`, `NAME`, `ACTIVE`, `ISHIDDEN`) VALUES
 /*!40000 ALTER TABLE `m_group2` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_group3
-DROP TABLE IF EXISTS `m_group3`;
 CREATE TABLE IF NOT EXISTS `m_group3` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -124,7 +117,6 @@ INSERT IGNORE INTO `m_group3` (`ID`, `NAME`, `ACTIVE`, `ISHIDDEN`) VALUES
 /*!40000 ALTER TABLE `m_group3` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_group4
-DROP TABLE IF EXISTS `m_group4`;
 CREATE TABLE IF NOT EXISTS `m_group4` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -140,7 +132,6 @@ INSERT IGNORE INTO `m_group4` (`ID`, `NAME`, `ACTIVE`, `ISHIDDEN`) VALUES
 /*!40000 ALTER TABLE `m_group4` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_group5
-DROP TABLE IF EXISTS `m_group5`;
 CREATE TABLE IF NOT EXISTS `m_group5` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -156,7 +147,6 @@ INSERT IGNORE INTO `m_group5` (`ID`, `NAME`, `ACTIVE`, `ISHIDDEN`) VALUES
 /*!40000 ALTER TABLE `m_group5` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_grouplink
-DROP TABLE IF EXISTS `m_grouplink`;
 CREATE TABLE IF NOT EXISTS `m_grouplink` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `G1_ID` varchar(50) NOT NULL,
@@ -172,7 +162,6 @@ CREATE TABLE IF NOT EXISTS `m_grouplink` (
 /*!40000 ALTER TABLE `m_grouplink` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_location
-DROP TABLE IF EXISTS `m_location`;
 CREATE TABLE IF NOT EXISTS `m_location` (
   `ID` int(11) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -189,7 +178,6 @@ INSERT IGNORE INTO `m_location` (`ID`, `NAME`, `ACTIVE`, `VISIBLE`, `REFNO`) VAL
 /*!40000 ALTER TABLE `m_location` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_paydet
-DROP TABLE IF EXISTS `m_paydet`;
 CREATE TABLE IF NOT EXISTS `m_paydet` (
   `ID` varchar(5) NOT NULL,
   `M_PAYMST_ID` varchar(5) NOT NULL,
@@ -212,7 +200,6 @@ INSERT IGNORE INTO `m_paydet` (`ID`, `M_PAYMST_ID`, `NAME`, `RATE`, `SHORT_NAME`
 /*!40000 ALTER TABLE `m_paydet` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_paymst
-DROP TABLE IF EXISTS `m_paymst`;
 CREATE TABLE IF NOT EXISTS `m_paymst` (
   `ID` varchar(5) NOT NULL,
   `NAME` varchar(50) DEFAULT NULL,
@@ -236,7 +223,6 @@ INSERT IGNORE INTO `m_paymst` (`ID`, `NAME`, `HASDET`, `REFREQ`, `SEQ_ORDER`, `S
 /*!40000 ALTER TABLE `m_paymst` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_permissions
-DROP TABLE IF EXISTS `m_permissions`;
 CREATE TABLE IF NOT EXISTS `m_permissions` (
   `ID` varchar(50) NOT NULL,
   `PARENTID` varchar(50) NOT NULL,
@@ -258,9 +244,9 @@ INSERT IGNORE INTO `m_permissions` (`ID`, `PARENTID`, `NAME`, `DESCRIPTION`, `TY
 	('M00000', 'M00000', 'MASTER', 'Master Files', 'MAST', 1, 1, 0, 'materfiles.png'),
 	('M00001', 'M00000', 'LOCATIONS', 'Locations', 'LOC', 0, 1, 1, 'location.png'),
 	('M00002', 'M00000', 'GROUP1', 'Category', 'GROUP', 0, 1, 2, 'group.png'),
-	('M00003', 'M00000', 'GROUP2', 'Occation', 'GROUP', 0, 1, 3, 'group.png'),
-	('M00004', 'M00000', 'GROUP3', 'Type', 'GROUP', 0, 1, 4, 'group.png'),
-	('M00005', 'M00000', 'GROUP4', 'Design', 'GROUP', 0, 1, 5, 'group.png'),
+	('M00003', 'M00000', 'GROUP2', 'Sub Category', 'GROUP', 0, 1, 3, 'group.png'),
+	('M00004', 'M00000', 'GROUP3', 'Brand', 'GROUP', 0, 1, 4, 'group.png'),
+	('M00005', 'M00000', 'GROUP4', 'Type', 'GROUP', 0, 1, 5, 'group.png'),
 	('M00006', 'M00000', 'GROUP5', 'Size', 'GROUP', 0, 1, 6, 'group.png'),
 	('M00007', 'M00000', 'UNITS', 'Unit Master', 'UNITS', 0, 1, 8, 'units.png'),
 	('M00008', 'M00000', 'ITEMS', 'Item Maser', 'ITEMS', 0, 1, 10, 'item_cloth.png'),
@@ -322,7 +308,6 @@ INSERT IGNORE INTO `m_permissions` (`ID`, `PARENTID`, `NAME`, `DESCRIPTION`, `TY
 /*!40000 ALTER TABLE `m_permissions` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_products
-DROP TABLE IF EXISTS `m_products`;
 CREATE TABLE IF NOT EXISTS `m_products` (
   `ID` varchar(100) NOT NULL,
   `PARENT_ID` varchar(100) DEFAULT NULL,
@@ -359,7 +344,6 @@ CREATE TABLE IF NOT EXISTS `m_products` (
 /*!40000 ALTER TABLE `m_products` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_products_has_m_propertise
-DROP TABLE IF EXISTS `m_products_has_m_propertise`;
 CREATE TABLE IF NOT EXISTS `m_products_has_m_propertise` (
   `M_PRODUCTS_ID` varchar(50) NOT NULL,
   `M_PROPERTISE_ID` int(11) NOT NULL,
@@ -373,7 +357,6 @@ CREATE TABLE IF NOT EXISTS `m_products_has_m_propertise` (
 /*!40000 ALTER TABLE `m_products_has_m_propertise` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_propdatatype
-DROP TABLE IF EXISTS `m_propdatatype`;
 CREATE TABLE IF NOT EXISTS `m_propdatatype` (
   `ID` int(11) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -391,7 +374,6 @@ INSERT IGNORE INTO `m_propdatatype` (`ID`, `NAME`, `FORMAT`) VALUES
 /*!40000 ALTER TABLE `m_propdatatype` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_propertise
-DROP TABLE IF EXISTS `m_propertise`;
 CREATE TABLE IF NOT EXISTS `m_propertise` (
   `ID` int(11) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -405,7 +387,6 @@ CREATE TABLE IF NOT EXISTS `m_propertise` (
 /*!40000 ALTER TABLE `m_propertise` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_salesperson
-DROP TABLE IF EXISTS `m_salesperson`;
 CREATE TABLE IF NOT EXISTS `m_salesperson` (
   `ID` varchar(50) NOT NULL,
   `FNAME` varchar(60) NOT NULL,
@@ -421,7 +402,6 @@ CREATE TABLE IF NOT EXISTS `m_salesperson` (
 /*!40000 ALTER TABLE `m_salesperson` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_stocks
-DROP TABLE IF EXISTS `m_stocks`;
 CREATE TABLE IF NOT EXISTS `m_stocks` (
   `M_LOCATION_ID` int(11) NOT NULL,
   `M_PRODUCTS_ID` varchar(50) NOT NULL,
@@ -446,7 +426,6 @@ CREATE TABLE IF NOT EXISTS `m_stocks` (
 /*!40000 ALTER TABLE `m_stocks` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_stocks_tem
-DROP TABLE IF EXISTS `m_stocks_tem`;
 CREATE TABLE IF NOT EXISTS `m_stocks_tem` (
   `M_PRODUCTS_ID` varchar(50) NOT NULL,
   `PRONAME` varchar(200) NOT NULL,
@@ -466,7 +445,6 @@ CREATE TABLE IF NOT EXISTS `m_stocks_tem` (
 /*!40000 ALTER TABLE `m_stocks_tem` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_supplier
-DROP TABLE IF EXISTS `m_supplier`;
 CREATE TABLE IF NOT EXISTS `m_supplier` (
   `ID` varchar(50) NOT NULL,
   `NAME` varchar(100) DEFAULT NULL,
@@ -484,7 +462,6 @@ INSERT IGNORE INTO `m_supplier` (`ID`, `NAME`, `CONTACTPERSON`, `CONTACT`, `MOBI
 /*!40000 ALTER TABLE `m_supplier` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_supplier_has_m_products
-DROP TABLE IF EXISTS `m_supplier_has_m_products`;
 CREATE TABLE IF NOT EXISTS `m_supplier_has_m_products` (
   `M_SUPPLIER_ID` varchar(50) NOT NULL,
   `M_PRODUCTS_ID` varchar(50) NOT NULL,
@@ -498,7 +475,6 @@ CREATE TABLE IF NOT EXISTS `m_supplier_has_m_products` (
 /*!40000 ALTER TABLE `m_supplier_has_m_products` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_unitgroups
-DROP TABLE IF EXISTS `m_unitgroups`;
 CREATE TABLE IF NOT EXISTS `m_unitgroups` (
   `ID` varchar(50) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -508,11 +484,11 @@ CREATE TABLE IF NOT EXISTS `m_unitgroups` (
 -- Dumping data for table bizdb.m_unitgroups: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_unitgroups` DISABLE KEYS */;
 INSERT IGNORE INTO `m_unitgroups` (`ID`, `NAME`, `ACTIVE`) VALUES
-	('UG000', 'NO', 1);
+	('UG000', 'NO', 1),
+	('UG001', 'MENTOS-BOTTLE', 1);
 /*!40000 ALTER TABLE `m_unitgroups` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_unitgroups_has_m_units
-DROP TABLE IF EXISTS `m_unitgroups_has_m_units`;
 CREATE TABLE IF NOT EXISTS `m_unitgroups_has_m_units` (
   `M_UNITGROUPS_ID` varchar(50) NOT NULL,
   `M_UNITS_ID` varchar(50) NOT NULL,
@@ -525,11 +501,12 @@ CREATE TABLE IF NOT EXISTS `m_unitgroups_has_m_units` (
 -- Dumping data for table bizdb.m_unitgroups_has_m_units: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_unitgroups_has_m_units` DISABLE KEYS */;
 INSERT IGNORE INTO `m_unitgroups_has_m_units` (`M_UNITGROUPS_ID`, `M_UNITS_ID`, `VOLUME`, `ACTIVE`, `BASEUNIT`) VALUES
-	('UG000', 'U0000', 1, 1, 1);
+	('UG000', 'U0000', 1, 1, 1),
+	('UG001', 'U0001', 1, 1, 1),
+	('UG001', 'U0002', 100, 1, 0);
 /*!40000 ALTER TABLE `m_unitgroups_has_m_units` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_units
-DROP TABLE IF EXISTS `m_units`;
 CREATE TABLE IF NOT EXISTS `m_units` (
   `ID` varchar(50) NOT NULL,
   `NAME` varchar(45) DEFAULT NULL,
@@ -540,11 +517,12 @@ CREATE TABLE IF NOT EXISTS `m_units` (
 -- Dumping data for table bizdb.m_units: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_units` DISABLE KEYS */;
 INSERT IGNORE INTO `m_units` (`ID`, `NAME`, `ACTIVE`, `SYMBLE`) VALUES
-	('U0000', 'NO', 1, '');
+	('U0000', 'NO', 1, ''),
+	('U0001', 'TOFFE', 1, 'TOF'),
+	('U0002', 'BOTTLE', 1, 'BOT');
 /*!40000 ALTER TABLE `m_units` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_user
-DROP TABLE IF EXISTS `m_user`;
 CREATE TABLE IF NOT EXISTS `m_user` (
   `ID` varchar(50) NOT NULL,
   `FIRSTNAME` varchar(45) DEFAULT NULL,
@@ -560,11 +538,12 @@ CREATE TABLE IF NOT EXISTS `m_user` (
 -- Dumping data for table bizdb.m_user: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_user` DISABLE KEYS */;
 INSERT IGNORE INTO `m_user` (`ID`, `FIRSTNAME`, `LASTNAME`, `IMGURL`, `UGRUID`, `ACTIVE`, `VISIBLE`) VALUES
-	('U0000', 'SUPER ADMIN', '', '', 0, 1, 0);
+	('U0000', 'SUPER ADMIN', '', '', 0, 1, 0),
+	('U0001', 'Samees', 'Sadaruwan', '', 1, 1, 1),
+	('U0002', 'Mahesh', 'Sadarauwan', '', 2, 1, 1);
 /*!40000 ALTER TABLE `m_user` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_usergroup
-DROP TABLE IF EXISTS `m_usergroup`;
 CREATE TABLE IF NOT EXISTS `m_usergroup` (
   `ID` int(11) NOT NULL,
   `GROUPNAME` varchar(45) DEFAULT NULL,
@@ -582,7 +561,6 @@ INSERT IGNORE INTO `m_usergroup` (`ID`, `GROUPNAME`, `ACTIVE`, `VISIBLE`) VALUES
 /*!40000 ALTER TABLE `m_usergroup` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.m_usersecurity
-DROP TABLE IF EXISTS `m_usersecurity`;
 CREATE TABLE IF NOT EXISTS `m_usersecurity` (
   `ID` int(11) NOT NULL,
   `USERNAME` varchar(45) NOT NULL,
@@ -595,11 +573,12 @@ CREATE TABLE IF NOT EXISTS `m_usersecurity` (
 -- Dumping data for table bizdb.m_usersecurity: ~1 rows (approximately)
 /*!40000 ALTER TABLE `m_usersecurity` DISABLE KEYS */;
 INSERT IGNORE INTO `m_usersecurity` (`ID`, `USERNAME`, `PASSWORD`, `UID`) VALUES
-	(0, 'ADMIN', 'ÃËÝÅÉÓÐÖ', 'U0000');
+	(0, 'ADMIN', 'ÃËÝÅÉÓÐÖ', 'U0000'),
+	(1, 's', '???', 'U0001'),
+	(2, 's1', '???', 'U0002');
 /*!40000 ALTER TABLE `m_usersecurity` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.r_price_tags
-DROP TABLE IF EXISTS `r_price_tags`;
 CREATE TABLE IF NOT EXISTS `r_price_tags` (
   `LOCID` int(11) NOT NULL,
   `PROID` varchar(50) NOT NULL,
@@ -616,77 +595,66 @@ CREATE TABLE IF NOT EXISTS `r_price_tags` (
 /*!40000 ALTER TABLE `r_price_tags` ENABLE KEYS */;
 
 -- Dumping structure for function bizdb.strf_ConvMaxUnit
-DROP FUNCTION IF EXISTS `strf_ConvMaxUnit`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` FUNCTION `strf_ConvMaxUnit`( unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ) RETURNS double
 BEGIN   DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0'  ;  DECLARE UNIT_VOL_MAX  DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL_CUR from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id    ;  select ugu.VOLUME INTO UNIT_VOL_MAX from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME desc limit 1    ;  RETURN ((qty*UNIT_VOL_CUR)/UNIT_VOL_MAX)  ; END//
 DELIMITER ;
 
 -- Dumping structure for function bizdb.strf_ConvMinUnit
-DROP FUNCTION IF EXISTS `strf_ConvMinUnit`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` FUNCTION `strf_ConvMinUnit`( unit_grp VARCHAR(100),unit_id VARCHAR(100),qty DOUBLE ) RETURNS double
 BEGIN   DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0'  ;  DECLARE UNIT_VOL_MIN  DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL_CUR from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id    ;  select ugu.VOLUME INTO UNIT_VOL_MIN from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME asc limit 1    ;  RETURN ((qty*UNIT_VOL_CUR)*UNIT_VOL_MIN)  ; END//
 DELIMITER ;
 
 -- Dumping structure for function bizdb.strf_getInvProfit
-DROP FUNCTION IF EXISTS `strf_getInvProfit`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getInvProfit`( para_trnid VARCHAR(100),para_trntyp VARCHAR(5) ) RETURNS double
 BEGIN   DECLARE TRNPROFIT  DOUBLE DEFAULT '0'  ;  select (SUM(sl.AMOUNT)-SUM(sl.CPRICE*sl.QTY)) INTO TRNPROFIT  from t_stockline sl   where sl.T_STOCKMST_ID=para_trnid AND sl.TRNTYP=para_trntyp  GROUP BY sl.T_STOCKMST_ID,sl.TRNTYP   ;  RETURN TRNPROFIT  ; END//
 DELIMITER ;
 
 -- Dumping structure for function bizdb.strf_getMaxUnit
-DROP FUNCTION IF EXISTS `strf_getMaxUnit`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getMaxUnit`( unit_grp VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
 BEGIN   DECLARE UNIT_ID VARCHAR(100) DEFAULT ''  ;  select ugu.M_UNITS_ID  INTO UNIT_ID from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME DESC LIMIT 1    ;  RETURN UNIT_ID   ; END//
 DELIMITER ;
 
 -- Dumping structure for function bizdb.strf_getMinUnit
-DROP FUNCTION IF EXISTS `strf_getMinUnit`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getMinUnit`( unit_grp VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
 BEGIN   DECLARE UNIT_ID VARCHAR(100) DEFAULT ''  ;  select ugu.M_UNITS_ID  INTO UNIT_ID from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp ORDER BY ugu.VOLUME ASC LIMIT 1    ;  RETURN UNIT_ID   ; END//
 DELIMITER ;
 
 -- Dumping structure for function bizdb.strf_getUnitName
-DROP FUNCTION IF EXISTS `strf_getUnitName`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitName`( unit_id VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
 BEGIN   DECLARE UNIT_NAME VARCHAR(100) DEFAULT ''  ;  SELECT u.NAME INTO UNIT_NAME FROM m_units u where u.ID=unit_id  ;  RETURN UNIT_NAME   ; END//
 DELIMITER ;
 
 -- Dumping structure for function bizdb.strf_getUnitSym
-DROP FUNCTION IF EXISTS `strf_getUnitSym`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitSym`( unit_id VARCHAR(100) ) RETURNS varchar(100) CHARSET latin1
 BEGIN   DECLARE UNIT_SYM VARCHAR(100) DEFAULT ''  ;  SELECT SYMBLE INTO UNIT_SYM FROM m_units WHERE ID=unit_id  ;  RETURN UNIT_SYM   ; END//
 DELIMITER ;
 
 -- Dumping structure for function bizdb.strf_getUnitVol
-DROP FUNCTION IF EXISTS `strf_getUnitVol`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` FUNCTION `strf_getUnitVol`( unit_grp VARCHAR(100),unit_id VARCHAR(100) ) RETURNS double
 BEGIN   DECLARE UNIT_VOL DOUBLE DEFAULT '0'  ;  select ugu.VOLUME INTO UNIT_VOL from m_unitgroups_has_m_units ugu where ugu.M_UNITGROUPS_ID=unit_grp AND ugu.M_UNITS_ID=unit_id   ;  RETURN UNIT_VOL   ; END//
 DELIMITER ;
 
 -- Dumping structure for procedure bizdb.strp_StockBalance
-DROP PROCEDURE IF EXISTS `strp_StockBalance`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `strp_StockBalance`( loc_code INT )
 BEGIN   TRUNCATE TABLE  M_STOCKS_TEM  ;  INSERT INTO M_STOCKS_TEM (SELECT PROID,NAME,sum(SIH) AS SIH,UNITID,UNIT,BATCH,LOCID,SUM(REM_SIH_MAX) AS SIH_MAXU_ROU,SUM(REM_SIH_MIN) AS SIH_MINU_ROU,MIN_UNIT FROM  (  (select p.ID as PROID,p.NAME as NAME,0 as SIH,0 as REM_SIH_MAX,0 AS REM_SIH_MIN ,strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,  strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,strf_getUnitSym(strf_getMinUnit(p.M_UNITGROUPS_ID)) AS MIN_UNIT,'0001' as BATCH,l.ID as LOCID   from m_products p cross join m_location l   where p.ACTIVE=1 AND l.ACTIVE=1 )  union all  (SELECT SL.PROID AS PROID,P.NAME AS NAME,SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)) AS SIH,  (TRUNCATE(SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)),0) ) as REM_SIH_MAX,  (SUM(u.STOCKENTYP*strf_ConvMinUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)) - (strf_getUnitVol(SL.M_UNITGROUPS_ID,strf_getMaxUnit(p.M_UNITGROUPS_ID))* TRUNCATE(SUM(u.STOCKENTYP*strf_ConvMaxUnit(SL.M_UNITGROUPS_ID, SL.M_UNITS_ID, SL.QTY)),0)) ) as REM_SIH_MIN,  strf_getMaxUnit(p.M_UNITGROUPS_ID) AS UNITID,strf_getUnitSym(strf_getMaxUnit(p.M_UNITGROUPS_ID)) AS UNIT,strf_getUnitSym(strf_getMinUnit(p.M_UNITGROUPS_ID)) AS MIN_UNIT,SL.BATCH_NO AS BATCH,  SM.M_LOCATION_SOURCE as LOCID  FROM t_stockmst SM  inner join t_stockline SL  on SM.ID=SL.T_STOCKMST_ID and SM.TRNTYPE=SL.TRNTYP  inner join u_transactions u  on SM.TRNTYPE=u.TRNTYPE  INNER JOIN m_products P  on SL.PROID=P.ID  where SM.TRNSTATE='P'  GROUP BY SL.PROID,P.NAME)  )A  WHERE A.LOCID=loc_code  group by  A.PROID,A.NAME,A.LOCID,A.BATCH,A.UNIT  order by  A.PROID,A.NAME,A.LOCID ) ; END//
 DELIMITER ;
 
 -- Dumping structure for procedure bizdb.strp_UpdateStockBalance
-DROP PROCEDURE IF EXISTS `strp_UpdateStockBalance`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `strp_UpdateStockBalance`( loc_code INT )
 BEGIN   CALL strp_StockBalance(loc_code)  ;  UPDATE  M_STOCKS  S INNER JOIN M_STOCKS_TEM TS ON S.M_PRODUCTS_ID=TS.M_PRODUCTS_ID AND S.BATCHNO=TS.BATCHNO AND S.M_LOCATION_ID=TS.M_LOCATION_ID SET S.SIH=TS.SIH,S.SIH_MAXU_ROU=TS.SIH_MAXU_ROU,S.SIH_MINU_ROU=TS.SIH_MINU_ROU,S.UNIT_M=TS.UNIT_M   ; END//
 DELIMITER ;
 
 -- Dumping structure for table bizdb.t_chqpayments
-DROP TABLE IF EXISTS `t_chqpayments`;
 CREATE TABLE IF NOT EXISTS `t_chqpayments` (
   `CHQ_NO` varchar(50) NOT NULL,
   `CHQ_DATE` datetime NOT NULL,
@@ -708,7 +676,6 @@ CREATE TABLE IF NOT EXISTS `t_chqpayments` (
 /*!40000 ALTER TABLE `t_chqpayments` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.t_gvredeem
-DROP TABLE IF EXISTS `t_gvredeem`;
 CREATE TABLE IF NOT EXISTS `t_gvredeem` (
   `NO` int(11) NOT NULL,
   `GV_NO` varchar(100) NOT NULL,
@@ -724,7 +691,6 @@ CREATE TABLE IF NOT EXISTS `t_gvredeem` (
 /*!40000 ALTER TABLE `t_gvredeem` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.t_phystkdet
-DROP TABLE IF EXISTS `t_phystkdet`;
 CREATE TABLE IF NOT EXISTS `t_phystkdet` (
   `ID` int(11) NOT NULL,
   `T_PHYSTKMST_ID` varchar(50) NOT NULL,
@@ -747,7 +713,6 @@ CREATE TABLE IF NOT EXISTS `t_phystkdet` (
 /*!40000 ALTER TABLE `t_phystkdet` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.t_phystkmst
-DROP TABLE IF EXISTS `t_phystkmst`;
 CREATE TABLE IF NOT EXISTS `t_phystkmst` (
   `ID` varchar(50) NOT NULL,
   `CRDATE` datetime DEFAULT NULL,
@@ -767,7 +732,6 @@ CREATE TABLE IF NOT EXISTS `t_phystkmst` (
 /*!40000 ALTER TABLE `t_phystkmst` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.t_stockline
-DROP TABLE IF EXISTS `t_stockline`;
 CREATE TABLE IF NOT EXISTS `t_stockline` (
   `T_STOCKMST_ID` varchar(50) NOT NULL,
   `TERMINAL` varchar(5) NOT NULL,
@@ -798,7 +762,6 @@ CREATE TABLE IF NOT EXISTS `t_stockline` (
 /*!40000 ALTER TABLE `t_stockline` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.t_stockmst
-DROP TABLE IF EXISTS `t_stockmst`;
 CREATE TABLE IF NOT EXISTS `t_stockmst` (
   `ID` varchar(50) NOT NULL,
   `TERMINAL` varchar(5) NOT NULL,
@@ -838,7 +801,6 @@ CREATE TABLE IF NOT EXISTS `t_stockmst` (
 /*!40000 ALTER TABLE `t_stockmst` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.t_stockpayments
-DROP TABLE IF EXISTS `t_stockpayments`;
 CREATE TABLE IF NOT EXISTS `t_stockpayments` (
   `ID` int(11) NOT NULL,
   `T_STOCKMST_ID` varchar(50) NOT NULL,
@@ -861,7 +823,6 @@ CREATE TABLE IF NOT EXISTS `t_stockpayments` (
 /*!40000 ALTER TABLE `t_stockpayments` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.user_permitions
-DROP TABLE IF EXISTS `user_permitions`;
 CREATE TABLE IF NOT EXISTS `user_permitions` (
   `M_USERGROUP_ID` int(11) NOT NULL,
   `M_PERMISSIONS_ID` varchar(50) NOT NULL,
@@ -1024,7 +985,6 @@ INSERT IGNORE INTO `user_permitions` (`M_USERGROUP_ID`, `M_PERMISSIONS_ID`, `M_P
 /*!40000 ALTER TABLE `user_permitions` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.u_reports
-DROP TABLE IF EXISTS `u_reports`;
 CREATE TABLE IF NOT EXISTS `u_reports` (
   `RPT_ID` varchar(50) NOT NULL,
   `RPT_NAME` varchar(100) NOT NULL,
@@ -1052,7 +1012,6 @@ INSERT IGNORE INTO `u_reports` (`RPT_ID`, `RPT_NAME`, `RPT_PATH`, `RPT_EN_LOC`, 
 /*!40000 ALTER TABLE `u_reports` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.u_rpt_emails
-DROP TABLE IF EXISTS `u_rpt_emails`;
 CREATE TABLE IF NOT EXISTS `u_rpt_emails` (
   `ID` int(11) NOT NULL,
   `RPT_ID` varchar(50) NOT NULL,
@@ -1065,7 +1024,6 @@ CREATE TABLE IF NOT EXISTS `u_rpt_emails` (
 /*!40000 ALTER TABLE `u_rpt_emails` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.u_setup
-DROP TABLE IF EXISTS `u_setup`;
 CREATE TABLE IF NOT EXISTS `u_setup` (
   `ID` int(11) NOT NULL,
   `COMSERIAL` varchar(50) DEFAULT NULL,
@@ -1091,7 +1049,6 @@ INSERT IGNORE INTO `u_setup` (`ID`, `COMSERIAL`, `COMNAME`, `CURLOC`, `ADDNO`, `
 /*!40000 ALTER TABLE `u_setup` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.u_systhemes
-DROP TABLE IF EXISTS `u_systhemes`;
 CREATE TABLE IF NOT EXISTS `u_systhemes` (
   `ID` int(11) NOT NULL,
   `NAME` varchar(45) NOT NULL,
@@ -1104,7 +1061,6 @@ CREATE TABLE IF NOT EXISTS `u_systhemes` (
 /*!40000 ALTER TABLE `u_systhemes` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.u_terminals
-DROP TABLE IF EXISTS `u_terminals`;
 CREATE TABLE IF NOT EXISTS `u_terminals` (
   `LOC_ID` int(11) NOT NULL,
   `TERMINAL_ID` varchar(10) NOT NULL,
@@ -1118,7 +1074,6 @@ CREATE TABLE IF NOT EXISTS `u_terminals` (
 /*!40000 ALTER TABLE `u_terminals` ENABLE KEYS */;
 
 -- Dumping structure for table bizdb.u_transactions
-DROP TABLE IF EXISTS `u_transactions`;
 CREATE TABLE IF NOT EXISTS `u_transactions` (
   `TRNNO` varchar(50) NOT NULL,
   `TRNTYPE` varchar(5) DEFAULT NULL,
@@ -1164,7 +1119,6 @@ INSERT IGNORE INTO `u_transactions` (`TRNNO`, `TRNTYPE`, `REFTRNTYPE`, `REFNO`, 
 /*!40000 ALTER TABLE `u_transactions` ENABLE KEYS */;
 
 -- Dumping structure for view bizdb.view_propropertise
-DROP VIEW IF EXISTS `view_propropertise`;
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `view_propropertise` (
 	`PROID` VARCHAR(100) NOT NULL COLLATE 'latin1_swedish_ci',
@@ -1174,7 +1128,6 @@ CREATE TABLE `view_propropertise` (
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view bizdb.view_trnfull
-DROP VIEW IF EXISTS `view_trnfull`;
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `view_trnfull` (
 	`ID` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
@@ -1209,7 +1162,6 @@ CREATE TABLE `view_trnfull` (
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view bizdb.view_trnpay
-DROP VIEW IF EXISTS `view_trnpay`;
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `view_trnpay` (
 	`PAYHED` VARCHAR(50) NULL COLLATE 'latin1_swedish_ci',
@@ -1225,19 +1177,16 @@ CREATE TABLE `view_trnpay` (
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view bizdb.view_propropertise
-DROP VIEW IF EXISTS `view_propropertise`;
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `view_propropertise`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` VIEW `view_propropertise` AS select `m_products`.`ID` AS `PROID`,`m_products`.`NAME` AS `PRONAME`,`m_propertise`.`NAME` AS `PROPNAME`,`m_products_has_m_propertise`.`VALUE` AS `PROPVAL` from ((`m_products` join `m_products_has_m_propertise` on((`m_products`.`ID` = `m_products_has_m_propertise`.`M_PRODUCTS_ID`))) join `m_propertise` on((`m_products_has_m_propertise`.`M_PROPERTISE_ID` = `m_propertise`.`ID`))) ;
 
 -- Dumping structure for view bizdb.view_trnfull
-DROP VIEW IF EXISTS `view_trnfull`;
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `view_trnfull`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` VIEW `view_trnfull` AS select `t_stockmst`.`ID` AS `ID`,`t_stockmst`.`TRNTYPE` AS `TRNTYPE`,`t_stockmst`.`CRDATE` AS `CRDATE`,`t_stockmst`.`REFNO` AS `REFNO`,`t_stockmst`.`REFNO2` AS `REFNO2`,`t_stockmst`.`GRAMOUNT` AS `GRAMOUNT`,`t_stockmst`.`NETDIS` AS `NETDIS`,`t_stockmst`.`NETAMOUNT` AS `NETAMOUNT`,`m_customer`.`NAME` AS `CUSNAME`,`m_location`.`NAME` AS `LOCNAME_DES`,`m_units`.`SYMBLE` AS `SYMBLE`,`t_stockline`.`LINEID` AS `LINEID`,`t_stockline`.`PROID` AS `PROID`,`t_stockline`.`SPRICE` AS `SPRICE`,`t_stockline`.`CPRICE` AS `CPRICE`,`t_stockline`.`QTY` AS `QTY`,`t_stockline`.`LDIS` AS `LDIS`,`t_stockline`.`LDISPER` AS `LDISPER`,`t_stockline`.`AMOUNT` AS `AMOUNT`,`t_stockline`.`PRONAME` AS `PRONAME`,`t_stockline`.`BATCH_NO` AS `BATCH_NO`,`m_supplier`.`NAME` AS `SUP_NAME`,`m_user`.`FIRSTNAME` AS `CR_USER`,`t_stockmst`.`EFT_DATE` AS `EFT_DATE`,`t_stockmst`.`REF_TRNNO` AS `REF_TRNNO`,ifnull(`t_stockmst`.`CHANGE_AMT`,0) AS `CHANGE_VAL`,`t_stockmst`.`TRNSTATE` AS `TRNSTATE`,`m_location_1`.`NAME` AS `LOCNAME_SOURCE`,`m_user_1`.`FIRSTNAME` AS `MD_USER` from ((((((((`t_stockline` join `t_stockmst` on(((`t_stockline`.`T_STOCKMST_ID` = `t_stockmst`.`ID`) and (`t_stockline`.`TRNTYP` = `t_stockmst`.`TRNTYPE`)))) join `m_user` on((`t_stockmst`.`M_USER_CR` = `m_user`.`ID`))) left join `m_customer` on((`t_stockmst`.`M_CUSTOMER_ID` = `m_customer`.`ID`))) left join `m_location` on((`t_stockmst`.`M_LOCATION_DEST` = `m_location`.`ID`))) left join `m_supplier` on((`t_stockmst`.`M_SUPPLIER_ID` = `m_supplier`.`ID`))) left join `m_units` on((`t_stockline`.`M_UNITS_ID` = `m_units`.`ID`))) left join `m_location` `m_location_1` on((`t_stockmst`.`M_LOCATION_SOURCE` = `m_location_1`.`ID`))) left join `m_user` `m_user_1` on((`t_stockmst`.`M_USER_MD` = `m_user_1`.`ID`))) ;
 
 -- Dumping structure for view bizdb.view_trnpay
-DROP VIEW IF EXISTS `view_trnpay`;
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `view_trnpay`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` VIEW `view_trnpay` AS select `m_paymst`.`NAME` AS `PAYHED`,`m_paydet`.`NAME` AS `PAYDET`,`t_stockpayments`.`FRMAMOUNT` AS `FRMAMOUNT`,`t_stockpayments`.`REFNO` AS `REFNO`,`t_stockpayments`.`EFT_DATE` AS `EFT_DATE`,`t_stockpayments`.`T_STOCKMST_ID` AS `T_STOCKMST_ID`,`t_stockpayments`.`TRNTYP` AS `TRNTYP`,`m_paymst`.`DATE_F` AS `DATE_F`,ifnull(`m_paydet`.`DATE_F`,0) AS `DATEF_DET`,`t_stockpayments`.`AMOUNT` AS `AMOUNT` from ((`t_stockpayments` join `m_paymst` on((`t_stockpayments`.`PAYHEDID` = `m_paymst`.`ID`))) left join `m_paydet` on((`t_stockpayments`.`PAYDETID` = `m_paydet`.`ID`))) ;

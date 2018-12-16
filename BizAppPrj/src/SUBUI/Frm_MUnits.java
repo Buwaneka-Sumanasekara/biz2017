@@ -223,7 +223,7 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void txt_UnitSymbleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_UnitSymbleKeyTyped
-        fv.LimitForChars(txt_UnitCode,3, evt);
+        fv.LimitForChars(txt_UnitSymble,3, evt);
     }//GEN-LAST:event_txt_UnitSymbleKeyTyped
 
     private void txt_UnitSymbleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_UnitSymbleActionPerformed

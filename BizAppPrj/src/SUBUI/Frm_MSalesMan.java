@@ -338,8 +338,8 @@ public class Frm_MSalesMan extends javax.swing.JInternalFrame implements MyWindo
             txt_Name.setText("");
             txt_LName.setText("");
             txt_CommPer.setText("");
-              JComponent en[] = {but_Refresh, but_Save, txt_Name, txt_LName,txt_CommPer ,txt_Code};
-            JComponent dis[] = { but_Update, but_Search};
+              JComponent en[] = {but_Refresh, but_Save, txt_Name, txt_LName,txt_CommPer ,txt_Code,but_Search};
+            JComponent dis[] = { but_Update };
  
             setDisableEnableComponents(en, dis);
             Chk_Active.setSelected(true);

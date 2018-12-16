@@ -1944,12 +1944,12 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
     }
 
     /*  TABLE OPERATIONS */
-     private void addToTable(boolean isAutoLoad) {
-         addToTable(isAutoLoad, true);
-         
-     }
-    
-    private void addToTable(boolean isAutoLoad,boolean needToConvertUnit) {
+    private void addToTable(boolean isAutoLoad) {
+        addToTable(isAutoLoad, true);
+
+    }
+
+    private void addToTable(boolean isAutoLoad, boolean needToConvertUnit) {
         try {
 
             if (doAddLineValidation()) {
@@ -2023,8 +2023,13 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                     MSalesMan SAObj = (MSalesMan) cmb_SA.getSelectedItem();
                     if (SAObj != null) {
                         SA = SAObj;
+                        if (product.getCommision() > 0) {
 
-                        SA_COM = SAObj.getComPer();
+                            SA_COM = product.getCommision();
+                        } else {
+
+                            SA_COM = SAObj.getComPer();
+                        }
 
                     }
 
@@ -2696,11 +2701,11 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         if (jr != null) {
                             C_Report.printFromDB_Trn(jr, stockHed.getId(), TrnSetup, true, txt, true);
                         } else {
-                            if(TrnSetup.getEnReport()==1){
-                            JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " Report Not Avialable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-                            }else{
-                              JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " printout disabled!", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-                              
+                            if (TrnSetup.getEnReport() == 1) {
+                                JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " Report Not Avialable", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, TrnSetup.getTrndesc() + " printout disabled!", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+
                             }
                         }
                     }

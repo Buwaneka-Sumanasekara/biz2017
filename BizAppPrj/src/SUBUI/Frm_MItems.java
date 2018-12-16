@@ -189,6 +189,8 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         txtRef7 = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         txtRef8 = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        txtprocom = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         butSupAdd = new javax.swing.JButton();
         cmb_Suppliers = new javax.swing.JComboBox();
@@ -322,7 +324,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layout_ProductInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layout_Basic.setBackground(new java.awt.Color(255, 255, 255));
-        layout_Basic.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        layout_Basic.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
         layout_Basic.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Chk_ProActive.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -414,7 +416,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layout_ProductInfo.add(layout_Basic, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 460, 160));
 
         layoutGroups.setBackground(new java.awt.Color(255, 255, 255));
-        layoutGroups.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Groups", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        layoutGroups.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Groups", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
         layoutGroups.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblG1.setText("Group1");
@@ -475,7 +477,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layout_ProductInfo.add(layoutGroups, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 370, 210));
 
         layoutPrice.setBackground(new java.awt.Color(255, 255, 255));
-        layoutPrice.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Price Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        layoutPrice.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Price Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
         layoutPrice.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setText("Sell Price");
@@ -529,7 +531,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layout_ProductInfo.add(layoutPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 210, 110));
 
         layoutPropertise.setBackground(new java.awt.Color(255, 255, 255));
-        layoutPropertise.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propertise", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        layoutPropertise.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propertise", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
         layoutPropertise.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cmbProp.addActionListener(new java.awt.event.ActionListener() {
@@ -593,7 +595,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layout_ProductInfo.add(layoutPropertise, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, 370, 320));
 
         layoutUnits.setBackground(new java.awt.Color(255, 255, 255));
-        layoutUnits.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Units", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        layoutUnits.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Units", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
         layoutUnits.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cmbUnits.addActionListener(new java.awt.event.ActionListener() {
@@ -643,18 +645,18 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layout_ProductInfo.add(layoutUnits, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 460, 260));
 
         layoutRef.setBackground(new java.awt.Color(255, 255, 255));
-        layoutRef.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "References", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        layoutRef.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "References", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
         layoutRef.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel17.setText("Ref 2");
-        layoutRef.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+        jLabel17.setText("Com. %");
+        layoutRef.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
         layoutRef.add(txtRef1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 160, -1));
 
         jLabel18.setText("Ref 1");
         layoutRef.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
         layoutRef.add(txtRef2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 160, -1));
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "References", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "References", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel19.setText("Ref 2");
@@ -666,6 +668,22 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jPanel10.add(txtRef8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 160, -1));
 
         layoutRef.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 250, 110));
+
+        jLabel21.setText("Ref 2");
+        layoutRef.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        txtprocom.setToolTipText("Commision (%) for Sales man ");
+        txtprocom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtprocomActionPerformed(evt);
+            }
+        });
+        txtprocom.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtprocomKeyTyped(evt);
+            }
+        });
+        layoutRef.add(txtprocom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 90, 20));
 
         layout_ProductInfo.add(layoutRef, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 250, 110));
 
@@ -988,6 +1006,14 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         SearchModeItem();
     }//GEN-LAST:event_but_ItemSearchActionPerformed
 
+    private void txtprocomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprocomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtprocomActionPerformed
+
+    private void txtprocomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprocomKeyTyped
+        fv.validateforFloatingPoints(txtprocom, evt, 2);
+    }//GEN-LAST:event_txtprocomKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Chk_ProActive;
@@ -1025,6 +1051,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1080,6 +1107,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JLabel txtSupMobile;
     private javax.swing.JLabel txtSupName;
     private javax.swing.JLabel txt_imgurl;
+    private javax.swing.JTextField txtprocom;
     private javax.swing.JTextField txtprocost;
     private javax.swing.JTextField txtpromarkup;
     private javax.swing.JTextField txtprosellprice;
@@ -1114,6 +1142,8 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     p.setRef2(txtRef2.getText());
                     p.setMUserByCruser(GlobalData.CurUser.getId());
                     p.setMUserByMduser(GlobalData.CurUser.getId());
+                    
+                    p.setCommision((txtprocom.getText().length()==0)?0:Double.parseDouble(txtprocom.getText()));
 
                     if (txt_imgurl.getText().length() > 0) {
 
@@ -1546,12 +1576,16 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     txtprosellprice.setText(product.getSprice().toString());
                     txtRef1.setText(product.getRef1());
                     txtRef2.setText(product.getRef2());
+                    txtprocom.setText(""+product.getCommision());
                     cmbG1.setSelectedItem(CGroup.IsExists("m_group1", product.getMGroup1()));
                     cmbG2.setSelectedItem(CGroup.IsExists("m_group2", product.getMGroup2()));
                     cmbG3.setSelectedItem(CGroup.IsExists("m_group3", product.getMGroup3()));
                     cmbG4.setSelectedItem(CGroup.IsExists("m_group4", product.getMGroup4()));
                     cmbG5.setSelectedItem(CGroup.IsExists("m_group5", product.getMGroup5()));
 
+                    cmbUnits.setSelectedItem(new MUnitGroup(product.getUnitGroupId()));
+                     loadUnitGroupData();
+                    
                     Vector<MProductPropertise> productPropertise = CProducts.getProductPropertise(product.getId());
                     DefaultTableModel dtm1 = (DefaultTableModel) tblProperty.getModel();
                     dtm1.setRowCount(0);
@@ -1584,6 +1618,8 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     }
 
                     setProductIcon(product.getProImg());
+                    
+                    
                 }
             } catch (Exception e) {
                 System.err.println(e.getMessage());

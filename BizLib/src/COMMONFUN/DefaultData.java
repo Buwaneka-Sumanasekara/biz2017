@@ -5,24 +5,20 @@
  */
 package COMMONFUN;
 
+import CONTROLLERS.C_Customers;
+import CONTROLLERS.C_GroupCommon;
+import CONTROLLERS.C_Locations;
 import CONTROLLERS.C_Permissions;
 import CONTROLLERS.C_SalesMan;
+import CONTROLLERS.C_Suppliers;
 import CONTROLLERS.C_TransactionSetup;
+import CONTROLLERS.C_UserGroup;
 import CONTROLLERS.C_Users;
 import DB_ACCESS.DB;
-import GLOBALDATA.GlobalData;
 import MODELS.MPermissions;
 import MODELS.MUser;
-import MODELS.UTransactions;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperReport;
 
 /**
  *
@@ -34,13 +30,24 @@ public class DefaultData {
     C_Users CUsers = null;
     C_TransactionSetup cTrn = null;
     CommonFun cf = null;
-    
+    C_SalesMan cSalesman = null;
+    C_Customers cCustomers = null;
+    C_Suppliers cSup = null;
+    C_UserGroup cUserGrp = null;
+    C_GroupCommon cGroup = null;
+    C_Locations cLoc = null;
+
     public DefaultData() {
         CPerm = new C_Permissions();
         CUsers = new C_Users();
         cTrn = new C_TransactionSetup();
         cf = new CommonFun();
-      
+        cSalesman = new C_SalesMan();
+        cCustomers = new C_Customers();
+        cSup = new C_Suppliers();
+        cUserGrp = new C_UserGroup();
+        cGroup = new C_GroupCommon();
+        cLoc = new C_Locations();
     }
 
     public void createDefaultData() {
@@ -87,17 +94,12 @@ public class DefaultData {
         ar.add(new MPermissions("R00004", "R00001", "R_SALES_3", "Supplier Products Sale", "RPT", (byte) 0, (byte) 1, 205, "Report_sub.png"));
         ar.add(new MPermissions("R00005", "R00001", "R_SALES_4", "Invoice wise Profit Report", "RPT", (byte) 0, (byte) 1, 206, "Report_sub.png"));
 
-        
-        
         //Stock Reports(301-400)
         ar.add(new MPermissions("R00101", "R00000", "R_STOCK", "Stock Reports", "RPT", (byte) 0, (byte) 1, 301, "Stock_Folder.png"));
         ar.add(new MPermissions("R00102", "R00101", "R_STOCK_1", "Stock Balance Summary", "RPT", (byte) 0, (byte) 1, 302, "Report_sub.png"));
 
         //Custom Reports(401-500)
         //Other Reports(501-600)
-        
-        
-        
         //Accounts(601-700) 
         ar.add(new MPermissions("A00000", "A00000", "ACCOUNTS", "Accounts/Payments", "ACC", (byte) 1, (byte) 1, "A", 601, "accounts.png"));//3
         ar.add(new MPermissions("A00001", "A00000", "ACHQ", "Cheque Payments", "ACHQ", (byte) 0, (byte) 1, "A", 602, "Cheque.png"));
@@ -115,7 +117,6 @@ public class DefaultData {
         ar.add(new MPermissions("U00000", "U00000", "SETTINGS", "Utilities", "SET", (byte) 1, (byte) 1, "A", 751, "fol.png"));//2
         ar.add(new MPermissions("U00001", "U00000", "SET_SYS", "Settings", "SET", (byte) 0, (byte) 1, "A", 752, "settings.png"));//2
         ar.add(new MPermissions("U00002", "U00000", "SET_EXC", "Excel Upload", "SET", (byte) 0, (byte) 1, "A", 753, "excel.png"));//2
-        
 
         //General Permissions(801-1000)
         ar.add(new MPermissions("P00000", "P00000", "GEN_PER", "General Permissions", "GEN_PER", (byte) 1, (byte) 0, "A", 801, ""));//6
@@ -176,6 +177,26 @@ public class DefaultData {
 
     private void createSuperAdmin() {
 
+        try {
+            if (cUserGrp.getUserGroup("0") == null) {
+                String q = "INSERT INTO m_usergroup(ID,GROUPNAME,ACTIVE,VISIBLE) values(0,'SUPERADMIN',1,0) ";
+                DB.Save(q);
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            if (CUsers.getUser("U0000") == null) {
+                String q_admin = "INSERT INTO m_user(ID,FIRSTNAME,LASTNAME,IMGURL,UGRUID,ACTIVE,VISIBLE) values('U0000','SUPER ADMIN','','',0,1,0) ";
+                DB.Save(q_admin);
+
+                String q_pass = "INSERT INTO m_usersecurity(ID,USERNAME,PASSWORD,UID) values('0','ADMIN','" + SECURITY.myEncript.encript("bizadmin") + "','U0000')";
+                DB.Save(q_pass);
+            }
+        } catch (Exception e) {
+            System.err.println("ADMIN Creation Error:"+e.getMessage());
+        }
+
     }
 
     private void createDefaultFolders() {
@@ -204,11 +225,56 @@ public class DefaultData {
     }
 
     private void createDefualtRec() {
-        try {
-            
+        /*
+        try {//GROUPS
+            for (int i = 1; i <= 5; i++) {
+                if (cGroup.IsExists("m_group" + i, "G" + i + "000") == null) {
+                    String q_grp = "INSERT INTO m_group" + i + "(ID,NAME,ACTIVE,ISHIDDEN) values('G" + i + "000','',1,1) ";
+                    DB.Save(q_grp);
+                }
+            }
         } catch (Exception e) {
         }
-    
+*/
+        /*
+        try {//LOCATION
+            if (cLoc.getLocation("0") == null) {
+                String q_loc = "INSERT INTO m_location(ID,NAME,ACTIVE,VISIBLE,REFNO) values('0','MAIN',1,1,'') ";
+                DB.Save(q_loc);
+            }
+
+        } catch (Exception e) {
+        }
+        */
+
+      
+        try {//SUP
+            if (cSup.getSupplier("S0000") == null) {
+                String q_sup = "INSERT INTO m_supplier(ID,NAME,ACTIVE) values('S0000','',1) ";
+                DB.Save(q_sup);
+            }
+
+        } catch (Exception e) {
+        }
+
+       
+        try {//CUS
+            if (cCustomers.getCustomer("00000") == null) {
+                String q_cus = "INSERT INTO m_customer(ID,NAME,ACTIVE) values('00000','CASH',1) ";
+                DB.Save(q_cus);
+            }
+
+        } catch (Exception e) {
+        }
+      
+        try {//SA
+/*
+            String q_cus = "INSERT INTO m_salesperson(ID,FNAME,ACTIVE) values('00000','',1) ";
+            DB.Save(q_cus);
+*/
+        } catch (Exception e) {
+        }
+
     }
 
 }

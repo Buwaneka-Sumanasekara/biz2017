@@ -216,6 +216,12 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20181216_t3 = new Structure(20181216, "M_STOCKS", ar_20181216_t3, ar_20181216_t3PK);
         arStructures.add(str_20181216_t3);
         
+        ArrayList<TblColumn> ar_20181216_t4 = new ArrayList<>();
+        ar_20181216_t4.add(new TblColumn("PRO_COMMSION", "DOUBLE", "DEFAULT '0'"));
+        ArrayList<String> ar_20181216_t4PK = new ArrayList<>();
+        Structure str_20181216_t4 = new Structure(20181216, "m_products", ar_20181216_t4, ar_20181216_t4PK);
+        arStructures.add(str_20181216_t4);
+        
         
         ArrayList<String> q_20171114_t5 = new ArrayList<>();
         q_20171114_t5.add(" TRUNCATE TABLE  M_STOCKS_TEM ");

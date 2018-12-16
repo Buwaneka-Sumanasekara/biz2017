@@ -53,16 +53,13 @@ public class MUnits implements java.io.Serializable {
     }
 
     @Override
-       public boolean equals(Object obj) {
-        MUnits s=(MUnits) obj;
-        if(s.id.equals(this.id)){
+    public boolean equals(Object obj) {
+        MUnits s = (MUnits) obj;
+        if (s.id.equals(this.id)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-  
 
-    
-    
 }

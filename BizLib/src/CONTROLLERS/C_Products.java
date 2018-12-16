@@ -39,10 +39,9 @@ import javax.imageio.ImageIO;
  */
 public class C_Products {
 
-    private static final int PRO_NO_LENGTH=6;
-    private static final int BATCH_NO_LENGTH=4;
-    
-    
+    private static final int PRO_NO_LENGTH = 6;
+    private static final int BATCH_NO_LENGTH = 4;
+
     QueryGen qg = null;
     CommonFun CommFun = null;
     MyValidator fv = null;
@@ -59,21 +58,18 @@ public class C_Products {
         CSup = new C_Suppliers();
     }
 
-    
-    
-    public String getProNoFull(String txt){
-        int no=Integer.parseInt(txt);
-        
-        int zerocount=(PRO_NO_LENGTH-(""+no).length());
-        
-        String prono="";
+    public String getProNoFull(String txt) {
+        int no = Integer.parseInt(txt);
+
+        int zerocount = (PRO_NO_LENGTH - ("" + no).length());
+
+        String prono = "";
         for (int i = 0; i < zerocount; i++) {
-           prono+="0"; 
+            prono += "0";
         }
-        return prono+no;
+        return prono + no;
     }
-    
-    
+
     public void createStocksForProductt(MProducts p, Boolean createBatch, String unitGrp) throws Exception {
         createStocksForProductt(p, createBatch, unitGrp, 0.0);
     }
@@ -181,8 +177,8 @@ public class C_Products {
         Mstk.put("BATCHNO", "'" + Batch + "'");
         Mstk.put("COSTP", "" + Cost);
         Mstk.put("SELLP", "" + Sell);
-        
-        double markup=(Cost==0?0:new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue());
+
+        double markup = (Cost == 0 ? 0 : new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue());
         Mstk.put("MARKUP", "" + markup);
         Mstk.put("CRDATE", "NOW()");
         Mstk.put("M_UNITS_ID", "strf_getMaxUnit('" + unitgrp + "')");
@@ -190,7 +186,7 @@ public class C_Products {
         Mstk.put("ACTIVE", "" + 1 + "");
 
         if (IsBatchExists(ProId, Loc.getId().toString(), Batch) == false) {
-           // Mstk.put("MARKUP", "" + 0.0);
+            // Mstk.put("MARKUP", "" + 0.0);
             DB.Save(qg.SaveRecord("M_STOCKS", Mstk));
         } else {
             Mstk.put("SIH", "SIH+(strf_ConvMaxUnit('" + unitgrp + "','" + unitid + "'," + Qty + ")*" + stkentrytyp + ")");
@@ -225,11 +221,10 @@ public class C_Products {
         Mstk.put("BATCHNO", "'" + Batch + "'");
         Mstk.put("COSTP", "" + Cost);
         Mstk.put("SELLP", "" + Sell);
-        
-        
-         double markup=(Cost==0?0:new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue());
+
+        double markup = (Cost == 0 ? 0 : new BigDecimal((((Sell - Cost) / Cost) * 100)).setScale(2, RoundingMode.HALF_UP).doubleValue());
         Mstk.put("MARKUP", "" + markup);
-        
+
         Mstk.put("CRDATE", "NOW()");
         Mstk.put("M_UNITS_ID", "strf_getMaxUnit('" + unitGrp + "')");
         Mstk.put("SIH", "strf_ConvMaxUnit('" + unitGrp + "','" + unitid + "'," + Qty + ")");
@@ -300,7 +295,7 @@ public class C_Products {
 
         }
 
-       // System.out.println(q);
+        // System.out.println(q);
         ResultSet rs = DB.Search(q);
 
         ArrayList<MStocks> ar = new ArrayList<>();
@@ -374,6 +369,7 @@ public class C_Products {
                 p.setRef2(rs.getString("REF2"));
                 p.setUnitGroupId(rs.getString("M_UNITGROUPS_ID"));
                 p.setProImg(rs.getString("PRO_IMG"));
+                p.setCommision(rs.getDouble("PRO_COMMSION"));
             }
         }
         return p;
@@ -409,6 +405,7 @@ public class C_Products {
             p.setRef2(rs.getString("REF2"));
             p.setUnitGroupId(rs.getString("M_UNITGROUPS_ID"));
             p.setProImg(rs.getString("PRO_IMG"));
+            p.setCommision(rs.getDouble("PRO_COMMSION"));
             ar.add(p);
         }
 
@@ -445,6 +442,7 @@ public class C_Products {
                 p.setRef2(rs.getString("REF2"));
                 p.setUnitGroupId(rs.getString("M_UNITGROUPS_ID"));
                 p.setProImg(rs.getString("PRO_IMG"));
+                p.setCommision(rs.getDouble("PRO_COMMSION"));
             }
         }
         return p;
@@ -559,6 +557,7 @@ public class C_Products {
         mpro.put("M_GROUP5_ID", "'" + p.getMGroup5() + "'");
         mpro.put("REF1", "'" + fv.replacer(p.getRef1()) + "'");
         mpro.put("REF2", "'" + fv.replacer(p.getRef2()) + "'");
+        mpro.put("PRO_COMMSION", "'" + p.getCommision() + "'");
 
         String GenIdProId = CommFun.generateNextNo(PRO_NO_LENGTH, "", "m_products", "ID");
         String ProId = GenIdProId;
@@ -599,6 +598,7 @@ public class C_Products {
                 mpro.put("CRUSER", "'" + p.getMUserByMduser() + "'");
 
                 String Q_ProSave = qg.SaveRecord("m_products", mpro);
+                System.out.println(Q_ProSave);
                 DB.Save(Q_ProSave);
                 p.setId(ProId);
                 createStocksForProductt(p, false, p.getUnitGroupId());
@@ -612,6 +612,7 @@ public class C_Products {
                 //Update
 
                 String Q_ProUpdate = qg.UpdateRecord("m_products", mpro, " WHERE ID='" + ProId + "'");
+                System.out.println(Q_ProUpdate);
                 DB.Update(Q_ProUpdate);
                 if (GLOBALDATA.GlobalData.Setup.getBatchenable() == 1) {
                     if (p.getBatch() == 1) {

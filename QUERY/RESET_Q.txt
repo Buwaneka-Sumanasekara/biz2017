@@ -1,0 +1,8 @@
+truncate table t_stockmst;
+truncate table t_stockline;
+truncate table t_stockpayments;
+truncate table u_rpt_emails;
+truncate table t_phystkmst;
+truncate table t_phystkdet;
+truncate table t_chqpayments;
+truncate table t_gvredeem;

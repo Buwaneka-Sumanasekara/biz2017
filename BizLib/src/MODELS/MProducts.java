@@ -30,11 +30,12 @@ public class MProducts implements java.io.Serializable {
     private String ref2;
     private String UnitGroupId;
     private String proImg;
+    private Double commision;
 
     public MProducts() {
     }
 
-    public MProducts(String id, String parentid, String MGroup3, String MGroup4, String MGroup2, String MGroup1, String MUserByMduser, String MGroup5, String MUserByCruser, String name, String printdes, Byte active, Byte batch, Double markup, Double sprice, Double cprice, Date crdate, Date mddate, String ref1, String ref2, String UnitGroupId, String proImg) {
+    public MProducts(String id, String parentid, String MGroup3, String MGroup4, String MGroup2, String MGroup1, String MUserByMduser, String MGroup5, String MUserByCruser, String name, String printdes, Byte active, Byte batch, Double markup, Double sprice, Double cprice, Date crdate, Date mddate, String ref1, String ref2, String UnitGroupId, String proImg,Double com) {
         this.id = id;
         this.parentid = parentid;
         this.MGroup3 = MGroup3;
@@ -57,8 +58,8 @@ public class MProducts implements java.io.Serializable {
         this.ref2 = ref2;
         this.UnitGroupId = UnitGroupId;
         this.proImg = proImg;
+        this.commision=com;
     }
-
 
     public Double getMarkup() {
         return markup;
@@ -234,6 +235,14 @@ public class MProducts implements java.io.Serializable {
 
     public void setParentid(String parentid) {
         this.parentid = parentid;
+    }
+
+    public Double getCommision() {
+        return commision;
+    }
+
+    public void setCommision(Double commision) {
+        this.commision = commision;
     }
 
 }

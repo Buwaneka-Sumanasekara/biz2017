@@ -248,6 +248,8 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 510, 310));
 
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Empty");
+        jTree_Groups.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane2.setViewportView(jTree_Groups);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 300, 560));
@@ -518,8 +520,12 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
 
             Tree_loadGroupTree();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-
+            if (e.getMessage()!= null && e.getMessage()!="") {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+            } else {
+              //       JOptionPane.showMessageDialog(rootPane, "No data found!", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+            
+            }
         }
     }
 
@@ -533,8 +539,8 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
             m.put(1, g.getId());
             jTree_Groups.setModel(new DefaultTreeModel(CGroup.getTreeNodes(m, g.getId(), 2, root)));
 
-          //  expandAllNodes(jTree_Groups, 0,jTree_Groups.getRowCount());
-              jTree_Groups.setCellRenderer(new JTreeMenuCellRender());
+            //  expandAllNodes(jTree_Groups, 0,jTree_Groups.getRowCount());
+            jTree_Groups.setCellRenderer(new JTreeMenuCellRender());
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }

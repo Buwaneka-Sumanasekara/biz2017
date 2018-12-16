@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package MODELS;
 
 /**
@@ -11,10 +10,20 @@ package MODELS;
  * @author Buwanaka
  */
 public class MUnitGroup {
+
     private String UnitGroupId;
     private String UnitGroupName;
     private int UnitGroupActive;
 
+    public MUnitGroup() {
+    }
+
+    public MUnitGroup(String UnitGroupId) {
+        this.UnitGroupId = UnitGroupId;
+    }
+
+    
+    
     public String getUnitGroupId() {
         return UnitGroupId;
     }
@@ -41,9 +50,21 @@ public class MUnitGroup {
 
     @Override
     public String toString() {
-        return getUnitGroupName();
+        return UnitGroupName;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        MUnitGroup ug= (MUnitGroup)obj;
+        if(ug.UnitGroupId.equals(this.UnitGroupId)){
+            return true;
+        }else{
+            return false;
+        }
+        
     
-    
-    
+    }
+
+   
+
 }
