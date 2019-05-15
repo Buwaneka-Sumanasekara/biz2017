@@ -148,6 +148,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel12 = new javax.swing.JLabel();
         txtProCode = new javax.swing.JTextField();
         but_ItemSearch = new javax.swing.JButton();
+        butGenProName = new javax.swing.JButton();
         layoutGroups = new javax.swing.JPanel();
         lblG1 = new javax.swing.JLabel();
         lblG2 = new javax.swing.JLabel();
@@ -332,7 +333,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 Chk_ProActiveMouseClicked(evt);
             }
         });
-        layout_Basic.add(Chk_ProActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 150, -1));
+        layout_Basic.add(Chk_ProActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 90, -1));
 
         txtProShortName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -377,7 +378,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 butCreateShortNameActionPerformed(evt);
             }
         });
-        layout_Basic.add(butCreateShortName, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 40, 30));
+        layout_Basic.add(butCreateShortName, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 40, 30));
 
         chk_BatchCreate.setText("Create Batches");
         chk_BatchCreate.addActionListener(new java.awt.event.ActionListener() {
@@ -385,7 +386,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 chk_BatchCreateActionPerformed(evt);
             }
         });
-        layout_Basic.add(chk_BatchCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 120, 20));
+        layout_Basic.add(chk_BatchCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 120, 20));
 
         jLabel12.setText("Code");
         layout_Basic.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 70, 20));
@@ -412,6 +413,15 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             }
         });
         layout_Basic.add(but_ItemSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 30, 20));
+
+        butGenProName.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        butGenProName.setText("<html>\n<p>Gen Prod Name</p>\n</html>");
+        butGenProName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butGenProNameActionPerformed(evt);
+            }
+        });
+        layout_Basic.add(butGenProName, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 130, 20));
 
         layout_ProductInfo.add(layout_Basic, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 460, 160));
 
@@ -848,30 +858,30 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
     private void cmbG5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG5ActionPerformed
 
-        SetProductName();
+       // SetProductName();
     }//GEN-LAST:event_cmbG5ActionPerformed
 
     private void cmbG3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG3ActionPerformed
 
         loadGroups_g4();
-        SetProductName();
+       // SetProductName();
     }//GEN-LAST:event_cmbG3ActionPerformed
 
     private void cmbG2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG2ActionPerformed
         loadGroups_g3();
-        SetProductName();
+      //  SetProductName();
     }//GEN-LAST:event_cmbG2ActionPerformed
 
     private void cmbG1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG1ActionPerformed
 
         loadGroups_g2();
-        SetProductName();
+        //SetProductName();
     }//GEN-LAST:event_cmbG1ActionPerformed
 
     private void cmbG4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG4ActionPerformed
 
         loadGroups_g5();
-        SetProductName();
+        //SetProductName();
     }//GEN-LAST:event_cmbG4ActionPerformed
 
     private void butCreateShortNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCreateShortNameActionPerformed
@@ -1014,12 +1024,19 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         fv.validateforFloatingPoints(txtprocom, evt, 2);
     }//GEN-LAST:event_txtprocomKeyTyped
 
+    private void butGenProNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butGenProNameActionPerformed
+        
+         SetProductName();
+        
+    }//GEN-LAST:event_butGenProNameActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Chk_ProActive;
     private javax.swing.JList List_Sup;
     private javax.swing.JTabbedPane ParentLayout;
     private javax.swing.JButton butCreateShortName;
+    private javax.swing.JButton butGenProName;
     private javax.swing.JButton butPropAdd;
     private javax.swing.JButton butSupAdd;
     private javax.swing.JButton but_ItemSearch;
@@ -1567,7 +1584,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     JComponent enablecom[] = {but_Refresh, but_Update};
                     setDisableEnableComponents(enablecom, disablecom);
 
-                    txtProName.setText(product.getName());
+                    
                     txtProParentCode.setText(product.getParentid());
                     txtProShortName.setText(product.getPrintdes());
                     Chk_ProActive.setSelected((product.getActive() == 1 ? true : false));
@@ -1618,7 +1635,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     }
 
                     setProductIcon(product.getProImg());
-                    
+                    txtProName.setText(product.getName());
                     
                 }
             } catch (Exception e) {

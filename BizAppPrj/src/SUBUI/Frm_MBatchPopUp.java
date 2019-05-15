@@ -44,13 +44,14 @@ public class Frm_MBatchPopUp extends javax.swing.JDialog {
     private Frm_MBatchPopUp(java.awt.Frame parent, boolean modal){
         
     }
-    private  Frm_MBatchPopUp(java.awt.Frame parent, boolean modal,String proNo,String LocNo) {
+    private  Frm_MBatchPopUp(java.awt.Frame parent, boolean modal,ArrayList<MStocks> ArBatches) {
         super(parent, modal);
         initComponents();
         setShortCutKeys(this);
         createKeybindings(tbl_Batch);
         CPro=new C_Products();
-        loadBatch(proNo,LocNo);
+       // loadBatch(proNo,LocNo);
+        loadBatch(ArBatches);
         
         //tab key focus management
             focusList = new Component[]{tbl_Batch};
@@ -82,9 +83,9 @@ public class Frm_MBatchPopUp extends javax.swing.JDialog {
             }
     }
 
-    public static  MStocks createBatchPopUp(JFrame parent,String ProNo,String LocNo){
-        if(ProNo!=null){
-            Frm_MBatchPopUp popup=new Frm_MBatchPopUp(parent, true,ProNo,LocNo);
+    public static  MStocks createBatchPopUp(JFrame parent,ArrayList<MStocks> ArBatches){
+        if(ArBatches!=null){
+            Frm_MBatchPopUp popup=new Frm_MBatchPopUp(parent, true,ArBatches);
             popup.setVisible(true);
         }
         return CurrentSelection;
@@ -232,6 +233,23 @@ public class Frm_MBatchPopUp extends javax.swing.JDialog {
     private javax.swing.JTable tbl_Batch;
     // End of variables declaration//GEN-END:variables
 
+    private void loadBatch(ArrayList<MStocks> arBatches) {
+        try {
+             DefaultTableModel dtm=(DefaultTableModel) tbl_Batch.getModel();
+            //dtm.setRowCount(0);
+            for (MStocks mStocks : arBatches) {
+                Vector v=new Vector();
+                v.add(mStocks);
+                v.add(mStocks.getCostPrice());
+                v.add(mStocks.getSellPrice());
+                v.add(mStocks.getSIH());
+                dtm.addRow(v);
+            }
+        } catch (Exception e) {
+        }
+    }
+    
+   /*
     private void loadBatch(String proNo,String LocNo) {
         try {
             ArrayList<MStocks> allBatches = CPro.getAllBatches(proNo, LocNo,1);
@@ -252,4 +270,5 @@ public class Frm_MBatchPopUp extends javax.swing.JDialog {
         }
     
     }
+   */
 }

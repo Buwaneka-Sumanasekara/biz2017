@@ -78,7 +78,7 @@ public class Frm_TPhyStock extends javax.swing.JInternalFrame implements MyWindo
 
     CommonFun cf = null;
 
-    public Frm_TPhyStock(Frm_Main mainw, String ScreenName,ArrayList<TPhystkdet> ar) {
+    public Frm_TPhyStock(Frm_Main mainw, String ScreenName, ArrayList<TPhystkdet> ar) {
         initComponents();
         this.setTitle(ScreenName);
         this.lblScreenName.setText(ScreenName);
@@ -96,9 +96,9 @@ public class Frm_TPhyStock extends javax.swing.JInternalFrame implements MyWindo
         this.cf = new CommonFun();
 
         setShortCutKeys(this);
-        
+
         LoadDetails(ar);
-        
+
         tblTrn.setDefaultRenderer(Object.class, new TblCellColour());
 
         tblTrn.addMouseListener(new MouseAdapter() {
@@ -732,7 +732,6 @@ public class Frm_TPhyStock extends javax.swing.JInternalFrame implements MyWindo
         clearLine();
         txt_TrnNo.setText("");
         txt_TrnNo.setEnabled(true);
-        
 
         txt_State.setText("");
 
@@ -1201,11 +1200,14 @@ public class Frm_TPhyStock extends javax.swing.JInternalFrame implements MyWindo
                         String Batch = "";
 
                         MLocation Loc = (MLocation) cmb_SourceLoc.getSelectedItem();
-                        MStocks stk = Frm_MBatchPopUp.createBatchPopUp(mainW, product.getId(), Loc.getId().toString());
-                        if (stk != null) {
-                            CPrice = stk.getCostPrice();
-                            SPrice = stk.getSellPrice();
-                            Batch = stk.getBatchNo();
+                        ArrayList<MStocks> allBatches = C_Pro.getAllBatches(product.getId(), Loc.getId().toString(), 1);
+                        if (allBatches.size() > 0) {
+                            MStocks stk = Frm_MBatchPopUp.createBatchPopUp(mainW, allBatches);
+                            if (stk != null) {
+                                CPrice = stk.getCostPrice();
+                                SPrice = stk.getSellPrice();
+                                Batch = stk.getBatchNo();
+                            }
                         }
 
                         txt_LBatch.setText(Batch);
@@ -1325,8 +1327,7 @@ public class Frm_TPhyStock extends javax.swing.JInternalFrame implements MyWindo
     }
 
     private void LoadDetails(ArrayList<TPhystkdet> ar_pro) {
-      
-        
+
     }
 
 }

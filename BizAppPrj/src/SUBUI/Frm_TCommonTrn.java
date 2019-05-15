@@ -2297,12 +2297,17 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         String Batch = "";
                         if (TrnSetup.getBatchcreate() == 0 && product.getBatch() == 1) {
                             MLocation Loc = (MLocation) cmb_SourceLoc.getSelectedItem();
-                            MStocks stk = Frm_MBatchPopUp.createBatchPopUp(mainW, product.getId(), Loc.getId().toString());
-                            if (stk != null) {
-                                CPrice = stk.getCostPrice();
-                                SPrice = stk.getSellPrice();
-                                Batch = stk.getBatchNo();
+
+                            ArrayList<MStocks> allBatches = C_Pro.getAllBatches(product.getId(), Loc.getId().toString(), 1);
+                            if (allBatches.size() > 0) {
+                                MStocks stk = Frm_MBatchPopUp.createBatchPopUp(mainW, allBatches);
+                                if (stk != null) {
+                                    CPrice = stk.getCostPrice();
+                                    SPrice = stk.getSellPrice();
+                                    Batch = stk.getBatchNo();
+                                }
                             }
+
                         }
 
                         txt_LBatch.setText(Batch);
