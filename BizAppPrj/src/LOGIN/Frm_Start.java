@@ -95,7 +95,6 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20171114_t4 = new Structure(20171114, TableStruCreation.STR_FUN, " strf_getUnitSym ", " unit_id VARCHAR(100) ", q_20171114_t4, " VARCHAR(100) ");
         arStructures.add(str_20171114_t4);
 
-
         ArrayList<String> q_20171114_t10 = new ArrayList<>();
         q_20171114_t10.add(" DECLARE UNIT_VOL_CUR  DOUBLE DEFAULT '0' ");
         q_20171114_t10.add(" DECLARE UNIT_VOL_MIN  DOUBLE DEFAULT '0' ");
@@ -215,14 +214,13 @@ public final class Frm_Start extends javax.swing.JDialog {
         ArrayList<String> ar_20181216_t3PK = new ArrayList<>();
         Structure str_20181216_t3 = new Structure(20181216, "M_STOCKS", ar_20181216_t3, ar_20181216_t3PK);
         arStructures.add(str_20181216_t3);
-        
+
         ArrayList<TblColumn> ar_20181216_t4 = new ArrayList<>();
         ar_20181216_t4.add(new TblColumn("PRO_COMMSION", "DOUBLE", "DEFAULT '0'"));
         ArrayList<String> ar_20181216_t4PK = new ArrayList<>();
         Structure str_20181216_t4 = new Structure(20181216, "m_products", ar_20181216_t4, ar_20181216_t4PK);
         arStructures.add(str_20181216_t4);
-        
-        
+
         ArrayList<String> q_20171114_t5 = new ArrayList<>();
         q_20171114_t5.add(" TRUNCATE TABLE  M_STOCKS_TEM ");
         String q_20171114_t5_str = " INSERT INTO M_STOCKS_TEM (SELECT PROID,NAME,sum(SIH) AS SIH,UNITID,UNIT,BATCH,LOCID,SUM(REM_SIH_MAX) AS SIH_MAXU_ROU,SUM(REM_SIH_MIN) AS SIH_MINU_ROU,MIN_UNIT FROM ";
@@ -260,6 +258,12 @@ public final class Frm_Start extends javax.swing.JDialog {
         q_20171114_t7.add(" UPDATE  M_STOCKS  S INNER JOIN M_STOCKS_TEM TS ON S.M_PRODUCTS_ID=TS.M_PRODUCTS_ID AND S.BATCHNO=TS.BATCHNO AND S.M_LOCATION_ID=TS.M_LOCATION_ID SET S.SIH=TS.SIH,S.SIH_MAXU_ROU=TS.SIH_MAXU_ROU,S.SIH_MINU_ROU=TS.SIH_MINU_ROU,S.UNIT_M=TS.UNIT_M  ");
         Structure str_20171114_t7 = new Structure(20181216, TableStruCreation.STR_PROC, " strp_UpdateStockBalance ", " loc_code INT ", q_20171114_t7);
         arStructures.add(str_20171114_t7);
+
+        ArrayList<TblColumn> ar_20190515_t1 = new ArrayList<>();
+        ar_20190515_t1.add(new TblColumn("PRONAME2", "LONGTEXT", ""));
+        ArrayList<String> ar_20191015_t1PK = new ArrayList<>();
+        Structure str_20190515_t1 = new Structure(20190515, "t_stockline", ar_20190515_t1, ar_20191015_t1PK);
+        arStructures.add(str_20190515_t1);
         
 
         int TotalResults = arStructures.size() + 1;

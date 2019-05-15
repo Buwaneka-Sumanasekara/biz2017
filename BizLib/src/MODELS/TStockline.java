@@ -17,6 +17,7 @@ public class TStockline implements java.io.Serializable {
     private Double ldisper;
     private Double amount;
     private String proname;
+     private String proname2;
     private String UnitId;
     private String UnitGroupId;
     private String ProId;
@@ -169,6 +170,14 @@ public class TStockline implements java.io.Serializable {
 
     public void setCommision(double commision) {
         this.commision = commision;
+    }
+
+    public String getProname2() {
+        return proname2;
+    }
+
+    public void setProname2(String proname2) {
+        this.proname2 = proname2;
     }
 
 }

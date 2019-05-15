@@ -239,6 +239,8 @@ public class C_TransactionCom {
             st.setIsGV(rs.getByte("ISGV"));
             st.setUTransactions(TrnTyp);
             st.setRefTrnNo(rs.getString("REF_TRN"));
+            String proname2=(rs.getString("PRONAME2")== null)?"":rs.getString("PRONAME2");
+            st.setProname2(proname2);
 
         }
 
@@ -344,6 +346,7 @@ public class C_TransactionCom {
                     }
                 }
                 detMap.put("PRONAME", "'" + d.getProname() + "'");
+                detMap.put("PRONAME2", "'" + d.getProname2() + "'");
 
                 String Batch = "";
                 if (d.getBatch().length() == 0) {
