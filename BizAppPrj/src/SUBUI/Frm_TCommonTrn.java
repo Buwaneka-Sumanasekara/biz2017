@@ -2411,6 +2411,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
             } else if (tblTrn.getRowCount() == 0) {
                 state = false;
                 throw new Exception("Please add items to table ");
+            }else if (TrnSetup.getEnSalesMan() == 1 && cmb_SA.getSelectedIndex() == -1) {
+                state = false;
+                throw new Exception("Please select Salesman"); 
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
@@ -2607,7 +2610,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         lbl_RefTrnNo.setText(tStockline.getRefTrnNo());
                         
                         if (TrnSetup.getEnSalesMan() == 1) {
-                            if (tStockline.getSalesMan().length() > 0) {
+                            if (tStockline.getSalesMan()!=null && tStockline.getSalesMan().length() > 0) {
                                 cmb_SA.setSelectedItem(new MSalesMan(tStockline.getSalesMan()));
                                 txt_SA_COM.setText("" + tStockline.getCommision());
                             }
@@ -2719,7 +2722,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 
             } catch (Exception e) {
                 // layout_LoadingPanel.setVisible(false);
-                JOptionPane.showMessageDialog(rootPane, "<p>" + e.getMessage() + "</p>", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
                 
             } finally {
                 //  layout_LoadingPanel.setVisible(false);
