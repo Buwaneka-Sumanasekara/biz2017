@@ -198,13 +198,15 @@ public class ExcelUploader {
                     String Vol = row.getCell(2).getRawValue().toUpperCase();
 
                     MUnitGroup ug = unitGroups.get(Code);
+                    
                     if (ug != null) {
                         MUnitGroupAssign uga = new MUnitGroupAssign();
                         uga.setActive((byte)1);
-                        uga.setIsBase((ug.equals(new MUnitGroup(UOM_ID)) ? 1 : 0));
+                        uga.setIsBase((ug.getDefaultUnit().equals(UOM_ID) ? 1 : 0));
                         uga.setUnitGroupId(Code);
                         uga.setUnitId(UOM_ID);
                         uga.setVolume(Double.parseDouble(Vol));
+                       
 
                         ArrayList<MUnitGroupAssign> arUg = unit_group_save.get(ug);
                         if (arUg != null && arUg.size() > 0) {
