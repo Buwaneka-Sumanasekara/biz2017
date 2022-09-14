@@ -104,6 +104,7 @@ public class C_Products {
             p.setMGroup3(rs.getString("M_GROUP3_ID"));
             p.setMGroup4(rs.getString("M_GROUP4_ID"));
             p.setMGroup5(rs.getString("M_GROUP5_ID"));
+             p.setMGroup6(rs.getString("M_GROUP6_ID"));
             p.setRef1(rs.getString("REF1"));
             p.setRef2(rs.getString("REF2"));
             p.setUnitGroupId(rs.getString("M_UNITGROUPS_ID"));

@@ -16,6 +16,7 @@ public class MProducts implements java.io.Serializable {
     private String MGroup1;
     private String MUserByMduser;
     private String MGroup5;
+      private String MGroup6;
     private String MUserByCruser;
     private String name;
     private String printdes;
@@ -35,13 +36,14 @@ public class MProducts implements java.io.Serializable {
     public MProducts() {
     }
 
-    public MProducts(String id, String parentid, String MGroup3, String MGroup4, String MGroup2, String MGroup1, String MUserByMduser, String MGroup5, String MUserByCruser, String name, String printdes, Byte active, Byte batch, Double markup, Double sprice, Double cprice, Date crdate, Date mddate, String ref1, String ref2, String UnitGroupId, String proImg,Double com) {
+    public MProducts(String id, String parentid, String MGroup3, String MGroup4, String MGroup2, String MGroup1, String MUserByMduser, String MGroup5, String MGroup6, String MUserByCruser, String name, String printdes, Byte active, Byte batch, Double markup, Double sprice, Double cprice, Date crdate, Date mddate, String ref1, String ref2, String UnitGroupId, String proImg,Double com) {
         this.id = id;
         this.parentid = parentid;
         this.MGroup3 = MGroup3;
         this.MGroup4 = MGroup4;
         this.MGroup2 = MGroup2;
         this.MGroup1 = MGroup1;
+         this.MGroup6 = MGroup6;
         this.MUserByMduser = MUserByMduser;
         this.MGroup5 = MGroup5;
         this.MUserByCruser = MUserByCruser;
@@ -105,6 +107,15 @@ public class MProducts implements java.io.Serializable {
         return MGroup1;
     }
 
+    
+     public String getMGroup6() {
+        return MGroup6;
+    }
+
+    public void setMGroup6(String MGroup6) {
+        this.MGroup6 = MGroup6;
+    }
+    
     public void setMGroup1(String MGroup1) {
         this.MGroup1 = MGroup1;
     }

@@ -69,15 +69,17 @@ public class DefaultData {
         ar.add(new MPermissions("M00004", "M00000", "GROUP3", "Group3", "GROUP", (byte) 0, (byte) 1, "A", 4, "group.png"));
         ar.add(new MPermissions("M00005", "M00000", "GROUP4", "Group4", "GROUP", (byte) 0, (byte) 1, "A", 5, "group.png"));
         ar.add(new MPermissions("M00006", "M00000", "GROUP5", "Group5", "GROUP", (byte) 0, (byte) 1, "A", 6, "group.png"));
-        ar.add(new MPermissions("M00011", "M00000", "GROUPMAP", "Group Map", "GRPM", (byte) 0, (byte) 1, "A", 7, "groupmap.png"));
-        ar.add(new MPermissions("M00007", "M00000", "UNITS", "Unit Master", "UNITS", (byte) 0, (byte) 1, "A", 8, "units.png"));
-        ar.add(new MPermissions("M00012", "M00000", "UGRP", "Unit Group", "UGRP", (byte) 0, (byte) 1, "A", 9, "unitgrp.png"));
-        ar.add(new MPermissions("M00008", "M00000", "ITEMS", "Item Maser", "ITEMS", (byte) 0, (byte) 1, "A", 10, "item_cloth.png"));
-        ar.add(new MPermissions("M00009", "M00000", "SUP", "Supplier", "SUP", (byte) 0, (byte) 1, "A", 11, "supplier.png"));
-        ar.add(new MPermissions("M00010", "M00000", "CUS", "Customer", "CUS", (byte) 0, (byte) 1, "A", 12, "customer.png"));
-        ar.add(new MPermissions("M00013", "M00000", "GVCRE", "Gift Voucher Creation", "GVCRE", (byte) 0, (byte) 1, "A", 13, "gv.png"));
-        ar.add(new MPermissions("M00014", "M00000", "GVSTA", "Gift Voucher Status", "GVSTA", (byte) 0, (byte) 1, "A", 14, "gv_status.png"));
-        ar.add(new MPermissions("M00015", "M00000", "SALESM", "Sales Person", "SALESM", (byte) 0, (byte) 1, "A", 14, "salesman.png"));
+        ar.add(new MPermissions("M00007", "M00000", "GROUP6", "Group6", "GROUP", (byte) 0, (byte) 1, "A", 7, "group.png"));
+
+        ar.add(new MPermissions("M00011", "M00000", "GROUPMAP", "Group Map", "GRPM", (byte) 0, (byte) 1, "A", 12, "groupmap.png"));
+        ar.add(new MPermissions("M00012", "M00000", "UNITS", "Unit Master", "UNITS", (byte) 0, (byte) 1, "A", 13, "units.png"));
+        ar.add(new MPermissions("M00013", "M00000", "UGRP", "Unit Group", "UGRP", (byte) 0, (byte) 1, "A", 14, "unitgrp.png"));
+        ar.add(new MPermissions("M00014", "M00000", "ITEMS", "Item Maser", "ITEMS", (byte) 0, (byte) 1, "A", 15, "item_cloth.png"));
+        ar.add(new MPermissions("M00015", "M00000", "SUP", "Supplier", "SUP", (byte) 0, (byte) 1, "A", 16, "supplier.png"));
+        ar.add(new MPermissions("M00016", "M00000", "CUS", "Customer", "CUS", (byte) 0, (byte) 1, "A", 17, "customer.png"));
+        ar.add(new MPermissions("M00017", "M00000", "GVCRE", "Gift Voucher Creation", "GVCRE", (byte) 0, (byte) 1, "A", 18, "gv.png"));
+        ar.add(new MPermissions("M00018", "M00000", "GVSTA", "Gift Voucher Status", "GVSTA", (byte) 0, (byte) 1, "A", 19, "gv_status.png"));
+        ar.add(new MPermissions("M00019", "M00000", "SALESM", "Sales Person", "SALESM", (byte) 0, (byte) 1, "A", 20, "salesman.png"));
 
         //Transactions(101-200)
         ar.add(new MPermissions("T00000", "T00000", "TRANSACTIONS", "Transactions", "TRN", (byte) 1, (byte) 1, 101, "transaction.png"));//4
@@ -194,7 +196,7 @@ public class DefaultData {
                 DB.Save(q_pass);
             }
         } catch (Exception e) {
-            System.err.println("ADMIN Creation Error:"+e.getMessage());
+            System.err.println("ADMIN Creation Error:" + e.getMessage());
         }
 
     }
@@ -235,8 +237,8 @@ public class DefaultData {
             }
         } catch (Exception e) {
         }
-*/
-        /*
+         */
+ /*
         try {//LOCATION
             if (cLoc.getLocation("0") == null) {
                 String q_loc = "INSERT INTO m_location(ID,NAME,ACTIVE,VISIBLE,REFNO) values('0','MAIN',1,1,'') ";
@@ -245,9 +247,8 @@ public class DefaultData {
 
         } catch (Exception e) {
         }
-        */
+         */
 
-      
         try {//SUP
             if (cSup.getSupplier("S0000") == null) {
                 String q_sup = "INSERT INTO m_supplier(ID,NAME,ACTIVE) values('S0000','',1) ";
@@ -257,7 +258,6 @@ public class DefaultData {
         } catch (Exception e) {
         }
 
-       
         try {//CUS
             if (cCustomers.getCustomer("00000") == null) {
                 String q_cus = "INSERT INTO m_customer(ID,NAME,ACTIVE) values('00000','CASH',1) ";
@@ -266,12 +266,12 @@ public class DefaultData {
 
         } catch (Exception e) {
         }
-      
+
         try {//SA
 /*
             String q_cus = "INSERT INTO m_salesperson(ID,FNAME,ACTIVE) values('00000','',1) ";
             DB.Save(q_cus);
-*/
+             */
         } catch (Exception e) {
         }
 

@@ -160,6 +160,8 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         cmbG2 = new javax.swing.JComboBox();
         cmbG3 = new javax.swing.JComboBox();
         cmbG5 = new javax.swing.JComboBox();
+        cmbG6 = new javax.swing.JComboBox();
+        lblG6 = new javax.swing.JLabel();
         layoutPrice = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -325,7 +327,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layout_ProductInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layout_Basic.setBackground(new java.awt.Color(255, 255, 255));
-        layout_Basic.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        layout_Basic.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
         layout_Basic.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Chk_ProActive.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -426,7 +428,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layout_ProductInfo.add(layout_Basic, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 460, 160));
 
         layoutGroups.setBackground(new java.awt.Color(255, 255, 255));
-        layoutGroups.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Groups", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
+        layoutGroups.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Groups", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
         layoutGroups.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblG1.setText("Group1");
@@ -484,10 +486,21 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         });
         layoutGroups.add(cmbG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 190, 30));
 
-        layout_ProductInfo.add(layoutGroups, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 370, 210));
+        cmbG6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbG6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbG6ActionPerformed(evt);
+            }
+        });
+        layoutGroups.add(cmbG6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 190, 30));
+
+        lblG6.setText("Group6");
+        layoutGroups.add(lblG6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 120, 30));
+
+        layout_ProductInfo.add(layoutGroups, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 370, 250));
 
         layoutPrice.setBackground(new java.awt.Color(255, 255, 255));
-        layoutPrice.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Price Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
+        layoutPrice.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Price Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
         layoutPrice.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setText("Sell Price");
@@ -541,7 +554,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layout_ProductInfo.add(layoutPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 210, 110));
 
         layoutPropertise.setBackground(new java.awt.Color(255, 255, 255));
-        layoutPropertise.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propertise", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
+        layoutPropertise.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propertise", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
         layoutPropertise.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cmbProp.addActionListener(new java.awt.event.ActionListener() {
@@ -549,18 +562,18 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 cmbPropActionPerformed(evt);
             }
         });
-        layoutPropertise.add(cmbProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 20));
+        layoutPropertise.add(cmbProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 150, 20));
 
         txtFproVal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFproValActionPerformed(evt);
             }
         });
-        layoutPropertise.add(txtFproVal, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 130, 20));
+        layoutPropertise.add(txtFproVal, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 130, 20));
 
         lblFormat.setForeground(new java.awt.Color(255, 0, 0));
         lblFormat.setText("###########");
-        layoutPropertise.add(lblFormat, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 120, -1));
+        layoutPropertise.add(lblFormat, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 120, -1));
 
         butPropAdd.setText("+");
         butPropAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -568,7 +581,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                 butPropAddActionPerformed(evt);
             }
         });
-        layoutPropertise.add(butPropAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 50, 40));
+        layoutPropertise.add(butPropAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 50, 40));
 
         tblProperty.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -600,12 +613,12 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             tblProperty.getColumnModel().getColumn(2).setPreferredWidth(60);
         }
 
-        layoutPropertise.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 350, 240));
+        layoutPropertise.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 350, 220));
 
-        layout_ProductInfo.add(layoutPropertise, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, 370, 320));
+        layout_ProductInfo.add(layoutPropertise, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 370, 300));
 
         layoutUnits.setBackground(new java.awt.Color(255, 255, 255));
-        layoutUnits.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Units", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
+        layoutUnits.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Units", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
         layoutUnits.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cmbUnits.addActionListener(new java.awt.event.ActionListener() {
@@ -652,10 +665,10 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel1.setText("Unit Group");
         layoutUnits.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 20));
 
-        layout_ProductInfo.add(layoutUnits, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 460, 260));
+        layout_ProductInfo.add(layoutUnits, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 460, 260));
 
         layoutRef.setBackground(new java.awt.Color(255, 255, 255));
-        layoutRef.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "References", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
+        layoutRef.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "References", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
         layoutRef.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel17.setText("Com. %");
@@ -666,7 +679,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         layoutRef.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
         layoutRef.add(txtRef2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 160, -1));
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "References", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "References", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel19.setText("Ref 2");
@@ -809,9 +822,9 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         jPanel1.add(ParentLayout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 850, 600));
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 640));
 
-        setBounds(0, 0, 877, 659);
+        setBounds(0, 0, 877, 684);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_SearchActionPerformed
@@ -858,18 +871,18 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
     private void cmbG5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG5ActionPerformed
 
-       // SetProductName();
+        // SetProductName();
     }//GEN-LAST:event_cmbG5ActionPerformed
 
     private void cmbG3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG3ActionPerformed
 
         loadGroups_g4();
-       // SetProductName();
+        // SetProductName();
     }//GEN-LAST:event_cmbG3ActionPerformed
 
     private void cmbG2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG2ActionPerformed
         loadGroups_g3();
-      //  SetProductName();
+        //  SetProductName();
     }//GEN-LAST:event_cmbG2ActionPerformed
 
     private void cmbG1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG1ActionPerformed
@@ -1025,10 +1038,14 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     }//GEN-LAST:event_txtprocomKeyTyped
 
     private void butGenProNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butGenProNameActionPerformed
-        
-         SetProductName();
-        
+
+        SetProductName();
+
     }//GEN-LAST:event_butGenProNameActionPerformed
+
+    private void cmbG6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbG6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbG6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1051,6 +1068,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JComboBox cmbG3;
     private javax.swing.JComboBox cmbG4;
     private javax.swing.JComboBox cmbG5;
+    private javax.swing.JComboBox cmbG6;
     private javax.swing.JComboBox cmbProp;
     private javax.swing.JComboBox cmbUnits;
     private javax.swing.JComboBox cmb_Suppliers;
@@ -1105,6 +1123,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
     private javax.swing.JLabel lblG3;
     private javax.swing.JLabel lblG4;
     private javax.swing.JLabel lblG5;
+    private javax.swing.JLabel lblG6;
     private javax.swing.JLabel lblProImg;
     private javax.swing.JLabel lblScreenName;
     private javax.swing.JTable tblBatches;
@@ -1159,8 +1178,8 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     p.setRef2(txtRef2.getText());
                     p.setMUserByCruser(GlobalData.CurUser.getId());
                     p.setMUserByMduser(GlobalData.CurUser.getId());
-                    
-                    p.setCommision((txtprocom.getText().length()==0)?0:Double.parseDouble(txtprocom.getText()));
+
+                    p.setCommision((txtprocom.getText().length() == 0) ? 0 : Double.parseDouble(txtprocom.getText()));
 
                     if (txt_imgurl.getText().length() > 0) {
 
@@ -1394,12 +1413,14 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
         lblG3.setText(GroupNames.get(3));
         lblG4.setText(GroupNames.get(4));
         lblG5.setText(GroupNames.get(5));
+        lblG6.setText(GroupNames.get(6));
 
         loadGroups_g1();
         loadGroups_g2();
         loadGroups_g3();
         loadGroups_g4();
         loadGroups_g5();
+        loadGroups_g6();
 
         cmbUnits.setModel(new DefaultComboBoxModel(CUnit.findAllUnitGroups()));
         cmbProp.setModel(new DefaultComboBoxModel(CPropertise.getAllPropertise()));
@@ -1584,7 +1605,6 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     JComponent enablecom[] = {but_Refresh, but_Update};
                     setDisableEnableComponents(enablecom, disablecom);
 
-                    
                     txtProParentCode.setText(product.getParentid());
                     txtProShortName.setText(product.getPrintdes());
                     Chk_ProActive.setSelected((product.getActive() == 1 ? true : false));
@@ -1593,16 +1613,17 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     txtprosellprice.setText(product.getSprice().toString());
                     txtRef1.setText(product.getRef1());
                     txtRef2.setText(product.getRef2());
-                    txtprocom.setText(""+product.getCommision());
+                    txtprocom.setText("" + product.getCommision());
                     cmbG1.setSelectedItem(CGroup.IsExists("m_group1", product.getMGroup1()));
                     cmbG2.setSelectedItem(CGroup.IsExists("m_group2", product.getMGroup2()));
                     cmbG3.setSelectedItem(CGroup.IsExists("m_group3", product.getMGroup3()));
                     cmbG4.setSelectedItem(CGroup.IsExists("m_group4", product.getMGroup4()));
                     cmbG5.setSelectedItem(CGroup.IsExists("m_group5", product.getMGroup5()));
+                     cmbG6.setSelectedItem(CGroup.IsExists("m_group6", product.getMGroup6()));
 
                     cmbUnits.setSelectedItem(new MUnitGroup(product.getUnitGroupId()));
-                     loadUnitGroupData();
-                    
+                    loadUnitGroupData();
+
                     Vector<MProductPropertise> productPropertise = CProducts.getProductPropertise(product.getId());
                     DefaultTableModel dtm1 = (DefaultTableModel) tblProperty.getModel();
                     dtm1.setRowCount(0);
@@ -1636,7 +1657,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
 
                     setProductIcon(product.getProImg());
                     txtProName.setText(product.getName());
-                    
+
                 }
             } catch (Exception e) {
                 System.err.println(e.getMessage());
@@ -1749,6 +1770,46 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
             }
 
             cmbG5.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroupsForItems(5, ar)));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void loadGroups_g6() {
+
+        try {
+            ArrayList<String> ar = new ArrayList<>();
+            MGroupCommon G1 = (MGroupCommon) cmbG1.getSelectedItem();
+
+            if (G1 != null) {
+                ar.add(G1.getId());
+            }
+
+            MGroupCommon G2 = (MGroupCommon) cmbG2.getSelectedItem();
+
+            if (G2 != null) {
+                ar.add(G2.getId());
+            }
+
+            MGroupCommon G3 = (MGroupCommon) cmbG3.getSelectedItem();
+
+            if (G3 != null) {
+                ar.add(G3.getId());
+            }
+
+            MGroupCommon G4 = (MGroupCommon) cmbG4.getSelectedItem();
+
+            if (G4 != null) {
+                ar.add(G4.getId());
+            }
+
+            MGroupCommon G5 = (MGroupCommon) cmbG5.getSelectedItem();
+
+            if (G5 != null) {
+                ar.add(G5.getId());
+            }
+
+            cmbG6.setModel(new DefaultComboBoxModel(CGroup.getFilteredGroupsForItems(6, ar)));
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

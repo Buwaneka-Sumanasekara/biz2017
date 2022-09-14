@@ -265,12 +265,40 @@ public final class Frm_Start extends javax.swing.JDialog {
         Structure str_20190515_t1 = new Structure(20190515, "t_stockline", ar_20190515_t1, ar_20191015_t1PK);
         arStructures.add(str_20190515_t1);
         
+        
+        
+         //new update : Added new group table
+        ArrayList<TblColumn> ar_20220914_t1 = new ArrayList<>();
+        ar_20220914_t1.add(new TblColumn("ID", "INT", "NOT NULL"));
+        ar_20220914_t1.add(new TblColumn("NAME", "VARCHAR(50)", "NOT NULL"));
+        ar_20220914_t1.add(new TblColumn("ACTIVE", "TINYINT", "DEFAULT '1'"));
+        ar_20220914_t1.add(new TblColumn("ISHIDDEN", "TINYINT", "DEFAULT '0'"));
+
+        ArrayList<String> ar_20220914_t1PK = new ArrayList<>();
+        ar_20220914_t1PK.add("ID");
+
+        Structure str_20220914_t1 = new Structure(20220914, "M_GROUP6", ar_20220914_t1, ar_20220914_t1PK);
+        arStructures.add(str_20220914_t1);
+        
+        ArrayList<TblColumn> ar_20220914_t2 = new ArrayList<>();
+        ar_20220914_t2.add(new TblColumn("G6_ID", "VARCHAR(50)", ""));
+        ArrayList<String> ar_20220914_t2PK = new ArrayList<>();
+        Structure str_20220914_t2 = new Structure(20220914, "m_grouplink", ar_20220914_t2, ar_20220914_t2PK);
+        arStructures.add(str_20220914_t2);
+        
+        
+           ArrayList<TblColumn> ar_20220914_t3 = new ArrayList<>();
+        ar_20220914_t3.add(new TblColumn("M_GROUP6_ID", "VARCHAR(5)", ""));
+        ArrayList<String> ar_20220914_t3PK = new ArrayList<>();
+        Structure str_20220914_t3 = new Structure(20220914, "m_products", ar_20220914_t3, ar_20220914_t3PK);
+        arStructures.add(str_20220914_t3);
+         
 
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults + 3);
 
         /* ##################### TABLE STRUCTURE CREATION ###########################*/
-        int latestVersion = 20160901;
+        int latestVersion = 20220914;
 
         txtStatues.setText("Creating Structure changes...");
         super.update(this.getGraphics());

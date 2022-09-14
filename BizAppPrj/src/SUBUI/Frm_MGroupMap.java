@@ -97,6 +97,8 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
         tblGroupCom = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTree_Groups = new javax.swing.JTree();
+        cmbG6 = new javax.swing.JComboBox();
+        lblG6 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("caption");
@@ -185,28 +187,28 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
         jPanel1.add(lblG1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 110, 30));
 
         lblG2.setText("Code");
-        jPanel1.add(lblG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 170, 30));
+        jPanel1.add(lblG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 170, 30));
 
         cmbG2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cmbG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 170, 30));
+        jPanel1.add(cmbG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 170, 30));
 
         cmbG3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cmbG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 170, 30));
+        jPanel1.add(cmbG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 170, 30));
 
         lblG3.setText("Code");
-        jPanel1.add(lblG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 170, 30));
+        jPanel1.add(lblG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 170, 30));
 
         cmbG4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cmbG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 170, 30));
+        jPanel1.add(cmbG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 170, 30));
 
         lblG4.setText("Code");
-        jPanel1.add(lblG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 170, 30));
+        jPanel1.add(lblG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 170, 30));
 
         lblG5.setText("Code");
-        jPanel1.add(lblG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 170, 30));
+        jPanel1.add(lblG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 170, 30));
 
         cmbG5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cmbG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 170, 30));
+        jPanel1.add(cmbG5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 170, 30));
 
         butGroupComAdd.setText("Add Combination");
         butGroupComAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -221,11 +223,11 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
 
             },
             new String [] {
-                "Group 1", "Group 2", "Group 3", "Group 4", "Group 5"
+                "Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Group 6"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -244,6 +246,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
             tblGroupCom.getColumnModel().getColumn(2).setResizable(false);
             tblGroupCom.getColumnModel().getColumn(3).setResizable(false);
             tblGroupCom.getColumnModel().getColumn(4).setResizable(false);
+            tblGroupCom.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 510, 310));
@@ -253,6 +256,12 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
         jScrollPane2.setViewportView(jTree_Groups);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 300, 560));
+
+        cmbG6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cmbG6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 170, 30));
+
+        lblG6.setText("Code");
+        jPanel1.add(lblG6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 170, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
 
@@ -284,6 +293,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
             GList.add((MGroupCommon) cmbG3.getSelectedItem());
             GList.add((MGroupCommon) cmbG4.getSelectedItem());
             GList.add((MGroupCommon) cmbG5.getSelectedItem());
+            GList.add((MGroupCommon) cmbG6.getSelectedItem());
 
             CGroup.saveGroupMaping(GList);
 
@@ -348,6 +358,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
     private javax.swing.JComboBox cmbG3;
     private javax.swing.JComboBox cmbG4;
     private javax.swing.JComboBox cmbG5;
+    private javax.swing.JComboBox cmbG6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -359,6 +370,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
     private javax.swing.JLabel lblG3;
     private javax.swing.JLabel lblG4;
     private javax.swing.JLabel lblG5;
+    private javax.swing.JLabel lblG6;
     private javax.swing.JLabel lblScreenName;
     private javax.swing.JTable tblGroupCom;
     // End of variables declaration//GEN-END:variables
@@ -383,11 +395,12 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
         lblG3.setText(GroupNames.get(3));
         lblG4.setText(GroupNames.get(4));
         lblG5.setText(GroupNames.get(5));
+        lblG6.setText(GroupNames.get(6));
 
         JTableHeader th = tblGroupCom.getTableHeader();
         TableColumnModel tcm = th.getColumnModel();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             TableColumn tc = tcm.getColumn(i);
             tc.setHeaderValue(GroupNames.get(i + 1));
         }
@@ -407,6 +420,7 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
         cmbG3.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(3)));
         cmbG4.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(4)));
         cmbG5.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(5)));
+        cmbG6.setModel(new DefaultComboBoxModel(CGroup.getAllGroupValues(6)));
 
         loadGroup1Links();
 
@@ -520,11 +534,11 @@ public class Frm_MGroupMap extends javax.swing.JInternalFrame implements MyWindo
 
             Tree_loadGroupTree();
         } catch (Exception e) {
-            if (e.getMessage()!= null && e.getMessage()!="") {
+            if (e.getMessage() != null && e.getMessage() != "") {
                 JOptionPane.showMessageDialog(rootPane, e.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
             } else {
-              //       JOptionPane.showMessageDialog(rootPane, "No data found!", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
-            
+                //       JOptionPane.showMessageDialog(rootPane, "No data found!", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
+
             }
         }
     }

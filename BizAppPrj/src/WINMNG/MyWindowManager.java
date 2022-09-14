@@ -67,27 +67,32 @@ public class MyWindowManager {
                     jf = new Frm_MGroup(fm, "m_group5", p.getDescription(), "G5");
                     break;
                 case "M00007":
-                    jf = new Frm_MUnits(fm, p.getDescription());
+                    jf = new Frm_MGroup(fm, "m_group6", p.getDescription(), "G6");
                     break;
-                case "M00008":
-                    jf = new Frm_MItems(fm, p.getDescription());
-                    break;
-                case "M00009":
-                    jf = new Frm_MSupplier(fm, p.getDescription());
-                    break;
-                case "M00010":
-                    jf = new Frm_MCustomer(fm, p.getDescription());
-                    break;
+
                 case "M00011":
                     jf = new Frm_MGroupMap(fm, p.getDescription());
                     break;
                 case "M00012":
-                    jf = new Frm_MUnitGroup(fm, p.getDescription());
+                    jf = new Frm_MUnits(fm, p.getDescription());
                     break;
                 case "M00013":
-                    jf = new Frm_GvCreation(fm, p.getDescription());
+                    jf = new Frm_MUnitGroup(fm, p.getDescription());
+                    break;
+                case "M00014":
+                    jf = new Frm_MItems(fm, p.getDescription());
                     break;
                 case "M00015":
+                    jf = new Frm_MSupplier(fm, p.getDescription());
+                    break;
+                case "M00016":
+                    jf = new Frm_MCustomer(fm, p.getDescription());
+                    break;
+
+                case "M00017":
+                    jf = new Frm_GvCreation(fm, p.getDescription());
+                    break;
+                case "M00019":
                     jf = new Frm_MSalesMan(fm, p.getDescription());
                     break;
                 case "S00001":

@@ -42,6 +42,8 @@ public class C_GroupCommon {
                 return true;
             case "G5000":
                 return true;
+                  case "G6000":
+                return true;
             default:
                 return false;
         }
@@ -59,6 +61,8 @@ public class C_GroupCommon {
                 return "G4000";
             case 5:
                 return "G5000";
+                   case 6:
+                return "G6000";
             default:
                 return "";
         }
@@ -270,7 +274,7 @@ public class C_GroupCommon {
         while (rs.next()) {
             Vector<MGroupCommon> v = new Vector<>();
 
-            for (int i = 1; i <= 5; i++) {
+            for (int i = 1; i <= 6; i++) {
                 MGroupCommon groupCommon = IsExists("m_group" + i, rs.getString("G" + i + "_ID"));
                 v.add(groupCommon);
             }

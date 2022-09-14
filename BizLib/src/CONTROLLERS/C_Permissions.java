@@ -43,7 +43,7 @@ public class C_Permissions {
 
         map.put("ISUIMENU", m.getIsuimenu().toString());
         map.put("ORD", "" + m.getOrd());
-        map.put("TREE_ICON", "'"+ m.getIcon()+ "'");
+        map.put("TREE_ICON", "'" + m.getIcon() + "'");
 
         if (IsPermissionExists(m.getId(), m.getParentid()) == false) {
             map.put("ID", "'" + m.getId() + "'");
@@ -52,14 +52,14 @@ public class C_Permissions {
             map.put("DESCRIPTION", "'" + m.getDescription() + "'");
             map.put("TYPE", "'" + m.getType() + "'");
             map.put("HASSUB", m.getHassub().toString());
-            
+
             DB.Save(qg.SaveRecord("M_PERMISSIONS", map));
         } else {
             if (SkipList(m) == false) {
 
                 map.put("NAME", "'" + m.getName() + "'");
                 map.put("DESCRIPTION", "'" + m.getDescription() + "'");
-              
+
             }
             DB.Update(qg.UpdateRecord("M_PERMISSIONS", map, " WHERE ID='" + m.getId() + "' "));
         }
@@ -85,12 +85,13 @@ public class C_Permissions {
         }
         return ar;
     }
+
     public MPermissions getPermission(String perid) throws Exception {
-        String q = "SELECT * FROM M_PERMISSIONS where ID='"+perid+"' ";
+        String q = "SELECT * FROM M_PERMISSIONS where ID='" + perid + "' ";
 
         ResultSet rs = DB.Search(q);
-        MPermissions p=null;
-        if(rs.next()) {
+        MPermissions p = null;
+        if (rs.next()) {
             p = new MPermissions();
             p.setId(rs.getString("ID"));
             p.setParentid(rs.getString("PARENTID"));
@@ -100,8 +101,8 @@ public class C_Permissions {
             p.setHassub(rs.getByte("HASSUB"));
             p.setIsuimenu(rs.getByte("ISUIMENU"));
             p.setOrd(rs.getInt("ORD"));
-             p.setIcon(rs.getString("TREE_ICON"));
-           
+            p.setIcon(rs.getString("TREE_ICON"));
+
         }
         return p;
     }
@@ -157,6 +158,9 @@ public class C_Permissions {
                 state = true;
                 break;
             case "M00006":
+                state = true;
+                break;
+            case "M00007":
                 state = true;
                 break;
             default:
