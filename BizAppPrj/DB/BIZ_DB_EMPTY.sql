@@ -197,14 +197,15 @@ CREATE TABLE IF NOT EXISTS `m_paydet` (
   `ACTIVE` int(11) DEFAULT '1',
   `REF_REQ` int(11) DEFAULT '0',
   `DATE_F` int(11) DEFAULT '0',
+  PRIMARY KEY (`ID`,`M_PAYMST_ID`),
   KEY `FK_M_PAYDET_M_PAYMST1_IDX` (`M_PAYMST_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table bizdb.m_paydet: ~3 rows (approximately)
 REPLACE INTO `m_paydet` (`ID`, `M_PAYMST_ID`, `NAME`, `RATE`, `SHORT_NAME`, `SEQ_ORDER`, `ACTIVE`, `REF_REQ`, `DATE_F`) VALUES
-	('VISA', 'CRC', 'VISA', 0, 'VISA', 0, 1, 1, 0),
+	('AMEX', 'CRC', 'AMEX', 0, 'AMEX', 0, 1, 1, 0),
 	('MAST', 'CRC', 'MASTER', 0, 'MASTER', 1, 1, 1, 0),
-	('AMEX', 'CRC', 'AMEX', 0, 'AMEX', 0, 1, 1, 0);
+	('VISA', 'CRC', 'VISA', 0, 'VISA', 0, 1, 1, 0);
 
 -- Dumping structure for table bizdb.m_paymst
 DROP TABLE IF EXISTS `m_paymst`;
@@ -218,14 +219,16 @@ CREATE TABLE IF NOT EXISTS `m_paymst` (
   `ACTIVE` int(11) DEFAULT '1',
   `OVER_PAY` int(11) DEFAULT '0',
   `DATE_F` int(11) DEFAULT '0',
-  `SET_DUE_AUTO` tinyint(4) DEFAULT '0'
+  `SET_DUE_AUTO` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table bizdb.m_paymst: ~4 rows (approximately)
 REPLACE INTO `m_paymst` (`ID`, `NAME`, `HASDET`, `REFREQ`, `SEQ_ORDER`, `SHORT_NAME`, `ACTIVE`, `OVER_PAY`, `DATE_F`, `SET_DUE_AUTO`) VALUES
-	('CSH', 'CASH', 0, 0, 0, 'CASH', 1, 1, 0, 0),
-	('CRC', 'CREDIT CARD', 1, 0, 1, 'CRD CARD', 0, 0, 0, 0),
 	('CHQ', 'CHEQUE', 0, 1, 2, 'CHEQUE', 0, 0, 1, 0),
+	('CRC', 'CREDIT CARD', 1, 0, 1, 'CRD CARD', 0, 0, 0, 1),
+	('CRD', 'CREDIT', 0, 0, 4, 'CREDIT', 1, 0, 0, 0),
+	('CSH', 'CASH', 0, 0, 0, 'CASH', 1, 1, 0, 1),
 	('VOU', 'VOUCHER', 0, 1, 3, 'VOUCHER', 0, 0, 0, 0);
 
 -- Dumping structure for table bizdb.m_permissions
@@ -1011,7 +1014,8 @@ CREATE TABLE IF NOT EXISTS `u_transactions` (
   `HOLD_ONLY` int(11) NOT NULL DEFAULT '0',
   `RETURN_REQ_REF` int(11) NOT NULL DEFAULT '0',
   `EN_SALESMAN` tinyint(4) DEFAULT '0',
-  `RPT_ENABLE` tinyint(4) DEFAULT '1'
+  `RPT_ENABLE` tinyint(4) DEFAULT '1',
+  PRIMARY KEY (`TRNNO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table bizdb.u_transactions: ~2 rows (approximately)
