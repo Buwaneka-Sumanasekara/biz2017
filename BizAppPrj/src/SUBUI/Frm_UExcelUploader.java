@@ -38,6 +38,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -208,24 +209,8 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
                 if (f.exists()) {
                     ExcelUploader e = new ExcelUploader();
 
-                    ArrayList excelAsList = e.getExcelAsList(f, ExcelUploader.TABLE_PRODUCT);
-
-                    ArrayList<MProductExcel> arrayList = (ArrayList<MProductExcel>) excelAsList;
-                  //  System.out.println("Count:" + arrayList.size());
-                    //  System.out.println("");
-                    for (MProductExcel p : arrayList) {
-                        //System.out.println(p);
-
-                        ArrayList<MGroupCommon> GList = new ArrayList<>();
-                        GList.add(new MGroupCommon(p.getProduct().getMGroup1()));
-                        GList.add(new MGroupCommon(p.getProduct().getMGroup2()));
-                        GList.add(new MGroupCommon(p.getProduct().getMGroup3()));
-                        GList.add(new MGroupCommon(p.getProduct().getMGroup4()));
-                        GList.add(new MGroupCommon(p.getProduct().getMGroup5()));
-                        Grp.saveGroupMaping_Excel(GList);
-
-                       cpro.addProduct(p.getProduct(), p.getProprop(), p.getSuppliers());
-                    }
+                    e.importFromExcel(f, ExcelUploader.TABLE_PRODUCT_FULL);
+                    JOptionPane.showMessageDialog(rootPane, "Excel impored Sucessfully!", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         } catch (Exception ex) {
@@ -243,7 +228,7 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
     public void Refresh() {
 
         Vector<ExcelType> v = new Vector<>();
-        v.add(new ExcelType(ExcelUploader.TABLE_PRODUCT, "Products"));
+        v.add(new ExcelType(ExcelUploader.TABLE_PRODUCT_FULL, "Product full"));
 
         cmb_Type.setModel(new DefaultComboBoxModel(v));
     }
@@ -349,32 +334,31 @@ public class Frm_UExcelUploader extends javax.swing.JInternalFrame implements My
             ArrayList<MProducts> allProducts = cpro.getAllProducts(1);
             for (MProducts p : allProducts) {
                 System.out.println(p.getRef1().trim().replace(" ", ""));
-                if(p.getRef1().length()>0 && p.getRef1().indexOf("-")>-1){
-                String[] split = p.getRef1().trim().split("-");
-                String FrmPath="C:\\Users\\HOME\\Downloads\\PRODUCTS\\"+split[1].trim().replace(" ", "").toLowerCase()+".jpg";
-                System.out.println(FrmPath);
-                File f = new File(FrmPath);
-                if (f.exists()) {
-                    Path FROM = Paths.get(f.getAbsolutePath());
+                if (p.getRef1().length() > 0 && p.getRef1().indexOf("-") > -1) {
+                    String[] split = p.getRef1().trim().split("-");
+                    String FrmPath = "C:\\Users\\HOME\\Downloads\\PRODUCTS\\" + split[1].trim().replace(" ", "").toLowerCase() + ".jpg";
+                    System.out.println(FrmPath);
+                    File f = new File(FrmPath);
+                    if (f.exists()) {
+                        Path FROM = Paths.get(f.getAbsolutePath());
 
-                    String RepPath="MyData/Products/PRO_" + p.getId() + "." + getExtension(f);
-                    
-                    System.out.println(RepPath);
-                    
-                    Path TO = Paths.get(RepPath);
-                    
+                        String RepPath = "MyData/Products/PRO_" + p.getId() + "." + getExtension(f);
+
+                        System.out.println(RepPath);
+
+                        Path TO = Paths.get(RepPath);
 
 //overwrite existing file, if exists
-                    CopyOption[] options = new CopyOption[]{
-                        StandardCopyOption.REPLACE_EXISTING,
-                        StandardCopyOption.COPY_ATTRIBUTES
-                    };
-                    Files.copy(FROM, TO, options);
-                    
-                    DB.Update("UPDATE m_products SET PRO_IMG='"+RepPath+"' where ID='"+p.getId()+"' ");
-                    
-                //    System.out.println(p.getId());
-                }
+                        CopyOption[] options = new CopyOption[]{
+                            StandardCopyOption.REPLACE_EXISTING,
+                            StandardCopyOption.COPY_ATTRIBUTES
+                        };
+                        Files.copy(FROM, TO, options);
+
+                        DB.Update("UPDATE m_products SET PRO_IMG='" + RepPath + "' where ID='" + p.getId() + "' ");
+
+                        //    System.out.println(p.getId());
+                    }
                 }
             }
 

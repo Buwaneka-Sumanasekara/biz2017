@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package MODELS;
 
 /**
@@ -11,6 +10,7 @@ package MODELS;
  * @author Buwanaka
  */
 public class MUnitGroupAssign {
+
     private String UnitGroupId;
     private String UnitId;
     private double Volume;
@@ -20,21 +20,18 @@ public class MUnitGroupAssign {
     public MUnitGroupAssign() {
     }
 
-    
-    public MUnitGroupAssign(String UnitGroupId, String UnitId, double Volume, int IsBase, int Active) {
-        this.UnitGroupId = UnitGroupId;
-        this.UnitId = UnitId;
-        this.Volume = Volume;
-        this.IsBase = IsBase;
-        this.Active = Active;
-    }
+   
 
     public String getUnitGroupId() {
         return UnitGroupId;
     }
 
     public void setUnitGroupId(String UnitGroupId) {
-        this.UnitGroupId = UnitGroupId;
+        if (UnitGroupId.startsWith("UG")) {
+            this.UnitGroupId = UnitGroupId;
+        } else {
+            this.UnitGroupId = "UG" + UnitGroupId;
+        }
     }
 
     public String getUnitId() {
@@ -42,7 +39,11 @@ public class MUnitGroupAssign {
     }
 
     public void setUnitId(String UnitId) {
-        this.UnitId = UnitId;
+        if (UnitId.startsWith("U")) {
+            this.UnitId = UnitId;
+        } else {
+            this.UnitId = "U" + UnitId;
+        }
     }
 
     public double getVolume() {
@@ -68,7 +69,5 @@ public class MUnitGroupAssign {
     public void setActive(int Active) {
         this.Active = Active;
     }
-    
-    
-    
+
 }

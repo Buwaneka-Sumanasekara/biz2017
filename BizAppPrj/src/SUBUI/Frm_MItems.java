@@ -1619,7 +1619,7 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     cmbG3.setSelectedItem(CGroup.IsExists("m_group3", product.getMGroup3()));
                     cmbG4.setSelectedItem(CGroup.IsExists("m_group4", product.getMGroup4()));
                     cmbG5.setSelectedItem(CGroup.IsExists("m_group5", product.getMGroup5()));
-                     cmbG6.setSelectedItem(CGroup.IsExists("m_group6", product.getMGroup6()));
+                    cmbG6.setSelectedItem(CGroup.IsExists("m_group6", product.getMGroup6()));
 
                     cmbUnits.setSelectedItem(new MUnitGroup(product.getUnitGroupId()));
                     loadUnitGroupData();
@@ -1656,6 +1656,8 @@ public class Frm_MItems extends javax.swing.JInternalFrame implements MyWindowBa
                     }
 
                     setProductIcon(product.getProImg());
+                    System.out.println("product" + product.getId() + "-" + product.getName());
+
                     txtProName.setText(product.getName());
 
                 }

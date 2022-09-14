@@ -346,7 +346,7 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
                 int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to remove highlighted unit?", GlobalData.MESSAGEBOX, JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
                     MUnits ug = (MUnits) tblUAList.getValueAt(selectedRow, 0);
-                    DefaultTableModel dtm=(DefaultTableModel) tblUAList.getModel();
+                    DefaultTableModel dtm = (DefaultTableModel) tblUAList.getModel();
                     try {
                         dtm.removeRow(selectedRow);
                         if (txt_UnitGroupId.getText().length() > 0) {
@@ -413,7 +413,14 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
 
                         boolean IsBase = Boolean.valueOf(dtm.getValueAt(i, 2).toString());
 
-                        uga.add(new MUnitGroupAssign(ug.getUnitGroupId(), u.getId(), volume, IsBase ? 1 : 0, 1));
+                        //MUnitGroupAssign(ug.getUnitGroupId(), u.getId(), volume, IsBase ? 1 : 0, 1)
+                        MUnitGroupAssign ugao = new MUnitGroupAssign();
+                        ugao.setActive(1);
+                        ugao.setIsBase(IsBase ? 1 : 0);
+                        ugao.setUnitGroupId(ug.getUnitGroupId());
+                        ugao.setUnitId(u.getId());
+                        ugao.setVolume(volume);
+                        uga.add(ugao);
                     }
                     c_units.SaveUnitGroup(ug, uga);
                     Refresh();
@@ -437,7 +444,15 @@ public class Frm_MUnitGroup extends javax.swing.JInternalFrame implements MyWind
                             MUnits u = (MUnits) dtm.getValueAt(i, 0);
                             double volume = Double.parseDouble(dtm.getValueAt(i, 1).toString());
                             boolean IsBase = Boolean.valueOf(dtm.getValueAt(i, 2).toString());
-                            uga.add(new MUnitGroupAssign(ug.getUnitGroupId(), u.getId(), volume, IsBase ? 1 : 0, 1));
+
+                            MUnitGroupAssign ugao = new MUnitGroupAssign();
+                            ugao.setActive(1);
+                            ugao.setIsBase((IsBase ? 1 : 0));
+                            ugao.setUnitGroupId(ug.getUnitGroupId());
+                            ugao.setUnitId(u.getId());
+                            ugao.setVolume(volume);
+
+                            uga.add(ugao);
                         }
                         c_units.UpdateUnitGroup(ug, uga);
                         Refresh();

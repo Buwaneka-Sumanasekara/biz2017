@@ -229,7 +229,12 @@ public class MProducts implements java.io.Serializable {
     }
 
     public void setUnitGroupId(String UnitGroupId) {
-        this.UnitGroupId = UnitGroupId;
+      
+         if(UnitGroupId.startsWith("UG")){
+            this.UnitGroupId = UnitGroupId;
+        }else{
+            this.UnitGroupId = "UG"+UnitGroupId;
+        }
     }
 
     public String getProImg() {
@@ -255,5 +260,21 @@ public class MProducts implements java.io.Serializable {
     public void setCommision(Double commision) {
         this.commision = commision;
     }
+
+    @Override
+    public String toString() {
+        return this.name; 
+    }
+    
+       @Override
+    public boolean equals(Object obj) {
+        MProducts s = (MProducts) obj;
+        if (s.id.equals(this.id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }

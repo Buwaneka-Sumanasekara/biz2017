@@ -34,11 +34,11 @@ public class C_Units {
     }
 
     public String GenerateNewUnitNo() throws Exception {
-        return comF.generateNextNo(5, "U", "m_units", "ID");
+        return comF.generateNextNo(4, "U", "m_units", "ID");
     }
 
     public String GenerateNewUnitGroupNo() throws Exception {
-        return comF.generateNextNo(5, "UG", "M_UNITGROUPS", "ID");
+        return comF.generateNextNo(4, "UG", "M_UNITGROUPS", "ID");
     }
 
     public String getBaseUnitId(String UnitGroupId) throws Exception{
@@ -60,7 +60,7 @@ public class C_Units {
     public int saveUnit(MUnits m) throws Exception {
 
         TreeMap<String, String> tm = new TreeMap<>();
-        tm.put("ID", "'" + GenerateNewUnitNo() + "'");
+        tm.put("ID", "'" + (m.getId()!=null?m.getId():GenerateNewUnitNo()) + "'");
         tm.put("NAME", "'" + m.getName() + "'");
         tm.put("ACTIVE", m.getActive().toString());
         tm.put("SYMBLE", "'" + m.getSymble() + "'");
@@ -81,6 +81,7 @@ public class C_Units {
 
     public MUnits getUnit(String Id) throws Exception {
         String q = "SELECT * FROM m_units WHERE ID='" + Id + "'";
+        System.out.println(q);
         ResultSet rs = DB.Search(q);
         MUnits m = null;
         if (rs.next()) {
@@ -92,6 +93,8 @@ public class C_Units {
         }
         return m;
     }
+    
+    
 
     public Vector<MUnits> getAllUnits() {
         Vector<MUnits> v = new Vector<>();
@@ -255,9 +258,17 @@ public class C_Units {
     public void SaveUnitGroup(MUnitGroup ug, ArrayList<MUnitGroupAssign> uga) throws Exception {
         try {
             DB.getCurrentCon().setAutoCommit(false);
-            createUnitGroup(ug);
+            if(findUnitGroupExists(ug.getUnitGroupId())==null){
+                 createUnitGroup(ug);
+            }
+           
             for (MUnitGroupAssign mUnitGroupAssign : uga) {
-                assignUnitToGroups(mUnitGroupAssign);
+                try {
+                   assignUnitToGroups(mUnitGroupAssign); 
+                } catch (Exception e) {
+                    System.out.println("Error assign unit group"+"Group:"+ug.getUnitGroupId()+e.getMessage());
+                }
+                
             }
 
             DB.getCurrentCon().commit();

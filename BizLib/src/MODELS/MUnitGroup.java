@@ -14,6 +14,15 @@ public class MUnitGroup {
     private String UnitGroupId;
     private String UnitGroupName;
     private int UnitGroupActive;
+    private String defaultUnit;
+
+    public String getDefaultUnit() {
+        return defaultUnit;
+    }
+
+    public void setDefaultUnit(String defaultUnit) {
+        this.defaultUnit = defaultUnit;
+    }
 
     public MUnitGroup() {
     }
@@ -29,7 +38,12 @@ public class MUnitGroup {
     }
 
     public void setUnitGroupId(String UnitGroupId) {
-        this.UnitGroupId = UnitGroupId;
+        if(UnitGroupId.startsWith("UG")){
+            this.UnitGroupId = UnitGroupId;
+        }else{
+            this.UnitGroupId = "UG"+UnitGroupId;
+        }
+        
     }
 
     public String getUnitGroupName() {

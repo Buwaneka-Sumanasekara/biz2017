@@ -37,25 +37,9 @@ public class Test {
         try {
             ExcelUploader e = new ExcelUploader();
             File f = new File("C:\\Users\\user pc\\Documents\\NetBeansProjects\\BizExcelUpload\\Upload\\pro_test.xlsx");
-            ArrayList excelAsList = e.getExcelAsList(f, ExcelUploader.TABLE_PRODUCT);
+             e.importFromExcel(f, ExcelUploader.TABLE_PRODUCT_FULL);
 
-            ArrayList<MProductExcel> arrayList = (ArrayList<MProductExcel>) excelAsList;
-            System.out.println("Count:" + arrayList.size());
-            System.out.println("");
-            for (MProductExcel p : arrayList) {
-                System.out.println(p);
-
-                ArrayList<MGroupCommon> GList = new ArrayList<>();
-                GList.add(new MGroupCommon(p.getProduct().getMGroup1()));
-                GList.add(new MGroupCommon(p.getProduct().getMGroup2()));
-                GList.add(new MGroupCommon(p.getProduct().getMGroup3()));
-                GList.add(new MGroupCommon(p.getProduct().getMGroup4()));
-                GList.add(new MGroupCommon(p.getProduct().getMGroup5()));
-                Grp.saveGroupMaping_Excel(GList);
-                
-
-                c.addProduct(p.getProduct(), p.getProprop(), p.getSuppliers());
-            }
+          
 
         } catch (Exception ex) {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);

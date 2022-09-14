@@ -347,6 +347,7 @@ public class C_Products {
             if (Active == 0 || Active == 1) {
                 q += " AND  ACTIVE=" + Active;
             }
+            System.out.println(q);
             ResultSet rs = DB.Search(q);
 
             if (rs.next()) {
@@ -556,6 +557,7 @@ public class C_Products {
         mpro.put("M_GROUP3_ID", "'" + p.getMGroup3() + "'");
         mpro.put("M_GROUP4_ID", "'" + p.getMGroup4() + "'");
         mpro.put("M_GROUP5_ID", "'" + p.getMGroup5() + "'");
+         mpro.put("M_GROUP6_ID", "'" + p.getMGroup6() + "'");
         mpro.put("REF1", "'" + fv.replacer(p.getRef1()) + "'");
         mpro.put("REF2", "'" + fv.replacer(p.getRef2()) + "'");
         mpro.put("PRO_COMMSION", "'" + p.getCommision() + "'");

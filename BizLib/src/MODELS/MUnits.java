@@ -28,7 +28,11 @@ public class MUnits implements java.io.Serializable {
     }
 
     public void setId(String id) {
-        this.id = id;
+        if (id.startsWith("U")) {
+            this.id = id;
+        } else {
+            this.id = "U" + id;
+        }
     }
 
     public String getName() {
@@ -49,7 +53,7 @@ public class MUnits implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return name;
+        return this.name;
     }
 
     @Override
