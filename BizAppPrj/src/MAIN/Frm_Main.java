@@ -12,14 +12,19 @@ import MODELS.MPermissions;
 import MODELS.MUsergroup;
 import SUBUI.Frm_Help;
 import WINMNG.MyWindowManager;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -43,6 +48,7 @@ import javax.swing.tree.DefaultTreeModel;
 public class Frm_Main extends javax.swing.JFrame {
 
     public String CurrentFrame = "";
+     public MPermissions CurrentFrameObj = null;
 
     Frm_Login frmlog = null;
     MUsergroup ug = null;
@@ -52,11 +58,12 @@ public class Frm_Main extends javax.swing.JFrame {
 
     public Frm_Main() {
         initComponents();
-        this.setUndecorated(true);
+        //  this.setUndecorated(true);
     }
 
     public Frm_Main(Frm_Login frmlogin, ArrayList<MPermissions> m) {
         initComponents();
+        reloadComponents();
         this.frmlog = frmlogin;
         this.menus = m;
         this.ug = new MUsergroup();
@@ -84,28 +91,35 @@ public class Frm_Main extends javax.swing.JFrame {
         layout_Outer = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TUserMenu = new javax.swing.JTree();
+        layout_footer = new javax.swing.JPanel();
+        txt_DB_HOST = new javax.swing.JLabel();
+        lbl_Global_Instructions = new javax.swing.JLabel();
+        txt_DB_Name = new javax.swing.JLabel();
+        layout_profile = new javax.swing.JPanel();
+        lblUserimg = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
         JDesktopF = new javax.swing.JDesktopPane();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        lbl_Global_Instructions = new javax.swing.JLabel();
+        layout_header = new javax.swing.JPanel();
         butLogout = new javax.swing.JButton();
         lblCompanyName = new javax.swing.JLabel();
-        lblUsername = new javax.swing.JLabel();
-        lblUserimg = new javax.swing.JLabel();
-        txt_DB_Name = new javax.swing.JLabel();
-        txt_DB_HOST = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        butMinimize = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         layout_Outer.setBackground(new java.awt.Color(255, 255, 255));
         layout_Outer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
-        layout_Outer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        TUserMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         TUserMenu.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         TUserMenu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -120,33 +134,105 @@ public class Frm_Main extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TUserMenu);
 
-        layout_Outer.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 160, 550));
+        layout_footer.setBackground(new java.awt.Color(153, 255, 153));
+
+        txt_DB_HOST.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txt_DB_HOST.setForeground(new java.awt.Color(102, 102, 102));
+        txt_DB_HOST.setText("jLabel1");
+
+        lbl_Global_Instructions.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lbl_Global_Instructions.setForeground(new java.awt.Color(204, 0, 0));
+        lbl_Global_Instructions.setText("[  F2 : SEARCH   ]   [   F3: EDIT  ]  [  F4: REFRESH  ]   [  F5: SAVE  ]  [F6: HOLD]  [F7: CANCEL] [F8: PRINT]");
+
+        txt_DB_Name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txt_DB_Name.setForeground(new java.awt.Color(102, 102, 102));
+        txt_DB_Name.setText("jLabel1");
+
+        javax.swing.GroupLayout layout_footerLayout = new javax.swing.GroupLayout(layout_footer);
+        layout_footer.setLayout(layout_footerLayout);
+        layout_footerLayout.setHorizontalGroup(
+            layout_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout_footerLayout.createSequentialGroup()
+                .addGap(0, 633, Short.MAX_VALUE)
+                .addComponent(txt_DB_HOST, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_DB_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout_footerLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(lbl_Global_Instructions, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(314, Short.MAX_VALUE)))
+        );
+        layout_footerLayout.setVerticalGroup(
+            layout_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout_footerLayout.createSequentialGroup()
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(layout_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_DB_Name)
+                    .addComponent(txt_DB_HOST))
+                .addGap(24, 24, 24))
+            .addGroup(layout_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout_footerLayout.createSequentialGroup()
+                    .addGap(28, 28, 28)
+                    .addComponent(lbl_Global_Instructions)
+                    .addContainerGap(27, Short.MAX_VALUE)))
+        );
+
+        layout_profile.setBackground(new java.awt.Color(255, 204, 204));
+        layout_profile.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblUserimg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUserimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/1465731972_user-01.png"))); // NOI18N
+        layout_profile.add(lblUserimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 100, 80));
+
+        lblUsername.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(102, 102, 102));
+        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsername.setText("BUWANEKA");
+        layout_profile.add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 150, 30));
 
         JDesktopF.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/iconappimg.png"))); // NOI18N
-        JDesktopF.add(jLabel3);
-        jLabel3.setBounds(330, 180, 220, 110);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
         jLabel5.setText("ERP");
-        JDesktopF.add(jLabel5);
-        jLabel5.setBounds(450, 290, 100, 44);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 153, 255));
         jLabel6.setText("Biz");
-        JDesktopF.add(jLabel6);
-        jLabel6.setBounds(380, 280, 80, 58);
 
-        layout_Outer.add(JDesktopF, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 868, 630));
+        JDesktopF.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        JDesktopF.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        JDesktopF.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        lbl_Global_Instructions.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        lbl_Global_Instructions.setForeground(new java.awt.Color(204, 0, 0));
-        lbl_Global_Instructions.setText("[  F2 : SEARCH   ]   [   F3: EDIT  ]  [  F4: REFRESH  ]   [  F5: SAVE  ]  [F6: HOLD]  [F7: CANCEL] [F8: PRINT]");
-        layout_Outer.add(lbl_Global_Instructions, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 670, 750, -1));
+        javax.swing.GroupLayout JDesktopFLayout = new javax.swing.GroupLayout(JDesktopF);
+        JDesktopF.setLayout(JDesktopFLayout);
+        JDesktopFLayout.setHorizontalGroup(
+            JDesktopFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JDesktopFLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(JDesktopFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(JDesktopFLayout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        JDesktopFLayout.setVerticalGroup(
+            JDesktopFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JDesktopFLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(JDesktopFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         butLogout.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         butLogout.setForeground(new java.awt.Color(89, 143, 179));
@@ -159,33 +245,11 @@ public class Frm_Main extends javax.swing.JFrame {
                 butLogoutActionPerformed(evt);
             }
         });
-        layout_Outer.add(butLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(983, 0, 40, 30));
 
         lblCompanyName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblCompanyName.setForeground(new java.awt.Color(102, 102, 102));
         lblCompanyName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCompanyName.setText("COMPANY NAME");
-        layout_Outer.add(lblCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 760, 30));
-
-        lblUsername.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblUsername.setForeground(new java.awt.Color(102, 102, 102));
-        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblUsername.setText("BUWANEKA");
-        layout_Outer.add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 150, 30));
-
-        lblUserimg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblUserimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/1465731972_user-01.png"))); // NOI18N
-        layout_Outer.add(lblUserimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, 100, 80));
-
-        txt_DB_Name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        txt_DB_Name.setForeground(new java.awt.Color(102, 102, 102));
-        txt_DB_Name.setText("jLabel1");
-        layout_Outer.add(txt_DB_Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 700, 200, -1));
-
-        txt_DB_HOST.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        txt_DB_HOST.setForeground(new java.awt.Color(102, 102, 102));
-        txt_DB_HOST.setText("jLabel1");
-        layout_Outer.add(txt_DB_HOST, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 700, 190, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/if_question_2625632.png"))); // NOI18N
         jButton1.setToolTipText("Help [F1] ");
@@ -196,13 +260,98 @@ public class Frm_Main extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        layout_Outer.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 0, 40, 30));
 
-        getContentPane().add(layout_Outer, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 0, 1030, 720));
+        butMinimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        butMinimize.setForeground(new java.awt.Color(89, 143, 179));
+        butMinimize.setText("-");
+        butMinimize.setToolTipText("Minimize [-]");
+        butMinimize.setBorderPainted(false);
+        butMinimize.setContentAreaFilled(false);
+        butMinimize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butMinimizeActionPerformed(evt);
+            }
+        });
 
-        setSize(new java.awt.Dimension(1035, 720));
+        javax.swing.GroupLayout layout_headerLayout = new javax.swing.GroupLayout(layout_header);
+        layout_header.setLayout(layout_headerLayout);
+        layout_headerLayout.setHorizontalGroup(
+            layout_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout_headerLayout.createSequentialGroup()
+                .addComponent(lblCompanyName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(butMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(butLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+        layout_headerLayout.setVerticalGroup(
+            layout_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(butLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(butMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        javax.swing.GroupLayout layout_OuterLayout = new javax.swing.GroupLayout(layout_Outer);
+        layout_Outer.setLayout(layout_OuterLayout);
+        layout_OuterLayout.setHorizontalGroup(
+            layout_OuterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout_OuterLayout.createSequentialGroup()
+                .addGroup(layout_OuterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout_OuterLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(layout_profile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout_OuterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JDesktopF)
+                    .addComponent(layout_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(layout_header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout_OuterLayout.setVerticalGroup(
+            layout_OuterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout_OuterLayout.createSequentialGroup()
+                .addComponent(layout_header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout_OuterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout_OuterLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JDesktopF)
+                        .addGap(0, 0, 0)
+                        .addComponent(layout_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout_OuterLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
+                        .addGap(31, 31, 31)
+                        .addComponent(layout_profile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(layout_Outer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(layout_Outer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        setSize(new java.awt.Dimension(1245, 788));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void TUserMenuValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_TUserMenuValueChanged
+
+    }//GEN-LAST:event_TUserMenuValueChanged
 
     private void TUserMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TUserMenuMouseClicked
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) TUserMenu.getLastSelectedPathComponent();
@@ -214,20 +363,19 @@ public class Frm_Main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Couldn`t open window: " + ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
             }
         }
-
     }//GEN-LAST:event_TUserMenuMouseClicked
 
-    private void TUserMenuValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_TUserMenuValueChanged
-
-    }//GEN-LAST:event_TUserMenuValueChanged
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ShowHelp();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void butLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLogoutActionPerformed
         Logout();
     }//GEN-LAST:event_butLogoutActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ShowHelp();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void butMinimizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butMinimizeActionPerformed
+        setState(ICONIFIED);
+    }//GEN-LAST:event_butMinimizeActionPerformed
 
     public static void main(String args[]) {
 
@@ -251,12 +399,16 @@ public class Frm_Main extends javax.swing.JFrame {
     public javax.swing.JDesktopPane JDesktopF;
     private javax.swing.JTree TUserMenu;
     private javax.swing.JButton butLogout;
+    private javax.swing.JButton butMinimize;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel layout_Outer;
+    private javax.swing.JPanel layout_footer;
+    private javax.swing.JPanel layout_header;
+    private javax.swing.JPanel layout_profile;
     private javax.swing.JLabel lblCompanyName;
     private javax.swing.JLabel lblUserimg;
     private javax.swing.JLabel lblUsername;
@@ -279,14 +431,8 @@ public class Frm_Main extends javax.swing.JFrame {
         }
         );
 
-      
-
-      
-
     }
-    
-    
-    
+
     private void createUserMenu() {
         TreeMap<String, DefaultMutableTreeNode> NodesMap = new TreeMap<String, DefaultMutableTreeNode>();
         try {
@@ -308,6 +454,7 @@ public class Frm_Main extends javax.swing.JFrame {
                     DefaultMutableTreeNode parent = NodesMap.get(p.getParentid());
                     if (parent != null) {
                         DefaultMutableTreeNode node = new DefaultMutableTreeNode(p);
+                        
                         NodesMap.put(p.getId(), node);
                         parent.add(node);
                     }
@@ -325,28 +472,44 @@ public class Frm_Main extends javax.swing.JFrame {
     private void openWindow(MPermissions p) throws Exception {
 
         JInternalFrame jf = myw.getRequestWindow(p, this);
+        jf.setResizable(true);
         if (jf != null) {
             jf.setFocusCycleRoot(true);
-            jf.setMaximizable(false);
-            jf.setClosable(false);
-            ((javax.swing.plaf.basic.BasicInternalFrameUI) jf.getUI()).setNorthPane(null);
+
+            jf.setClosable(true);
+             jf.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+            //  ((javax.swing.plaf.basic.BasicInternalFrameUI) jf.getUI()).setNorthPane(null);
             jf.setBorder(null);
-            jf.setBounds(0, 0, 868, 630);
+            // jf.setBounds(0, 0, 868, 630);
             jf.addInternalFrameListener(new InternalFrameListener() {
 
                 //[110,147,169]
                 @Override
                 public void internalFrameOpened(InternalFrameEvent e) {
+                    try {
+                        jf.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(Frm_Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
 
                 @Override
                 public void internalFrameClosing(InternalFrameEvent e) {
-                    CurrentFrame = "";
+
+                    int option = JOptionPane.showConfirmDialog(null, "Really want to Close this screen ?", "Close Screen", JOptionPane.YES_NO_OPTION);
+                    if (option == JOptionPane.YES_OPTION) {
+                        //call dispose to really close it
+                        CurrentFrame = "";
+                        CurrentFrameObj=null;
+                      jf.dispose();
+                    }
+
                 }
 
                 @Override
                 public void internalFrameClosed(InternalFrameEvent e) {
                     CurrentFrame = "";
+
                 }
 
                 @Override
@@ -372,9 +535,21 @@ public class Frm_Main extends javax.swing.JFrame {
                 jf.setFocusable(true);
                 jf.moveToFront();
             } else {
+                
+                boolean canRefresh=false;
+                
+                if(CurrentFrameObj!=null && !CurrentFrameObj.getType().equals("TRN")){
+                    canRefresh=true;
+                }
+                
                 CurrentFrame = p.getId();
-                JDesktopF.removeAll();
-                JDesktopF.updateUI();
+                CurrentFrameObj=p;
+                
+                if(canRefresh){
+                 JDesktopF.removeAll();
+                 JDesktopF.updateUI();
+                }
+             
 
                 JDesktopF.add(jf);
 
@@ -434,6 +609,11 @@ public class Frm_Main extends javax.swing.JFrame {
     private void ShowHelp() {
 
         frm_Help.setVisible(true);
+    }
+
+    private void reloadComponents() {
+       layout_footer.setBackground(Color.WHITE);
+       layout_profile.setBackground(Color.WHITE);
     }
 
 }

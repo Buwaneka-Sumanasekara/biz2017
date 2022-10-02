@@ -42,6 +42,7 @@ public class JTreeMenuCellRender implements TreeCellRenderer {
             label.setText("");
             label.setBackground(Color.WHITE);
              label.setForeground(Color.DARK_GRAY);
+             label.setFont(label.getFont().deriveFont(14f));
         } else if (o instanceof MPermissions) {
 
             MPermissions p = (MPermissions) o;

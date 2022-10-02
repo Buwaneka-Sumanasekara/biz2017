@@ -302,7 +302,8 @@ public class C_Units {
     }
     
     public MUnits getBaseUnitIdObj(String UnitGroup)throws Exception{
-        String q="SELECT * FROM  m_units WHERE ID IN(SELECT M_UNITS_ID FROM M_UNITGROUPS_HAS_M_UNITS WHERE BASEUNIT=1) ";
+        String q="SELECT * FROM  m_units WHERE ID IN(SELECT M_UNITS_ID FROM M_UNITGROUPS_HAS_M_UNITS WHERE BASEUNIT=1 AND M_UNITGROUPS_ID='"+UnitGroup+"') ";
+        System.out.println(q);
         ResultSet rs = DB.Search(q);
         MUnits m = null;
         if (rs.next()) {

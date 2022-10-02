@@ -67,8 +67,8 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
         but_UnitSave = new javax.swing.JButton();
         but_UnitSearch = new javax.swing.JButton();
         but_UnitRefresh = new javax.swing.JButton();
-        lblScreenName = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        lblScreenName = new javax.swing.JLabel();
         txt_UnitDescription = new javax.swing.JTextField();
         Chk_Active = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
@@ -99,10 +99,8 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
                 formInternalFrameOpened(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layout_Unit.setBackground(new java.awt.Color(255, 255, 255));
-        layout_Unit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_UnitCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,10 +112,8 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
                 txt_UnitCodeKeyTyped(evt);
             }
         });
-        layout_Unit.add(txt_UnitCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 150, 30));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         but_UnitUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/edit.png"))); // NOI18N
         but_UnitUpdate.setToolTipText("Save");
@@ -128,7 +124,6 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
                 but_UnitUpdateActionPerformed(evt);
             }
         });
-        jPanel2.add(but_UnitUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 40));
 
         but_UnitSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Save.png"))); // NOI18N
         but_UnitSave.setToolTipText("Save");
@@ -139,7 +134,6 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
                 but_UnitSaveActionPerformed(evt);
             }
         });
-        jPanel2.add(but_UnitSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
         but_UnitSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/Search.png"))); // NOI18N
         but_UnitSearch.setToolTipText("Search(F2)");
@@ -150,7 +144,6 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
                 but_UnitSearchActionPerformed(evt);
             }
         });
-        jPanel2.add(but_UnitSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 40, 40));
 
         but_UnitRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
         but_UnitRefresh.setToolTipText("Refresh");
@@ -161,29 +154,46 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
                 but_UnitRefreshActionPerformed(evt);
             }
         });
-        jPanel2.add(but_UnitRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, 40));
 
         lblScreenName.setBackground(new java.awt.Color(153, 255, 51));
         lblScreenName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblScreenName.setText("Name");
-        jPanel2.add(lblScreenName, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 180, 40));
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
+        jPanel3.add(lblScreenName);
 
-        layout_Unit.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
-        layout_Unit.add(txt_UnitDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 260, 30));
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(but_UnitSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(but_UnitUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(but_UnitRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(but_UnitSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(but_UnitSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(but_UnitUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(but_UnitRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(but_UnitSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         Chk_Active.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Chk_ActiveMouseClicked(evt);
             }
         });
-        layout_Unit.add(Chk_Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 180, -1));
 
         jLabel2.setText("Code");
-        layout_Unit.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 110, 30));
 
         jLabel4.setText("Symble");
-        layout_Unit.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 110, 30));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -191,8 +201,6 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
         jLabel5.setForeground(new java.awt.Color(153, 51, 0));
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 770, 40));
-
-        layout_Unit.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 860, 40));
 
         txt_UnitSymble.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,14 +212,75 @@ public class Frm_MUnits extends javax.swing.JInternalFrame implements MyWindowBa
                 txt_UnitSymbleKeyTyped(evt);
             }
         });
-        layout_Unit.add(txt_UnitSymble, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, 150, 30));
 
         jLabel6.setText("Description *");
-        layout_Unit.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 110, 30));
 
-        getContentPane().add(layout_Unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 640));
+        javax.swing.GroupLayout layout_UnitLayout = new javax.swing.GroupLayout(layout_Unit);
+        layout_Unit.setLayout(layout_UnitLayout);
+        layout_UnitLayout.setHorizontalGroup(
+            layout_UnitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout_UnitLayout.createSequentialGroup()
+                .addGroup(layout_UnitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout_UnitLayout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(txt_UnitCode, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout_UnitLayout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(txt_UnitDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout_UnitLayout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(txt_UnitSymble, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout_UnitLayout.createSequentialGroup()
+                        .addGap(240, 240, 240)
+                        .addComponent(Chk_Active, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(302, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout_UnitLayout.setVerticalGroup(
+            layout_UnitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout_UnitLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addGroup(layout_UnitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_UnitCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout_UnitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_UnitDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(layout_UnitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_UnitSymble, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(Chk_Active)
+                .addContainerGap(260, Short.MAX_VALUE))
+        );
 
-        setBounds(0, 0, 867, 668);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(layout_Unit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(layout_Unit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        setBounds(0, 0, 818, 668);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated

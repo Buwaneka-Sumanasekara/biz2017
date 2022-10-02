@@ -161,7 +161,8 @@ public class MyValidator {
     }
     public void validateforFloatingPoints(JTextField tf, KeyEvent evt, int digits_after_Dot,boolean miniusAllow) {
         String text = tf.getText();
-        if (text.equals("")) {
+        if(evt.getKeyCode()!=KeyEvent.VK_BACK_SPACE){
+            if (text.equals("")) {
             if(evt.getKeyChar() == '-'){
                 
             }
@@ -185,6 +186,8 @@ public class MyValidator {
                 }
             }
         }
+        }
+         
     }
 
     /*
