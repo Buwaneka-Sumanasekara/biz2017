@@ -146,7 +146,6 @@ public class Frm_MProSubItems extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layout_Outer.setBackground(new java.awt.Color(255, 255, 255));
         layout_Outer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -154,8 +153,9 @@ public class Frm_MProSubItems extends javax.swing.JDialog {
 
         jLabel1.setText("  Sub Items");
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        layout_Outer.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 40));
+        layout_Outer.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 40));
 
+        tbl_Pro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tbl_Pro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -182,9 +182,18 @@ public class Frm_MProSubItems extends javax.swing.JDialog {
             tbl_Pro.getColumnModel().getColumn(1).setPreferredWidth(280);
         }
 
-        layout_Outer.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 450, 240));
+        layout_Outer.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 650, 370));
 
-        getContentPane().add(layout_Outer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 320));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(layout_Outer, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(layout_Outer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
         setLocationRelativeTo(null);

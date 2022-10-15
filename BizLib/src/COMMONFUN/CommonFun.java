@@ -178,11 +178,15 @@ public class CommonFun {
 
     public String getValueWithComma(double amount) {
 
-        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ROOT);
+        
+       
         DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
 
         symbols.setGroupingSeparator(',');
+
         formatter.setDecimalFormatSymbols(symbols);
+        
         return formatter.format(amount);
     }
 

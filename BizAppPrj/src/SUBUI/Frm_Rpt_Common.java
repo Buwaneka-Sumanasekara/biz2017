@@ -110,9 +110,9 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        lblScreenName = new javax.swing.JLabel();
+        layout_header = new javax.swing.JPanel();
         jpanelq = new javax.swing.JPanel();
+        lblScreenName = new javax.swing.JLabel();
         but_TrnRefresh = new javax.swing.JButton();
         but_TrnPrint = new javax.swing.JButton();
         layout_CusSup = new javax.swing.JPanel();
@@ -123,14 +123,14 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         lbl_LNAME = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         layout_Location = new javax.swing.JPanel();
-        cmb_Loc = new javax.swing.JComboBox<String>();
+        cmb_Loc = new javax.swing.JComboBox<>();
         layout_Period = new javax.swing.JPanel();
         txt_DateF = new com.toedter.calendar.JDateChooser();
         txt_DateT = new com.toedter.calendar.JDateChooser();
         lb_lTo = new javax.swing.JLabel();
-        cmb_Qut = new javax.swing.JComboBox<String>();
+        cmb_Qut = new javax.swing.JComboBox<>();
         layout_Period3 = new javax.swing.JPanel();
-        cmb_Loc2 = new javax.swing.JComboBox<String>();
+        cmb_Loc2 = new javax.swing.JComboBox<>();
         layout_Group = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         chk_GrpSelectAll = new javax.swing.JCheckBox();
@@ -165,19 +165,15 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                 formInternalFrameOpened(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        layout_header.setBackground(new java.awt.Color(204, 204, 204));
 
         lblScreenName.setBackground(new java.awt.Color(153, 255, 51));
         lblScreenName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblScreenName.setText("caption");
-        jPanel2.add(lblScreenName, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 180, 40));
-        jPanel2.add(jpanelq, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 270, 40));
+        jpanelq.add(lblScreenName);
 
         but_TrnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/refresh.png"))); // NOI18N
         but_TrnRefresh.setToolTipText("Refresh");
@@ -188,7 +184,6 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                 but_TrnRefreshActionPerformed(evt);
             }
         });
-        jPanel2.add(but_TrnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
         but_TrnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_print__outline__printer__document__office__computer__networkprinter_2318007 (1).png"))); // NOI18N
         but_TrnPrint.setToolTipText("Cancel(F7)");
@@ -199,9 +194,24 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                 but_TrnPrintActionPerformed(evt);
             }
         });
-        jPanel2.add(but_TrnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 40, 40));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
+        javax.swing.GroupLayout layout_headerLayout = new javax.swing.GroupLayout(layout_header);
+        layout_header.setLayout(layout_headerLayout);
+        layout_headerLayout.setHorizontalGroup(
+            layout_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout_headerLayout.createSequentialGroup()
+                .addComponent(but_TrnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(but_TrnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpanelq, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout_headerLayout.setVerticalGroup(
+            layout_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(but_TrnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(but_TrnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpanelq, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         layout_CusSup.setBackground(new java.awt.Color(255, 255, 255));
         layout_CusSup.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -229,15 +239,11 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         });
         layout_CusSup.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 30, 30));
 
-        jPanel1.add(layout_CusSup, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 460, 80));
-
         layout_Location.setBackground(new java.awt.Color(255, 255, 255));
         layout_Location.setBorder(javax.swing.BorderFactory.createTitledBorder("Location"));
         layout_Location.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layout_Location.add(cmb_Loc, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 30));
-
-        jPanel1.add(layout_Location, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 360, 80));
 
         layout_Period.setBackground(new java.awt.Color(255, 255, 255));
         layout_Period.setBorder(javax.swing.BorderFactory.createTitledBorder("Period"));
@@ -271,19 +277,14 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
 
         layout_Period.add(cmb_Qut, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 30));
 
-        jPanel1.add(layout_Period, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 830, 80));
-
         layout_Period3.setBackground(new java.awt.Color(255, 255, 255));
         layout_Period3.setBorder(javax.swing.BorderFactory.createTitledBorder("Location"));
         layout_Period3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layout_Period3.add(cmb_Loc2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 30));
 
-        jPanel1.add(layout_Period3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 360, 80));
-
         layout_Group.setBackground(new java.awt.Color(255, 255, 255));
         layout_Group.setBorder(javax.swing.BorderFactory.createTitledBorder("Categories"));
-        layout_Group.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -363,8 +364,6 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
         });
         jPanel3.add(but_Grp_Next, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 70, 30));
 
-        layout_Group.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 810, 300));
-
         chkAllGroups.setBackground(new java.awt.Color(255, 255, 255));
         chkAllGroups.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         chkAllGroups.setSelected(true);
@@ -387,13 +386,71 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
                 chkAllGroupsActionPerformed(evt);
             }
         });
-        layout_Group.add(chkAllGroups, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 740, 40));
 
-        jPanel1.add(layout_Group, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 830, 370));
+        javax.swing.GroupLayout layout_GroupLayout = new javax.swing.GroupLayout(layout_Group);
+        layout_Group.setLayout(layout_GroupLayout);
+        layout_GroupLayout.setHorizontalGroup(
+            layout_GroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout_GroupLayout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(chkAllGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout_GroupLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout_GroupLayout.setVerticalGroup(
+            layout_GroupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout_GroupLayout.createSequentialGroup()
+                .addComponent(chkAllGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, 630));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(layout_Period, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(layout_Location, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(layout_Period3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(layout_CusSup, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(layout_Group, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 101, Short.MAX_VALUE))
+            .addComponent(layout_header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(layout_header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(layout_Period, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(layout_Location, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(layout_Period3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(layout_CusSup, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(layout_Group, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        setBounds(0, 0, 886, 665);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        setBounds(0, 0, 957, 665);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
@@ -478,7 +535,6 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
     private javax.swing.JComboBox<String> cmb_Qut;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -488,6 +544,7 @@ public class Frm_Rpt_Common extends javax.swing.JInternalFrame implements MyWind
     private javax.swing.JPanel layout_Location;
     private javax.swing.JPanel layout_Period;
     private javax.swing.JPanel layout_Period3;
+    private javax.swing.JPanel layout_header;
     private javax.swing.JLabel lb_lTo;
     private javax.swing.JLabel lblScreenName;
     private javax.swing.JLabel lbl_CusSup;
