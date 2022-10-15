@@ -308,9 +308,12 @@ public final class Frm_Start extends javax.swing.JDialog {
         ArrayList<TblColumn> ar_20221015_t4 = new ArrayList<>();
         ar_20221015_t4.add(new TblColumn("ID", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t4.add(new TblColumn("CR_DATE", "DATETIME", "NOT NULL"));
+        ar_20221015_t4.add(new TblColumn("CR_BY", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t4.add(new TblColumn("CUS_ID", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t4.add(new TblColumn("AMOUNT", "DOUBLE", "DEFAULT '0'"));
         ar_20221015_t4.add(new TblColumn("NOTE", "LONGTEXT", ""));
+        ar_20221015_t4.add(new TblColumn("PAY_HED", "VARCHAR(5)", "NOT NULL"));
+        ar_20221015_t4.add(new TblColumn("PAY_DET", "VARCHAR(5)", "NOT NULL"));
         ar_20221015_t4.add(new TblColumn("ACTIVE", "TINYINT", "DEFAULT '1'"));
         ArrayList<String> ar_20221015_t4PK = new ArrayList<>();
         Structure str_20221015_t4 = new Structure(20221015, "t_crd_settlement_cus", ar_20221015_t4, ar_20221015_t4PK);
@@ -319,9 +322,12 @@ public final class Frm_Start extends javax.swing.JDialog {
         ArrayList<TblColumn> ar_20221015_t5 = new ArrayList<>();
         ar_20221015_t5.add(new TblColumn("ID", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t5.add(new TblColumn("CR_DATE", "DATETIME", "NOT NULL"));
+        ar_20221015_t5.add(new TblColumn("CR_BY", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t5.add(new TblColumn("SUP_ID", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t5.add(new TblColumn("AMOUNT", "DOUBLE", "DEFAULT '0'"));
         ar_20221015_t5.add(new TblColumn("NOTE", "LONGTEXT", ""));
+        ar_20221015_t5.add(new TblColumn("PAY_HED", "VARCHAR(5)", "NOT NULL"));
+        ar_20221015_t5.add(new TblColumn("PAY_DET", "VARCHAR(5)", "NOT NULL"));
         ar_20221015_t5.add(new TblColumn("ACTIVE", "TINYINT", "DEFAULT '1'"));
         ArrayList<String> ar_20221015_t5PK = new ArrayList<>();
         Structure str_20221015_t5 = new Structure(20221015, "t_crd_settlement_sup", ar_20221015_t5, ar_20221015_t5PK);
