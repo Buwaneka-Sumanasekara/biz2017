@@ -7,6 +7,7 @@ package CONTROLLERS;
 
 import COMMONFUN.CommonFun;
 import DB_ACCESS.DB;
+import MODELS.MCreditPayee;
 import MODELS.MCustomer;
 import MODELS.MGiftVoucher;
 import MODELS.MLocation;
@@ -17,6 +18,7 @@ import MODELS.TStockmst;
 import MODELS.TStockpayments;
 import MODELS.UTransactions;
 import QUERYBUILDER.QueryGen;
+import VALIDATIONS.MyValidator;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -113,7 +115,7 @@ public class C_TransactionCom {
 
     public TStockmst getStockHed(String TrnNo, UTransactions TrnTyp) throws Exception {
         String q = "SELECT * FROM T_STOCKMST WHERE ID='" + TrnNo + "' AND TRNTYPE='" + TrnTyp.getTrntype() + "' ";
-        // System.out.println(q);
+
         ResultSet rs = DB.Search(q);
 
         TStockmst sthed = null;
@@ -257,12 +259,25 @@ public class C_TransactionCom {
         return batch;
     }
 
-    public void trn_RunUpdateCreditBalance(String code,String crdType)throws Exception{
-        String q="CALL strp_UpdateCreditBalance('"+code+"','"+crdType+"')";
+    public void trn_RunUpdateCreditBalance(String code, String crdType) throws Exception {
+        String q = "CALL strp_UpdateCreditBalance('" + code + "','" + crdType + "')";
         DB.Save(q);
     }
-    
-    public String saveTransaction(UTransactions trnSetup,TStockmst hedc, ArrayList<TStockline> det, ArrayList<TStockpayments> paydet) throws Exception {
+
+    public boolean checkEligebleToPay(MCreditPayee creditPayee, double amount) throws Exception {
+        boolean isEligable = false;
+        if (creditPayee.getCreditLimit() >= 0) {
+            double eligableAmount = creditPayee.getCreditLimit() - creditPayee.getCreditBalance();
+            if (eligableAmount < amount) {
+                throw new Exception("Credit limit exceeds, eligable only " + cf.getValueWithComma(eligableAmount));
+            } else {
+                isEligable = true;
+            }
+        }
+        return isEligable;
+    }
+
+    public String saveTransaction(UTransactions trnSetup, TStockmst hedc, ArrayList<TStockline> det, ArrayList<TStockpayments> paydet) throws Exception {
         String TrnNo = "";
         Connection c = null;
         try {
@@ -286,6 +301,15 @@ public class C_TransactionCom {
                 hed.setId(getNxtTrnNo(hed.getUTransactions().getTrntype(), "" + (hed.getMLocationByMLocationSource() != null ? hed.getMLocationByMLocationSource().getId() : 0), hed.getTerminalId()));
             }
 
+//            if (trnSetup.getEnableCredit() == 1) {
+//                String crdType = trnSetup.getCreditType();
+//                if (crdType.equals("CUS")) {
+//                    trn_RunUpdateCreditBalance(hed.getMCustomer().getId(), "CUS");
+//                } else if (crdType.equals("SUP")) {
+//                    trn_RunUpdateCreditBalance(hed.getMSupplier().getId(), "SUP");
+//                }
+//
+//            }
             c = DB.getCurrentCon();
             c.setAutoCommit(false);
 
@@ -427,11 +451,28 @@ public class C_TransactionCom {
                     payMap.put("UTILIZED", "'" + pay.getUtilized() + "'");
 
                     //credit validation
-                    
+                    if (trnSetup.getEnableCredit() == 1) {
+
+                        if (trnSetup.getEnableCredit() == 1 && pay.getMPayHedId().equals("CRD")) {
+
+                            MCreditPayee crdPayee = null;
+                            if (trnSetup.getCreditType().equals("CUS")) {
+                                crdPayee = CCustomer.getCustomer(hed.getMCustomer().getId());
+
+                            } else if (trnSetup.getCreditType().equals("CUS")) {
+                                crdPayee = CSupplier.getSupplier(hed.getMSupplier().getId());
+
+                            }
+                            boolean checkEligebleToPay = checkEligebleToPay(crdPayee, pay.getAmount());
+                            if (checkEligebleToPay) {
+                                payMap.put("CREDIT_TYPE", "'" + trnSetup.getCreditType() + "'");
+                                payMap.put("PAYEE_ID", "'" + crdPayee.getId() + "'");
+                            }
+
+                        }
+                    }
                     //End:credit validation
-                    
-                    
-                    
+
                     String q = qg.SaveRecord("T_STOCKPAYMENTS", payMap);
                     DB.Save(q);
 
@@ -467,6 +508,16 @@ public class C_TransactionCom {
 
             TrnNo = hed.getId();
             c.commit();
+
+            if (trnSetup.getEnableCredit() == 1) {
+                String crdType = trnSetup.getCreditType();
+                if (crdType.equals("CUS")) {
+                    trn_RunUpdateCreditBalance(hed.getMCustomer().getId(), "CUS");
+                } else if (crdType.equals("SUP")) {
+                    trn_RunUpdateCreditBalance(hed.getMSupplier().getId(), "SUP");
+                }
+
+            }
 
         } catch (Exception e) {
             TrnNo = "";

@@ -19,10 +19,17 @@ public class MCustomer  implements java.io.Serializable,MCreditPayee {
     private Double creditLimit;
     private Double creditBalance;
 
+ 
+
+    public MCustomer() {
+    }
+	
+       @Override
     public Double getCreditLimit() {
         return creditLimit;
     }
 
+     @Override
     public void setCreditLimit(Double creditLimit) {
         this.creditLimit = creditLimit;
     }
@@ -31,19 +38,17 @@ public class MCustomer  implements java.io.Serializable,MCreditPayee {
         return creditBalance;
     }
 
+     @Override
     public void setCreditBalance(Double creditBalance) {
         this.creditBalance = creditBalance;
     }
-
-    public MCustomer() {
-    }
-	
    
-   
+     @Override
     public String getId() {
         return this.id;
     }
     
+     @Override
     public void setId(String id) {
         this.id = id;
     }

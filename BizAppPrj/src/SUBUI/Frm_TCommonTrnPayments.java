@@ -10,8 +10,10 @@ import COMMONFUN.TblPayment;
 import CONTROLLERS.C_Payments;
 import CONTROLLERS.C_TransactionCom;
 import MAIN.Frm_Main;
+import MODELS.MCustomer;
 import MODELS.MPaydet;
 import MODELS.MPaymst;
+import MODELS.MSupplier;
 import MODELS.TStockline;
 import MODELS.TStockmst;
 import MODELS.TStockpayments;
@@ -107,11 +109,24 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             panel_credit.setVisible(true);
 
             if (TrnSetup.getCreditType().equals("CUS")) {
-                txt_creditbalance.setText(cf.getValueWithComma(hed.getMCustomer().getCreditBalance()));
-                txr_credit_limit.setText(cf.getValueWithComma(hed.getMCustomer().getCreditLimit()));
+                MCustomer mCustomer = hed.getMCustomer();
+                if (mCustomer != null) {
+                    txt_creditbalance.setText(cf.getValueWithComma(mCustomer.getCreditBalance()));
+                    txr_credit_limit.setText(cf.getValueWithComma(mCustomer.getCreditLimit()));
+                    txtPayeeName.setText(mCustomer.getName());
+                } else {
+                    panel_credit.setVisible(false);
+                }
+
             } else if (TrnSetup.getCreditType().equals("SUP")) {
-                txt_creditbalance.setText(cf.getValueWithComma(hed.getMSupplier().getCreditBalance()));
-                txr_credit_limit.setText(cf.getValueWithComma(hed.getMSupplier().getCreditLimit()));
+                MSupplier mSupplier = hed.getMSupplier();
+                if (mSupplier != null) {
+                    txt_creditbalance.setText(cf.getValueWithComma(mSupplier.getCreditBalance()));
+                    txr_credit_limit.setText(cf.getValueWithComma(mSupplier.getCreditLimit()));
+                    txtPayeeName.setText(mSupplier.getName());
+                } else {
+                    panel_credit.setVisible(false);
+                }
             }
 
         } else {
@@ -142,8 +157,9 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         panel_credit = new javax.swing.JPanel();
         txt_creditbalance = new javax.swing.JLabel();
         txr_credit_limit = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        txtPayeeName = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         lbl_Global_Instructions = new javax.swing.JLabel();
         lbl_due = new javax.swing.JLabel();
         lbl_ToPay = new javax.swing.JLabel();
@@ -263,21 +279,25 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         txt_creditbalance.setForeground(new java.awt.Color(255, 0, 0));
         txt_creditbalance.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         txt_creditbalance.setText("0.0");
-        panel_credit.add(txt_creditbalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 190, -1));
+        panel_credit.add(txt_creditbalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 190, -1));
 
         txr_credit_limit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txr_credit_limit.setForeground(new java.awt.Color(255, 51, 51));
         txr_credit_limit.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         txr_credit_limit.setText("0.0");
-        panel_credit.add(txr_credit_limit, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 180, 20));
+        panel_credit.add(txr_credit_limit, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 180, 20));
 
-        jLabel7.setText("Credit Balance");
-        panel_credit.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, -1, 20));
+        txtPayeeName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtPayeeName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        panel_credit.add(txtPayeeName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 400, 50));
 
         jLabel8.setText("limit");
-        panel_credit.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 30, -1));
+        panel_credit.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 30, -1));
 
-        jPanel3.add(panel_credit, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 430, 60));
+        jLabel9.setText("Credit Balance");
+        panel_credit.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, -1, 20));
+
+        jPanel3.add(panel_credit, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 430, 170));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -656,8 +676,6 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
                 }
 
-               
-
                 loadSubPayModes();
 
             } catch (Exception ex) {
@@ -797,8 +815,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -812,6 +830,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     private javax.swing.JPanel panel_credit;
     private javax.swing.JTable tblPayment;
     private javax.swing.JLabel txr_credit_limit;
+    private javax.swing.JLabel txtPayeeName;
     private javax.swing.JTextField txt_Amount;
     private com.toedter.calendar.JDateChooser txt_DateF;
     private javax.swing.JTextField txt_RefNo;
@@ -897,14 +916,12 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
     private void RefreshScreen() {
         try {
-       
+
             lbl_ToPay.setText("" + cf.getValueWithComma(hed.getNetamount()));
             lbl_Payment.setText("0.0");
             lbl_Balance.setText("0.0");
             lbl_due.setText("" + cf.getValueWithComma(hed.getNetamount()));
             txt_DateF.setVisible(false);
-
-           
 
             int eftAmtindex = 4;
             //tblPayment.getColumnModel().getColumn(eftAmtindex).setMinWidth(0);
@@ -915,14 +932,14 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             txt_RefNo.setVisible(false);
             DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
             dtm.setRowCount(0);
-            
+
             Vector<MPaymst> payMstAll = C_Payment.getPayMstAll(TrnSetup);
-            
+
             cmb_PayHed.setModel(new DefaultComboBoxModel(payMstAll));
             clearPaymentBox();
             txt_Amount.grabFocus();
         } catch (Exception ex) {
-             Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -952,6 +969,10 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                 }
             }
 
+            if (mst.getId().equals("CRD")) {
+                c_trn.checkEligebleToPay((TrnSetup.getCreditType().equals("CUS") ? hed.getMCustomer() : hed.getMSupplier()), Amount);
+            }
+
             Date eftDatee = (txt_DateF.isVisible() ? txt_DateF.getDate() : new Date());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String eftdate = sdf.format(eftDatee);
@@ -964,6 +985,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             v.add(Amount);
             v.add(eftamt);
             v.add(eftdate);
+
             dtm.addRow(v);
             clearPaymentBox();
             calculateTotal();
@@ -1151,7 +1173,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                 Vector<MPaydet> v = C_Payment.getPayDet(mst.getId());
                 cmb_PayDet.setModel(new DefaultComboBoxModel(v));
 
-                 refreshCreditPanel();
+                refreshCreditPanel();
 
                 if (v.size() > 0) {
                     cmb_PayDet.setVisible(true);

@@ -10,5 +10,16 @@ package MODELS;
  * @author sular
  */
 public interface MCreditPayee {
-    
+
+    public Double getCreditLimit();
+
+    public void setCreditLimit(Double creditLimit);
+
+    public Double getCreditBalance();
+
+    public void setCreditBalance(Double creditBalance);
+
+    public String getId();
+
+    public void setId(String id);
 }
