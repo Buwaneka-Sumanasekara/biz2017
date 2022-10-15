@@ -5,7 +5,6 @@
  */
 package SUBUI;
 
-
 import COMMONFUN.CommonFun;
 import CONTROLLERS.C_Customers;
 import DB_ACCESS.DB;
@@ -34,13 +33,13 @@ import javax.swing.KeyStroke;
  * @author HOME
  */
 public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindowBasicControllers {
-
+    
     Frm_Table ft = null;
     C_Customers m = null;
     Frm_Main mainW = null;
     MyValidator fv = null;
     CommonFun comf = new CommonFun();
-
+    
     public Frm_MCustomer(Frm_Main mainw, String ScreenName) {
         initComponents();
         this.setTitle(ScreenName);
@@ -89,6 +88,12 @@ public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindo
         txt_CusAdd1 = new javax.swing.JTextField();
         txt_CusAdd2 = new javax.swing.JTextField();
         txt_CusAdd3 = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        txtCreditLimit = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtCreditBalance = new javax.swing.JTextField();
+        chk_unlimited_credit = new javax.swing.JCheckBox();
 
         setClosable(true);
         setTitle("caption");
@@ -203,12 +208,21 @@ public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindo
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Address");
         jLabel1.setToolTipText("");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Code");
 
-        jLabel4.setText("Description *");
+        txt_CusAddNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_CusAddNoActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Name *");
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -232,12 +246,19 @@ public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindo
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Contact");
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Mobile");
 
         jLabel10.setText("City");
 
+        txt_CusAdd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_CusAdd1ActionPerformed(evt);
+            }
+        });
         txt_CusAdd1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_CusAdd1KeyReleased(evt);
@@ -265,60 +286,130 @@ public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindo
             }
         });
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Credit"));
+
+        txtCreditLimit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtCreditLimit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCreditLimit.setText("0");
+        txtCreditLimit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCreditLimitKeyTyped(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setText("Credit Limit");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setText("Credit Balance");
+
+        txtCreditBalance.setEditable(false);
+        txtCreditBalance.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtCreditBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCreditBalance.setText("0");
+
+        chk_unlimited_credit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        chk_unlimited_credit.setText("No Credit limit");
+        chk_unlimited_credit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                chk_unlimited_creditMouseClicked(evt);
+            }
+        });
+        chk_unlimited_credit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chk_unlimited_creditActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chk_unlimited_credit)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtCreditBalance, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                        .addComponent(txtCreditLimit)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(chk_unlimited_credit)
+                .addGap(18, 18, 18)
+                .addComponent(txtCreditLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCreditBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(txt_CusCode, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(txt_CusDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(txt_CusAddNo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(190, 190, 190)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(320, 320, 320)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(txt_CusAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_CusAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(txt_CusAdd3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_CusContact, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Chk_Active, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_CusMobile)))))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(50, 50, 50)
+                                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txt_CusAddNo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(3, 3, 3)
+                                                .addComponent(txt_CusAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(40, 40, 40)
+                                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txt_CusAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Chk_Active, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_CusMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_CusContact, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_CusAdd3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(txt_CusCode, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(txt_CusDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(139, 139, 139)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,42 +419,48 @@ public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindo
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_CusCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_CusDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(49, 49, 49))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_CusCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_CusDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(30, 30, 30))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txt_CusAddNo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_CusAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(1, 1, 1)
+                        .addComponent(txt_CusAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_CusAdd3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_CusAddNo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_CusAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_CusAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_CusAdd3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_CusContact, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_CusMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addComponent(Chk_Active)
-                .addContainerGap(140, Short.MAX_VALUE))
+                            .addComponent(txt_CusContact, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_CusMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(Chk_Active)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -384,7 +481,7 @@ public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindo
         Vector<String> col = new Vector<>();
         col.add("Code");
         col.add("Des");
-
+        
         String[] SQL_Col = {"ID", "NAME"};
         String SQL = "select ID,NAME from M_CUSTOMER ";
         String SQLWhere = " ACTIVE=1 AND ";
@@ -395,10 +492,10 @@ public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindo
             Logger.getLogger(Frm_MCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ft == null) {
-
+            
             ft = new Frm_Table(txt_CusCode, currentCon, col, SQL_Col, SQL, SQLWhere);
             ft.setVisible(true);
-
+            
         } else {
             ft = null;
             ft = new Frm_Table(txt_CusCode, currentCon, col, SQL_Col, SQL, SQLWhere);
@@ -416,27 +513,27 @@ public class Frm_MCustomer extends javax.swing.JInternalFrame implements MyWindo
     }//GEN-LAST:event_Chk_ActiveMouseClicked
 
     private void txt_CusCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CusCodeActionPerformed
-loadCustomer();
+        loadCustomer();
     }//GEN-LAST:event_txt_CusCodeActionPerformed
 
     private void but_CusSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_CusSaveActionPerformed
-SaveProcess();
+        SaveProcess();
     }//GEN-LAST:event_but_CusSaveActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-txt_CusCode.grabFocus();
+        txt_CusCode.grabFocus();
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-txt_CusCode.grabFocus();
+        txt_CusCode.grabFocus();
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void but_CusUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_CusUpdateActionPerformed
-EditMode();
+        EditMode();
     }//GEN-LAST:event_but_CusUpdateActionPerformed
 
     private void txt_CusCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_CusCodeKeyTyped
-fv.NumbersOnly(txt_CusCode, evt);
+        fv.NumbersOnly(txt_CusCode, evt);
     }//GEN-LAST:event_txt_CusCodeKeyTyped
 
     private void txt_CusContactKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_CusContactKeyReleased
@@ -471,6 +568,32 @@ fv.NumbersOnly(txt_CusCode, evt);
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_CusAdd3KeyTyped
 
+    private void txtCreditLimitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCreditLimitKeyTyped
+        fv.validateforFloatingPoints(txtCreditLimit, evt, 2);        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCreditLimitKeyTyped
+
+    private void chk_unlimited_creditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_unlimited_creditActionPerformed
+
+    }//GEN-LAST:event_chk_unlimited_creditActionPerformed
+
+    private void chk_unlimited_creditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chk_unlimited_creditMouseClicked
+        
+        txtCreditLimit.setVisible(!chk_unlimited_credit.isSelected());
+        
+         if(!chk_unlimited_credit.isSelected()){
+          txtCreditLimit.setText("0.0");
+        }
+        
+    }//GEN-LAST:event_chk_unlimited_creditMouseClicked
+
+    private void txt_CusAddNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CusAddNoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_CusAddNoActionPerformed
+
+    private void txt_CusAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CusAdd1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_CusAdd1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Chk_Active;
@@ -478,8 +601,11 @@ fv.NumbersOnly(txt_CusCode, evt);
     private javax.swing.JButton but_CusSave;
     private javax.swing.JButton but_CusSearch;
     private javax.swing.JButton but_CusUpdate;
+    private javax.swing.JCheckBox chk_unlimited_credit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -491,8 +617,11 @@ fv.NumbersOnly(txt_CusCode, evt);
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jpanelq;
     private javax.swing.JLabel lblScreenName;
+    private javax.swing.JTextField txtCreditBalance;
+    private javax.swing.JTextField txtCreditLimit;
     private javax.swing.JTextField txt_CusAdd1;
     private javax.swing.JTextField txt_CusAdd2;
     private javax.swing.JTextField txt_CusAdd3;
@@ -507,7 +636,7 @@ fv.NumbersOnly(txt_CusCode, evt);
     public void SaveProcess() {
         try {
             if (!txt_CusDescription.getText().equals("")) {
-
+                
                 int state = JOptionPane.showConfirmDialog(rootPane, "Do you want to Save/Update ?", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
                 if (state == JOptionPane.YES_OPTION) {
                     if (!txt_CusCode.getText().equals("")) {
@@ -523,13 +652,21 @@ fv.NumbersOnly(txt_CusCode, evt);
                             obj.setAdd3(txt_CusAdd3.getText());
                             obj.setMobile(txt_CusMobile.getText());
                             obj.setContact(txt_CusContact.getText());
+                            
+                            if (chk_unlimited_credit.isSelected()) {
+                                obj.setCreditLimit(-1.0);
+                            } else {
+                                String creditLimit = txtCreditLimit.getText();
+                                obj.setCreditLimit(Double.parseDouble(((creditLimit.equals("") || creditLimit.equals(null)) ? "0" : creditLimit)));
+                            }
+                            
                             if (Chk_Active.isSelected()) {
                                 obj.setActive((byte) 1);
                             } else {
                                 obj.setActive((byte) 0);
                             }
                             int UpdateCustomer = m.UpdateCustomer(obj);
-
+                            
                             JOptionPane.showMessageDialog(rootPane, "Customer Updated Sucessfully!", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
                             Refresh();
                         }
@@ -545,6 +682,14 @@ fv.NumbersOnly(txt_CusCode, evt);
                             obj.setAdd3(txt_CusAdd3.getText());
                             obj.setMobile(txt_CusMobile.getText());
                             obj.setContact(txt_CusContact.getText());
+                            
+                            if (chk_unlimited_credit.isSelected()) {
+                                obj.setCreditLimit(-1.0);
+                            } else {
+                                String creditLimit = txtCreditLimit.getText();
+                                obj.setCreditLimit(Double.parseDouble(((creditLimit.equals("") || creditLimit.equals(null)) ? "0" : creditLimit)));
+                            }
+                            
                             if (Chk_Active.isSelected()) {
                                 obj.setActive((byte) 1);
                             } else {
@@ -556,11 +701,11 @@ fv.NumbersOnly(txt_CusCode, evt);
                                 Refresh();
                             } else {
                                 JOptionPane.showMessageDialog(rootPane, "This Customer couldn`t Save", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
-
+                                
                             }
                         } else {
                             JOptionPane.showMessageDialog(rootPane, "This Customer is Already Available!", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.WARNING_MESSAGE);
-
+                            
                         }
                     }
                 }
@@ -572,17 +717,17 @@ fv.NumbersOnly(txt_CusCode, evt);
             JOptionPane.showMessageDialog(rootPane, "Couldnt Save/Update due to:" + ex.getMessage(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     @Override
     public void EditMode() {
-        JComponent[] DisCom = {but_CusSave,but_CusUpdate, but_CusSearch, txt_CusCode};
-        JComponent[] EnCom = {but_CusSave, butCusRefresh, txt_CusDescription, txt_CusMobile, txt_CusContact, txt_CusAddNo, txt_CusAdd1,txt_CusAdd2,txt_CusAdd3, Chk_Active};
+        JComponent[] DisCom = {but_CusSave, but_CusUpdate, but_CusSearch, txt_CusCode};
+        JComponent[] EnCom = {but_CusSave, butCusRefresh, txt_CusDescription, txt_CusMobile, txt_CusContact, txt_CusAddNo,chk_unlimited_credit, txt_CusAdd1, txt_CusAdd2, txt_CusAdd3, Chk_Active, txtCreditLimit};
         setDisableEnableComponents(EnCom, DisCom);
     }
-
+    
     @Override
-    public void Refresh() {      
- 
+    public void Refresh() {
+        
         txt_CusCode.setText("");
         txt_CusDescription.setText("");
         txt_CusAddNo.setText("");
@@ -593,15 +738,20 @@ fv.NumbersOnly(txt_CusCode, evt);
         txt_CusContact.setText("");
         txt_CusCode.setFocusable(true);
         txt_CusCode.grabFocus();
-
+        
         Chk_Active.setText("Active");
         Chk_Active.setSelected(true);
-
-        JComponent[] EnCom = {but_CusSearch, but_CusSave,txt_CusCode, txt_CusDescription, txt_CusMobile, txt_CusContact, txt_CusAddNo, txt_CusAdd1,txt_CusAdd2,txt_CusAdd3, Chk_Active};
+        
+        txtCreditLimit.setVisible(!chk_unlimited_credit.isSelected());
+        
+        txtCreditBalance.setText("0.0");
+        txtCreditLimit.setText("0.0");
+        
+        JComponent[] EnCom = {but_CusSearch, but_CusSave, txt_CusCode,chk_unlimited_credit, txt_CusDescription, txt_CusMobile, txt_CusContact, txt_CusAddNo, txt_CusAdd1, txt_CusAdd2, txt_CusAdd3, Chk_Active, txtCreditLimit};
         JComponent[] DisCom = {but_CusUpdate};
         setDisableEnableComponents(EnCom, DisCom);
     }
-
+    
     public void setShortCutKeys(JInternalFrame f) {
         String exit = "exit";
         InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -611,10 +761,10 @@ fv.NumbersOnly(txt_CusCode, evt);
             public void actionPerformed(ActionEvent e) {
                 exit();
             }
-
+            
         }
         );
-
+        
         String Search = "Search";
         InputMap inputMap1 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap1.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), Search);
@@ -623,10 +773,10 @@ fv.NumbersOnly(txt_CusCode, evt);
             public void actionPerformed(ActionEvent e) {
                 SearchMode();
             }
-
+            
         }
         );
-
+        
         String Save = "Save";
         InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), Save);
@@ -635,10 +785,10 @@ fv.NumbersOnly(txt_CusCode, evt);
             public void actionPerformed(ActionEvent e) {
                 SaveProcess();
             }
-
+            
         }
         );
-
+        
         String Edit = "Edit";
         InputMap inputMap3 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap3.put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), Edit);
@@ -647,10 +797,10 @@ fv.NumbersOnly(txt_CusCode, evt);
             public void actionPerformed(ActionEvent e) {
                 EditMode();
             }
-
+            
         }
         );
-
+        
         String Refresh = "Refresh";
         InputMap inputMap4 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap4.put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), Refresh);
@@ -659,24 +809,24 @@ fv.NumbersOnly(txt_CusCode, evt);
             public void actionPerformed(ActionEvent e) {
                 Refresh();
             }
-
+            
         }
         );
-
+        
     }
-
+    
     private void exit() {
-
+        
         try {
             this.setClosed(true);
             mainW.CurrentFrame = "";
-
+            
         } catch (PropertyVetoException ex) {
             Logger.getLogger(Frm_MCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     @Override
     public void setDisableEnableComponents(JComponent[] EnComlist, JComponent[] DisComlist) {
         for (JComponent c : DisComlist) {
@@ -685,16 +835,17 @@ fv.NumbersOnly(txt_CusCode, evt);
         for (JComponent c : EnComlist) {
             c.setEnabled(true);
         }
-
+        
     }
-
+    
     @Override
     public void SearchMode() {
-                Vector<String> col = new Vector<>();
+        Vector<String> col = new Vector<>();
         col.add("Code");
         col.add("Des");
-
-        String[] SQL_Col = {"ID", "NAME"};
+        col.add("Credit Balance");
+        
+        String[] SQL_Col = {"ID", "NAME", "CREDIT_BALANCE"};
         String SQL = "select ID,NAME from M_CUSTOMER ";
         String SQLWhere = "";
         Connection currentCon = null;
@@ -704,23 +855,24 @@ fv.NumbersOnly(txt_CusCode, evt);
             Logger.getLogger(Frm_MSupplier.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ft == null) {
-
+            
             ft = new Frm_Table(txt_CusCode, currentCon, col, SQL_Col, SQL, SQLWhere);
             ft.setVisible(true);
-
+            
         } else {
             ft = null;
             ft = new Frm_Table(txt_CusCode, currentCon, col, SQL_Col, SQL, SQLWhere);
             ft.setFocusable(true);
             ft.setVisible(true);
         }
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-private void loadCustomer() {
+    
+    private void loadCustomer() {
         if (!txt_CusCode.getText().equals("")) {
             try {
                 MCustomer Cus = m.getCustomer(txt_CusCode.getText());
-
+                
                 if (Cus != null) {
                     
                     txt_CusDescription.setText(Cus.getName());
@@ -730,6 +882,10 @@ private void loadCustomer() {
                     txt_CusAdd3.setText(Cus.getAdd3());
                     txt_CusMobile.setText(Cus.getMobile());
                     txt_CusContact.setText(Cus.getContact());
+                    txtCreditBalance.setText("" + Cus.getCreditBalance());
+                    txtCreditLimit.setText("" + Cus.getCreditLimit());
+                    chk_unlimited_credit.setSelected(Cus.getCreditLimit()<0);
+                    txtCreditLimit.setVisible(!chk_unlimited_credit.isSelected());
                     
                     if (Cus.getActive() == 1) {
                         Chk_Active.setSelected(true);
@@ -737,9 +893,9 @@ private void loadCustomer() {
                         Chk_Active.setSelected(false);
                     }
                     JComponent[] EnCom = {but_CusSave, but_CusUpdate, butCusRefresh};
-                    JComponent[] DisCom = {but_CusSearch,txt_CusCode, txt_CusDescription, txt_CusMobile, txt_CusContact, txt_CusAddNo, txt_CusAdd1,txt_CusAdd2,txt_CusAdd3, Chk_Active};
+                    JComponent[] DisCom = {but_CusSearch, txt_CusCode, txt_CusDescription, txt_CusMobile, txt_CusContact, txt_CusAddNo, txt_CusAdd1, txt_CusAdd2, txt_CusAdd3, Chk_Active, txtCreditLimit,chk_unlimited_credit};
                     setDisableEnableComponents(EnCom, DisCom);
-
+                    
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No Customer found for given ID :" + txt_CusCode.getText(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
                     Refresh();
@@ -748,7 +904,7 @@ private void loadCustomer() {
                 JOptionPane.showMessageDialog(rootPane, "Unable to find Customer by given code:" + txt_CusCode.getText(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
                 Refresh();
             }
-
+            
         }
     }
 }

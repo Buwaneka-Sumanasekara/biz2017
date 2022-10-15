@@ -40,8 +40,6 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
     MyValidator fv = null;
     CommonFun comf = new CommonFun();
 
-    
-    
     public Frm_MSupplier(Frm_Main mainw, String ScreenName) {
         initComponents();
         this.setTitle(ScreenName);
@@ -73,7 +71,6 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
         lblScreenName = new javax.swing.JLabel();
         txt_SupDescription = new javax.swing.JTextField();
         Chk_Active = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txt_SupContact = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -85,6 +82,13 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
         txt_SupMobile = new javax.swing.JTextField();
         txt_SupAddress = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        txtCreditLimit = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        txtCreditBalance = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        chk_unlimited_credit = new javax.swing.JCheckBox();
+        jLabel8 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("caption");
@@ -181,7 +185,7 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
                 .addComponent(butSupRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(but_SupSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 477, Short.MAX_VALUE)
                 .addComponent(jpanelq, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -199,8 +203,7 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
             }
         });
 
-        jLabel1.setText("Contact Number");
-
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Code");
 
         txt_SupContact.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -212,7 +215,8 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
             }
         });
 
-        jLabel4.setText("Description *");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Name *");
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -221,8 +225,10 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 740, 40));
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Contact Person");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Mobile Number");
 
         txt_SupMobile.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -234,7 +240,78 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Address");
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Credit"));
+
+        txtCreditLimit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtCreditLimit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCreditLimit.setText("0");
+        txtCreditLimit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCreditLimitKeyTyped(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Credit Limit");
+
+        txtCreditBalance.setEditable(false);
+        txtCreditBalance.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtCreditBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCreditBalance.setText("0");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("Credit Balance");
+
+        chk_unlimited_credit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        chk_unlimited_credit.setText("No Credit limit");
+        chk_unlimited_credit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                chk_unlimited_creditMouseClicked(evt);
+            }
+        });
+        chk_unlimited_credit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chk_unlimited_creditActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chk_unlimited_credit)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtCreditBalance, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                        .addComponent(txtCreditLimit)))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(chk_unlimited_credit)
+                .addGap(18, 18, 18)
+                .addComponent(txtCreditLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCreditBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(109, Short.MAX_VALUE))
+        );
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Contact Number");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -244,39 +321,38 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(txt_SupCode, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(txt_SupDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(txt_SupContactPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(txt_SupContact, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(txt_SupMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(txt_SupAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(240, 240, 240)
-                        .addComponent(Chk_Active, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Chk_Active, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(txt_SupContactPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(txt_SupContact, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(txt_SupMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(txt_SupAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(txt_SupCode, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(txt_SupDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(90, 90, 90)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(58, 58, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -287,31 +363,34 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_SupCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_SupDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_SupContactPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_SupContact, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_SupMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_SupAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_SupCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_SupDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_SupContactPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_SupContact, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_SupMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_SupAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addComponent(Chk_Active)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -371,20 +450,38 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
     }//GEN-LAST:event_txt_SupCodeKeyTyped
 
     private void txt_SupContactKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SupContactKeyReleased
-          
+
     }//GEN-LAST:event_txt_SupContactKeyReleased
 
     private void txt_SupMobileKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SupMobileKeyReleased
-    
+
     }//GEN-LAST:event_txt_SupMobileKeyReleased
 
     private void txt_SupContactKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SupContactKeyTyped
-      fv.NumbersOnly(txt_SupContact,10, evt);
+        fv.NumbersOnly(txt_SupContact, 10, evt);
     }//GEN-LAST:event_txt_SupContactKeyTyped
 
     private void txt_SupMobileKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SupMobileKeyTyped
-         fv.NumbersOnly(txt_SupMobile,10, evt);
+        fv.NumbersOnly(txt_SupMobile, 10, evt);
     }//GEN-LAST:event_txt_SupMobileKeyTyped
+
+    private void txtCreditLimitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCreditLimitKeyTyped
+        fv.validateforFloatingPoints(txtCreditLimit, evt, 2);        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCreditLimitKeyTyped
+
+    private void chk_unlimited_creditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chk_unlimited_creditMouseClicked
+
+        txtCreditLimit.setVisible(!chk_unlimited_credit.isSelected());
+        
+       if(!chk_unlimited_credit.isSelected()){
+          txtCreditLimit.setText("0.0");
+        }
+        
+    }//GEN-LAST:event_chk_unlimited_creditMouseClicked
+
+    private void chk_unlimited_creditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_unlimited_creditActionPerformed
+
+    }//GEN-LAST:event_chk_unlimited_creditActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -393,18 +490,24 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
     private javax.swing.JButton but_SupSave;
     private javax.swing.JButton but_SupSearch;
     private javax.swing.JButton but_SupUpdate;
+    private javax.swing.JCheckBox chk_unlimited_credit;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jpanelq;
     private javax.swing.JLabel lblScreenName;
+    private javax.swing.JTextField txtCreditBalance;
+    private javax.swing.JTextField txtCreditLimit;
     private javax.swing.JTextField txt_SupAddress;
     private javax.swing.JTextField txt_SupCode;
     private javax.swing.JTextField txt_SupContact;
@@ -432,6 +535,14 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
                             obj.setContact(txt_SupContact.getText());
                             obj.setContactperson(txt_SupContactPerson.getText());
                             obj.setAddress(txt_SupAddress.getText());
+
+                            if (chk_unlimited_credit.isSelected()) {
+                                obj.setCreditLimit(-1.0);
+                            } else {
+                                String creditLimit = txtCreditLimit.getText();
+                                obj.setCreditLimit(Double.parseDouble(((creditLimit.equals("") || creditLimit.equals(null)) ? "0" : creditLimit)));
+                            }
+
                             if (Chk_Active.isSelected()) {
                                 obj.setActive((byte) 1);
                             } else {
@@ -452,6 +563,13 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
                             obj.setContact(txt_SupContact.getText());
                             obj.setContactperson(txt_SupContactPerson.getText());
                             obj.setAddress(txt_SupAddress.getText());
+
+                            if (chk_unlimited_credit.isSelected()) {
+                                obj.setCreditLimit(-1.0);
+                            } else {
+                                String creditLimit = txtCreditLimit.getText();
+                                obj.setCreditLimit(Double.parseDouble(((creditLimit.equals("") || creditLimit.equals(null)) ? "0" : creditLimit)));
+                            }
                             if (Chk_Active.isSelected()) {
                                 obj.setActive((byte) 1);
                             } else {
@@ -483,8 +601,8 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
 
     @Override
     public void EditMode() {
-        JComponent[] DisCom = {but_SupUpdate,but_SupSearch,txt_SupCode};
-        JComponent[] EnCom = {but_SupSave, butSupRefresh, txt_SupDescription, txt_SupMobile, txt_SupContact, txt_SupContactPerson, txt_SupAddress, Chk_Active};
+        JComponent[] DisCom = {but_SupUpdate, but_SupSearch, txt_SupCode};
+        JComponent[] EnCom = {but_SupSave, butSupRefresh,chk_unlimited_credit, txt_SupDescription, txt_SupMobile, txt_SupContact, txt_SupContactPerson, txt_SupAddress, Chk_Active, txtCreditLimit};
         setDisableEnableComponents(EnCom, DisCom);
     }
 
@@ -499,10 +617,15 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
         txt_SupCode.setFocusable(true);
         txt_SupCode.grabFocus();
 
+        txtCreditLimit.setVisible(!chk_unlimited_credit.isSelected());
+
+        txtCreditBalance.setText("0.0");
+        txtCreditLimit.setText("0.0");
+
         Chk_Active.setText("Active");
         Chk_Active.setSelected(true);
 
-        JComponent[] EnCom = {but_SupSearch, but_SupSave,txt_SupCode, txt_SupDescription, txt_SupMobile, txt_SupContact, txt_SupContactPerson, txt_SupAddress, Chk_Active};
+        JComponent[] EnCom = {but_SupSearch, but_SupSave,chk_unlimited_credit, txt_SupCode,chk_unlimited_credit, txt_SupDescription, txt_SupMobile, txt_SupContact, txt_SupContactPerson, txt_SupAddress, Chk_Active, txtCreditLimit};
         JComponent[] DisCom = {but_SupUpdate};
         setDisableEnableComponents(EnCom, DisCom);
     }
@@ -520,8 +643,8 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
 
         }
         );
-        
-          String Search = "Search";
+
+        String Search = "Search";
         InputMap inputMap1 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap1.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), Search);
         ActionMap actionMap1 = f.getRootPane().getActionMap();
@@ -633,13 +756,17 @@ public class Frm_MSupplier extends javax.swing.JInternalFrame implements MyWindo
                     txt_SupContact.setText(Sup.getContact());
                     txt_SupContactPerson.setText(Sup.getContactperson());
                     txt_SupAddress.setText(Sup.getAddress());
+
+                    chk_unlimited_credit.setSelected(Sup.getCreditLimit() < 0);
+                    txtCreditLimit.setVisible(!chk_unlimited_credit.isSelected());
+
                     if (Sup.getActive() == 1) {
                         Chk_Active.setSelected(true);
                     } else {
                         Chk_Active.setSelected(false);
                     }
-                    JComponent[] EnCom = {  but_SupUpdate, butSupRefresh};
-                    JComponent[] DisCom = {but_SupSave,txt_SupCode,but_SupSearch,txt_SupDescription, txt_SupMobile, txt_SupContact, txt_SupContactPerson, txt_SupAddress, Chk_Active};
+                    JComponent[] EnCom = {but_SupUpdate, butSupRefresh};
+                    JComponent[] DisCom = {but_SupSave, txt_SupCode, but_SupSearch, txt_SupDescription, txt_SupMobile, txt_SupContact, txt_SupContactPerson, txt_SupAddress, Chk_Active, txtCreditLimit};
                     setDisableEnableComponents(EnCom, DisCom);
 
                 } else {

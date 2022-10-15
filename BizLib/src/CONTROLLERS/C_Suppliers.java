@@ -6,7 +6,6 @@
 package CONTROLLERS;
 
 import DB_ACCESS.DB;
-import MODELS.MLocation;
 import MODELS.MSupplier;
 import java.sql.ResultSet;
 import java.util.Vector;
@@ -31,19 +30,21 @@ public class C_Suppliers {
             s.setContactperson(rs.getString("CONTACTPERSON"));
             s.setActive(rs.getByte("ACTIVE"));
             s.setAddress(rs.getString("ADDRESS"));
+            s.setCreditLimit(rs.getDouble("CREDIT_LIMIT"));
+            s.setCreditBalance(rs.getDouble("CREDIT_BALANCE"));
             v.add(s);
         }
         return v;
     }
 
     public MSupplier getSupplier(String Id) throws Exception {
-       return  getSupplier(Id, -1);
+        return getSupplier(Id, -1);
     }
 
     public MSupplier getSupplier(String Id, int state) throws Exception {
         String sql = "SELECT * FROM M_SUPPLIER where ID='" + Id + "' ";
-        if(state==0 || state==1){
-            sql+=" AND ACTIVE=" + state ;
+        if (state == 0 || state == 1) {
+            sql += " AND ACTIVE=" + state;
         }
         MSupplier s = new MSupplier();
 
@@ -56,6 +57,8 @@ public class C_Suppliers {
             s.setContactperson(rs.getString("CONTACTPERSON"));
             s.setActive(rs.getByte("ACTIVE"));
             s.setAddress(rs.getString("ADDRESS"));
+            s.setCreditLimit(rs.getDouble("CREDIT_LIMIT"));
+            s.setCreditBalance(rs.getDouble("CREDIT_BALANCE"));
         }
 
         return s;
@@ -74,13 +77,16 @@ public class C_Suppliers {
             s.setContactperson(rs.getString("CONTACTPERSON"));
             s.setActive(rs.getByte("ACTIVE"));
             s.setAddress(rs.getString("ADDRESS"));
+            s.setCreditLimit(rs.getDouble("CREDIT_LIMIT"));
+            s.setCreditBalance(rs.getDouble("CREDIT_BALANCE"));
         }
         return s;
     }
 
     public int SaveSupplier(MSupplier s) throws Exception {
-        String sql = "INSERT INTO M_SUPPLIER(ID,NAME,CONTACTPERSON,CONTACT,MOBILE,ADDRESS,ACTIVE) "
+        String sql = "INSERT INTO M_SUPPLIER(ID,NAME,CONTACTPERSON,CREDIT_LIMIT,CONTACT,MOBILE,ADDRESS,ACTIVE) "
                 + "VALUES('" + s.getId().toUpperCase() + "','" + s.getName().toUpperCase() + "','" + s.getContactperson().toUpperCase()
+                + "','" + s.getCreditLimit()
                 + "','" + s.getContact() + "','" + s.getMobile() + "','" + s.getAddress().toUpperCase() + "'," + s.getActive() + ")";
         return DB.Save(sql);
     }
@@ -89,6 +95,7 @@ public class C_Suppliers {
         if (s.getId() != "") {
             String sql = "UPDATE M_SUPPLIER SET NAME='" + s.getName().toUpperCase()
                     + "',CONTACTPERSON='" + s.getContactperson().toUpperCase() + "',CONTACT='" + s.getContact() + "',MOBILE='" + s.getMobile()
+                    + "',CREDIT_LIMIT='" + s.getCreditLimit()
                     + "',ADDRESS='" + s.getAddress().toUpperCase() + "',ACTIVE=" + s.getActive() + " WHERE ID='" + s.getId() + "'";
             return DB.Update(sql);
         } else {

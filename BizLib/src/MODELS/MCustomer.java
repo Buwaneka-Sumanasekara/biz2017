@@ -16,7 +16,24 @@ public class MCustomer  implements java.io.Serializable {
      private String contact;
      private String mobile;
      private Byte active;
-  
+    private Double creditLimit;
+    private Double creditBalance;
+
+    public Double getCreditLimit() {
+        return creditLimit;
+    }
+
+    public void setCreditLimit(Double creditLimit) {
+        this.creditLimit = creditLimit;
+    }
+
+    public Double getCreditBalance() {
+        return creditBalance;
+    }
+
+    public void setCreditBalance(Double creditBalance) {
+        this.creditBalance = creditBalance;
+    }
 
     public MCustomer() {
     }

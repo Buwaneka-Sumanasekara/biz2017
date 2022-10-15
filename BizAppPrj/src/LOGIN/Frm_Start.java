@@ -287,18 +287,56 @@ public final class Frm_Start extends javax.swing.JDialog {
         arStructures.add(str_20220914_t2);
         
         
-           ArrayList<TblColumn> ar_20220914_t3 = new ArrayList<>();
+        ArrayList<TblColumn> ar_20220914_t3 = new ArrayList<>();
         ar_20220914_t3.add(new TblColumn("M_GROUP6_ID", "VARCHAR(5)", ""));
         ArrayList<String> ar_20220914_t3PK = new ArrayList<>();
         Structure str_20220914_t3 = new Structure(20220914, "m_products", ar_20220914_t3, ar_20220914_t3PK);
         arStructures.add(str_20220914_t3);
+        
+        
+        //credit
+        ArrayList<TblColumn> ar_20221015_t1 = new ArrayList<>();
+        ar_20221015_t1.add(new TblColumn("CREDIT_LIMIT",  "DOUBLE", "DEFAULT '-1'"));
+        ar_20221015_t1.add(new TblColumn("CREDIT_BALANCE",  "DOUBLE", "DEFAULT '0'"));
+        ArrayList<String> ar_20221015_t1PK = new ArrayList<>();
+        Structure str_20221015_t1 = new Structure(20221015, "m_customer", ar_20221015_t1, ar_20221015_t1PK);
+        arStructures.add(str_20221015_t1);
+        
+        ArrayList<TblColumn> ar_20221015_t2 = new ArrayList<>();
+        ar_20221015_t2.add(new TblColumn("CREDIT_LIMIT",  "DOUBLE", "DEFAULT '-1'"));
+        ar_20221015_t2.add(new TblColumn("CREDIT_BALANCE",  "DOUBLE", "DEFAULT '0'"));
+        ArrayList<String> ar_20221015_t2PK = new ArrayList<>();
+        Structure str_20221015_t2 = new Structure(20221015, "m_supplier", ar_20221015_t2, ar_20221015_t2PK);
+        arStructures.add(str_20221015_t2);
+        
+        ArrayList<TblColumn> ar_20221015_t4 = new ArrayList<>();
+        ar_20221015_t4.add(new TblColumn("ID", "VARCHAR(50)", "NOT NULL"));
+        ar_20221015_t4.add(new TblColumn("CR_DATE", "DATETIME", "NOT NULL"));
+        ar_20221015_t4.add(new TblColumn("CUS_ID",  "VARCHAR(50)", "NOT NULL"));
+        ar_20221015_t4.add(new TblColumn("AMOUNT",  "DOUBLE", "DEFAULT '0'"));
+        ar_20221015_t4.add(new TblColumn("NOTE", "LONGTEXT", ""));
+        ArrayList<String> ar_20221015_t4PK = new ArrayList<>();
+        Structure str_20221015_t4 = new Structure(20221015, "t_crd_settlement_cus", ar_20221015_t4, ar_20221015_t4PK);
+        arStructures.add(str_20221015_t4);
+        
+        ArrayList<TblColumn> ar_20221015_t5 = new ArrayList<>();
+        ar_20221015_t5.add(new TblColumn("ID", "VARCHAR(50)", "NOT NULL"));
+        ar_20221015_t5.add(new TblColumn("CR_DATE", "DATETIME", "NOT NULL"));
+        ar_20221015_t5.add(new TblColumn("SUP_ID",  "VARCHAR(50)", "NOT NULL"));
+        ar_20221015_t5.add(new TblColumn("AMOUNT",  "DOUBLE", "DEFAULT '0'"));
+        ar_20221015_t5.add(new TblColumn("NOTE", "LONGTEXT", ""));
+        ArrayList<String> ar_20221015_t5PK = new ArrayList<>();
+        Structure str_20221015_t5 = new Structure(20221015, "t_crd_settlement_sup", ar_20221015_t5, ar_20221015_t5PK);
+        arStructures.add(str_20221015_t5);
+        
+        
          
 
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults + 3);
 
         /* ##################### TABLE STRUCTURE CREATION ###########################*/
-        int latestVersion = 20220914;
+        int latestVersion = 20221015;
 
         txtStatues.setText("Creating Structure changes...");
         super.update(this.getGraphics());
