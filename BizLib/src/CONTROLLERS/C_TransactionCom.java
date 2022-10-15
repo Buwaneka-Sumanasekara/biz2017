@@ -239,7 +239,7 @@ public class C_TransactionCom {
             st.setIsGV(rs.getByte("ISGV"));
             st.setUTransactions(TrnTyp);
             st.setRefTrnNo(rs.getString("REF_TRN"));
-            String proname2=(rs.getString("PRONAME2")== null)?"":rs.getString("PRONAME2");
+            String proname2 = (rs.getString("PRONAME2") == null) ? "" : rs.getString("PRONAME2");
             st.setProname2(proname2);
 
         }
@@ -257,7 +257,12 @@ public class C_TransactionCom {
         return batch;
     }
 
-    public String saveTransaction(TStockmst hedc, ArrayList<TStockline> det, ArrayList<TStockpayments> paydet) throws Exception {
+    public void trn_RunUpdateCreditBalance(String code,String crdType)throws Exception{
+        String q="CALL strp_UpdateCreditBalance('"+code+"','"+crdType+"')";
+        DB.Save(q);
+    }
+    
+    public String saveTransaction(UTransactions trnSetup,TStockmst hedc, ArrayList<TStockline> det, ArrayList<TStockpayments> paydet) throws Exception {
         String TrnNo = "";
         Connection c = null;
         try {
@@ -421,6 +426,12 @@ public class C_TransactionCom {
                     payMap.put("TRNTYP", "'" + pay.getUTransactions().getTrntype() + "'");
                     payMap.put("UTILIZED", "'" + pay.getUtilized() + "'");
 
+                    //credit validation
+                    
+                    //End:credit validation
+                    
+                    
+                    
                     String q = qg.SaveRecord("T_STOCKPAYMENTS", payMap);
                     DB.Save(q);
 

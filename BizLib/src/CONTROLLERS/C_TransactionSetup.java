@@ -66,6 +66,9 @@ public class C_TransactionSetup {
                 m.setReturnReqRef(rs.getByte("RETURN_REQ_REF"));
                 m.setEnSalesMan(rs.getByte("EN_SALESMAN"));
                 m.setEnReport(rs.getByte("RPT_ENABLE"));
+
+                m.setEnableCredit(rs.getByte("EN_CREDIT"));
+                m.setCreditType(rs.getString("CREDIT_TYPE"));
                 arl.add(m);
             }
         } catch (Exception e) {
@@ -76,7 +79,7 @@ public class C_TransactionSetup {
 
     public UTransactions getTransactionConfig(String TrnSetupNo) throws Exception {
         String q = "SELECT * FROM U_TRANSACTIONS WHERE TRNNO='" + TrnSetupNo + "' AND ACTIVE=1  ";
-      //  System.out.println(q);
+        //  System.out.println(q);
         UTransactions m = null;
         ResultSet rs = DB.Search(q);
         if (rs.next()) {
@@ -112,9 +115,11 @@ public class C_TransactionSetup {
             m.setSupPrdOnly(rs.getByte("SUP_PROD_ONLY"));
             m.setChangeSPrice(rs.getByte("CHANGE_SPRICE"));
             m.setHoldOnly(rs.getByte("HOLD_ONLY"));
-             m.setReturnReqRef(rs.getByte("RETURN_REQ_REF"));
-              m.setEnSalesMan(rs.getByte("EN_SALESMAN"));
-                m.setEnReport(rs.getByte("RPT_ENABLE"));
+            m.setReturnReqRef(rs.getByte("RETURN_REQ_REF"));
+            m.setEnSalesMan(rs.getByte("EN_SALESMAN"));
+            m.setEnReport(rs.getByte("RPT_ENABLE"));
+            m.setEnableCredit(rs.getByte("EN_CREDIT"));
+            m.setCreditType(rs.getString("CREDIT_TYPE"));
         } else {
             throw new Exception("Can`t Find Specific Trnasaction on setup table");
         }

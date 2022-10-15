@@ -33,4 +33,7 @@ public class GlobalData {
     public static MUser CurUser = null;
 
     public static final String MESSAGEBOX = "Biz Message";
+    
+    public static final String DEFAULT_CUS_ID="0000";
+     public static final String DEFAULT_SUP_ID="0000";
 }

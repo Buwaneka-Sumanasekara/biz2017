@@ -218,7 +218,6 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         tblTrn = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         cmb_SA = new javax.swing.JComboBox();
-        lbl_Cus = new javax.swing.JLabel();
         layout_amounts = new javax.swing.JPanel();
         txt_FSubTot = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -232,6 +231,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         lbl_Line_ProImg = new javax.swing.JLabel();
         txtImgPath = new javax.swing.JLabel();
         lbl_RefTrnNo = new javax.swing.JLabel();
+        lbl_Cus = new javax.swing.JLabel();
 
         setIconifiable(true);
         setTitle("caption");
@@ -871,9 +871,6 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
         cmb_SA.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        lbl_Cus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lbl_Cus.setText("Customer");
-
         layout_amounts.setBackground(new java.awt.Color(255, 153, 153));
 
         txt_FSubTot.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -973,18 +970,20 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
         layout_footer_leftLayout.setHorizontalGroup(
             layout_footer_leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout_footer_leftLayout.createSequentialGroup()
-                .addComponent(lbl_Line_ProImg, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout_footer_leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout_footer_leftLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_IsLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout_footer_leftLayout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(txtImgPath, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout_footer_leftLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txt_LProDes, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_Line_ProImg, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout_footer_leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout_footer_leftLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(lbl_IsLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout_footer_leftLayout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(txtImgPath, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout_footer_leftLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_LProDes, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout_footer_leftLayout.setVerticalGroup(
@@ -1001,6 +1000,9 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 .addComponent(txt_LProDes, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
+
+        lbl_Cus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbl_Cus.setText("Customer");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1110,7 +1112,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(cmb_Sup, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(42, 42, 42)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 32, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(layout_LocationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1124,7 +1126,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(layout_footer_left, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1658,7 +1660,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
                         m.setUtilized(1);
                         ar.add(m);
 
-                        TrnNo = C_TrnCom.saveTransaction(hed, det, ar);
+                        TrnNo = C_TrnCom.saveTransaction(TrnSetup,hed, det, ar);
                         Refresh();
                         if (TrnState.equals("P")) {
                             JOptionPane.showMessageDialog(rootPane, "" + TrnSetup.getTrndesc() + " Processed Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);
@@ -1671,7 +1673,7 @@ public class Frm_TCommonTrn extends javax.swing.JInternalFrame implements MyWind
 
                     //FrmComPay.setVisible(true);
                 } else {
-                    TrnNo = C_TrnCom.saveTransaction(hed, det, null);
+                    TrnNo = C_TrnCom.saveTransaction(TrnSetup,hed, det, null);
                     Refresh();
                     if (TrnState.equals("P")) {
                         JOptionPane.showMessageDialog(rootPane, "" + TrnSetup.getTrndesc() + " Processed Sucessfully", GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.INFORMATION_MESSAGE);

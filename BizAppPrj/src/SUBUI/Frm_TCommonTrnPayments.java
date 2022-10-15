@@ -99,6 +99,27 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         return TrnNo;
     }
 
+    private void refreshCreditPanel() {
+
+        MPaymst selectedItem = (MPaymst) cmb_PayHed.getSelectedItem();
+
+        if (selectedItem != null && selectedItem.getId().equals("CRD")) {
+            panel_credit.setVisible(true);
+
+            if (TrnSetup.getCreditType().equals("CUS")) {
+                txt_creditbalance.setText(cf.getValueWithComma(hed.getMCustomer().getCreditBalance()));
+                txr_credit_limit.setText(cf.getValueWithComma(hed.getMCustomer().getCreditLimit()));
+            } else if (TrnSetup.getCreditType().equals("SUP")) {
+                txt_creditbalance.setText(cf.getValueWithComma(hed.getMSupplier().getCreditBalance()));
+                txr_credit_limit.setText(cf.getValueWithComma(hed.getMSupplier().getCreditLimit()));
+            }
+
+        } else {
+            panel_credit.setVisible(false);
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -118,6 +139,11 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
         txt_Amount = new javax.swing.JTextField();
         txt_RefNo = new javax.swing.JTextField();
         txt_DateF = new com.toedter.calendar.JDateChooser();
+        panel_credit = new javax.swing.JPanel();
+        txt_creditbalance = new javax.swing.JLabel();
+        txr_credit_limit = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         lbl_Global_Instructions = new javax.swing.JLabel();
         lbl_due = new javax.swing.JLabel();
         lbl_ToPay = new javax.swing.JLabel();
@@ -195,14 +221,14 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                 cmb_PayDetActionPerformed(evt);
             }
         });
-        jPanel3.add(cmb_PayDet, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 380, 50));
+        jPanel3.add(cmb_PayDet, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 430, 50));
 
         cmb_PayHed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_PayHedActionPerformed(evt);
             }
         });
-        jPanel3.add(cmb_PayHed, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 380, 50));
+        jPanel3.add(cmb_PayHed, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 430, 50));
 
         txt_Amount.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txt_Amount.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -218,7 +244,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                 txt_AmountActionPerformed(evt);
             }
         });
-        jPanel3.add(txt_Amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 380, 70));
+        jPanel3.add(txt_Amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 430, 70));
 
         txt_RefNo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_RefNo.addActionListener(new java.awt.event.ActionListener() {
@@ -226,10 +252,32 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                 txt_RefNoActionPerformed(evt);
             }
         });
-        jPanel3.add(txt_RefNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 230, 40));
+        jPanel3.add(txt_RefNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 230, 40));
 
         txt_DateF.setDateFormatString("yyyy-MM-dd");
-        jPanel3.add(txt_DateF, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, 140, 40));
+        jPanel3.add(txt_DateF, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 190, 40));
+
+        panel_credit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txt_creditbalance.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_creditbalance.setForeground(new java.awt.Color(255, 0, 0));
+        txt_creditbalance.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        txt_creditbalance.setText("0.0");
+        panel_credit.add(txt_creditbalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 190, -1));
+
+        txr_credit_limit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txr_credit_limit.setForeground(new java.awt.Color(255, 51, 51));
+        txr_credit_limit.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        txr_credit_limit.setText("0.0");
+        panel_credit.add(txr_credit_limit, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 180, 20));
+
+        jLabel7.setText("Credit Balance");
+        panel_credit.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, -1, 20));
+
+        jLabel8.setText("limit");
+        panel_credit.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 30, -1));
+
+        jPanel3.add(panel_credit, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 430, 60));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -246,9 +294,9 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         lbl_Global_Instructions.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
@@ -509,9 +557,6 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(30, 30, 30))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_ToPay, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -531,9 +576,12 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_Balance, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
                         .addComponent(layout_ButPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)))
+                        .addGap(64, 64, 64))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(lbl_Global_Instructions, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
@@ -549,7 +597,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(973, 708));
+        setSize(new java.awt.Dimension(973, 735));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -607,6 +655,9 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                     txt_DateF.setVisible(false);
 
                 }
+
+               
+
                 loadSubPayModes();
 
             } catch (Exception ex) {
@@ -746,6 +797,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -756,10 +809,13 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_Payment;
     private javax.swing.JLabel lbl_ToPay;
     private javax.swing.JLabel lbl_due;
+    private javax.swing.JPanel panel_credit;
     private javax.swing.JTable tblPayment;
+    private javax.swing.JLabel txr_credit_limit;
     private javax.swing.JTextField txt_Amount;
     private com.toedter.calendar.JDateChooser txt_DateF;
     private javax.swing.JTextField txt_RefNo;
+    private javax.swing.JLabel txt_creditbalance;
     // End of variables declaration//GEN-END:variables
 
     public void exit() {
@@ -841,11 +897,14 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
     private void RefreshScreen() {
         try {
+       
             lbl_ToPay.setText("" + cf.getValueWithComma(hed.getNetamount()));
             lbl_Payment.setText("0.0");
             lbl_Balance.setText("0.0");
             lbl_due.setText("" + cf.getValueWithComma(hed.getNetamount()));
             txt_DateF.setVisible(false);
+
+           
 
             int eftAmtindex = 4;
             //tblPayment.getColumnModel().getColumn(eftAmtindex).setMinWidth(0);
@@ -856,11 +915,14 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             txt_RefNo.setVisible(false);
             DefaultTableModel dtm = (DefaultTableModel) tblPayment.getModel();
             dtm.setRowCount(0);
-            cmb_PayHed.setModel(new DefaultComboBoxModel(C_Payment.getPayMstAll()));
+            
+            Vector<MPaymst> payMstAll = C_Payment.getPayMstAll(TrnSetup);
+            
+            cmb_PayHed.setModel(new DefaultComboBoxModel(payMstAll));
             clearPaymentBox();
             txt_Amount.grabFocus();
         } catch (Exception ex) {
-            //  Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -933,6 +995,31 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             state = false;
             JOptionPane.showMessageDialog(this, "Please select Date", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
 
+        } else if (mst.getId().equals("CRD")) {//credit
+
+            if (TrnSetup.getCreditType().equals("CUS")) {
+                if (hed.getMCustomer() == null) {
+                    state = false;
+                    JOptionPane.showMessageDialog(this, "Please select customer to procede credit payment", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
+
+                } else if (hed.getMCustomer().getCreditLimit() == 0) {
+                    state = false;
+                    JOptionPane.showMessageDialog(this, "Selected customer not allowed to use credit payment option", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
+
+                }
+            } else if (TrnSetup.getCreditType().equals("SUP")) {
+
+                if (hed.getMSupplier() == null) {
+                    state = false;
+                    JOptionPane.showMessageDialog(this, "Please select supplier to procede credit payment", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
+
+                } else if (hed.getMSupplier().getCreditLimit() == 0) {
+                    state = false;
+                    JOptionPane.showMessageDialog(this, "Selected supplier not allowed to use credit payment option", GLOBALDATA.GlobalData.MESSAGEBOX + "-Payment", JOptionPane.ERROR_MESSAGE);
+
+                }
+            }
+
         }
 
         return state;
@@ -973,7 +1060,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             txt_RefNo.setVisible(false);
             txt_DateF.setVisible(false);
             txt_DateF.setDate(new Date());
-            cmb_PayHed.setModel(new DefaultComboBoxModel(C_Payment.getPayMstAll()));
+            cmb_PayHed.setModel(new DefaultComboBoxModel(C_Payment.getPayMstAll(TrnSetup)));
+
             loadSubPayModes();
             txt_RefNo.setText("");
             txt_Amount.setText("");
@@ -1063,6 +1151,8 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
                 Vector<MPaydet> v = C_Payment.getPayDet(mst.getId());
                 cmb_PayDet.setModel(new DefaultComboBoxModel(v));
 
+                 refreshCreditPanel();
+
                 if (v.size() > 0) {
                     cmb_PayDet.setVisible(true);
                     MPaydet det = (MPaydet) cmb_PayDet.getSelectedItem();
@@ -1089,6 +1179,7 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
 
             } catch (Exception ex) {
                 //Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
+
             }
         }
     }
@@ -1119,10 +1210,19 @@ public class Frm_TCommonTrnPayments extends javax.swing.JDialog {
             m.setEfectiveDate(date);
             m.setUTransactions(TrnSetup);
             m.setUtilized(utilized);
+            if (TrnSetup.getEnableCredit() == 1) {
+                if (TrnSetup.getCreditType().equals("CUS")) {
+                    m.setCreditType(TrnSetup.getCreditType());
+                    m.setPayee(hed.getMCustomer());
+                } else if (TrnSetup.getCreditType().equals("SUP")) {
+                    m.setCreditType(TrnSetup.getCreditType());
+                    m.setPayee(hed.getMSupplier());
+                }
+            }
             arp.add(m);
         }
         hed.setChange(cf.parseValueWithComma(lbl_Balance.getText()).doubleValue());
-        return c_trn.saveTransaction(hed, det, arp);
+        return c_trn.saveTransaction(TrnSetup, hed, det, arp);
 
     }
 

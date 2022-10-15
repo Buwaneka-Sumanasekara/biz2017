@@ -264,10 +264,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         ArrayList<String> ar_20191015_t1PK = new ArrayList<>();
         Structure str_20190515_t1 = new Structure(20190515, "t_stockline", ar_20190515_t1, ar_20191015_t1PK);
         arStructures.add(str_20190515_t1);
-        
-        
-        
-         //new update : Added new group table
+
+        //new update : Added new group table
         ArrayList<TblColumn> ar_20220914_t1 = new ArrayList<>();
         ar_20220914_t1.add(new TblColumn("ID", "INT", "NOT NULL"));
         ar_20220914_t1.add(new TblColumn("NAME", "VARCHAR(50)", "NOT NULL"));
@@ -279,58 +277,97 @@ public final class Frm_Start extends javax.swing.JDialog {
 
         Structure str_20220914_t1 = new Structure(20220914, "M_GROUP6", ar_20220914_t1, ar_20220914_t1PK);
         arStructures.add(str_20220914_t1);
-        
+
         ArrayList<TblColumn> ar_20220914_t2 = new ArrayList<>();
         ar_20220914_t2.add(new TblColumn("G6_ID", "VARCHAR(50)", ""));
         ArrayList<String> ar_20220914_t2PK = new ArrayList<>();
         Structure str_20220914_t2 = new Structure(20220914, "m_grouplink", ar_20220914_t2, ar_20220914_t2PK);
         arStructures.add(str_20220914_t2);
-        
-        
+
         ArrayList<TblColumn> ar_20220914_t3 = new ArrayList<>();
         ar_20220914_t3.add(new TblColumn("M_GROUP6_ID", "VARCHAR(5)", ""));
         ArrayList<String> ar_20220914_t3PK = new ArrayList<>();
         Structure str_20220914_t3 = new Structure(20220914, "m_products", ar_20220914_t3, ar_20220914_t3PK);
         arStructures.add(str_20220914_t3);
-        
-        
+
         //credit
         ArrayList<TblColumn> ar_20221015_t1 = new ArrayList<>();
-        ar_20221015_t1.add(new TblColumn("CREDIT_LIMIT",  "DOUBLE", "DEFAULT '-1'"));
-        ar_20221015_t1.add(new TblColumn("CREDIT_BALANCE",  "DOUBLE", "DEFAULT '0'"));
+        ar_20221015_t1.add(new TblColumn("CREDIT_LIMIT", "DOUBLE", "DEFAULT '0'"));
+        ar_20221015_t1.add(new TblColumn("CREDIT_BALANCE", "DOUBLE", "DEFAULT '0'"));
         ArrayList<String> ar_20221015_t1PK = new ArrayList<>();
         Structure str_20221015_t1 = new Structure(20221015, "m_customer", ar_20221015_t1, ar_20221015_t1PK);
         arStructures.add(str_20221015_t1);
-        
+
         ArrayList<TblColumn> ar_20221015_t2 = new ArrayList<>();
-        ar_20221015_t2.add(new TblColumn("CREDIT_LIMIT",  "DOUBLE", "DEFAULT '-1'"));
-        ar_20221015_t2.add(new TblColumn("CREDIT_BALANCE",  "DOUBLE", "DEFAULT '0'"));
+        ar_20221015_t2.add(new TblColumn("CREDIT_LIMIT", "DOUBLE", "DEFAULT '-1'"));
+        ar_20221015_t2.add(new TblColumn("CREDIT_BALANCE", "DOUBLE", "DEFAULT '0'"));
         ArrayList<String> ar_20221015_t2PK = new ArrayList<>();
         Structure str_20221015_t2 = new Structure(20221015, "m_supplier", ar_20221015_t2, ar_20221015_t2PK);
         arStructures.add(str_20221015_t2);
-        
+
         ArrayList<TblColumn> ar_20221015_t4 = new ArrayList<>();
         ar_20221015_t4.add(new TblColumn("ID", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t4.add(new TblColumn("CR_DATE", "DATETIME", "NOT NULL"));
-        ar_20221015_t4.add(new TblColumn("CUS_ID",  "VARCHAR(50)", "NOT NULL"));
-        ar_20221015_t4.add(new TblColumn("AMOUNT",  "DOUBLE", "DEFAULT '0'"));
+        ar_20221015_t4.add(new TblColumn("CUS_ID", "VARCHAR(50)", "NOT NULL"));
+        ar_20221015_t4.add(new TblColumn("AMOUNT", "DOUBLE", "DEFAULT '0'"));
         ar_20221015_t4.add(new TblColumn("NOTE", "LONGTEXT", ""));
+        ar_20221015_t4.add(new TblColumn("ACTIVE", "TINYINT", "DEFAULT '1'"));
         ArrayList<String> ar_20221015_t4PK = new ArrayList<>();
         Structure str_20221015_t4 = new Structure(20221015, "t_crd_settlement_cus", ar_20221015_t4, ar_20221015_t4PK);
         arStructures.add(str_20221015_t4);
-        
+
         ArrayList<TblColumn> ar_20221015_t5 = new ArrayList<>();
         ar_20221015_t5.add(new TblColumn("ID", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t5.add(new TblColumn("CR_DATE", "DATETIME", "NOT NULL"));
-        ar_20221015_t5.add(new TblColumn("SUP_ID",  "VARCHAR(50)", "NOT NULL"));
-        ar_20221015_t5.add(new TblColumn("AMOUNT",  "DOUBLE", "DEFAULT '0'"));
+        ar_20221015_t5.add(new TblColumn("SUP_ID", "VARCHAR(50)", "NOT NULL"));
+        ar_20221015_t5.add(new TblColumn("AMOUNT", "DOUBLE", "DEFAULT '0'"));
         ar_20221015_t5.add(new TblColumn("NOTE", "LONGTEXT", ""));
+        ar_20221015_t5.add(new TblColumn("ACTIVE", "TINYINT", "DEFAULT '1'"));
         ArrayList<String> ar_20221015_t5PK = new ArrayList<>();
         Structure str_20221015_t5 = new Structure(20221015, "t_crd_settlement_sup", ar_20221015_t5, ar_20221015_t5PK);
         arStructures.add(str_20221015_t5);
-        
-        
-         
+
+        ArrayList<TblColumn> ar_20221015_t6 = new ArrayList<>();
+        ar_20221015_t6.add(new TblColumn("EN_CREDIT", "TINYINT", "DEFAULT '0'"));
+        ar_20221015_t6.add(new TblColumn("CREDIT_TYPE", "VARCHAR(5)", "DEFAULT ''"));//SUP,CUS
+        ArrayList<String> ar_20221015_t6PK = new ArrayList<>();
+        Structure str_20221015_t6 = new Structure(20221015, "u_transactions", ar_20221015_t6, ar_20221015_t6PK);
+        arStructures.add(str_20221015_t6);
+
+        ArrayList<TblColumn> ar_20221015_t7 = new ArrayList<>();
+        ar_20221015_t7.add(new TblColumn("CREDIT_TYPE", "VARCHAR(5)", "DEFAULT ''"));
+        ArrayList<String> ar_20221015_t7PK = new ArrayList<>();
+        Structure str_20221015_t7 = new Structure(20221015, "t_stockpayments", ar_20221015_t7, ar_20221015_t7PK);
+        arStructures.add(str_20221015_t7);
+
+        ArrayList<TblColumn> ar_20221015_t8 = new ArrayList<>();
+        ar_20221015_t8.add(new TblColumn("PAYEE_ID", "VARCHAR(50)", "DEFAULT ''"));
+        ArrayList<String> ar_20221015_t8PK = new ArrayList<>();
+        Structure str_20221015_t8 = new Structure(20221015, "t_stockpayments", ar_20221015_t8, ar_20221015_t8PK);
+        arStructures.add(str_20221015_t8);
+
+        //stored procedure
+        ArrayList<String> q_20221015_t9 = new ArrayList<>();
+        q_20221015_t9.add(" DECLARE VAR_TOT_CRD_AMOUNT DOUBLE DEFAULT '0' ");
+        q_20221015_t9.add(" DECLARE VAR_TOT_PAID_AMOUNT DOUBLE DEFAULT '0' ");
+        q_20221015_t9.add(" DECLARE VAR_CREDIT_BALANCE DOUBLE DEFAULT '0' ");
+        String q_20221015_str_1 = " IF para_crd_type = 'CUS' THEN";
+        q_20221015_str_1 += " SELECT IFNULL(SUM(stkp.AMOUNT),0) INTO VAR_TOT_CRD_AMOUNT FROM t_stockpayments stkp WHERE stkp.PAYHEDID='CRD' AND stkp.PAYEE_ID=para_code AND stkp.CREDIT_TYPE='CUS'; ";
+        q_20221015_str_1 += " SELECT IFNULL(SUM(crdset.AMOUNT),0) INTO VAR_TOT_PAID_AMOUNT FROM t_crd_settlement_cus crdset where crdset.CUS_ID=para_code; ";
+        q_20221015_str_1 += " SET VAR_CREDIT_BALANCE=VAR_TOT_CRD_AMOUNT-VAR_TOT_PAID_AMOUNT; ";
+        q_20221015_str_1 += " update m_customer set CREDIT_BALANCE=VAR_CREDIT_BALANCE where ID=para_code; ";
+
+        q_20221015_str_1 += " ELSEIF  para_crd_type = 'SUP' THEN ";
+        q_20221015_str_1 += " SELECT IFNULL(SUM(stkp.AMOUNT),0) INTO VAR_TOT_CRD_AMOUNT FROM t_stockpayments stkp WHERE stkp.PAYHEDID='CRD' AND stkp.PAYEE_ID=para_code AND stkp.CREDIT_TYPE='SUP'; ";
+        q_20221015_str_1 += " SELECT IFNULL(SUM(crdset.AMOUNT),0) INTO VAR_TOT_PAID_AMOUNT FROM t_crd_settlement_sup crdset where crdset.SUP_ID=para_code; ";
+        q_20221015_str_1 += " SET VAR_CREDIT_BALANCE=VAR_TOT_CRD_AMOUNT-VAR_TOT_PAID_AMOUNT; ";
+        q_20221015_str_1 += " update m_supplier set CREDIT_BALANCE=VAR_CREDIT_BALANCE where ID=para_code; ";
+        q_20221015_str_1 += " END IF ";
+        q_20221015_t9.add(q_20221015_str_1);
+
+        Structure str_20221015_t9 = new Structure(20221015, TableStruCreation.STR_PROC, " strp_UpdateCreditBalance ", " para_code VARCHAR(50),para_crd_type VARCHAR(5) ", q_20221015_t9);
+        arStructures.add(str_20221015_t9);
+        //End:stored procedure
 
         int TotalResults = arStructures.size() + 1;
         InitPrgressBar(TotalResults + 3);

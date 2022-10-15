@@ -46,6 +46,25 @@ public class UTransactions  implements java.io.Serializable {
      private Byte enSalesMan;
      private Byte enReport;
      
+     private Byte EnableCredit;
+     private String CreditType;
+
+    public Byte getEnableCredit() {
+        return EnableCredit;
+    }
+
+    public void setEnableCredit(Byte EnableCredit) {
+        this.EnableCredit = EnableCredit;
+    }
+
+    public String getCreditType() {
+        return CreditType;
+    }
+
+    public void setCreditType(String CreditType) {
+        this.CreditType = CreditType;
+    }
+     
      
      
      
