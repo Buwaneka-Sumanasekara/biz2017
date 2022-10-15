@@ -5,7 +5,6 @@
  */
 package SUBUI;
 
-
 import DB_ACCESS.DB;
 import MAIN.Frm_Main;
 import UI.Frm_Table;
@@ -29,27 +28,23 @@ import javax.swing.KeyStroke;
  *
  * @author HOME
  */
-public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasicControllers {
+public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements MyWindowBasicControllers {
 
     Frm_Table ft = null;
-  
-    Frm_Main mainW=null;
-    MyValidator fv=null;
-    
-    public Frm_DEF(Frm_Main mainw,String ScreenName) {
+
+    Frm_Main mainW = null;
+    MyValidator fv = null;
+
+    public Frm_TCreditSettlement(Frm_Main mainw, String ScreenName) {
         initComponents();
-       this.setTitle(ScreenName);
-       this.lblScreenName.setText(ScreenName);
-        this.mainW=mainw;
-        this.fv=new MyValidator();
+        this.setTitle(ScreenName);
+        this.lblScreenName.setText(ScreenName);
+        this.mainW = mainw;
+        this.fv = new MyValidator();
         Refresh();
-       setShortCutKeys(this);
+        setShortCutKeys(this);
     }
 
-    
-
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,14 +63,15 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
         butLocRefresh = new javax.swing.JButton();
         jpanelq = new javax.swing.JPanel();
         lblScreenName = new javax.swing.JLabel();
-        txt_LocDescription = new javax.swing.JTextField();
-        Chk_Active = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txt_LocRefNO = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        txt_DateSelector = new com.toedter.calendar.JDateChooser();
+        jLabel6 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("caption");
@@ -184,17 +180,9 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
             .addComponent(jpanelq, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        Chk_Active.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Chk_ActiveMouseClicked(evt);
-            }
-        });
+        jLabel2.setText("Credit settlement Id");
 
-        jLabel1.setText("Reference No/ID");
-
-        jLabel2.setText("Code");
-
-        jLabel4.setText("Description *");
+        jLabel4.setText("Note");
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -203,33 +191,47 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 930, 40));
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel1.setForeground(new java.awt.Color(255, 51, 0));
+        jLabel1.setText("* Use this field only when you need to view or remove old settlement record");
+
+        txt_DateSelector.setDateFormatString("yyyy-MM-dd");
+        txt_DateSelector.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_DateSelector.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_DateSelectorFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_DateSelectorFocusLost(evt);
+            }
+        });
+
+        jLabel6.setText("Settled Date");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(txt_LocCode, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(txt_LocDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(txt_LocRefNO, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(Chk_Active, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_DateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_LocCode, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,20 +239,22 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_LocCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_LocDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_LocRefNO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(Chk_Active))
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addComponent(txt_DateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -278,21 +282,21 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
 
         String[] SQL_Col = {"ID", "NAME"};
         String SQL = "select ID,NAME from m_location ";
-        String SQLWhere=" VISIBLE=1 AND ";
+        String SQLWhere = " VISIBLE=1 AND ";
         Connection currentCon = null;
         try {
             currentCon = DB.getCurrentCon();
         } catch (Exception ex) {
-            Logger.getLogger(Frm_DEF.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+            Logger.getLogger(Frm_TCreditSettlement.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if (ft == null) {
 
-            ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL,SQLWhere);
+            ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL, SQLWhere);
             ft.setVisible(true);
 
         } else {
-            ft=null;
-             ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL,SQLWhere);
+            ft = null;
+            ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL, SQLWhere);
             ft.setFocusable(true);
             ft.setVisible(true);
         }
@@ -302,37 +306,40 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
         Refresh();
     }//GEN-LAST:event_butLocRefreshActionPerformed
 
-    private void Chk_ActiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Chk_ActiveMouseClicked
-       
-    }//GEN-LAST:event_Chk_ActiveMouseClicked
-
     private void txt_LocCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_LocCodeActionPerformed
-      
+
     }//GEN-LAST:event_txt_LocCodeActionPerformed
 
     private void but_LocSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSaveActionPerformed
-       
+
     }//GEN-LAST:event_but_LocSaveActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-      
+
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-   
+
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void but_LocUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocUpdateActionPerformed
-  
+
     }//GEN-LAST:event_but_LocUpdateActionPerformed
 
     private void txt_LocCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_LocCodeKeyTyped
-      
+
     }//GEN-LAST:event_txt_LocCodeKeyTyped
+
+    private void txt_DateSelectorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DateSelectorFocusGained
+        txt_DateSelector.setBackground(Color.YELLOW);
+    }//GEN-LAST:event_txt_DateSelectorFocusGained
+
+    private void txt_DateSelectorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DateSelectorFocusLost
+        txt_DateSelector.setBackground(Color.white);
+    }//GEN-LAST:event_txt_DateSelectorFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox Chk_Active;
     private javax.swing.JButton butLocRefresh;
     private javax.swing.JButton but_LocSave;
     private javax.swing.JButton but_LocSearch;
@@ -341,35 +348,36 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel jpanelq;
     private javax.swing.JLabel lblScreenName;
+    private com.toedter.calendar.JDateChooser txt_DateSelector;
     private javax.swing.JTextField txt_LocCode;
-    private javax.swing.JTextField txt_LocDescription;
-    private javax.swing.JTextField txt_LocRefNO;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void SaveProcess() {
 
-      
     }
 
     @Override
     public void EditMode() {
-       
+
     }
 
     @Override
     public void Refresh() {
-       
+
     }
 
     public void setShortCutKeys(JInternalFrame f) {
 
-       String exit = "exit";
+        String exit = "exit";
         InputMap inputMap0 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap0.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), exit);
         ActionMap actionMap0 = f.getRootPane().getActionMap();
@@ -392,8 +400,8 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
 
         }
         );
-        
-          String Save = "Save";
+
+        String Save = "Save";
         InputMap inputMap2 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), Save);
         ActionMap actionMap2 = f.getRootPane().getActionMap();
@@ -404,8 +412,8 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
 
         }
         );
-        
-           String Edit = "Edit";
+
+        String Edit = "Edit";
         InputMap inputMap3 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap3.put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), Edit);
         ActionMap actionMap3 = f.getRootPane().getActionMap();
@@ -416,8 +424,8 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
 
         }
         );
-        
-          String Refresh = "Refresh";
+
+        String Refresh = "Refresh";
         InputMap inputMap4 = f.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap4.put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), Refresh);
         ActionMap actionMap4 = f.getRootPane().getActionMap();
@@ -429,19 +437,18 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
         }
         );
 
-
     }
 
     private void exit() {
-      
+
         try {
             this.setClosed(true);
-            mainW.CurrentFrame="";
-            
+            mainW.CurrentFrame = "";
+
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(Frm_DEF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Frm_TCreditSettlement.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     @Override
@@ -452,7 +459,7 @@ public class Frm_DEF extends javax.swing.JInternalFrame implements MyWindowBasic
         for (JComponent c : EnComlist) {
             c.setEnabled(true);
         }
-        
+
     }
 
     @Override
