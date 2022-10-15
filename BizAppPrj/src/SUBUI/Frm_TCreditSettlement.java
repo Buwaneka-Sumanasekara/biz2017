@@ -10,6 +10,7 @@ import MAIN.Frm_Main;
 import UI.Frm_Table;
 import VALIDATIONS.MyValidator;
 import WINMNG.MyWindowBasicControllers;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
@@ -55,7 +56,7 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txt_LocCode = new javax.swing.JTextField();
+        txt_SettlementId = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         but_LocUpdate = new javax.swing.JButton();
         but_LocSave = new javax.swing.JButton();
@@ -63,15 +64,35 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         butLocRefresh = new javax.swing.JButton();
         jpanelq = new javax.swing.JPanel();
         lblScreenName = new javax.swing.JLabel();
+        but_TrnCancel = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txt_Note = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        txt_DateSelector = new com.toedter.calendar.JDateChooser();
+        lblCreditHolder = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        cmb_payhed = new javax.swing.JComboBox<>();
+        cmb_paydet = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        txt_chqDate = new com.toedter.calendar.JDateChooser();
+        jLabel9 = new javax.swing.JLabel();
+        txt_PayRefNo = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txt_LastSettlemtAmount = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txt_CrdBalance = new javax.swing.JLabel();
+        txtLastSettlementDate = new javax.swing.JLabel();
+        txt_CreditHolderId = new javax.swing.JTextField();
+        lbl_Name = new javax.swing.JLabel();
+        lbl_Contact = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txt_DateSelector2 = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setTitle("caption");
@@ -97,14 +118,14 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        txt_LocCode.addActionListener(new java.awt.event.ActionListener() {
+        txt_SettlementId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_LocCodeActionPerformed(evt);
+                txt_SettlementIdActionPerformed(evt);
             }
         });
-        txt_LocCode.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_SettlementId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_LocCodeKeyTyped(evt);
+                txt_SettlementIdKeyTyped(evt);
             }
         });
 
@@ -155,6 +176,16 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         lblScreenName.setText("caption");
         jpanelq.add(lblScreenName);
 
+        but_TrnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/if_352-Document_Remove_2124269.png"))); // NOI18N
+        but_TrnCancel.setToolTipText("Cancel(F7)");
+        but_TrnCancel.setContentAreaFilled(false);
+        but_TrnCancel.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/SYSIMG/Controlls/hold_disable.png"))); // NOI18N
+        but_TrnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_TrnCancelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -168,6 +199,8 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
                 .addComponent(butLocRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(but_LocSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(but_TrnCancel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jpanelq, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -178,6 +211,7 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
             .addComponent(butLocRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(but_LocSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jpanelq, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(but_TrnCancel)
         );
 
         jLabel2.setText("Credit settlement Id");
@@ -191,47 +225,211 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         jLabel5.setText("System will provide Auto Number for Code. So you need not to enter Code while creating  new Records");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 930, 40));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txt_Note.setColumns(20);
+        txt_Note.setRows(5);
+        jScrollPane1.setViewportView(txt_Note);
 
         jLabel1.setForeground(new java.awt.Color(255, 51, 0));
         jLabel1.setText("* Use this field only when you need to view or remove old settlement record");
 
-        txt_DateSelector.setDateFormatString("yyyy-MM-dd");
-        txt_DateSelector.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txt_DateSelector.addFocusListener(new java.awt.event.FocusAdapter() {
+        lblCreditHolder.setText("Supplier ID");
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Payment "));
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        jTextField1.setText("0.0");
+
+        jLabel6.setText("CHQ Date");
+
+        txt_chqDate.setDateFormatString("yyyy-MM-dd");
+        txt_chqDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_chqDate.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_DateSelectorFocusGained(evt);
+                txt_chqDateFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_DateSelectorFocusLost(evt);
+                txt_chqDateFocusLost(evt);
             }
         });
 
-        jLabel6.setText("Settled Date");
+        jLabel9.setText("Ref No");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_chqDate, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_PayRefNo)
+                        .addContainerGap())))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt_chqDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addComponent(txt_PayRefNo)))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmb_paydet, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmb_payhed, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField1))
+                .addGap(26, 26, 26))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmb_payhed, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmb_paydet, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Credit Info"));
+
+        jLabel3.setText("Last settlement ");
+
+        txt_LastSettlemtAmount.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_LastSettlemtAmount.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        txt_LastSettlemtAmount.setText("0.0");
+
+        jLabel8.setText("Credit balance");
+
+        txt_CrdBalance.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_CrdBalance.setForeground(new java.awt.Color(255, 0, 0));
+        txt_CrdBalance.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        txt_CrdBalance.setText("0.0");
+
+        txtLastSettlementDate.setBackground(new java.awt.Color(255, 255, 51));
+        txtLastSettlementDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtLastSettlementDate.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        txtLastSettlementDate.setText("-");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_LastSettlemtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_CrdBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtLastSettlementDate, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_CrdBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_LastSettlemtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtLastSettlementDate, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lbl_Name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_Name.setForeground(new java.awt.Color(0, 0, 204));
+        lbl_Name.setText("Name");
+        lbl_Name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+
+        lbl_Contact.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_Contact.setForeground(new java.awt.Color(0, 0, 204));
+        lbl_Contact.setText("Contact");
+        lbl_Contact.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+
+        jLabel7.setText("Settled Date");
+
+        txt_DateSelector2.setDateFormatString("yyyy-MM-dd");
+        txt_DateSelector2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_DateSelector2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_DateSelector2FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_DateSelector2FocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_DateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_LocCode, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txt_CreditHolderId, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_SettlementId, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1)
+                        .addComponent(lblCreditHolder, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_Contact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_Name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(203, 203, 203)
+                    .addComponent(txt_DateSelector2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(535, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,22 +437,44 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_LocCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_SettlementId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblCreditHolder, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_CreditHolderId, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addComponent(lbl_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_Contact, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addComponent(txt_DateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(169, 169, 169))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(83, 83, 83)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(92, 92, 92))))))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(555, Short.MAX_VALUE)
+                    .addComponent(txt_DateSelector2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(88, 88, 88)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -267,12 +487,10 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(30, 30, 30))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(0, 0, 997, 646);
+        setBounds(0, 0, 997, 672);
     }// </editor-fold>//GEN-END:initComponents
 
     private void but_LocSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSearchActionPerformed
@@ -291,12 +509,12 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         }
         if (ft == null) {
 
-            ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL, SQLWhere);
+            ft = new Frm_Table(txt_SettlementId, currentCon, col, SQL_Col, SQL, SQLWhere);
             ft.setVisible(true);
 
         } else {
             ft = null;
-            ft = new Frm_Table(txt_LocCode, currentCon, col, SQL_Col, SQL, SQLWhere);
+            ft = new Frm_Table(txt_SettlementId, currentCon, col, SQL_Col, SQL, SQLWhere);
             ft.setFocusable(true);
             ft.setVisible(true);
         }
@@ -306,9 +524,9 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         Refresh();
     }//GEN-LAST:event_butLocRefreshActionPerformed
 
-    private void txt_LocCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_LocCodeActionPerformed
+    private void txt_SettlementIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_SettlementIdActionPerformed
 
-    }//GEN-LAST:event_txt_LocCodeActionPerformed
+    }//GEN-LAST:event_txt_SettlementIdActionPerformed
 
     private void but_LocSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_LocSaveActionPerformed
 
@@ -326,17 +544,29 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
 
     }//GEN-LAST:event_but_LocUpdateActionPerformed
 
-    private void txt_LocCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_LocCodeKeyTyped
+    private void txt_SettlementIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SettlementIdKeyTyped
 
-    }//GEN-LAST:event_txt_LocCodeKeyTyped
+    }//GEN-LAST:event_txt_SettlementIdKeyTyped
 
-    private void txt_DateSelectorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DateSelectorFocusGained
-        txt_DateSelector.setBackground(Color.YELLOW);
-    }//GEN-LAST:event_txt_DateSelectorFocusGained
+    private void txt_chqDateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_chqDateFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_chqDateFocusGained
 
-    private void txt_DateSelectorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DateSelectorFocusLost
-        txt_DateSelector.setBackground(Color.white);
-    }//GEN-LAST:event_txt_DateSelectorFocusLost
+    private void txt_chqDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_chqDateFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_chqDateFocusLost
+
+    private void txt_DateSelector2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DateSelector2FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_DateSelector2FocusGained
+
+    private void txt_DateSelector2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DateSelector2FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_DateSelector2FocusLost
+
+    private void but_TrnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_TrnCancelActionPerformed
+      
+    }//GEN-LAST:event_but_TrnCancelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -344,20 +574,40 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
     private javax.swing.JButton but_LocSave;
     private javax.swing.JButton but_LocSearch;
     private javax.swing.JButton but_LocUpdate;
+    private javax.swing.JButton but_TrnCancel;
+    private javax.swing.JComboBox<String> cmb_paydet;
+    private javax.swing.JComboBox<String> cmb_payhed;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel jpanelq;
+    private javax.swing.JLabel lblCreditHolder;
     private javax.swing.JLabel lblScreenName;
-    private com.toedter.calendar.JDateChooser txt_DateSelector;
-    private javax.swing.JTextField txt_LocCode;
+    private javax.swing.JLabel lbl_Contact;
+    private javax.swing.JLabel lbl_Name;
+    private javax.swing.JLabel txtLastSettlementDate;
+    private javax.swing.JLabel txt_CrdBalance;
+    private javax.swing.JTextField txt_CreditHolderId;
+    private com.toedter.calendar.JDateChooser txt_DateSelector2;
+    private javax.swing.JLabel txt_LastSettlemtAmount;
+    private javax.swing.JTextArea txt_Note;
+    private javax.swing.JTextField txt_PayRefNo;
+    private javax.swing.JTextField txt_SettlementId;
+    private com.toedter.calendar.JDateChooser txt_chqDate;
     // End of variables declaration//GEN-END:variables
 
     @Override

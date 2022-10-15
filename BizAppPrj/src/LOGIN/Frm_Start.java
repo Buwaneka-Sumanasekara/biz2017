@@ -314,6 +314,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20221015_t4.add(new TblColumn("NOTE", "LONGTEXT", ""));
         ar_20221015_t4.add(new TblColumn("PAY_HED", "VARCHAR(5)", "NOT NULL"));
         ar_20221015_t4.add(new TblColumn("PAY_DET", "VARCHAR(5)", "NOT NULL"));
+        ar_20221015_t4.add(new TblColumn("EFT_DATE", "DATETIME", "NOT NULL"));
+        ar_20221015_t4.add(new TblColumn("UTILIZED", "TINYINT", "DEFAULT '1'"));
         ar_20221015_t4.add(new TblColumn("ACTIVE", "TINYINT", "DEFAULT '1'"));
         ArrayList<String> ar_20221015_t4PK = new ArrayList<>();
         Structure str_20221015_t4 = new Structure(20221015, "t_crd_settlement_cus", ar_20221015_t4, ar_20221015_t4PK);
@@ -328,6 +330,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20221015_t5.add(new TblColumn("NOTE", "LONGTEXT", ""));
         ar_20221015_t5.add(new TblColumn("PAY_HED", "VARCHAR(5)", "NOT NULL"));
         ar_20221015_t5.add(new TblColumn("PAY_DET", "VARCHAR(5)", "NOT NULL"));
+        ar_20221015_t5.add(new TblColumn("EFT_DATE", "DATETIME", "NOT NULL"));
+        ar_20221015_t5.add(new TblColumn("UTILIZED", "TINYINT", "DEFAULT '1'"));
         ar_20221015_t5.add(new TblColumn("ACTIVE", "TINYINT", "DEFAULT '1'"));
         ArrayList<String> ar_20221015_t5PK = new ArrayList<>();
         Structure str_20221015_t5 = new Structure(20221015, "t_crd_settlement_sup", ar_20221015_t5, ar_20221015_t5PK);
@@ -359,17 +363,26 @@ public final class Frm_Start extends javax.swing.JDialog {
         q_20221015_t9.add(" DECLARE VAR_CREDIT_BALANCE DOUBLE DEFAULT '0' ");
         String q_20221015_str_1 = " IF para_crd_type = 'CUS' THEN";
         q_20221015_str_1 += " SELECT IFNULL(SUM(stkp.AMOUNT),0) INTO VAR_TOT_CRD_AMOUNT FROM t_stockpayments stkp WHERE stkp.PAYHEDID='CRD' AND stkp.PAYEE_ID=para_code AND stkp.CREDIT_TYPE='CUS'; ";
-        q_20221015_str_1 += " SELECT IFNULL(SUM(crdset.AMOUNT),0) INTO VAR_TOT_PAID_AMOUNT FROM t_crd_settlement_cus crdset where crdset.CUS_ID=para_code; ";
+        q_20221015_str_1 += " SELECT IFNULL(SUM(crdset.AMOUNT),0) INTO VAR_TOT_PAID_AMOUNT FROM t_crd_settlement_cus crdset where crdset.active=1 and  crdset.CUS_ID=para_code; ";
         q_20221015_str_1 += " SET VAR_CREDIT_BALANCE=VAR_TOT_CRD_AMOUNT-VAR_TOT_PAID_AMOUNT; ";
         q_20221015_str_1 += " update m_customer set CREDIT_BALANCE=VAR_CREDIT_BALANCE where ID=para_code; ";
 
         q_20221015_str_1 += " ELSEIF  para_crd_type = 'SUP' THEN ";
         q_20221015_str_1 += " SELECT IFNULL(SUM(stkp.AMOUNT),0) INTO VAR_TOT_CRD_AMOUNT FROM t_stockpayments stkp WHERE stkp.PAYHEDID='CRD' AND stkp.PAYEE_ID=para_code AND stkp.CREDIT_TYPE='SUP'; ";
-        q_20221015_str_1 += " SELECT IFNULL(SUM(crdset.AMOUNT),0) INTO VAR_TOT_PAID_AMOUNT FROM t_crd_settlement_sup crdset where crdset.SUP_ID=para_code; ";
+        q_20221015_str_1 += " SELECT IFNULL(SUM(crdset.AMOUNT),0) INTO VAR_TOT_PAID_AMOUNT FROM t_crd_settlement_sup crdset where crdset.active=1 and crdset.SUP_ID=para_code; ";
         q_20221015_str_1 += " SET VAR_CREDIT_BALANCE=VAR_TOT_CRD_AMOUNT-VAR_TOT_PAID_AMOUNT; ";
         q_20221015_str_1 += " update m_supplier set CREDIT_BALANCE=VAR_CREDIT_BALANCE where ID=para_code; ";
         q_20221015_str_1 += " END IF ";
         q_20221015_t9.add(q_20221015_str_1);
+
+        ArrayList<TblColumn> ar_20221015_t10 = new ArrayList<>();
+        ar_20221015_t10.add(new TblColumn("NOTE", "TEXT", ""));
+        ArrayList<String> ar_20221015_t10PK = new ArrayList<>();
+        ar_20221015_t10PK.add("CHQ_NO");
+        ar_20221015_t10PK.add("REFNO");
+        ar_20221015_t10PK.add("REFTRNTYP");
+        Structure str_20221015_t10 = new Structure(20221015, "t_chqpayments", ar_20221015_t10, ar_20221015_t10PK);
+        arStructures.add(str_20221015_t10);
 
         Structure str_20221015_t9 = new Structure(20221015, TableStruCreation.STR_PROC, " strp_UpdateCreditBalance ", " para_code VARCHAR(50),para_crd_type VARCHAR(5) ", q_20221015_t9);
         arStructures.add(str_20221015_t9);

@@ -27,6 +27,15 @@ public class TChqPayments {
     private Date CRDate;
     private String MDUser;
     private Date MDDate;
+    private String Note;
+
+    public String getNote() {
+        return Note;
+    }
+
+    public void setNote(String Note) {
+        this.Note = Note;
+    }
 
     public String getChqNo() {
         return ChqNo;

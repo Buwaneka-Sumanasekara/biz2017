@@ -218,11 +218,11 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
 
             },
             new String [] {
-                "CHQ No", "CHQ Date", "CR Date", "Amount", "State", "RefNo", "RefTyp", "ChqState"
+                "CHQ No", "CHQ Date", "CR Date", "Amount", "State", "RefNo", "RefTyp", "Note", "ChqState"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -244,6 +244,7 @@ public class Frm_TChequePayments extends javax.swing.JInternalFrame implements M
             tblChqStatus.getColumnModel().getColumn(5).setResizable(false);
             tblChqStatus.getColumnModel().getColumn(6).setResizable(false);
             tblChqStatus.getColumnModel().getColumn(7).setResizable(false);
+            tblChqStatus.getColumnModel().getColumn(8).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

@@ -13,6 +13,7 @@ import MODELS.MGiftVoucher;
 import MODELS.MLocation;
 import MODELS.MProducts;
 import MODELS.MSupplier;
+import MODELS.TChqPayments;
 import MODELS.TStockline;
 import MODELS.TStockmst;
 import MODELS.TStockpayments;
@@ -46,6 +47,8 @@ public class C_TransactionCom {
     C_Customers CCustomer = null;
     C_Locations CLoc = null;
     C_Voucher CVou = null;
+    C_Payments CPay = null;
+      C_ChequePayments CChqPay = null;
 
     public C_TransactionCom() {
         qg = new QueryGen();
@@ -57,6 +60,8 @@ public class C_TransactionCom {
         CCustomer = new C_Customers();
         CLoc = new C_Locations();
         CVou = new C_Voucher();
+        CPay = new C_Payments();
+        CChqPay=new C_ChequePayments();
     }
 
     public String getNxtTrnNo(String TrnTyp, String LocId, String TermId) throws Exception {
@@ -103,6 +108,16 @@ public class C_TransactionCom {
                     if (cancancel || trnsetup.getCancelDaysWithing() > 0) {
                         String q = "UPDATE T_STOCKMST SET TRNSTATE='C',MDDATE=NOW()  WHERE ID='" + m.getId() + "' AND TRNTYPE='" + m.getUTransactions().getTrntype() + "' ";
                         DB.Update(q);
+
+                        //cancel CHQ
+                        ArrayList<TStockpayments> stockPayment = getStockPaymentCHQS(m.getId(), trnsetup);
+                        for (TStockpayments tStockpayments : stockPayment) {
+                            TChqPayments chqPay=new TChqPayments();
+                            chqPay.setChqNo(tStockpayments.getRefno());
+                            chqPay.setNote("Trn Cancelled: "+m.getId()+" - "+trnsetup.getTrntype());
+                            CChqPay.CancelChq(chqPay);
+                        }
+                        
                     } else {
                         throw new Exception("To cancel this transaction modificaion date should be withing " + trnsetup.getCancelDaysWithing() + " day(s) [Date after " + sdf.format(calendar.getTime()) + " ]   ");
                     }
@@ -186,6 +201,79 @@ public class C_TransactionCom {
             ar.add(st);
         }
 
+        return ar;
+    }
+    
+    
+     public ArrayList<TStockpayments> getStockPaymentCHQS(String TrnNo, UTransactions TrnTyp) throws Exception {
+        String q = "SELECT * FROM t_stockpayments WHERE T_STOCKMST_ID='" + TrnNo + "' AND TRNTYP='" + TrnTyp.getTrntype() + "' AND PAYHEDID='CHQ' ";
+
+        ResultSet rs = DB.Search(q);
+
+        ArrayList<TStockpayments> ar = new ArrayList<>();
+        while (rs.next()) {
+            TStockpayments sp = new TStockpayments();
+            sp.setId(rs.getInt("ID"));
+            sp.setTStockmst(getStockHed(TrnNo, TrnTyp));
+            sp.setEfectiveDate(rs.getString("EFT_DATE"));
+            sp.setAmount(rs.getDouble("AMOUNT"));
+            sp.setFrmamount(rs.getDouble("FRMAMOUNT"));
+            sp.setMPayHedId(rs.getString("PAYHEDID"));
+            sp.setChange(rs.getDouble("CHANGE_AMT"));
+            sp.setUtilized(rs.getInt("UTILIZED"));
+            sp.setRefno(rs.getString("REFNO"));
+
+            String crdType = rs.getString("CREDIT_TYPE");
+            if (!crdType.equals("")) {
+                String payeeCode = rs.getString("PAYEE_ID");
+                if (crdType.equals("CUS")) {
+                    MCustomer customer = CCustomer.getCustomer(payeeCode);
+                    sp.setPayee(customer);
+                } else if (crdType.equals("SUP")) {
+                    MSupplier supplier = CSupplier.getSupplier(payeeCode);
+                    sp.setPayee(supplier);
+                }
+            }
+
+            ar.add(sp);
+
+        }
+        return ar;
+    }
+
+    public ArrayList<TStockpayments> getStockPayment(String TrnNo, UTransactions TrnTyp) throws Exception {
+        String q = "SELECT * FROM t_stockpayments WHERE T_STOCKMST_ID='" + TrnNo + "' AND TRNTYP='" + TrnTyp.getTrntype() + "' ";
+
+        ResultSet rs = DB.Search(q);
+
+        ArrayList<TStockpayments> ar = new ArrayList<>();
+        while (rs.next()) {
+            TStockpayments sp = new TStockpayments();
+            sp.setId(rs.getInt("ID"));
+            sp.setTStockmst(getStockHed(TrnNo, TrnTyp));
+            sp.setEfectiveDate(rs.getString("EFT_DATE"));
+            sp.setAmount(rs.getDouble("AMOUNT"));
+            sp.setFrmamount(rs.getDouble("FRMAMOUNT"));
+            sp.setMPayHedId(rs.getString("PAYHEDID"));
+            sp.setChange(rs.getDouble("CHANGE_AMT"));
+            sp.setUtilized(rs.getInt("UTILIZED"));
+            sp.setRefno(rs.getString("REFNO"));
+
+            String crdType = rs.getString("CREDIT_TYPE");
+            if (!crdType.equals("")) {
+                String payeeCode = rs.getString("PAYEE_ID");
+                if (crdType.equals("CUS")) {
+                    MCustomer customer = CCustomer.getCustomer(payeeCode);
+                    sp.setPayee(customer);
+                } else if (crdType.equals("SUP")) {
+                    MSupplier supplier = CSupplier.getSupplier(payeeCode);
+                    sp.setPayee(supplier);
+                }
+            }
+
+            ar.add(sp);
+
+        }
         return ar;
     }
 
