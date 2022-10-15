@@ -17,7 +17,7 @@ import java.util.Vector;
 public class C_Suppliers {
 
     public Vector<MSupplier> getAllSuppliers() throws Exception {
-        String q = "SELECT * FROM M_SUPPLIER WHERE ACTIVE=1";
+        String q = "SELECT * FROM M_SUPPLIER WHERE ACTIVE=1 order by NAME asc";
         ResultSet rs = DB.Search(q);
 
         Vector<MSupplier> v = new Vector();
@@ -46,6 +46,8 @@ public class C_Suppliers {
         if (state == 0 || state == 1) {
             sql += " AND ACTIVE=" + state;
         }
+         sql+=" order by NAME asc";
+         
         MSupplier s = new MSupplier();
 
         ResultSet rs = DB.Search(sql);
@@ -65,7 +67,7 @@ public class C_Suppliers {
     }
 
     public MSupplier CheckExists(String SupName) throws Exception {
-        String sql = "SELECT * FROM M_SUPPLIER WHERE NAME='" + SupName.toUpperCase() + "' ";
+        String sql = "SELECT * FROM M_SUPPLIER WHERE NAME='" + SupName.toUpperCase() + "' order by NAME asc";
         ResultSet rs = DB.Search(sql);
         MSupplier s = null;
         if (rs.next()) {

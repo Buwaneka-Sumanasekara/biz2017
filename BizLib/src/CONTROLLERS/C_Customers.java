@@ -24,7 +24,7 @@ public class C_Customers {
     
     
     public Vector<MCustomer> getAllCustomers() throws Exception {
-        String q = "SELECT * FROM M_CUSTOMER WHERE ACTIVE=1";
+        String q = "SELECT * FROM M_CUSTOMER WHERE ACTIVE=1 order by NAME asc";
         ResultSet rs = DB.Search(q);
 
         Vector<MCustomer> v = new Vector();
@@ -48,7 +48,7 @@ public class C_Customers {
     }
     
     public MCustomer getCustomer(String CustomerId) throws Exception {
-        String q = "SELECT * FROM M_CUSTOMER WHERE ID='"+CustomerId+"'";
+        String q = "SELECT * FROM M_CUSTOMER WHERE ID='"+CustomerId+"' order by NAME asc";
         ResultSet rs = DB.Search(q);
 
         MCustomer c=null;
@@ -74,6 +74,8 @@ public class C_Customers {
         if(state==0 || state==1){
             sql+=" AND ACTIVE=" + state ;
         }
+        sql+=" order by NAME asc";
+        
         MCustomer c = new MCustomer();
 
         ResultSet rs = DB.Search(sql);
@@ -93,7 +95,7 @@ public class C_Customers {
         return c;
     }
        public MCustomer CheckExists(String SupName) throws Exception {
-        String sql = "SELECT * FROM M_CUSTOMER WHERE NAME='" + SupName.toUpperCase() + "' ";
+        String sql = "SELECT * FROM M_CUSTOMER WHERE NAME='" + SupName.toUpperCase() + "' order by NAME asc";
         ResultSet rs = DB.Search(sql);
         MCustomer c = null;
         if (rs.next()) {

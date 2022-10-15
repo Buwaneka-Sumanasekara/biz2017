@@ -104,7 +104,7 @@ public class MSupplier implements java.io.Serializable, MCreditPayee {
 
     @Override
     public String toString() {
-        return this.id + "-" + this.name;
+        return  this.name;
     }
 
     @Override
