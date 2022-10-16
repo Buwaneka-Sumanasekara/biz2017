@@ -27,6 +27,7 @@ import SUBUI.Frm_SUserGroupPer;
 import SUBUI.Frm_SUserSecurity;
 import SUBUI.Frm_TChequePayments;
 import SUBUI.Frm_TCommonTrn;
+import SUBUI.Frm_TCreditSettlement;
 import SUBUI.Frm_UExcelUploader;
 import javax.swing.JInternalFrame;
 
@@ -106,6 +107,11 @@ public class MyWindowManager {
                     break;
                 case "A00001":
                     jf = new Frm_TChequePayments(fm, p.getDescription());
+                    break;
+                case "A00002":
+                    jf = new Frm_TCreditSettlement(fm, p.getDescription(),"CUS");
+                case "A00003":
+                    jf = new Frm_TCreditSettlement(fm, p.getDescription(),"SUP");
                     break;
                 case "U00002":
                     jf = new Frm_UExcelUploader(fm, p.getDescription());

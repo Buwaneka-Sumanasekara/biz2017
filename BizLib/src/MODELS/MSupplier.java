@@ -29,6 +29,11 @@ public class MSupplier implements java.io.Serializable, MCreditPayee {
         this.creditLimit = creditLimit;
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public Double getCreditBalance() {
         return creditBalance;
     }
@@ -54,10 +59,16 @@ public class MSupplier implements java.io.Serializable, MCreditPayee {
     }
 
    
+    @Override
     public String getName() {
         return this.name;
     }
 
+    /**
+     *
+     * @param name
+     */
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -70,10 +81,12 @@ public class MSupplier implements java.io.Serializable, MCreditPayee {
         this.contactperson = contactperson;
     }
 
+    @Override
     public String getContact() {
         return this.contact;
     }
 
+    @Override
     public void setContact(String contact) {
         this.contact = contact;
     }

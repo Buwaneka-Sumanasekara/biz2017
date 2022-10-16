@@ -105,6 +105,8 @@ public class DefaultData {
         //Accounts(601-700) 
         ar.add(new MPermissions("A00000", "A00000", "ACCOUNTS", "Accounts/Payments", "ACC", (byte) 1, (byte) 1, "A", 601, "accounts.png"));//3
         ar.add(new MPermissions("A00001", "A00000", "ACHQ", "Cheque Payments", "ACHQ", (byte) 0, (byte) 1, "A", 602, "Cheque.png"));
+         ar.add(new MPermissions("A00002", "A00000", "ACRD", "Customer Credit", "ACRD", (byte) 0, (byte) 1, "A", 602, "credit.png"));
+         ar.add(new MPermissions("A00003", "A00000", "ACRD", "Supplier Credit", "ACRD", (byte) 0, (byte) 1, "A", 602, "loan.png"));
 
         //Security(701-750)
         ar.add(new MPermissions("S00000", "S00000", "SECURITY", "Security", "SECUR", (byte) 1, (byte) 1, "A", 701, "security.png"));//2
@@ -259,8 +261,8 @@ public class DefaultData {
         }
 
         try {//CUS
-            if (cCustomers.getCustomer("00000") == null) {
-                String q_cus = "INSERT INTO m_customer(ID,NAME,ACTIVE) values('00000','CASH',1) ";
+            if (cCustomers.getCustomer("C0000") == null) {
+                String q_cus = "INSERT INTO m_customer(ID,NAME,ACTIVE) values('C0000','CASH',1) ";
                 DB.Save(q_cus);
             }
 

@@ -52,10 +52,16 @@ public class MCustomer  implements java.io.Serializable,MCreditPayee {
     public void setId(String id) {
         this.id = id;
     }
+     @Override
     public String getName() {
         return this.name;
     }
     
+    /**
+     *
+     * @param name
+     */
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -87,10 +93,16 @@ public class MCustomer  implements java.io.Serializable,MCreditPayee {
     public void setAdd3(String add3) {
         this.add3 = add3;
     }
+     @Override
     public String getContact() {
         return this.contact;
     }
     
+    /**
+     *
+     * @param contact
+     */
+    @Override
     public void setContact(String contact) {
         this.contact = contact;
     }
