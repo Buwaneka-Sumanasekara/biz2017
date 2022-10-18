@@ -14,6 +14,7 @@ import MODELS.MLocation;
 import MODELS.MProducts;
 import MODELS.MSupplier;
 import MODELS.TChqPayments;
+import MODELS.TCreditPayment;
 import MODELS.TStockline;
 import MODELS.TStockmst;
 import MODELS.TStockpayments;
@@ -48,7 +49,9 @@ public class C_TransactionCom {
     C_Locations CLoc = null;
     C_Voucher CVou = null;
     C_Payments CPay = null;
-      C_ChequePayments CChqPay = null;
+    C_ChequePayments CChqPay = null;
+    C_CreditPayments CCreditPayCus = null;
+    C_CreditPayments CCreditPaySup = null;
 
     public C_TransactionCom() {
         qg = new QueryGen();
@@ -61,7 +64,9 @@ public class C_TransactionCom {
         CLoc = new C_Locations();
         CVou = new C_Voucher();
         CPay = new C_Payments();
-        CChqPay=new C_ChequePayments();
+        CChqPay = new C_ChequePayments();
+        CCreditPayCus = new C_CreditPayments("CUS");
+        CCreditPaySup = new C_CreditPayments("SUP");
     }
 
     public String getNxtTrnNo(String TrnTyp, String LocId, String TermId) throws Exception {
@@ -109,15 +114,30 @@ public class C_TransactionCom {
                         String q = "UPDATE T_STOCKMST SET TRNSTATE='C',MDDATE=NOW()  WHERE ID='" + m.getId() + "' AND TRNTYPE='" + m.getUTransactions().getTrntype() + "' ";
                         DB.Update(q);
 
-                        //cancel CHQ
-                        ArrayList<TStockpayments> stockPayment = getStockPaymentCHQS(m.getId(), trnsetup);
+                        ArrayList<TStockpayments> stockPayment = getStockPayment(m.getId(), trnsetup);
                         for (TStockpayments tStockpayments : stockPayment) {
-                            TChqPayments chqPay=new TChqPayments();
-                            chqPay.setChqNo(tStockpayments.getRefno());
-                            chqPay.setNote("Trn Cancelled: "+m.getId()+" - "+trnsetup.getTrntype());
-                            CChqPay.CancelChq(chqPay);
+
+                            if (tStockpayments.getMPayHedId().equals("CHQ")) {
+                                TChqPayments chqPay = new TChqPayments();
+                                chqPay.setChqNo(tStockpayments.getRefno());
+                                chqPay.setNote("Trn Cancelled: " + m.getId() + " - " + trnsetup.getTrntype());
+                                CChqPay.CancelChq(chqPay);
+                            } else if (tStockpayments.getMPayHedId().equals("CRD")) {
+                                TCreditPayment crd = new TCreditPayment();
+                                crd.setId(tStockpayments.getRefno());
+                                if (tStockpayments.getCreditType().equals("CUS")) {
+                                    crd.setPayee(m.getMCustomer());
+                                    CCreditPayCus.CancelCredit(crd);
+
+                                } else if (tStockpayments.getCreditType().equals("SUP")) {
+                                    crd.setPayee(m.getMSupplier());
+                                    CCreditPaySup.CancelCredit(crd);
+                                }
+
+                            }
+
                         }
-                        
+
                     } else {
                         throw new Exception("To cancel this transaction modificaion date should be withing " + trnsetup.getCancelDaysWithing() + " day(s) [Date after " + sdf.format(calendar.getTime()) + " ]   ");
                     }
@@ -203,9 +223,8 @@ public class C_TransactionCom {
 
         return ar;
     }
-    
-    
-     public ArrayList<TStockpayments> getStockPaymentCHQS(String TrnNo, UTransactions TrnTyp) throws Exception {
+
+    public ArrayList<TStockpayments> getStockPaymentCHQS(String TrnNo, UTransactions TrnTyp) throws Exception {
         String q = "SELECT * FROM t_stockpayments WHERE T_STOCKMST_ID='" + TrnNo + "' AND TRNTYP='" + TrnTyp.getTrntype() + "' AND PAYHEDID='CHQ' ";
 
         ResultSet rs = DB.Search(q);

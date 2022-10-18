@@ -7,11 +7,14 @@ package SUBUI;
 
 import COMMONFUN.CommonFun;
 import CONTROLLERS.C_Customers;
+import CONTROLLERS.C_Payments;
 import CONTROLLERS.C_Suppliers;
 import DB_ACCESS.DB;
 import MAIN.Frm_Main;
 import MODELS.MCreditPayee;
 import MODELS.MCustomer;
+import MODELS.MPaydet;
+import MODELS.MPaymst;
 import UI.Frm_Table;
 import VALIDATIONS.MyValidator;
 import WINMNG.MyWindowBasicControllers;
@@ -25,11 +28,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -41,18 +46,19 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
 
     Frm_Main mainW = null;
     MyValidator fv = null;
-    String crditType = "";
+    String crditType = null;
 
     C_Suppliers c_Sup = null;
     C_Customers c_Cus = null;
     CommonFun cf = null;
+    C_Payments C_Payment = null;
 
-    public Frm_TCreditSettlement(Frm_Main mainw, String ScreenName, String crditType) {
+    public Frm_TCreditSettlement(Frm_Main mainw, String ScreenName, String crdType) {
         initComponents();
         this.setTitle(ScreenName);
         this.lblScreenName.setText(ScreenName);
         this.lblCaption.setText(ScreenName);
-        this.crditType = crditType;
+        this.crditType = crdType;
 
         this.mainW = mainw;
 
@@ -60,6 +66,7 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         c_Cus = new C_Customers();
         this.fv = new MyValidator();
         this.cf = new CommonFun();
+        this.C_Payment = new C_Payments();
         Refresh();
         setShortCutKeys(this);
     }
@@ -95,10 +102,10 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         cmb_payhed = new javax.swing.JComboBox<>();
         cmb_paydet = new javax.swing.JComboBox<>();
         txtAmount = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        panel_chq = new javax.swing.JPanel();
+        lblChqDate = new javax.swing.JLabel();
         txt_chqDate = new com.toedter.calendar.JDateChooser();
-        jLabel9 = new javax.swing.JLabel();
+        lblRefNo = new javax.swing.JLabel();
         txt_PayRefNo = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -258,6 +265,11 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Payment "));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cmb_payhed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_payhedActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmb_payhed, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 31, 381, 47));
 
         jPanel3.add(cmb_paydet, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 85, 381, 47));
@@ -267,7 +279,7 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         txtAmount.setText("0.0");
         jPanel3.add(txtAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 235, 381, 70));
 
-        jLabel6.setText("CHQ Date");
+        lblChqDate.setText("Effective Date");
 
         txt_chqDate.setDateFormatString("yyyy-MM-dd");
         txt_chqDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -280,40 +292,40 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
             }
         });
 
-        jLabel9.setText("Ref No");
+        lblRefNo.setText("Ref No");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel_chqLayout = new javax.swing.GroupLayout(panel_chq);
+        panel_chq.setLayout(panel_chqLayout);
+        panel_chqLayout.setHorizontalGroup(
+            panel_chqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_chqLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panel_chqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_chqLayout.createSequentialGroup()
+                        .addComponent(lblChqDate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txt_chqDate, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_chqLayout.createSequentialGroup()
+                        .addComponent(lblRefNo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_PayRefNo)
                         .addContainerGap())))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        panel_chqLayout.setVerticalGroup(
+            panel_chqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_chqLayout.createSequentialGroup()
+                .addGroup(panel_chqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lblChqDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txt_chqDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                .addGroup(panel_chqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_chqLayout.createSequentialGroup()
+                        .addComponent(lblRefNo, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                         .addContainerGap())
                     .addComponent(txt_PayRefNo)))
         );
 
-        jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 145, -1, -1));
+        jPanel3.add(panel_chq, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 145, -1, -1));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Credit Info"));
@@ -576,6 +588,34 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         loadCreditor();
     }//GEN-LAST:event_txt_CreditHolderIdActionPerformed
 
+    private void cmb_payhedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_payhedActionPerformed
+        if (cmb_payhed.getSelectedIndex() > -1) {
+            try {
+                MPaymst mst = (MPaymst) cmb_payhed.getSelectedItem();
+
+                if (mst.getRefreq() == 1) {
+                    txt_PayRefNo.setVisible(true);
+                    txt_PayRefNo.grabFocus();
+                } else {
+                    txt_PayRefNo.setVisible(false);
+
+                }
+
+                if (mst.getDatef() == 1) {
+                    txt_chqDate.setVisible(true);
+                } else {
+                    txt_chqDate.setVisible(false);
+
+                }
+
+                loadSubPayModes();
+
+            } catch (Exception ex) {
+                //Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_payhedActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butLocRefresh;
@@ -591,23 +631,23 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpanelq;
     private javax.swing.JLabel lblCaption;
+    private javax.swing.JLabel lblChqDate;
     private javax.swing.JLabel lblCreditHolder;
+    private javax.swing.JLabel lblRefNo;
     private javax.swing.JLabel lblScreenName;
     private javax.swing.JLabel lbl_Contact;
     private javax.swing.JLabel lbl_Name;
+    private javax.swing.JPanel panel_chq;
     private javax.swing.JTextField txtAmount;
     private javax.swing.JLabel txtLastSettlementDate;
     private javax.swing.JLabel txt_CrdBalance;
@@ -633,17 +673,20 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
     @Override
     public void Refresh() {
         lblCreditHolder.setText((this.crditType.equals("CUS") ? "Customer Id" : "Supplier Id"));
-        lbl_Name.setText("");
-        lbl_Contact.setText("");
+
         txt_Note.setText("");
         txt_DateSelector.setDate(new Date());
-        txt_CrdBalance.setText("0.0");
-        txt_LastSettlemtAmount.setText("0.0");
-        txtLastSettlementDate.setText("-");
         txt_chqDate.setDate(null);
         txt_PayRefNo.setText("");
         txtAmount.setText("0.0");
         txt_SettlementId.setText("");
+
+        cmb_paydet.setVisible(false);
+        txt_PayRefNo.setVisible(false);
+
+        clearPaymentBox();
+
+        clearCustomer();
     }
 
     public void setShortCutKeys(JInternalFrame f) {
@@ -739,6 +782,7 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
     }
 
     private void searchCreditor() {
+        clearCustomer();
         Vector<String> col = new Vector<>();
         col.add("Code");
         col.add("Name");
@@ -746,8 +790,8 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
         col.add("Credit Balance");
 
         String tableName = (crditType.equals("CUS") ? "M_CUSTOMER" : "M_SUPPLIER");
-        String[] SQL_Col = {"ID", "NAME"};
-        String SQL = "select ID,NAME,CREDIT_LIMIT,CREDIT_BALANCE from " + tableName + " ";
+        String[] SQL_Col = {"ID", "NAME", "CREDIT_LIMIT", "CREDIT_BALANCE"};
+        String SQL = "select ID,NAME,IF(CREDIT_LIMIT=-1,'UNLIMITED',CREDIT_LIMIT) as CREDIT_LIMIT,CREDIT_BALANCE from " + tableName + " ";
         String SQLWhere = " ACTIVE=1 AND ";
         Connection currentCon = null;
         try {
@@ -783,7 +827,8 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
 
                 if (creditor != null) {
                     lbl_Name.setText(creditor.getName());
-                    lbl_Contact.setText(creditor.getContact());
+                    String contact = (creditor.getContact() != null ? creditor.getContact() : creditor.getMobile());
+                    lbl_Contact.setText(contact);
                     txt_CrdBalance.setText(cf.getValueWithComma(creditor.getCreditBalance()));
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No Customer found for given ID :" + txt_CreditHolderId.getText(), GLOBALDATA.GlobalData.MESSAGEBOX, JOptionPane.ERROR_MESSAGE);
@@ -794,6 +839,79 @@ public class Frm_TCreditSettlement extends javax.swing.JInternalFrame implements
                 Refresh();
             }
 
+        }
+    }
+
+    private void clearCustomer() {
+        txt_CrdBalance.setText("0.0");
+        lbl_Name.setText("");
+        lbl_Contact.setText("");
+
+        txt_LastSettlemtAmount.setText("0.0");
+        txtLastSettlementDate.setText("-");
+    }
+
+    private void loadSubPayModes() {
+        if (cmb_payhed.getSelectedIndex() > -1) {
+            try {
+                MPaymst mst = (MPaymst) cmb_payhed.getSelectedItem();
+                Vector<MPaydet> v = C_Payment.getPayDet(mst.getId());
+                cmb_paydet.setModel(new DefaultComboBoxModel(v));
+
+                if (v.size() > 0) {
+                    cmb_paydet.setVisible(true);
+                    MPaydet det = (MPaydet) cmb_paydet.getSelectedItem();
+
+                    if (det.getRefreq() == 1) {
+                        txt_PayRefNo.setVisible(true);
+                        txt_PayRefNo.grabFocus();
+                        lblRefNo.setVisible(true);
+                    } else {
+                        txt_PayRefNo.setVisible(false);
+                        txtAmount.grabFocus();
+                        lblRefNo.setVisible(false);
+                    }
+
+                    if (det.getDatef() == 1) {
+                        txt_chqDate.setVisible(true);
+                        lblChqDate.setVisible(true);
+                    } else {
+                        txt_chqDate.setVisible(false);
+                        lblChqDate.setVisible(false);
+                    }
+
+                    panel_chq.setVisible((det.getRefreq() == 1 || det.getDatef() == 1));
+                } else {
+                    panel_chq.setVisible(false);
+                    cmb_paydet.setVisible(false);
+                    txtAmount.grabFocus();
+                }
+
+            } catch (Exception ex) {
+                //Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
+        }
+    }
+
+    private void clearPaymentBox() {
+        try {
+            panel_chq.setVisible(false);
+            cmb_paydet.setVisible(false);
+            txt_PayRefNo.setVisible(false);
+            txt_chqDate.setVisible(false);
+            txt_chqDate.setDate(new Date());
+
+            String[] ar = {"CRD"};
+
+            cmb_payhed.setModel(new DefaultComboBoxModel(C_Payment.getPayMstFiltered(ar)));
+
+            loadSubPayModes();
+            txt_PayRefNo.setText("");
+            txt_PayRefNo.setText("");
+            txt_PayRefNo.grabFocus();
+        } catch (Exception ex) {
+            // Logger.getLogger(Frm_TCommonTrnPayments.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

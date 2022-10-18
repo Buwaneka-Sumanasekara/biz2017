@@ -109,9 +109,11 @@ public class MyWindowManager {
                     jf = new Frm_TChequePayments(fm, p.getDescription());
                     break;
                 case "A00002":
-                    jf = new Frm_TCreditSettlement(fm, p.getDescription(),"CUS");
+                    jf = new Frm_TCreditSettlement(fm, p.getDescription(), "CUS");
+                    break;
                 case "A00003":
-                    jf = new Frm_TCreditSettlement(fm, p.getDescription(),"SUP");
+                    jf = new Frm_TCreditSettlement(fm, p.getDescription(), "SUP");
+
                     break;
                 case "U00002":
                     jf = new Frm_UExcelUploader(fm, p.getDescription());

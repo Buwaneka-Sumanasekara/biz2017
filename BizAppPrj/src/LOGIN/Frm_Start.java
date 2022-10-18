@@ -294,6 +294,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         ArrayList<TblColumn> ar_20221015_t1 = new ArrayList<>();
         ar_20221015_t1.add(new TblColumn("CREDIT_LIMIT", "DOUBLE", "DEFAULT '0'"));
         ar_20221015_t1.add(new TblColumn("CREDIT_BALANCE", "DOUBLE", "DEFAULT '0'"));
+        ar_20221015_t1.add(new TblColumn("LAST_CRD_SETTLEMENT_DATE", "DATETIME", ""));
         ArrayList<String> ar_20221015_t1PK = new ArrayList<>();
         Structure str_20221015_t1 = new Structure(20221015, "m_customer", ar_20221015_t1, ar_20221015_t1PK);
         arStructures.add(str_20221015_t1);
@@ -301,6 +302,7 @@ public final class Frm_Start extends javax.swing.JDialog {
         ArrayList<TblColumn> ar_20221015_t2 = new ArrayList<>();
         ar_20221015_t2.add(new TblColumn("CREDIT_LIMIT", "DOUBLE", "DEFAULT '-1'"));
         ar_20221015_t2.add(new TblColumn("CREDIT_BALANCE", "DOUBLE", "DEFAULT '0'"));
+        ar_20221015_t2.add(new TblColumn("LAST_CRD_SETTLEMENT_DATE", "DATETIME", ""));
         ArrayList<String> ar_20221015_t2PK = new ArrayList<>();
         Structure str_20221015_t2 = new Structure(20221015, "m_supplier", ar_20221015_t2, ar_20221015_t2PK);
         arStructures.add(str_20221015_t2);
@@ -309,6 +311,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20221015_t4.add(new TblColumn("ID", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t4.add(new TblColumn("CR_DATE", "DATETIME", "NOT NULL"));
         ar_20221015_t4.add(new TblColumn("CR_BY", "VARCHAR(50)", "NOT NULL"));
+        ar_20221015_t4.add(new TblColumn("UP_DATE", "DATETIME", "NOT NULL"));
+        ar_20221015_t4.add(new TblColumn("UP_BY", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t4.add(new TblColumn("CUS_ID", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t4.add(new TblColumn("AMOUNT", "DOUBLE", "DEFAULT '0'"));
         ar_20221015_t4.add(new TblColumn("NOTE", "LONGTEXT", ""));
@@ -317,6 +321,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20221015_t4.add(new TblColumn("EFT_DATE", "DATETIME", "NOT NULL"));
         ar_20221015_t4.add(new TblColumn("UTILIZED", "TINYINT", "DEFAULT '1'"));
         ar_20221015_t4.add(new TblColumn("ACTIVE", "TINYINT", "DEFAULT '1'"));
+        ar_20221015_t4.add(new TblColumn("PAY_REF_NO", "VARCHAR(20)", ""));
+        ar_20221015_t4.add(new TblColumn("NOTE2", "LONGTEXT", ""));
         ArrayList<String> ar_20221015_t4PK = new ArrayList<>();
         Structure str_20221015_t4 = new Structure(20221015, "t_crd_settlement_cus", ar_20221015_t4, ar_20221015_t4PK);
         arStructures.add(str_20221015_t4);
@@ -325,6 +331,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20221015_t5.add(new TblColumn("ID", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t5.add(new TblColumn("CR_DATE", "DATETIME", "NOT NULL"));
         ar_20221015_t5.add(new TblColumn("CR_BY", "VARCHAR(50)", "NOT NULL"));
+        ar_20221015_t5.add(new TblColumn("UP_DATE", "DATETIME", "NOT NULL"));
+        ar_20221015_t5.add(new TblColumn("UP_BY", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t5.add(new TblColumn("SUP_ID", "VARCHAR(50)", "NOT NULL"));
         ar_20221015_t5.add(new TblColumn("AMOUNT", "DOUBLE", "DEFAULT '0'"));
         ar_20221015_t5.add(new TblColumn("NOTE", "LONGTEXT", ""));
@@ -333,6 +341,8 @@ public final class Frm_Start extends javax.swing.JDialog {
         ar_20221015_t5.add(new TblColumn("EFT_DATE", "DATETIME", "NOT NULL"));
         ar_20221015_t5.add(new TblColumn("UTILIZED", "TINYINT", "DEFAULT '1'"));
         ar_20221015_t5.add(new TblColumn("ACTIVE", "TINYINT", "DEFAULT '1'"));
+        ar_20221015_t5.add(new TblColumn("PAY_REF_NO", "VARCHAR(20)", ""));
+        ar_20221015_t5.add(new TblColumn("NOTE2", "LONGTEXT", ""));
         ArrayList<String> ar_20221015_t5PK = new ArrayList<>();
         Structure str_20221015_t5 = new Structure(20221015, "t_crd_settlement_sup", ar_20221015_t5, ar_20221015_t5PK);
         arStructures.add(str_20221015_t5);

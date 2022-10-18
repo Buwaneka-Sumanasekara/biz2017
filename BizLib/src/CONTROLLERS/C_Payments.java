@@ -61,7 +61,6 @@ public class C_Payments {
 //        }
 //        return v;
 //    }
-
     public Vector<MPaymst> getPayMstAll(UTransactions trnsetup) throws Exception {
         String q = "SELECT * FROM M_PAYMST WHERE ACTIVE=1 ORDER BY SEQ_ORDER";
         ResultSet rs = DB.Search(q);
@@ -84,6 +83,45 @@ public class C_Payments {
                 m.setSetdueauto(rs.getByte("SET_DUE_AUTO"));
                 v.add(m);
             }
+
+        }
+        return v;
+    }
+
+    public Vector<MPaymst> getPayMstFiltered(String[] payHedSkip) throws Exception {
+        String q = "SELECT * FROM M_PAYMST WHERE ACTIVE=1 ";
+
+        if (payHedSkip.length > 0) {
+            q += " AND ";
+
+            for (int i = 0; i < payHedSkip.length; i++) {
+                String Id = payHedSkip[i];
+                if (i > 0) {
+                    q += " AND ";
+                }
+                q += "ID<>'" + Id + "'";
+            }
+        }
+
+        q += " ORDER BY SEQ_ORDER";
+
+        ResultSet rs = DB.Search(q);
+        Vector<MPaymst> v = new Vector<>();
+        while (rs.next()) {
+            String payHedId = rs.getString("ID");
+
+            MPaymst m = new MPaymst();
+            m.setId(payHedId);
+            m.setName(rs.getString("NAME"));
+            m.setHasdet(rs.getByte("HASDET"));
+            m.setRefreq(rs.getByte("REFREQ"));
+            m.setOrder(rs.getInt("SEQ_ORDER"));
+            m.setShortname(rs.getString("SHORT_NAME"));
+            m.setActive(rs.getByte("ACTIVE"));
+            m.setOverpay(rs.getByte("OVER_PAY"));
+            m.setDatef(rs.getByte("DATE_F"));
+            m.setSetdueauto(rs.getByte("SET_DUE_AUTO"));
+            v.add(m);
 
         }
         return v;

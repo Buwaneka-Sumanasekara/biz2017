@@ -5,6 +5,8 @@
  */
 package MODELS;
 
+import java.util.Date;
+
 /**
  *
  * @author sular
@@ -26,8 +28,16 @@ public interface MCreditPayee {
     public String getName();
 
     public void setName(String name);
-    
-     public String getContact();
+
+    public String getContact();
 
     public void setContact(String contact);
+
+    public String getMobile();
+
+    public void setMobile(String contact);
+
+    public Date getLastSettlementDate();
+
+    public void setLastSettlementDate(Date lastSettlementDate);
 }

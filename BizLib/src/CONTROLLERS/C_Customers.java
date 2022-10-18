@@ -64,7 +64,7 @@ public class C_Customers {
             c.setMobile(rs.getString("MOBILE"));
             c.setActive(rs.getByte("ACTIVE"));
             c.setCreditLimit(rs.getDouble("CREDIT_LIMIT"));
-              c.setCreditBalance(rs.getDouble("CREDIT_BALANCE"));
+            c.setCreditBalance(rs.getDouble("CREDIT_BALANCE"));
             
         }
         return c;

@@ -4,8 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/PROJECTS/EXTRA/biz2017/BizLib/src/MODELS/MCreditPayee.java</file>
-            <file>file:/D:/PROJECTS/EXTRA/biz2017/BizLib/src/MODELS/MSupplier.java</file>
+            <file>file:/D:/PROJECTS/EXTRA/biz2017/BizLib/src/MODELS/TPhystkmst.java</file>
+            <file>file:/D:/PROJECTS/EXTRA/biz2017/BizLib/src/CONTROLLERS/C_ChequePayments.java</file>
+            <file>file:/D:/PROJECTS/EXTRA/biz2017/BizLib/src/MODELS/TCreditPayment.java</file>
+            <file>file:/D:/PROJECTS/EXTRA/biz2017/BizLib/src/MODELS/TChqPayments.java</file>
+            <file>file:/D:/PROJECTS/EXTRA/biz2017/BizLib/src/MODELS/MStocks.java</file>
+            <file>file:/D:/PROJECTS/EXTRA/biz2017/BizLib/src/CONTROLLERS/C_CreditPayments.java</file>
+            <file>file:/D:/PROJECTS/EXTRA/biz2017/BizLib/src/CONTROLLERS/C_Payments.java</file>
             <file>file:/D:/PROJECTS/EXTRA/biz2017/BizLib/src/MODELS/MCustomer.java</file>
+            <file>file:/D:/PROJECTS/EXTRA/biz2017/BizLib/src/CONTROLLERS/C_TransactionCom.java</file>
         </group>
     </open-files>
 </project-private>

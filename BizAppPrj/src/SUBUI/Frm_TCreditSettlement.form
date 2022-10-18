@@ -399,6 +399,9 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmb_payhedActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -437,7 +440,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Container class="javax.swing.JPanel" name="jPanel6">
+            <Container class="javax.swing.JPanel" name="panel_chq">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="33" y="145" width="-1" height="-1"/>
@@ -451,12 +454,12 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel6" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="lblChqDate" min="-2" pref="110" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="txt_chqDate" min="-2" pref="254" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel9" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="lblRefNo" min="-2" pref="110" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txt_PayRefNo" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -469,13 +472,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblChqDate" alignment="0" max="32767" attributes="0"/>
                               <Component id="txt_chqDate" alignment="0" pref="41" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jLabel9" pref="22" max="32767" attributes="0"/>
+                                  <Component id="lblRefNo" pref="22" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Component id="txt_PayRefNo" max="32767" attributes="0"/>
@@ -485,9 +488,9 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel6">
+                <Component class="javax.swing.JLabel" name="lblChqDate">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="CHQ Date"/>
+                    <Property name="text" type="java.lang.String" value="Effective Date"/>
                   </Properties>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="txt_chqDate">
@@ -502,7 +505,7 @@
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_chqDateFocusLost"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel9">
+                <Component class="javax.swing.JLabel" name="lblRefNo">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Ref No"/>
                   </Properties>
